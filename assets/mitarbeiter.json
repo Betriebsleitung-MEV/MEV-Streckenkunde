@@ -1,11 +1,443 @@
 {
-  "version": 1,
-  "updatedAt": "2026-03-12T09:54:33Z",
   "employees": [
     {
-      "personalnummer": "",
-      "vorname": "Max",
-      "nachname": "Muster",
+      "vorname": "Önder",
+      "nachname": "Acer",
+      "aktiv": true
+    },
+    {
+      "vorname": "Jochen",
+      "nachname": "Adam",
+      "aktiv": true
+    },
+    {
+      "vorname": "Ettore",
+      "nachname": "Agresta",
+      "aktiv": true
+    },
+    {
+      "vorname": "Rabya",
+      "nachname": "Aissaoui",
+      "aktiv": true
+    },
+    {
+      "vorname": "Steffen",
+      "nachname": "Anacker",
+      "aktiv": true
+    },
+    {
+      "vorname": "Siegfried",
+      "nachname": "Angerer",
+      "aktiv": true
+    },
+    {
+      "vorname": "Jeremy",
+      "nachname": "Antz",
+      "aktiv": true
+    },
+    {
+      "vorname": "Yasin",
+      "nachname": "Archidi",
+      "aktiv": true
+    },
+    {
+      "vorname": "Serkan",
+      "nachname": "Aydogdu",
+      "aktiv": true
+    },
+    {
+      "vorname": "Frank",
+      "nachname": "Bajohr",
+      "aktiv": true
+    },
+    {
+      "vorname": "Nick",
+      "nachname": "Bajrami",
+      "aktiv": true
+    },
+    {
+      "vorname": "Sascha",
+      "nachname": "Beck",
+      "aktiv": true
+    },
+    {
+      "vorname": "Marvin",
+      "nachname": "Becker",
+      "aktiv": true
+    },
+    {
+      "vorname": "Ralf",
+      "nachname": "Behle",
+      "aktiv": true
+    },
+    {
+      "vorname": "Heiko",
+      "nachname": "Belzer",
+      "aktiv": true
+    },
+    {
+      "vorname": "Benoît",
+      "nachname": "Bernhard",
+      "aktiv": true
+    },
+    {
+      "vorname": "Mario",
+      "nachname": "Blumenthal",
+      "aktiv": true
+    },
+    {
+      "vorname": "Lorenzo",
+      "nachname": "Boglietti",
+      "aktiv": true
+    },
+    {
+      "vorname": "Simone",
+      "nachname": "Bonzani",
+      "aktiv": true
+    },
+    {
+      "vorname": "David",
+      "nachname": "Brauckmann",
+      "aktiv": true
+    },
+    {
+      "vorname": "Arlind",
+      "nachname": "Bunjaku",
+      "aktiv": true
+    },
+    {
+      "vorname": "Elif",
+      "nachname": "Celik",
+      "aktiv": true
+    },
+    {
+      "vorname": "Christian",
+      "nachname": "David",
+      "aktiv": true
+    },
+    {
+      "vorname": "Daniel",
+      "nachname": "Dawid",
+      "aktiv": true
+    },
+    {
+      "vorname": "Michael",
+      "nachname": "Dier",
+      "aktiv": true
+    },
+    {
+      "vorname": "Norbert",
+      "nachname": "Dietze",
+      "aktiv": true
+    },
+    {
+      "vorname": "Sascha",
+      "nachname": "Doll",
+      "aktiv": true
+    },
+    {
+      "vorname": "Kerem",
+      "nachname": "Ercin",
+      "aktiv": true
+    },
+    {
+      "vorname": "Felix",
+      "nachname": "Fagerlind",
+      "aktiv": true
+    },
+    {
+      "vorname": "Danilo",
+      "nachname": "Filippini",
+      "aktiv": true
+    },
+    {
+      "vorname": "Benjamin",
+      "nachname": "Fischer",
+      "aktiv": true
+    },
+    {
+      "vorname": "Kevin",
+      "nachname": "Flück",
+      "aktiv": true
+    },
+    {
+      "vorname": "Paul",
+      "nachname": "Freudenberg",
+      "aktiv": true
+    },
+    {
+      "vorname": "Cédric",
+      "nachname": "Gautschi",
+      "aktiv": true
+    },
+    {
+      "vorname": "Michel",
+      "nachname": "Gerber",
+      "aktiv": true
+    },
+    {
+      "vorname": "Denis",
+      "nachname": "Ginger-Kudrjasov",
+      "aktiv": true
+    },
+    {
+      "vorname": "Andreas",
+      "nachname": "Granzner",
+      "aktiv": true
+    },
+    {
+      "vorname": "Michel",
+      "nachname": "Haase",
+      "aktiv": true
+    },
+    {
+      "vorname": "Uwe",
+      "nachname": "Haubenreisser",
+      "aktiv": true
+    },
+    {
+      "vorname": "Heiko",
+      "nachname": "Hendrischke",
+      "aktiv": true
+    },
+    {
+      "vorname": "Olaf",
+      "nachname": "Hesse",
+      "aktiv": true
+    },
+    {
+      "vorname": "Daniel",
+      "nachname": "Hiel",
+      "aktiv": true
+    },
+    {
+      "vorname": "Marco",
+      "nachname": "Hinkel",
+      "aktiv": true
+    },
+    {
+      "vorname": "Ingo",
+      "nachname": "Holtz",
+      "aktiv": true
+    },
+    {
+      "vorname": "Ringo",
+      "nachname": "Hörnig",
+      "aktiv": true
+    },
+    {
+      "vorname": "Alper",
+      "nachname": "Irdem",
+      "aktiv": true
+    },
+    {
+      "vorname": "Hagen",
+      "nachname": "Jobst",
+      "aktiv": true
+    },
+    {
+      "vorname": "Mehmet",
+      "nachname": "Kahramanca",
+      "aktiv": true
+    },
+    {
+      "vorname": "Kevin",
+      "nachname": "Kaiser",
+      "aktiv": true
+    },
+    {
+      "vorname": "Dominik",
+      "nachname": "Kalkan",
+      "aktiv": true
+    },
+    {
+      "vorname": "Ahmed-Hakim",
+      "nachname": "Komichi",
+      "aktiv": true
+    },
+    {
+      "vorname": "Michael",
+      "nachname": "Konrad",
+      "aktiv": true
+    },
+    {
+      "vorname": "Daniel",
+      "nachname": "Kovachev",
+      "aktiv": true
+    },
+    {
+      "vorname": "Guido",
+      "nachname": "Kraatz",
+      "aktiv": true
+    },
+    {
+      "vorname": "Sven",
+      "nachname": "Krüger",
+      "aktiv": true
+    },
+    {
+      "vorname": "Michael",
+      "nachname": "Kuhn",
+      "aktiv": true
+    },
+    {
+      "vorname": "Pascal",
+      "nachname": "Kuhn",
+      "aktiv": true
+    },
+    {
+      "vorname": "Andreas",
+      "nachname": "Köhler",
+      "aktiv": true
+    },
+    {
+      "vorname": "Christian",
+      "nachname": "Körber",
+      "aktiv": true
+    },
+    {
+      "vorname": "Oliver",
+      "nachname": "Lambertus",
+      "aktiv": true
+    },
+    {
+      "vorname": "Helmut",
+      "nachname": "Laude-Altmayer",
+      "aktiv": true
+    },
+    {
+      "vorname": "Torsten",
+      "nachname": "Lehmann",
+      "aktiv": true
+    },
+    {
+      "vorname": "Jens",
+      "nachname": "Lessmann",
+      "aktiv": true
+    },
+    {
+      "vorname": "Mario",
+      "nachname": "Lochau",
+      "aktiv": true
+    },
+    {
+      "vorname": "Marcus",
+      "nachname": "Lucht",
+      "aktiv": true
+    },
+    {
+      "vorname": "William",
+      "nachname": "Luong",
+      "aktiv": true
+    },
+    {
+      "vorname": "Andreas",
+      "nachname": "Malyi",
+      "aktiv": true
+    },
+    {
+      "vorname": "Tobias",
+      "nachname": "Malzer",
+      "aktiv": true
+    },
+    {
+      "vorname": "Fabrizio",
+      "nachname": "Minoletti",
+      "aktiv": true
+    },
+    {
+      "vorname": "Matteo",
+      "nachname": "Moroni",
+      "aktiv": true
+    },
+    {
+      "vorname": "Karlheinz",
+      "nachname": "Most",
+      "aktiv": true
+    },
+    {
+      "vorname": "Eric",
+      "nachname": "Mühl",
+      "aktiv": true
+    },
+    {
+      "vorname": "Dirk",
+      "nachname": "Niederkleine",
+      "aktiv": true
+    },
+    {
+      "vorname": "Emina",
+      "nachname": "Novak",
+      "aktiv": true
+    },
+    {
+      "vorname": "Elgadaf",
+      "nachname": "Osmani",
+      "aktiv": true
+    },
+    {
+      "vorname": "Idris",
+      "nachname": "Oymak",
+      "aktiv": true
+    },
+    {
+      "vorname": "Fabijan",
+      "nachname": "Pali",
+      "aktiv": true
+    },
+    {
+      "vorname": "Marco",
+      "nachname": "Perna",
+      "aktiv": true
+    },
+    {
+      "vorname": "Christian",
+      "nachname": "Peters",
+      "aktiv": true
+    },
+    {
+      "vorname": "Esmir",
+      "nachname": "Pivolic",
+      "aktiv": true
+    },
+    {
+      "vorname": "Rinor",
+      "nachname": "Racipi",
+      "aktiv": true
+    },
+    {
+      "vorname": "Roger",
+      "nachname": "Ramm",
+      "aktiv": true
+    },
+    {
+      "vorname": "Daniele",
+      "nachname": "Rauseo",
+      "aktiv": true
+    },
+    {
+      "vorname": "Dirk",
+      "nachname": "Reichenbach",
+      "aktiv": true
+    },
+    {
+      "vorname": "Tim",
+      "nachname": "Reichenbach",
+      "aktiv": true
+    },
+    {
+      "vorname": "Norbert",
+      "nachname": "Reimann",
+      "aktiv": true
+    },
+    {
+      "vorname": "Sebastian",
+      "nachname": "Rein",
+      "aktiv": true
+    },
+    {
+      "vorname": "Nicolas",
+      "nachname": "Reinau",
       "aktiv": true
     }
   ]
