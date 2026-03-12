@@ -116,8 +116,8 @@
     <div class="sheetHeader">
       <div class="steps">
         <span class="step active" id="s1">1 Profil</span>
-        <span class="step" id="s2">2 Routen</span>
-        <span class="step" id="s3">3 BLS-Daten</span>
+        <span class="step" id="s2">2 RADN-Strecken 101–791</span>
+        <span class="step" id="s3">3 BLS Daten</span>
         <span class="step" id="s4">4 Karte</span>
         <span class="step" id="s5">5 Ortskunde</span>
       </div>
@@ -149,9 +149,9 @@
 
       <!-- Step 2 -->
       <div class="card hidden" id="p2">
-        <div style="font-weight:850; margin-bottom:6px;">Routen (101–999)</div>
+        <div style="font-weight:850; margin-bottom:6px;">RADN-Strecken (101–791)</div>
         <div class="hint">Tippen: 1× kundig · 2× auffrischung · 3× unkundig</div>
-        <label>Suche Route</label>
+        <label>Suche RADN-Strecke</label>
         <input id="routeSearch" placeholder="z.B. 301 oder Lausanne" />
 
         <div class="cardTop">
@@ -171,7 +171,7 @@
       <!-- Step 3 -->
       <div class="card hidden" id="p3">
         <div style="font-weight:850; margin-bottom:6px;">BLS Teilstrecken (nur wegklicken)</div>
-        <div class="hint">Route wählen und Teilstrecken wegklicken, die nicht kundig sind (false). Standard = true.</div>
+        <div class="hint">Route wählen und Teilstrecken wegklicken, die nicht kundig sind (false). Standard = false.</div>
         <label>Route wählen</label>
         <select id="routePick"></select>
 
@@ -263,8 +263,13 @@
   }
 
   function isTanklagerEl(el){
+    const dt = String(el?.getAttribute('data-typ') || el?.getAttribute('data-type') || '').trim().toLowerCase();
+    if(dt === 'tanklager') return true;
     const id = String(el?.id || '').toLowerCase().trim();
-    return id === 'tanklager' || id.startsWith('tanklager_');
+    if(id === 'tanklager' || id.startsWith('tanklager_') || id.includes('tanklager')) return true;
+    const label = String(el?.getAttribute('inkscape:label') || '').trim().toLowerCase();
+    if(label.startsWith('tanklager') || label.includes('tanklager')) return true;
+    return false;
   }
 
   function isStationEl(el){
@@ -398,7 +403,7 @@
 
   function allRoutes(){
     return Object.keys(st.routes||{}).filter(k=>/^\d{3}$/.test(k)).filter(k=>{
-      const n=Number(k); return n>=101 && n<=999;
+      const n=Number(k); return n>=101 && n<=791;
     }).sort((a,b)=>Number(a)-Number(b));
   }
 
@@ -449,7 +454,7 @@
     st.teilstrecken[r]=st.teilstrecken[r]||{};
     arr.forEach(it=>{
       const k=segKey(it);
-      if(st.teilstrecken[r][k]===undefined) st.teilstrecken[r][k]=true;
+      if(st.teilstrecken[r][k]===undefined) st.teilstrecken[r][k]=false;
     });
   }
 
@@ -477,7 +482,7 @@
     if(!segs.length){ host.innerHTML='<div class="hint">Keine BLS Teilstrecken vorhanden.</div>'; return; }
     segs.forEach(it=>{
       const k=segKey(it);
-      const on = st.teilstrecken[r][k] !== false;
+      const on = st.teilstrecken[r][k] === true;
       const div=document.createElement('div');
       div.className='segItem' + (on?'':' off');
       const name = (it.fromName||it.toName) ? ` (${it.fromName||''} → ${it.toName||''})` : '';
@@ -767,7 +772,7 @@
       (st.routeSegmentsOrdered[r]||[]).forEach(it=>{
         const k=segKey(it);
         const val = st.teilstrecken[r] && st.teilstrecken[r][k];
-        teilstrecken[r].push({seg:it.seg, from:it.from, to:it.to, fromName:it.fromName||'', toName:it.toName||'', kundig:(val!==false)});
+        teilstrecken[r].push({seg:it.seg, from:it.from, to:it.to, fromName:it.fromName||'', toName:it.toName||'', kundig:(val===true)});
       });
     });
     const ortskunde={};
