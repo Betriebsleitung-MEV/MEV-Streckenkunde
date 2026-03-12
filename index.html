@@ -161,7 +161,8 @@
             <button class="toggle" id="blsYes" type="button">Ja</button>
             <span style="flex:1 1 auto"></span>
             <button class="btn" id="backToPerson" type="button">Zurück</button>
-            <button class="btn primary" id="nextFromRoutes" type="button">Weiter</button>
+            <button class="btn" id="toOrtskunde2" type="button">Ortskunde</button>
+      <button class="btn primary" id="nextFromRoutes" type="button">Weiter</button>
           </div>
         </div>
 
@@ -180,7 +181,8 @@
             <span class="hint" style="margin:0;">Tippen auf Teilstrecke = false</span>
             <span style="flex:1 1 auto"></span>
             <button class="btn" id="backToRoutes" type="button">Zurück</button>
-            <button class="btn primary" id="toMap" type="button">Weiter zur Karte</button>
+            <button class="btn" id="toOrtskunde3" type="button">Ortskunde</button>
+      <button class="btn primary" id="toMap" type="button">Weiter zur Karte</button>
           </div>
         </div>
 
@@ -216,6 +218,7 @@
 (() => {
   const $ = (id) => document.getElementById(id);
   const toast = (m) => { const t=$('toast'); t.textContent=m; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 2200); };
+  const debugLog = (m) => { try{ console.log('[MEV]', m); }catch(e){} };
   const setDirty = (v) => $('dirty').textContent = v ? 'nicht gespeichert' : '';
 
   const st = {
@@ -325,9 +328,11 @@
   }
 
   function routeMatchesSearch(route){
-  // Suchfeld entfernt (Stabilität)
-  return true;
-}
+    const q=String($('routeSearch').value||'').toLowerCase().trim();
+    if(!q) return true;
+    const desc=String(st.routes[route]||'').toLowerCase();
+    return route.includes(q) || desc.includes(q);
+  }
 
   function tapRoute(r){
     const now=Date.now();
@@ -786,27 +791,31 @@
   }
 
   async function goOrtskunde(){
-    // Ortskunde neu aufbauen und anzeigen
-    updateOrtskundeSuggestions();
-    rebuildOrts();
-    renderOrts();
-    renderSummary();
-    showStep(5);
+    debugLog('goOrtskunde() start');
+    toast('Ortskunde laden …');
+    try{
+      await ensureAssetsLoaded();
+      if(!st.svgRoot) embedSvg();
+      // Vorschläge und Liste neu bauen
+      if(typeof updateOrtskundeSuggestions === 'function') updateOrtskundeSuggestions();
+      if(typeof rebuildOrts === 'function') rebuildOrts();
+      if(typeof renderOrts === 'function') renderOrts();
+      if(typeof renderSummary === 'function') renderSummary();
+      showStep(5);
+      toast('Ortskunde bereit.');
+      debugLog('goOrtskunde() ok');
+    }catch(e){
+      console.error(e);
+      toast('Ortskunde Fehler – Konsole prüfen.');
+      try{ $('ortList').innerHTML = '<div class="hint">Ortskunde Fehler: ' + String(e && e.message ? e.message : e) + '</div>'; }catch(_){}
+      debugLog('goOrtskunde() error');
+    }
   }
 
   function setBls(v){
     st.blsMode=!!v;
     $('blsYes').classList.toggle('active', st.blsMode);
     $('blsNo').classList.toggle('active', !st.blsMode);
-    // Wenn BLS Nein: BLS-Teilstrecken für Route 135 standardmässig false
-    if(!st.blsMode){
-      try{
-        initTeilstreckenForRoute('135');
-        const mm = st.teilstrecken['135'] || {};
-        Object.keys(mm).forEach(k => { mm[k] = false; });
-        st.teilstrecken['135'] = mm;
-      }catch(e){}
-    }
   }
 
   async function init(){
@@ -835,6 +844,9 @@
       try{ await ensureAssetsLoaded(); renderRouteList(); showStep(2); }
       catch(e){ console.error(e); toast('Fehler beim Laden der Assets.'); }
     });
+
+    $('routeSearch').addEventListener('input',()=>renderRouteList());
+
     $('blsYes').addEventListener('click',()=>setBls(true));
     $('blsNo').addEventListener('click',()=>setBls(false));
     setBls(false);
@@ -851,6 +863,16 @@
       }
     });
 
+    $('toOrtskunde2').addEventListener('click',()=>{
+      debugLog('toOrtskunde2 click');
+      goOrtskunde();
+    });
+    $('toOrtskunde3').addEventListener('click',()=>{
+      debugLog('toOrtskunde3 click');
+      goOrtskunde();
+    });
+
+
     $('backToRoutes').addEventListener('click',()=>showStep(2));
     $('routePick').addEventListener('change',()=>renderSegList());
     $('toMap').addEventListener('click', async()=>{
@@ -862,6 +884,7 @@
       if(st.blsMode) showStep(3); else showStep(2);
     });
     $('toOrtskunde').addEventListener('click',()=>{
+      debugLog('toOrtskunde click');
       goOrtskunde();
     });
 
