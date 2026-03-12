@@ -1,0 +1,6343 @@
+{
+  "generatedAt": "2026-03-12T06:36:38Z",
+  "stationCount": 1004,
+  "lines": {
+    "101": 8,
+    "102": 7,
+    "111": 31,
+    "121": 33,
+    "141": 13,
+    "142": 4,
+    "151": 21,
+    "161": 2,
+    "171": 8,
+    "201": 7,
+    "202": 1,
+    "211": 33,
+    "221": 10,
+    "222": 5,
+    "231": 3,
+    "232": 8,
+    "251": 9,
+    "252": 23,
+    "255": 2,
+    "261": 11,
+    "271": 9,
+    "272": 14,
+    "281": 14,
+    "282": 7,
+    "291": 9,
+    "292": 15,
+    "301": 29,
+    "311": 19,
+    "321": 5,
+    "322": 25,
+    "331": 8,
+    "332": 9,
+    "341": 13,
+    "351": 9,
+    "361": 2,
+    "362": 2,
+    "371": 2,
+    "372": 1,
+    "381": 2,
+    "411": 10,
+    "421": 7,
+    "422": 15,
+    "431": 16,
+    "436": 11,
+    "451": 8,
+    "452": 8,
+    "453": 6,
+    "454": 2,
+    "461": 11,
+    "462": 12,
+    "481": 2,
+    "483": 1,
+    "491": 2,
+    "493": 2,
+    "501": 2,
+    "502": 6,
+    "511": 14,
+    "521": 15,
+    "531": 15,
+    "532": 6,
+    "533": 7,
+    "541": 13,
+    "542": 22,
+    "551": 6,
+    "552": 7,
+    "601": 16,
+    "602": 14,
+    "611": 18,
+    "612": 6,
+    "631": 14,
+    "632": 9,
+    "636": 2,
+    "641": 16,
+    "642": 14,
+    "651": 16,
+    "652": 8,
+    "661": 13,
+    "701": 1,
+    "702": 8,
+    "711": 19,
+    "721": 15,
+    "731": 6,
+    "732": 8,
+    "741": 17,
+    "742": 6,
+    "751": 20,
+    "752": 4,
+    "753": 8,
+    "754": 15,
+    "761": 16,
+    "771": 17,
+    "772": 17,
+    "781": 5,
+    "782": 3,
+    "791": 14
+  },
+  "stationsByLine": {
+    "752": [
+      {
+        "id": "station_kaltbrunn",
+        "code": "KAB",
+        "label": "Kaltbrunn",
+        "typ": "Station"
+      },
+      {
+        "id": "station_hurden",
+        "code": "HUR",
+        "label": "Hurden",
+        "typ": "Station"
+      },
+      {
+        "id": "station_pfäffikon_sz",
+        "code": "PF",
+        "label": "Pfäffikon SZ",
+        "typ": "Station"
+      },
+      {
+        "id": "station_wattwil",
+        "code": "WA",
+        "label": "Wattwil",
+        "typ": "Station"
+      }
+    ],
+    "782": [
+      {
+        "id": "station_burghalden",
+        "code": "BGH",
+        "label": "Burghalden",
+        "typ": "Station"
+      },
+      {
+        "id": "ststion_einsiedeln",
+        "code": "EIS",
+        "label": "Einsiedeln",
+        "typ": "Station"
+      },
+      {
+        "id": "station_samstagern",
+        "code": "SAM",
+        "label": "Samstagern",
+        "typ": "Station"
+      }
+    ],
+    "781": [
+      {
+        "id": "station_rothenthurm",
+        "code": "RTT",
+        "label": "Rothenthurm",
+        "typ": "Station"
+      },
+      {
+        "id": "station_biberbrugg",
+        "code": "BIB",
+        "label": "Biberbrugg",
+        "typ": "Station"
+      },
+      {
+        "id": "station_schindellegi_feusisberg",
+        "code": "SCHI",
+        "label": "Schindellegi-Deusisberg",
+        "typ": "Station"
+      },
+      {
+        "id": "station_freienbach_sob",
+        "code": "FRBS",
+        "label": "Freienbach SOB",
+        "typ": "Station"
+      },
+      {
+        "id": "station_altmatt",
+        "code": "AT",
+        "label": "Altmatt",
+        "typ": "Station"
+      }
+    ],
+    "612": [
+      {
+        "id": "station_niederweningen",
+        "code": "NW",
+        "label": "Niederweningen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_dielsdorf",
+        "code": "DI",
+        "label": "Dielsdorf",
+        "typ": "Station"
+      },
+      {
+        "id": "station_niederweningen_dorf",
+        "code": "NWD",
+        "label": "Niederweningen Dorf",
+        "typ": "Station"
+      },
+      {
+        "id": "station_schöfflisdorf_oberweningen",
+        "code": "SCHO",
+        "label": "Schöffliisdorf-Oberweningen",
+        "typ": "Station"
+      },
+      {
+        "id": "statîon_niederhasli",
+        "code": "NIE",
+        "label": "Niederhasli",
+        "typ": "Station"
+      },
+      {
+        "id": "station_steinmaur",
+        "code": "STMR",
+        "label": "Steinmaur",
+        "typ": "Station"
+      }
+    ],
+    "611": [
+      {
+        "id": "station_rümlang",
+        "code": "RUEM",
+        "label": "station_rümlang",
+        "typ": "Station"
+      },
+      {
+        "id": "station_glattbrugg",
+        "code": "GLB",
+        "label": "Glattbrugg",
+        "typ": "Station"
+      },
+      {
+        "id": "station_hüntwangen_wil",
+        "code": "HUEW",
+        "label": "Hüntwangen-Wil",
+        "typ": "Station"
+      },
+      {
+        "id": "station_rafz",
+        "code": "RZ",
+        "label": "Rafz",
+        "typ": "Station"
+      },
+      {
+        "id": "station_neuhausen",
+        "code": "NH",
+        "label": "Neuhausen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_niederglatt",
+        "code": "NG",
+        "label": "Niederglatt",
+        "typ": "Station"
+      },
+      {
+        "id": "station_oberglatt",
+        "code": "OGL",
+        "label": "Oberglatt",
+        "typ": "Station"
+      },
+      {
+        "id": "station_glattfelden",
+        "code": "GF",
+        "label": "Glattfelden",
+        "typ": "Station"
+      },
+      {
+        "id": "station_jestetten",
+        "code": "JE",
+        "label": "Jestetten",
+        "typ": "Station"
+      },
+      {
+        "id": "station_altenburg_rheinau",
+        "code": "AR",
+        "label": "Altenburg-Rheinau",
+        "typ": "Station"
+      },
+      {
+        "id": "station_eglisau",
+        "code": "EGL",
+        "label": "Eglisau",
+        "typ": "Station"
+      },
+      {
+        "id": "station_bülach",
+        "code": "BUE",
+        "label": "Bülach",
+        "typ": "Station"
+      },
+      {
+        "id": "station_lottstetten",
+        "code": "LOT",
+        "label": "Lottstetten",
+        "typ": "Station"
+      },
+      {
+        "id": "station_schaffhausen",
+        "code": "SH",
+        "label": "Schaffhausen",
+        "typ": "Station"
+      },
+      {
+        "id": "Station_schaffhausen_rb",
+        "code": "",
+        "label": "Schaffhausen RB",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_tarl",
+        "code": "",
+        "label": "TARL",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_tl_ng",
+        "code": "",
+        "label": "Tanklager Niederglatt",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_schaffhausen-1",
+        "code": "",
+        "label": "Singen",
+        "typ": "Station"
+      }
+    ],
+    "632": [
+      {
+        "id": "station_urdorf",
+        "code": "URD",
+        "label": "Urdorf",
+        "typ": "Station"
+      },
+      {
+        "id": "sttion_knonau",
+        "code": "KNO",
+        "label": "Knonau",
+        "typ": "Station"
+      },
+      {
+        "id": "station_urdorf_weihermatt",
+        "code": "URDW",
+        "label": "Urdorf Weihermatt",
+        "typ": "Station"
+      },
+      {
+        "id": "station_birmensdorf",
+        "code": "BIR",
+        "label": "Birmensdorf",
+        "typ": "Station"
+      },
+      {
+        "id": "station_bonstetten_wettswil",
+        "code": "BON",
+        "label": "Bonstetten-Wettswil",
+        "typ": "Station"
+      },
+      {
+        "id": "station_hedingen",
+        "code": "HED",
+        "label": "Hedingen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_affoltern_am_albis",
+        "code": "AF",
+        "label": "Affoltern am Albis",
+        "typ": "Station"
+      },
+      {
+        "id": "stattion_mettmenstetten",
+        "code": "MTM",
+        "label": "Mettmenstetten",
+        "typ": "Station"
+      },
+      {
+        "id": "station_steinhausen",
+        "code": "STE",
+        "label": "Steinhausen",
+        "typ": "Station"
+      }
+    ],
+    "631": [
+      {
+        "id": "station_wollishofen",
+        "code": "ZWOL",
+        "label": "Wollishofen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_thalwil",
+        "code": "TW",
+        "label": "Thalwil",
+        "typ": "Station"
+      },
+      {
+        "id": "station_oberrieden",
+        "code": "ORD",
+        "label": "Oberrieden",
+        "typ": "Station"
+      },
+      {
+        "id": "station_horgen",
+        "code": "HG",
+        "label": "Horgen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_au_zh",
+        "code": "AU",
+        "label": "Au ZH",
+        "typ": "Station"
+      },
+      {
+        "id": "station_richerswil",
+        "code": "RI",
+        "label": "Richterswil",
+        "typ": "Station"
+      },
+      {
+        "id": "station_wädenswil",
+        "code": "WAE",
+        "label": "Wädenswil",
+        "typ": "Station"
+      },
+      {
+        "id": "station_bäch",
+        "code": "BAE",
+        "label": "Bäch",
+        "typ": "Station"
+      },
+      {
+        "id": "station-freienbach",
+        "code": "",
+        "label": "Freienbach",
+        "typ": "Station"
+      },
+      {
+        "id": "station_wiedikon",
+        "code": "ZWIE",
+        "label": "Wiedikon",
+        "typ": "Station"
+      },
+      {
+        "id": "station_kilchberg",
+        "code": "KIL",
+        "label": "Kilchberg",
+        "typ": "Station"
+      },
+      {
+        "id": "station_enge",
+        "code": "ENGE",
+        "label": "Enge",
+        "typ": "Station"
+      },
+      {
+        "id": "station_rüschlikon",
+        "code": "RUES",
+        "label": "Rüschlikon",
+        "typ": "Station"
+      },
+      {
+        "id": "station_zimmerberg_basistunnel",
+        "code": "",
+        "label": "Zimmerberg Basistunnel",
+        "typ": "unoccupied_station"
+      }
+    ],
+    "651": [
+      {
+        "id": "station_uerikon",
+        "code": "UER",
+        "label": "Uerikon",
+        "typ": "Station"
+      },
+      {
+        "id": "station_feldbach",
+        "code": "FB",
+        "label": "Feldbach",
+        "typ": "Station"
+      },
+      {
+        "id": "station_küsnacht_zh",
+        "code": "KUES",
+        "label": "Küsnacht ZH",
+        "typ": "Station"
+      },
+      {
+        "id": "station_erlenbach_zh",
+        "code": "ERLB",
+        "label": "Erlenbach ZH",
+        "typ": "Station"
+      },
+      {
+        "id": "station_herrliberg_feldmeilen",
+        "code": "HERL",
+        "label": "Herrliberg-Feldmeilen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_meilen",
+        "code": "ML",
+        "label": "Meilen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_uetikon",
+        "code": "UET",
+        "label": "Uetikon",
+        "typ": "Station"
+      },
+      {
+        "id": "station_küsnacht_goldbach",
+        "code": "KGO",
+        "label": "Küsnacht Goldbach",
+        "typ": "Station"
+      },
+      {
+        "id": "station_winkel_am_zürichsee",
+        "code": "WIN",
+        "label": "Winkel am Zürichsee",
+        "typ": "Station"
+      },
+      {
+        "id": "station_männedorf",
+        "code": "MAEN",
+        "label": "Männedorf",
+        "typ": "Station"
+      },
+      {
+        "id": "station_kempraten",
+        "code": "KPT",
+        "label": "Kempraten",
+        "typ": "Station"
+      },
+      {
+        "id": "station_tiefenbrunnen",
+        "code": "ZTB",
+        "label": "Tiefenbrunnen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_stäfa",
+        "code": "STAE",
+        "label": "Stäfa",
+        "typ": "Station"
+      },
+      {
+        "id": "station_rapperswil",
+        "code": "RW",
+        "label": "Rapperswil",
+        "typ": "Station"
+      },
+      {
+        "id": "station_stadelhofen",
+        "code": "ZSTH",
+        "label": "Stadelhofen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_zollikon",
+        "code": "ZK",
+        "label": "Zollikon",
+        "typ": "Station"
+      }
+    ],
+    "754": [
+      {
+        "id": "station_tann_dürnten",
+        "code": "TD",
+        "label": "Tann-Dürnten",
+        "typ": "Station"
+      },
+      {
+        "id": "station_jona",
+        "code": "JO",
+        "label": "Jona",
+        "typ": "Station"
+      },
+      {
+        "id": "station_rüti_zh",
+        "code": "RUE",
+        "label": "Rüti ZH",
+        "typ": "Station"
+      },
+      {
+        "id": "station_wald",
+        "code": "WL",
+        "label": "Wald",
+        "typ": "Station"
+      },
+      {
+        "id": "station_fischenthal",
+        "code": "FI",
+        "label": "Fischenthal",
+        "typ": "Station"
+      },
+      {
+        "id": "station_steg",
+        "code": "STG",
+        "label": "Steg",
+        "typ": "Station"
+      },
+      {
+        "id": "station_turbenthal",
+        "code": "TU",
+        "label": "Turbenthal",
+        "typ": "Station"
+      },
+      {
+        "id": "station_rämismühle_zell",
+        "code": "RMZ",
+        "label": "Rämismühle-Zell",
+        "typ": "Station"
+      },
+      {
+        "id": "station_rikon",
+        "code": "RN",
+        "label": "Rikon",
+        "typ": "Station"
+      },
+      {
+        "id": "station_saland",
+        "code": "SD",
+        "label": "Saland",
+        "typ": "Station"
+      },
+      {
+        "id": "station_wila",
+        "code": "WILA",
+        "label": "Wila",
+        "typ": "Station"
+      },
+      {
+        "id": "station_kollbrunn",
+        "code": "KOL",
+        "label": "Kollbrunn",
+        "typ": "Station"
+      },
+      {
+        "id": "station_sennhof_kyburg",
+        "code": "SKY",
+        "label": "Sennhof-Kyburg",
+        "typ": "Station"
+      },
+      {
+        "id": "station_winterthur_seen",
+        "code": "WSEE",
+        "label": "Winterthur Seen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_gibswil",
+        "code": "GIB",
+        "label": "Gibswil",
+        "typ": "Station"
+      }
+    ],
+    "702": [
+      {
+        "id": "station_zürich_flughafen",
+        "code": "ZFH",
+        "label": "Zürich Flughafen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_bassersdorf",
+        "code": "BSD",
+        "label": "Bassersdorf",
+        "typ": "Station"
+      },
+      {
+        "id": "station_kloten_balsberg",
+        "code": "KLB",
+        "label": "Kloten Balsberg",
+        "typ": "Station"
+      },
+      {
+        "id": "station_kloten",
+        "code": "KL",
+        "label": "Kloten",
+        "typ": "Station"
+      },
+      {
+        "id": "station_opfikon",
+        "code": "OP",
+        "label": "Opfikon",
+        "typ": "Station"
+      },
+      {
+        "id": "station_wallisellen",
+        "code": "WS",
+        "label": "Wallisellen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_dietlikon",
+        "code": "DTL",
+        "label": "Dietlikon",
+        "typ": "Station"
+      },
+      {
+        "id": "station_winterthur_rb",
+        "code": "",
+        "label": "Winterthur RB",
+        "typ": "unoccupied_station"
+      }
+    ],
+    "661": [
+      {
+        "id": "station_illnau",
+        "code": "IL",
+        "label": "Illnau",
+        "typ": "Station"
+      },
+      {
+        "id": "station_pfäffikon_zh",
+        "code": "PFZ",
+        "label": "Pfäffikon ZH",
+        "typ": "Station"
+      },
+      {
+        "id": "station_fehraltdorf",
+        "code": "FET",
+        "label": "Fehraltdorf",
+        "typ": "Station"
+      },
+      {
+        "id": "path2661",
+        "code": "",
+        "label": "Hard",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_effretikon",
+        "code": "EF",
+        "label": "Effretikon",
+        "typ": "Station"
+      },
+      {
+        "id": "station_kemptthal",
+        "code": "KE",
+        "label": "Kemptthal",
+        "typ": "Station"
+      },
+      {
+        "id": "station_kempten",
+        "code": "KN",
+        "label": "Kempten",
+        "typ": "Station"
+      },
+      {
+        "id": "station_ettenhausen_emmetschloo",
+        "code": "ETH",
+        "label": "Ettenhausen Emmetschloo",
+        "typ": "Station"
+      },
+      {
+        "id": "station_bäretswil_tobel",
+        "code": "",
+        "label": "Bäretswil Tobel",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_bäretswil",
+        "code": "BAEW",
+        "label": "Bäretswil",
+        "typ": "Station"
+      },
+      {
+        "id": "station_hinwil",
+        "code": "HI",
+        "label": "Hinwil",
+        "typ": "Station"
+      },
+      {
+        "id": "station_bauma",
+        "code": "BMA",
+        "label": "Bauma",
+        "typ": "Station"
+      },
+      {
+        "id": "station_hürlistein",
+        "code": "",
+        "label": "Hürlistein",
+        "typ": "unoccupied_station"
+      }
+    ],
+    "171": [
+      {
+        "id": "station_affoltern",
+        "code": "",
+        "label": "Affoltern",
+        "typ": "Station"
+      },
+      {
+        "id": "station_seebach",
+        "code": "ZSEB",
+        "label": "Seebach",
+        "typ": "Station"
+      },
+      {
+        "id": "station_zürich_oerlikon",
+        "code": "ZOER",
+        "label": "Zürich Oerlikon",
+        "typ": "Station"
+      },
+      {
+        "id": "station_otelfingen",
+        "code": "OF",
+        "label": "Otelfingen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_otelfingen_golfpark",
+        "code": "OFR",
+        "label": "Otelfingen Golfpark",
+        "typ": "Station"
+      },
+      {
+        "id": "station_regensdorf-watt",
+        "code": "REG",
+        "label": "Regensdorf Watt",
+        "typ": "Station"
+      },
+      {
+        "id": "station_würenlos",
+        "code": "WUER",
+        "label": "Würenlos",
+        "typ": "Station"
+      },
+      {
+        "id": "station_buchs-dällikon",
+        "code": "BUD",
+        "label": "Buchs-Dällikon",
+        "typ": "Station"
+      }
+    ],
+    "151": [
+      {
+        "id": "station_zürich_vorbahnhof",
+        "code": "",
+        "label": "Zürich Vorbahnhof",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_glanzenberg",
+        "code": "GLZB",
+        "label": "Glanzenberg",
+        "typ": "Station"
+      },
+      {
+        "id": "station_schlieren",
+        "code": "SCHL",
+        "label": "Schlieren",
+        "typ": "Station"
+      },
+      {
+        "id": "station_zürich_altstätten",
+        "code": "ZAS",
+        "label": "Zürich Altstätten",
+        "typ": "Station"
+      },
+      {
+        "id": "station_herdern",
+        "code": "",
+        "label": "Herdern",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_hardbrücke",
+        "code": "",
+        "label": "Hardbrücke",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_mägenwil",
+        "code": "MAEG",
+        "label": "Mägenwil",
+        "typ": "Station"
+      },
+      {
+        "id": "station_mellingen_heitersberg",
+        "code": "MELH",
+        "label": "Mellingen-Heitersberg",
+        "typ": "Station"
+      },
+      {
+        "id": "station_wildegg",
+        "code": "WI",
+        "label": "Wildegg",
+        "typ": "Station"
+      },
+      {
+        "id": "station_holderbank_ag",
+        "code": "HOBK",
+        "label": "Holderbank AG",
+        "typ": "Station"
+      },
+      {
+        "id": "station_aarau",
+        "code": "AA",
+        "label": "Aarau",
+        "typ": "Station"
+      },
+      {
+        "id": "station_wöschnau",
+        "code": "",
+        "label": "Wöschnau",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_däniken_rb",
+        "code": "",
+        "label": "Däniken RB",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_rbl_west",
+        "code": "",
+        "label": "RBL West",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_dietikon",
+        "code": "DT",
+        "label": "Dietikon",
+        "typ": "Station"
+      },
+      {
+        "id": "station_rupperswil",
+        "code": "RU",
+        "label": "Rupperswil",
+        "typ": "Station"
+      },
+      {
+        "id": "station_zürich_hb",
+        "code": "ZUE",
+        "label": "Zürich HB",
+        "typ": "Station"
+      },
+      {
+        "id": "station_däniken",
+        "code": "DK",
+        "label": "Däniken",
+        "typ": "Station"
+      },
+      {
+        "id": "station_dulliken",
+        "code": "DU",
+        "label": "Dulliken",
+        "typ": "Station"
+      },
+      {
+        "id": "station_schinznach_bad",
+        "code": "SBAD",
+        "label": "Schinznach Bad",
+        "typ": "Station"
+      },
+      {
+        "id": "station_schönenwerd",
+        "code": "SCOE",
+        "label": "Schönenwerd",
+        "typ": "Station"
+      }
+    ],
+    "751": [
+      {
+        "id": "station_uznach",
+        "code": "UZ",
+        "label": "Uznach",
+        "typ": "Station"
+      },
+      {
+        "id": "station_blumenau",
+        "code": "BLU",
+        "label": "Blumenau",
+        "typ": "Station"
+      },
+      {
+        "id": "station_bollingen",
+        "code": "",
+        "label": "Bollingen",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_benken",
+        "code": "BNK",
+        "label": "Benken",
+        "typ": "Station"
+      },
+      {
+        "id": "station_schänis",
+        "code": "SCAE",
+        "label": "Schänis",
+        "typ": "Station"
+      },
+      {
+        "id": "station_ennenda",
+        "code": "EDA",
+        "label": "Ennenda",
+        "typ": "Station"
+      },
+      {
+        "id": "station_mitlödi",
+        "code": "MIT",
+        "label": "Mitlödi",
+        "typ": "Station"
+      },
+      {
+        "id": "station_nidfurn_haslen",
+        "code": "NID",
+        "label": "Nidfurn-Haslen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_leuggelbach",
+        "code": "LGB",
+        "label": "Leuggelbach",
+        "typ": "Station"
+      },
+      {
+        "id": "station_diesbach_betschwanden",
+        "code": "DSB",
+        "label": "Diesbach-Betschwanden",
+        "typ": "Station"
+      },
+      {
+        "id": "station_rüti_gl",
+        "code": "RUET",
+        "label": "Rüti GL",
+        "typ": "Station"
+      },
+      {
+        "id": "station_linthal_braunwaldbahn",
+        "code": "LINB",
+        "label": "Linthal Braunwaldbahn",
+        "typ": "Station"
+      },
+      {
+        "id": "station_schwanden",
+        "code": "SCHD",
+        "label": "Schwanden",
+        "typ": "Station"
+      },
+      {
+        "id": "station_linthal",
+        "code": "LIN",
+        "label": "Linthal",
+        "typ": "Station"
+      },
+      {
+        "id": "station_näfels_mollis",
+        "code": "NAEF",
+        "label": "Näfels-Mollis",
+        "typ": "Station"
+      },
+      {
+        "id": "station_nieder_und_oberurnen",
+        "code": "NOU",
+        "label": "Nieder- und Oberurnen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_netstal",
+        "code": "NET",
+        "label": "Netstal",
+        "typ": "Station"
+      },
+      {
+        "id": "station_glarus",
+        "code": "GL",
+        "label": "Glarus",
+        "typ": "Station"
+      },
+      {
+        "id": "station_luchsingen_betschwanden",
+        "code": "LU",
+        "label": "Luchsingen-Betschwanden",
+        "typ": "Station"
+      },
+      {
+        "id": "station_schmerikon",
+        "code": "SCME",
+        "label": "Schmerikon",
+        "typ": "Station"
+      }
+    ],
+    "652": [
+      {
+        "id": "station_stettbach",
+        "code": "STET",
+        "label": "Stettbach",
+        "typ": "Station"
+      },
+      {
+        "id": "station_schwerzenbach_zh",
+        "code": "SCWE",
+        "label": "Schwerzenbach ZH",
+        "typ": "Station"
+      },
+      {
+        "id": "station_dübendorf",
+        "code": "DUE",
+        "label": "Dübendorf",
+        "typ": "Station"
+      },
+      {
+        "id": "station_uster",
+        "code": "UST",
+        "label": "Uster",
+        "typ": "Station"
+      },
+      {
+        "id": "station_bubikon",
+        "code": "BUB",
+        "label": "Bubikon",
+        "typ": "Station"
+      },
+      {
+        "id": "station_wetzikon",
+        "code": "WZ",
+        "label": "Wetzikon",
+        "typ": "Station"
+      },
+      {
+        "id": "station_aathal",
+        "code": "AAT",
+        "label": "Aathal",
+        "typ": "Station"
+      },
+      {
+        "id": "station_nänikon_greifensee",
+        "code": "NAEN",
+        "label": "Nänikon-Greifensee",
+        "typ": "Station"
+      }
+    ],
+    "601": [
+      {
+        "id": "station_siggenthal_würenlingen",
+        "code": "SIG",
+        "label": "Siggenthal-Würenlingen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_felsenau",
+        "code": "",
+        "label": "Felsenau",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_full",
+        "code": "",
+        "label": "Full",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_leibstadt",
+        "code": "",
+        "label": "Leibstadt",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_schwaderloch",
+        "code": "",
+        "label": "Schwaderloch",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_etzgen",
+        "code": "",
+        "label": "Etzgen",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_döttingen",
+        "code": "DOE",
+        "label": "Döttingen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_beznau",
+        "code": "",
+        "label": "Beznau",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_ang_siggenthal",
+        "code": "",
+        "label": "ANG Siggenthal-W.",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_koblenz",
+        "code": "KB",
+        "label": "Koblenz",
+        "typ": "Station"
+      },
+      {
+        "id": "station_klingnau",
+        "code": "KLI",
+        "label": "Klingnau",
+        "typ": "Station"
+      },
+      {
+        "id": "station_neuenhof",
+        "code": "NHOF",
+        "label": "Neuenhof",
+        "typ": "Station"
+      },
+      {
+        "id": "station_turgi",
+        "code": "TG",
+        "label": "Turgi",
+        "typ": "Station"
+      },
+      {
+        "id": "station_baden",
+        "code": "BD",
+        "label": "baden",
+        "typ": "Station"
+      },
+      {
+        "id": "station_sisseln",
+        "code": "",
+        "label": "Sisseln",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_laufenburg",
+        "code": "LFG",
+        "label": "Laufenburg",
+        "typ": "Station"
+      }
+    ],
+    "642": [
+      {
+        "id": "station_oberrieden_dorf",
+        "code": "ORDD",
+        "label": "Oberrieden Dorf",
+        "typ": "Station"
+      },
+      {
+        "id": "station_sevelen",
+        "code": "SEV",
+        "label": "Sevelen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_räfis_burgerau",
+        "code": "RAEF",
+        "label": "Räfis-Burgerau",
+        "typ": "Station"
+      },
+      {
+        "id": "station_bad_ragaz",
+        "code": "BRAG",
+        "label": "Bad Ragaz",
+        "typ": "Station"
+      },
+      {
+        "id": "station_trübbach",
+        "code": "TRUE",
+        "label": "Trübbach",
+        "typ": "Station"
+      },
+      {
+        "id": "station_landquart",
+        "code": "LQ",
+        "label": "Landquart",
+        "typ": "Station"
+      },
+      {
+        "id": "station_chur",
+        "code": "CH",
+        "label": "Chur",
+        "typ": "Station"
+      },
+      {
+        "id": "station_maienfeld",
+        "code": "MF",
+        "label": "Maienfeld",
+        "typ": "Station"
+      },
+      {
+        "id": "station_buchs_sg",
+        "code": "BU",
+        "label": "Buchs SG",
+        "typ": "Station"
+      },
+      {
+        "id": "station_buchs_rb",
+        "code": "",
+        "label": "Buchs RB",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_weite",
+        "code": "WEI",
+        "label": "Weite",
+        "typ": "Station"
+      },
+      {
+        "id": "station_tanklager_sennwald",
+        "code": "SAS",
+        "label": "Tanklager Sennwald",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_tl-häggenschwil_winden-7",
+        "code": "",
+        "label": "TL Landquart",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_tl-häggenschwil_winden-7-5",
+        "code": "",
+        "label": "Ziszers SBB",
+        "typ": "unoccupied_station"
+      }
+    ],
+    "741": [
+      {
+        "id": "station_oberwintherthur_ua",
+        "code": "",
+        "label": "Oberwintertuhr UA",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_rickenbach_attikon",
+        "code": "RIK",
+        "label": "Rickenbach-Attikon",
+        "typ": "Station"
+      },
+      {
+        "id": "station_islikon",
+        "code": "ISL",
+        "label": "Islikon",
+        "typ": "Station"
+      },
+      {
+        "id": "path2060",
+        "code": "RIK",
+        "label": "Rickenbach-Attikon",
+        "typ": "Station"
+      },
+      {
+        "id": "station_felben_wellhausen",
+        "code": "FEL",
+        "label": "Felben-Wellhausen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_müllheim_wigoltingen",
+        "code": "MUEL",
+        "label": "Müllheim-Wigoltingen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_hüttlingen_mettendorf",
+        "code": "HM",
+        "label": "Hüttlingen-Mettendorf",
+        "typ": "Station"
+      },
+      {
+        "id": "station_frauenfeld_paketpost",
+        "code": "",
+        "label": "Frauenfeld Paketpost",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_oberaach",
+        "code": "OA",
+        "label": "Oberaach",
+        "typ": "Station"
+      },
+      {
+        "id": "station_sulgen",
+        "code": "SLG",
+        "label": "Sulgen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_bürglen",
+        "code": "BGL",
+        "label": "Bürglen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_märstetten",
+        "code": "MAER",
+        "label": "Märstetten",
+        "typ": "Station"
+      },
+      {
+        "id": "station_amriswil",
+        "code": "AW",
+        "label": "Amriswil",
+        "typ": "Station"
+      },
+      {
+        "id": "station_romanshorn",
+        "code": "RH",
+        "label": "Romanshorn",
+        "typ": "Station"
+      },
+      {
+        "id": "station_erlen",
+        "code": "ERL",
+        "label": "Erlen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_frauenfeld",
+        "code": "FF",
+        "label": "Frauenfeld",
+        "typ": "Station"
+      },
+      {
+        "id": "station_weinfelden",
+        "code": "WF",
+        "label": "Weinfelden",
+        "typ": "Station"
+      }
+    ],
+    "602": [
+      {
+        "id": "station_winterthur_töss",
+        "code": "WTOE",
+        "label": "Winterthur Töss",
+        "typ": "Station"
+      },
+      {
+        "id": "station_winterthur",
+        "code": "W",
+        "label": "Winterthur",
+        "typ": "Station"
+      },
+      {
+        "id": "station_pfungen_neftenbach",
+        "code": "PFU",
+        "label": "Pfungen-Neftenbach",
+        "typ": "Station"
+      },
+      {
+        "id": "station_winterthur_wülflingen",
+        "code": "WWUE",
+        "label": "Winterthur Wülflingen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_embrach_rorbas",
+        "code": "EMB",
+        "label": "Embrach-Rorbas",
+        "typ": "Station"
+      },
+      {
+        "id": "station_rietheim",
+        "code": "RIET",
+        "label": "Rietheim",
+        "typ": "Station"
+      },
+      {
+        "id": "station_bad_zurzach",
+        "code": "ZZ",
+        "label": "Bad Zurzach",
+        "typ": "Station"
+      },
+      {
+        "id": "station_mellikon",
+        "code": "MELN",
+        "label": "Mellikon",
+        "typ": "Station"
+      },
+      {
+        "id": "station_rümikon",
+        "code": "RUEN",
+        "label": "Rümikon",
+        "typ": "Station"
+      },
+      {
+        "id": "station_rekingen",
+        "code": "REK",
+        "label": "Rekingen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_zweidlen",
+        "code": "ZWD",
+        "label": "Zweidlen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_kaiserstuhl",
+        "code": "KAI",
+        "label": "Kaiserstuhl",
+        "typ": "Station"
+      },
+      {
+        "id": "station_weiach_kaiserstuhl",
+        "code": "",
+        "label": "Weiach Kaiserstuhl",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_koblenz_dorf",
+        "code": "KBD",
+        "label": "Koblenz Dorf",
+        "typ": "Station"
+      }
+    ],
+    "731": [
+      {
+        "id": "station_hettlingen",
+        "code": "HET",
+        "label": "Hettlingen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_henggart",
+        "code": "HGT",
+        "label": "Henggart",
+        "typ": "Station"
+      },
+      {
+        "id": "station_schloss_laufen",
+        "code": "SLF",
+        "label": "Schloss Laufen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_marthalen",
+        "code": "MTL",
+        "label": "Marthalen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_andelfingen",
+        "code": "AN",
+        "label": "Andelfingen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_dachsen",
+        "code": "DA",
+        "label": "Dachsen",
+        "typ": "Station"
+      }
+    ],
+    "711": [
+      {
+        "id": "station_schottikon",
+        "code": "SCHK",
+        "label": "Schottikon",
+        "typ": "Station"
+      },
+      {
+        "id": "station_räterschen",
+        "code": "RAET",
+        "label": "Räterschen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_winterthur_grüze",
+        "code": "WGR",
+        "label": "Winterthur Grüze",
+        "typ": "Station"
+      },
+      {
+        "id": "station_aardorf",
+        "code": "",
+        "label": "Aardorf",
+        "typ": "Station"
+      },
+      {
+        "id": "station_eschlikon",
+        "code": "ESL",
+        "label": "Eschlikon",
+        "typ": "Station"
+      },
+      {
+        "id": "station_guntershausen",
+        "code": "GUN",
+        "label": "Guntershausen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_elgg",
+        "code": "EL",
+        "label": "Elgg",
+        "typ": "Station"
+      },
+      {
+        "id": "station_wil",
+        "code": "WIL",
+        "label": "Wil",
+        "typ": "Station"
+      },
+      {
+        "id": "station_sirnach",
+        "code": "SIR",
+        "label": "Sirnach",
+        "typ": "Station"
+      },
+      {
+        "id": "station_winterthur_hegi",
+        "code": "WHE",
+        "label": "Winterthur Hegi",
+        "typ": "Station"
+      },
+      {
+        "id": "station_schwarzenbach_sg",
+        "code": "SCHZ",
+        "label": "Schwarzenbach SG",
+        "typ": "Station"
+      },
+      {
+        "id": "station_uzwil",
+        "code": "UZW",
+        "label": "Uzwil",
+        "typ": "Station"
+      },
+      {
+        "id": "station_flawil",
+        "code": "FLA",
+        "label": "Flawil",
+        "typ": "Station"
+      },
+      {
+        "id": "station_st_gallen_winkeln",
+        "code": "SGWI",
+        "label": "St. Gallen Winkeln",
+        "typ": "Station"
+      },
+      {
+        "id": "station_st_gallen_st_fiden",
+        "code": "SGF",
+        "label": "St. Gallen St. Fiden",
+        "typ": "Station"
+      },
+      {
+        "id": "station_st_gallen",
+        "code": "SG",
+        "label": "St. Gallen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_algetshausen_henau",
+        "code": "ALG",
+        "label": "Algetshausen-Henau",
+        "typ": "Station"
+      },
+      {
+        "id": "station_gossau_sg",
+        "code": "GSS",
+        "label": "Gossau SG",
+        "typ": "Station"
+      },
+      {
+        "id": "station_st_gallen_bruggen",
+        "code": "SGBR",
+        "label": "St. Gallen Bruggen",
+        "typ": "Station"
+      }
+    ],
+    "732": [
+      {
+        "id": "station_seuzach",
+        "code": "SEU",
+        "label": "Seuzach",
+        "typ": "Station"
+      },
+      {
+        "id": "station_thalheim_altikon",
+        "code": "TLH",
+        "label": "Thalheim-Altikon",
+        "typ": "Station"
+      },
+      {
+        "id": "station_ossingen",
+        "code": "OSS",
+        "label": "Ossingen",
+        "typ": "Station"
+      },
+      {
+        "id": "Station_stammheim",
+        "code": "STM",
+        "label": "Stammheim",
+        "typ": "Station"
+      },
+      {
+        "id": "station_wallrüti",
+        "code": "WWAL",
+        "label": "Wallrüti",
+        "typ": "Station"
+      },
+      {
+        "id": "station_reutlingen",
+        "code": "REUT",
+        "label": "Reutlingen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_dinhard",
+        "code": "DIH",
+        "label": "Dinhard",
+        "typ": "Station"
+      },
+      {
+        "id": "station_oberwinterthur",
+        "code": "OWT",
+        "label": "Oberwinterthur",
+        "typ": "Station"
+      }
+    ],
+    "462": [
+      {
+        "id": "station_litti",
+        "code": "",
+        "label": "Litti",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_baar",
+        "code": "BAA",
+        "label": "Baar",
+        "typ": "Station"
+      },
+      {
+        "id": "station_baar_neufeld",
+        "code": "BAAN",
+        "label": "Baar Neufeld",
+        "typ": "Station"
+      },
+      {
+        "id": "station_baar_lindenpark",
+        "code": "BAAL",
+        "label": "Baar Lindenpark",
+        "typ": "Station"
+      },
+      {
+        "id": "station_zug_postplatz",
+        "code": "ZGPP",
+        "label": "Zug Postplatz",
+        "typ": "Station"
+      },
+      {
+        "id": "station_zug_casino",
+        "code": "ZGCA",
+        "label": "Zug Casino",
+        "typ": "Station"
+      },
+      {
+        "id": "station_horgen_oberdorf",
+        "code": "HGO",
+        "label": "Horgen Oberdorf",
+        "typ": "Station"
+      },
+      {
+        "id": "station_walchwil",
+        "code": "WCHW",
+        "label": "Walchwil",
+        "typ": "Station"
+      },
+      {
+        "id": "station_zug_oberwil",
+        "code": "ZGO",
+        "label": "Zug Oberwil",
+        "typ": "Station"
+      },
+      {
+        "id": "station_zug_fridbach",
+        "code": "ZGFR",
+        "label": "Zug Fridbach",
+        "typ": "Station"
+      },
+      {
+        "id": "station_walchwil_hörnli",
+        "code": "WCHO",
+        "label": "Walchwil Hörnli",
+        "typ": "Station"
+      },
+      {
+        "id": "station_sihlbrugg",
+        "code": "SBG",
+        "label": "Sihlbrugg",
+        "typ": "Station"
+      }
+    ],
+    "461": [
+      {
+        "id": "station_zug_schutzengel",
+        "code": "ZGSE",
+        "label": "Zug Schutzengel",
+        "typ": "Station"
+      },
+      {
+        "id": "station_zug_chollermülli",
+        "code": "KMUE",
+        "label": "Zug Chollermülli",
+        "typ": "Station"
+      },
+      {
+        "id": "station_cham_alpenblick",
+        "code": "CHAA",
+        "label": "Cham Alpenblick",
+        "typ": "Station"
+      },
+      {
+        "id": "station_chämleten",
+        "code": "HUCH",
+        "label": "Chämleten",
+        "typ": "Station"
+      },
+      {
+        "id": "station_zythus",
+        "code": "",
+        "label": "Zythus",
+        "typ": "Station"
+      },
+      {
+        "id": "station_cham",
+        "code": "CHAM",
+        "label": "Cham",
+        "typ": "Station"
+      },
+      {
+        "id": "station_gisikon_root",
+        "code": "GSK",
+        "label": "Gisikon-Root",
+        "typ": "Station"
+      },
+      {
+        "id": "station-ebikon",
+        "code": "EBI",
+        "label": "Ebikon",
+        "typ": "Station"
+      },
+      {
+        "id": "station_längenbold",
+        "code": "",
+        "label": "Längenbold",
+        "typ": "Station"
+      },
+      {
+        "id": "station_buchrain",
+        "code": "BURN",
+        "label": "Buchrain",
+        "typ": "Station"
+      },
+      {
+        "id": "station_zug",
+        "code": "ZG",
+        "label": "Zug",
+        "typ": "Station"
+      }
+    ],
+    "511": [
+      {
+        "id": "station_brugg_ag",
+        "code": "BG",
+        "label": "Brugg AG",
+        "typ": "Station"
+      },
+      {
+        "id": "station_stein_säckingen",
+        "code": "STS",
+        "label": "Stein Säckingen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_mumpf",
+        "code": "MPF",
+        "label": "Mumpf",
+        "typ": "Station"
+      },
+      {
+        "id": "station_möhlin",
+        "code": "MOE",
+        "label": "Möhlin",
+        "typ": "Station"
+      },
+      {
+        "id": "station_rheinfelden",
+        "code": "RF",
+        "label": "Rheinfelden",
+        "typ": "Station"
+      },
+      {
+        "id": "station_kaiseraugst",
+        "code": "KAU",
+        "label": "Kaiseraugst",
+        "typ": "Station"
+      },
+      {
+        "id": "station_frick",
+        "code": "FCK",
+        "label": "Frick",
+        "typ": "Station"
+      },
+      {
+        "id": "station_eiken",
+        "code": "EI",
+        "label": "Eiken",
+        "typ": "Station"
+      },
+      {
+        "id": "station_rheinfelden_augarten",
+        "code": "RFAU",
+        "label": "Rheinfelden Augarten",
+        "typ": "Station"
+      },
+      {
+        "id": "station_pratteln_salina_raurica",
+        "code": "PRSR",
+        "label": "Pratteln Salina Raurica",
+        "typ": "Station"
+      },
+      {
+        "id": "station_hornussen",
+        "code": "",
+        "label": "Hornussen",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_effingen",
+        "code": "",
+        "label": "Effingen",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_schinznach_dorf",
+        "code": "",
+        "label": "Schinznach Dorf",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_villnachern",
+        "code": "",
+        "label": "Villnachern",
+        "typ": "unoccupied_station"
+      }
+    ],
+    "753": [
+      {
+        "id": "station_ebnat_kappel",
+        "code": "EK",
+        "label": "Ebnat-Kappel",
+        "typ": "Station"
+      },
+      {
+        "id": "station_nesslau",
+        "code": "NL",
+        "label": "Nesslau",
+        "typ": "Station"
+      },
+      {
+        "id": "station_krummenau",
+        "code": "KRU",
+        "label": "Krummenau",
+        "typ": "Station"
+      },
+      {
+        "id": "station_bazenheid",
+        "code": "BAZ",
+        "label": "Bazenheid",
+        "typ": "Station"
+      },
+      {
+        "id": "station_bütschwil",
+        "code": "BUET",
+        "label": "Bütschwil",
+        "typ": "Station"
+      },
+      {
+        "id": "station_lichtensteig",
+        "code": "LSG",
+        "label": "Lichtensteig",
+        "typ": "Station"
+      },
+      {
+        "id": "station_dietfurt",
+        "code": "DTF",
+        "label": "Dietfurt",
+        "typ": "Station"
+      },
+      {
+        "id": "station_lütisburg",
+        "code": "LUET",
+        "label": "Lütisburg",
+        "typ": "Station"
+      }
+    ],
+    "161": [
+      {
+        "id": "station_mülligen",
+        "code": "",
+        "label": "Mülligen",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_killwangen_spreitenbach",
+        "code": "KLW",
+        "label": "Killwangen-Spreitenbach",
+        "typ": "Station"
+      }
+    ],
+    "436": [
+      {
+        "id": "station_mellingen",
+        "code": "",
+        "label": "Mellingen",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_kölliken",
+        "code": "KK",
+        "label": "Kölliken",
+        "typ": "Station"
+      },
+      {
+        "id": "station_zofingen",
+        "code": "ZF",
+        "label": "Zofingen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_suhr",
+        "code": "SUHR",
+        "label": "Suhr",
+        "typ": "Station"
+      },
+      {
+        "id": "station_safenwil",
+        "code": "SAF",
+        "label": "Safenwil",
+        "typ": "Station"
+      },
+      {
+        "id": "station_oberentfelden",
+        "code": "OEF",
+        "label": "Oberentfelden",
+        "typ": "Station"
+      },
+      {
+        "id": "station_kölliken_oberdorf",
+        "code": "KKO",
+        "label": "Kölliken Oberdorf",
+        "typ": "Station"
+      },
+      {
+        "id": "station_walterswil_striegel",
+        "code": "WAST",
+        "label": "Walterswil/Striegel",
+        "typ": "Station"
+      },
+      {
+        "id": "station_küngoldingen",
+        "code": "KGD",
+        "label": "Kühngoldingen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_wettingen",
+        "code": "",
+        "label": "Wettingen",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_hunzenschwil",
+        "code": "HU",
+        "label": "Hunzenschwil",
+        "typ": "Station"
+      }
+    ],
+    "771": [
+      {
+        "id": "station_schlatt",
+        "code": "SCHT",
+        "label": "Schlatt",
+        "typ": "Station"
+      },
+      {
+        "id": "station_langwiesen",
+        "code": "LAN",
+        "label": "Langwiesen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_st_katharinental",
+        "code": "STKT",
+        "label": "St. Katharinental",
+        "typ": "Station"
+      },
+      {
+        "id": "station_diessenhofen",
+        "code": "DSH",
+        "label": "Diessenhofen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_stein_am_rhein",
+        "code": "STR",
+        "label": "Stein am Rhein",
+        "typ": "Station"
+      },
+      {
+        "id": "station_eschenz",
+        "code": "EZ",
+        "label": "Eschenz",
+        "typ": "Station"
+      },
+      {
+        "id": "station_mammern",
+        "code": "MAM",
+        "label": "Mammern",
+        "typ": "Station"
+      },
+      {
+        "id": "station_schlattingen",
+        "code": "SCHN",
+        "label": "Schlattingen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_steckborn",
+        "code": "STK",
+        "label": "Steckborn",
+        "typ": "Station"
+      },
+      {
+        "id": "station_ermatingen",
+        "code": "ERM",
+        "label": "Ermatingen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_tägerwilen_gottlieben",
+        "code": "TAEG",
+        "label": "Tägerwilen-Gottlieben",
+        "typ": "Station"
+      },
+      {
+        "id": "station_kreuzlingen",
+        "code": "KR",
+        "label": "Kreuzlingen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_berlingen",
+        "code": "BER",
+        "label": "Berlingen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_etwwilen",
+        "code": "EW",
+        "label": "Etzwilen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_feuerthalen",
+        "code": "FT",
+        "label": "Feuerthalen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_mannenbach",
+        "code": "MANN",
+        "label": "Mannenbach",
+        "typ": "Station"
+      },
+      {
+        "id": "station_triboltingen",
+        "code": "TRIB",
+        "label": "Triboltingen",
+        "typ": "Station"
+      }
+    ],
+    "521": [
+      {
+        "id": "station_lupfig",
+        "code": "LUPF",
+        "label": "Lupfig",
+        "typ": "Station"
+      },
+      {
+        "id": "station_birr",
+        "code": "BIRR",
+        "label": "Birr",
+        "typ": "Station"
+      },
+      {
+        "id": "station_lenzburg",
+        "code": "LB",
+        "label": "Lenzburg",
+        "typ": "Station"
+      },
+      {
+        "id": "station_henschiken",
+        "code": "HDK",
+        "label": "Henschiken",
+        "typ": "Station"
+      },
+      {
+        "id": "station_wohlen",
+        "code": "WO",
+        "label": "Wohlen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_dottikon_dintikon",
+        "code": "DOT",
+        "label": "Dottikon-Dintikon",
+        "typ": "Station"
+      },
+      {
+        "id": "station_muri",
+        "code": "MI",
+        "label": "Muri",
+        "typ": "Station"
+      },
+      {
+        "id": "station_boswil_bünzen",
+        "code": "BOS",
+        "label": "Boswil-Bünzen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_mühlau",
+        "code": "MUEH",
+        "label": "Mühlau",
+        "typ": "Station"
+      },
+      {
+        "id": "station_sins",
+        "code": "SINS",
+        "label": "Sins",
+        "typ": "Station"
+      },
+      {
+        "id": "station-oberrüti",
+        "code": "OI",
+        "label": "Oberrüti",
+        "typ": "Station"
+      },
+      {
+        "id": "station_othmarsingen",
+        "code": "OTH",
+        "label": "Othmarsingen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_benzenschwil",
+        "code": "BNZ",
+        "label": "Benzenschwil",
+        "typ": "Station"
+      },
+      {
+        "id": "station_gexi",
+        "code": "",
+        "label": "Gexi",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_brunegg",
+        "code": "",
+        "label": "Brunegg",
+        "typ": "unoccupied_station"
+      }
+    ],
+    "772": [
+      {
+        "id": "station_kreuzlingen_hafen",
+        "code": "KRH",
+        "label": "Kreuzlingen Hafen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_arbon",
+        "code": "ARB",
+        "label": "Arbon",
+        "typ": "Station"
+      },
+      {
+        "id": "station_münsterlingen_scherzingen",
+        "code": "MSCH",
+        "label": "Münsterlingen Scherzingen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_altnau",
+        "code": "ALN",
+        "label": "Altnau",
+        "typ": "Station"
+      },
+      {
+        "id": "station_güttingen",
+        "code": "GUET",
+        "label": "Güttingen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_uttwil",
+        "code": "UTW",
+        "label": "Uttwil",
+        "typ": "Station"
+      },
+      {
+        "id": "station_arbon_seemoosriet",
+        "code": "ARBS",
+        "label": "Arbon Seemoosriet",
+        "typ": "Station"
+      },
+      {
+        "id": "station_steinach",
+        "code": "STCH",
+        "label": "Steinach",
+        "typ": "Station"
+      },
+      {
+        "id": "station_horn",
+        "code": "HN",
+        "label": "Horn",
+        "typ": "Station"
+      },
+      {
+        "id": "station_rorschach_hafen",
+        "code": "RSHF",
+        "label": "Rorschach Hafen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_egnach",
+        "code": "EGN",
+        "label": "Egnach",
+        "typ": "Station"
+      },
+      {
+        "id": "station_konstanz",
+        "code": "KO",
+        "label": "Konstanz",
+        "typ": "Station"
+      },
+      {
+        "id": "station_bottighofen",
+        "code": "BOT",
+        "label": "Bottighofen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_kurzrickenbach _seepark",
+        "code": "KURZ",
+        "label": "Kurzrickenbach Seepark",
+        "typ": "Station"
+      },
+      {
+        "id": "station_kesswil",
+        "code": "KWL",
+        "label": "Kesswil",
+        "typ": "Station"
+      },
+      {
+        "id": "station_landschlacht",
+        "code": "LDS",
+        "label": "Landschlacht",
+        "typ": "Station"
+      },
+      {
+        "id": "station_münsterlingen_spital",
+        "code": "MSPI",
+        "label": "Münsterlingen Spital",
+        "typ": "Station"
+      }
+    ],
+    "742": [
+      {
+        "id": "station_kradolf",
+        "code": "KRA",
+        "label": "Kradolf",
+        "typ": "Station"
+      },
+      {
+        "id": "station_bischofszell_nord",
+        "code": "BZN",
+        "label": "Bischofszell Nord",
+        "typ": "Station"
+      },
+      {
+        "id": "station_bischofszell Stadt",
+        "code": "BZS",
+        "label": "Bischofszell Stadt",
+        "typ": "Station"
+      },
+      {
+        "id": "station_hauptwil",
+        "code": "HPT",
+        "label": "Hauptwil",
+        "typ": "Station"
+      },
+      {
+        "id": "station_arnegg",
+        "code": "ARN",
+        "label": "Arnegg",
+        "typ": "Station"
+      },
+      {
+        "id": "station_sitterdorf",
+        "code": "SIT",
+        "label": "Sitterdorf",
+        "typ": "Station"
+      }
+    ],
+    "721": [
+      {
+        "id": "station_goldach",
+        "code": "GOL",
+        "label": "Goldach",
+        "typ": "Station"
+      },
+      {
+        "id": "station_staad",
+        "code": "STA",
+        "label": "Staad",
+        "typ": "Station"
+      },
+      {
+        "id": "station_salez_sennwald",
+        "code": "SAS",
+        "label": "Salez-Sennwald",
+        "typ": "Station"
+      },
+      {
+        "id": "station-rüthi_sg",
+        "code": "RTH",
+        "label": "Rüthi SG",
+        "typ": "Station"
+      },
+      {
+        "id": "station_oberriet",
+        "code": "ORT",
+        "label": "Oberriet",
+        "typ": "Station"
+      },
+      {
+        "id": "station_altstätten_sg",
+        "code": "ALT",
+        "label": "Altstätten SG",
+        "typ": "Station"
+      },
+      {
+        "id": "station_au_sg",
+        "code": "AUSG",
+        "label": "Au SG",
+        "typ": "Station"
+      },
+      {
+        "id": "station_rebstein_marbach",
+        "code": "REB",
+        "label": "Rebstein-Marbach",
+        "typ": "Station"
+      },
+      {
+        "id": "station_heerbrugg",
+        "code": "HEBG",
+        "label": "Heerbrugg",
+        "typ": "Station"
+      },
+      {
+        "id": "station_rheineck",
+        "code": "RCK",
+        "label": "Rheineck",
+        "typ": "Station"
+      },
+      {
+        "id": "station_rorschach",
+        "code": "RS",
+        "label": "Rorschach",
+        "typ": "Station"
+      },
+      {
+        "id": "station_st_margrethen",
+        "code": "SMG",
+        "label": "St. Margrethen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_haag_gams",
+        "code": "HAG",
+        "label": "Haag-Gams",
+        "typ": "Station"
+      },
+      {
+        "id": "station_mörschwil",
+        "code": "MOER",
+        "label": "Mörschwil",
+        "typ": "Station"
+      },
+      {
+        "id": "station_rorschach_stadt",
+        "code": "RSST",
+        "label": "Rorschach Stadt",
+        "typ": "Station"
+      }
+    ],
+    "641": [
+      {
+        "id": "station_flums",
+        "code": "FMS",
+        "label": "Flums",
+        "typ": "Station"
+      },
+      {
+        "id": "station_walenstadt",
+        "code": "WAL",
+        "label": "Walenstadt",
+        "typ": "Station"
+      },
+      {
+        "id": "station_mols",
+        "code": "MOLS",
+        "label": "Mols",
+        "typ": "Station"
+      },
+      {
+        "id": "station_mels",
+        "code": "MELS",
+        "label": "Mels",
+        "typ": "Station"
+      },
+      {
+        "id": "station_altendorf",
+        "code": "ALTD",
+        "label": "Altendorf",
+        "typ": "Station"
+      },
+      {
+        "id": "station_lachen",
+        "code": "LA",
+        "label": "Lachen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_siebnen_wangen",
+        "code": "SIB",
+        "label": "Siebnen-Wangen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_schüberbach_buttikon",
+        "code": "SCBU",
+        "label": "Schübelbach-Buttikon",
+        "typ": "Station"
+      },
+      {
+        "id": "station_reichenburg",
+        "code": "RG",
+        "label": "Reichenburg",
+        "typ": "Station"
+      },
+      {
+        "id": "station_bilten",
+        "code": "BIL",
+        "label": "Bilten",
+        "typ": "Station"
+      },
+      {
+        "id": "station_weesen",
+        "code": "WN",
+        "label": "Weesen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_ziegelbrücke",
+        "code": "ZB",
+        "label": "Ziegelbrücke",
+        "typ": "Station"
+      },
+      {
+        "id": "station_murg",
+        "code": "MG",
+        "label": "Murg",
+        "typ": "Station"
+      },
+      {
+        "id": "station_mühlehorn",
+        "code": "MH",
+        "label": "Mühlehorn",
+        "typ": "Station"
+      },
+      {
+        "id": "station_sargans",
+        "code": "SA",
+        "label": "Sargans",
+        "typ": "Station"
+      },
+      {
+        "id": "ststion_unterterzen",
+        "code": "UNT",
+        "label": "Unterterzen",
+        "typ": "Station"
+      }
+    ],
+    "531": [
+      {
+        "id": "station_art_goldau",
+        "code": "GD",
+        "label": "Arth-Goldau",
+        "typ": "Station"
+      },
+      {
+        "id": "station_steinen",
+        "code": "STN",
+        "label": "Steinen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_brunnen",
+        "code": "BRU",
+        "label": "Brunnen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_flüelen",
+        "code": "FL",
+        "label": "Flüelen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_schwyz",
+        "code": "SCHW",
+        "label": "Schwyz",
+        "typ": "Station"
+      },
+      {
+        "id": "station_brunnmatt",
+        "code": "",
+        "label": "Brunnmatt",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_amsteg_silenen",
+        "code": "AS",
+        "label": "Amsteg-Silenen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_erstfeld",
+        "code": "ER",
+        "label": "Erstfeld",
+        "typ": "Station"
+      },
+      {
+        "id": "station_wassen",
+        "code": "WAS",
+        "label": "Wassen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_gurtnellen",
+        "code": "GU",
+        "label": "Gurtnellen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_ried",
+        "code": "",
+        "label": "Ried",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_rotkreuz",
+        "code": "RK",
+        "label": "Rotkreuz",
+        "typ": "Station"
+      },
+      {
+        "id": "station_immensee",
+        "code": "IM",
+        "label": "Immensee",
+        "typ": "Station"
+      },
+      {
+        "id": "station_zgraggen",
+        "code": "",
+        "label": "Zgraggen",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_sisikon",
+        "code": "SK",
+        "label": "Sisikon",
+        "typ": "Station"
+      }
+    ],
+    "791": [
+      {
+        "id": "station_herisau",
+        "code": "HE",
+        "label": "Herisau",
+        "typ": "Station"
+      },
+      {
+        "id": "station_st_gallen_haggen",
+        "code": "SGHA",
+        "label": "St. Gallen-Haggen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_gübsensee",
+        "code": "GUEB",
+        "label": "Gübsensee",
+        "typ": "Station"
+      },
+      {
+        "id": "station_brunnadern_neckertal",
+        "code": "BRN",
+        "label": "Brunnadern-Neckertal",
+        "typ": "Station"
+      },
+      {
+        "id": "station_mogelsberg",
+        "code": "MOG",
+        "label": "Mogelsberg",
+        "typ": "Station"
+      },
+      {
+        "id": "station_degerseheim",
+        "code": "DG",
+        "label": "Degerseheim",
+        "typ": "Station"
+      },
+      {
+        "id": "station_schachen",
+        "code": "SCH",
+        "label": "Schachen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_wittenbach",
+        "code": "WIT",
+        "label": "Wittenbach",
+        "typ": "Station"
+      },
+      {
+        "id": "station_roggwil_berg",
+        "code": "ROBG",
+        "label": "Roggwil-Berg",
+        "typ": "Station"
+      },
+      {
+        "id": "station_neukirch_egnach",
+        "code": "NK",
+        "label": "Neukirch-Egnach",
+        "typ": "Station"
+      },
+      {
+        "id": "station_steinebrunn",
+        "code": "STB",
+        "label": "Steinebrunn",
+        "typ": "Station"
+      },
+      {
+        "id": "station_häggenschwil_winden",
+        "code": "HAEW",
+        "label": "Häggenschwil-Winden",
+        "typ": "Station"
+      },
+      {
+        "id": "station_muolen",
+        "code": "MUO",
+        "label": "Muolen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_tl-häggenschwil_winden",
+        "code": "",
+        "label": "TL Häggenschwil-Winden",
+        "typ": "unoccupied_station"
+      }
+    ],
+    "761": [
+      {
+        "id": "station_berg",
+        "code": "BERG",
+        "label": "Berg",
+        "typ": "Station"
+      },
+      {
+        "id": "station_siegershausen",
+        "code": "SHAU",
+        "label": "Siegershausen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_lengwil",
+        "code": "LENG",
+        "label": "Lengwil",
+        "typ": "Station"
+      },
+      {
+        "id": "station_kreuzlingen_bernrain",
+        "code": "KRB",
+        "label": "Kreuzlingen Bernrain",
+        "typ": "Station"
+      },
+      {
+        "id": "station_bronschhofen_amp",
+        "code": "BROA",
+        "label": "Bronschofen AMP",
+        "typ": "Station"
+      },
+      {
+        "id": "station_bronschofen",
+        "code": "BRO",
+        "label": "Bronschofen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_bettwiesen",
+        "code": "BTW",
+        "label": "Bettwiesen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_tobel_affeltrangen",
+        "code": "TOA",
+        "label": "Tobel-Affeltrangen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_märwil",
+        "code": "MAE",
+        "label": "Märwil",
+        "typ": "Station"
+      },
+      {
+        "id": "station_bussnang",
+        "code": "BNG",
+        "label": "Bussnang",
+        "typ": "Station"
+      },
+      {
+        "id": "station-kehlhof",
+        "code": "KHF",
+        "label": "Kehlhof",
+        "typ": "Station"
+      },
+      {
+        "id": "station_oppikon",
+        "code": "OPP",
+        "label": "Oppikon",
+        "typ": "Station"
+      },
+      {
+        "id": "station_tägherwilen_dorf",
+        "code": "TAEM",
+        "label": "Tägerwilen Dorf",
+        "typ": "Station"
+      },
+      {
+        "id": "station_tägerschen",
+        "code": "TAEN",
+        "label": "Tägerschen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_tlt",
+        "code": "",
+        "label": "TLT",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_oberwintherthur_ua-6",
+        "code": "AHAU",
+        "label": "Altishausen",
+        "typ": "unoccupied_station"
+      }
+    ],
+    "453": [
+      {
+        "id": "station_luzern",
+        "code": "LZ",
+        "label": "Luzern",
+        "typ": "Station"
+      },
+      {
+        "id": "station_hergiswil",
+        "code": "HGW",
+        "label": "Hergiswil",
+        "typ": "Station"
+      },
+      {
+        "id": "station_horw",
+        "code": "HW",
+        "label": "Horw",
+        "typ": "Station"
+      },
+      {
+        "id": "station_hergiswil_matt",
+        "code": "MATT",
+        "label": "Hergiswil Matt",
+        "typ": "Station"
+      },
+      {
+        "id": "station_kriens_mattenhof",
+        "code": "KRM",
+        "label": "Kriens Mattenhof",
+        "typ": "Station"
+      },
+      {
+        "id": "station_eichwald",
+        "code": "",
+        "label": "Eichwald",
+        "typ": "unoccupied_station"
+      }
+    ],
+    "332": [
+      {
+        "id": "station_gütsch",
+        "code": "",
+        "label": "Gütsch",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_wiggen",
+        "code": "WIG",
+        "label": "Wiggen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_schüpfheim",
+        "code": "SCHH",
+        "label": "Schüpfheim",
+        "typ": "Station"
+      },
+      {
+        "id": "station_littau",
+        "code": "LIT",
+        "label": "Littau",
+        "typ": "Station"
+      },
+      {
+        "id": "station_langnau",
+        "code": "LN",
+        "label": "Langnau",
+        "typ": "Station"
+      },
+      {
+        "id": "station_trubschachen",
+        "code": "TSCH",
+        "label": "Trubschachen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_hasle",
+        "code": "HAS",
+        "label": "Hasle",
+        "typ": "Station"
+      },
+      {
+        "id": "station_doppleschwand",
+        "code": "",
+        "label": "Doppleschwand",
+        "typ": "Station"
+      },
+      {
+        "id": "station_werthenstein",
+        "code": "WST",
+        "label": "Werthenstein",
+        "typ": "Station"
+      }
+    ],
+    "422": [
+      {
+        "id": "station_rothenburg",
+        "code": "RBG",
+        "label": "Rothenburg",
+        "typ": "Station"
+      },
+      {
+        "id": "station_emmenbrücke",
+        "code": "EBR",
+        "label": "Emmenbrücke",
+        "typ": "Station"
+      },
+      {
+        "id": "station_dagmarsellen",
+        "code": "DAG",
+        "label": "Dagmarsellen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_rothenburg_dorf",
+        "code": "RBGD",
+        "label": "Rothenburg Dorf",
+        "typ": "Station"
+      },
+      {
+        "id": "station_st_erhard_knuttwil",
+        "code": "STER",
+        "label": "St. Erhard-Knuttwil",
+        "typ": "Station"
+      },
+      {
+        "id": "station_sursee",
+        "code": "SS",
+        "label": "Sursee",
+        "typ": "Station"
+      },
+      {
+        "id": "station_oberkirch",
+        "code": "OBK",
+        "label": "Oberkirch",
+        "typ": "Station"
+      },
+      {
+        "id": "station_gersag",
+        "code": "GSAG",
+        "label": "Gersag",
+        "typ": "Station"
+      },
+      {
+        "id": "station_sempach_neuenkirch",
+        "code": "SEM",
+        "label": "Sempach-Neuenkirch",
+        "typ": "Station"
+      },
+      {
+        "id": "station_brittnau_wikon",
+        "code": "BRIT",
+        "label": "Brittnau-Wikon",
+        "typ": "Station"
+      },
+      {
+        "id": "station_nebikon",
+        "code": "NEB",
+        "label": "Nebikon",
+        "typ": "Station"
+      },
+      {
+        "id": "station_nottwil",
+        "code": "NO",
+        "label": "Nottwil",
+        "typ": "Station"
+      },
+      {
+        "id": "station_olten_rb",
+        "code": "",
+        "label": "Olten RB",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_reiden",
+        "code": "REID",
+        "label": "Reiden",
+        "typ": "Station"
+      },
+      {
+        "id": "station_wauwil",
+        "code": "WAU",
+        "label": "Wauwil",
+        "typ": "Station"
+      }
+    ],
+    "431": [
+      {
+        "id": "station_hitzkirch",
+        "code": "HIK",
+        "label": "Hitzkirch",
+        "typ": "Station"
+      },
+      {
+        "id": "station_ballwil",
+        "code": "BLL",
+        "label": "Ballwil",
+        "typ": "Station"
+      },
+      {
+        "id": "station_waldibrücke",
+        "code": "WAB",
+        "label": "Waldibrücke",
+        "typ": "Station"
+      },
+      {
+        "id": "station_eschenbach",
+        "code": "ESB",
+        "label": "Eschenbach",
+        "typ": "Station"
+      },
+      {
+        "id": "station_hochdorf_schönau",
+        "code": "HOSA",
+        "label": "Hochdorf Schönau",
+        "typ": "Station"
+      },
+      {
+        "id": "station_boniswil_seengen",
+        "code": "BONI",
+        "label": "Boniswil-Seengen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_baldegg_kloster",
+        "code": "BLBK",
+        "label": "Baldegg Kloster",
+        "typ": "Station"
+      },
+      {
+        "id": "station_baldegg",
+        "code": "BLG",
+        "label": "Baldegg",
+        "typ": "Station"
+      },
+      {
+        "id": "station_beinwil_am_see",
+        "code": "BW",
+        "label": "Beinwil am See",
+        "typ": "Station"
+      },
+      {
+        "id": "station_ermensee",
+        "code": "ESEE",
+        "label": "Ermensee",
+        "typ": "Station"
+      },
+      {
+        "id": "station_mosen",
+        "code": "MO",
+        "label": "Mosen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_birrwil",
+        "code": "BWL",
+        "label": "Birrwil",
+        "typ": "Station"
+      },
+      {
+        "id": "station_hochdorf",
+        "code": "HO",
+        "label": "Hochdorf",
+        "typ": "Station"
+      },
+      {
+        "id": "station_gelfingen",
+        "code": "GELF",
+        "label": "Gelfingen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_hallwil_dürrenäsch",
+        "code": "HD",
+        "label": "Hallwil-Dürrenäsch",
+        "typ": "Station"
+      },
+      {
+        "id": "station_seon",
+        "code": "SE",
+        "label": "Seon",
+        "typ": "Station"
+      }
+    ],
+    "322": [
+      {
+        "id": "station_escholzmatt",
+        "code": "ESCH",
+        "label": "Escholzmatt",
+        "typ": "Station"
+      },
+      {
+        "id": "station_ostermundigen",
+        "code": "OST",
+        "label": "Ostermundigen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_bern_wankdorf",
+        "code": "BNWD",
+        "label": "Bern Wankdorf",
+        "typ": "Station"
+      },
+      {
+        "id": "station_bern_wylerfeld",
+        "code": "",
+        "label": "Bern_Wylerfeld",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_gümligen",
+        "code": "GUE",
+        "label": "Gümligen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_bern_weyermannshaus",
+        "code": "",
+        "label": "Bern Weyermannshaus",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_bern",
+        "code": "BN",
+        "label": "Bern",
+        "typ": "Station"
+      },
+      {
+        "id": "station_rubigen",
+        "code": "RUB",
+        "label": "Rubigen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_münsingen",
+        "code": "MS",
+        "label": "Münsingen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_utigen",
+        "code": "UTI",
+        "label": "Utigen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_kiesen",
+        "code": "KI",
+        "label": "Kiesen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_wichtracht",
+        "code": "WCH",
+        "label": "Wichtracht",
+        "typ": "Station"
+      },
+      {
+        "id": "station_einigen",
+        "code": "EIN",
+        "label": "Einigen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_gwatt",
+        "code": "GW",
+        "label": "Gwatt",
+        "typ": "Station"
+      },
+      {
+        "id": "station_thun",
+        "code": "TH",
+        "label": "Thun",
+        "typ": "Station"
+      },
+      {
+        "id": "station_heustrich",
+        "code": "HEU",
+        "label": "Heustrich",
+        "typ": "Station"
+      },
+      {
+        "id": "station_spiez",
+        "code": "SP",
+        "label": "Spiez",
+        "typ": "Station"
+      },
+      {
+        "id": "station_reichenbach",
+        "code": "REIK",
+        "label": "Reichenbach",
+        "typ": "Station"
+      },
+      {
+        "id": "station_mülenen",
+        "code": "MUE",
+        "label": "Mülenen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_wolhusen",
+        "code": "WH",
+        "label": "Wolhusen",
+        "typ": "Station"
+      },
+      {
+        "id": "path2059",
+        "code": "SCH",
+        "label": "Schachen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_malters",
+        "code": "MAL",
+        "label": "Malters",
+        "typ": "Station"
+      },
+      {
+        "id": "station_entlebuch",
+        "code": "ENT",
+        "label": "Entlebuch",
+        "typ": "Station"
+      },
+      {
+        "id": "station_löchligut",
+        "code": "",
+        "label": "Löchligut",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_depot_spiez",
+        "code": "",
+        "label": "Depot Spiez",
+        "typ": "unoccupied_station"
+      }
+    ],
+    "532": [
+      {
+        "id": "station_meggen",
+        "code": "MEG",
+        "label": "Meggen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_küssnacht_am_rigi",
+        "code": "KUE",
+        "label": "Küssnacht am Rigi",
+        "typ": "Station"
+      },
+      {
+        "id": "station_verkehrshaus",
+        "code": "",
+        "label": "Verkehrshaus",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_meggen_zentrum",
+        "code": "MEGZ",
+        "label": "Meggen Zentrum",
+        "typ": "Station"
+      },
+      {
+        "id": "station_merlischachen",
+        "code": "MERL",
+        "label": "Merlischachen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_blz",
+        "code": "",
+        "label": "BLZ",
+        "typ": "unoccupied_station"
+      }
+    ],
+    "331": [
+      {
+        "id": "station_obermatt",
+        "code": "OM",
+        "label": "Obermatt",
+        "typ": "Station"
+      },
+      {
+        "id": "station_konolfingen",
+        "code": "KF",
+        "label": "Konolfingen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_bowil",
+        "code": "BOW",
+        "label": "Bowil",
+        "typ": "Station"
+      },
+      {
+        "id": "station_emmenmatt",
+        "code": "EMM",
+        "label": "Emmenmatt",
+        "typ": "Station"
+      },
+      {
+        "id": "station_tägertschi",
+        "code": "TI",
+        "label": "Tägertschi",
+        "typ": "Station"
+      },
+      {
+        "id": "station_zäziwil",
+        "code": "ZAE",
+        "label": "Zäziwil",
+        "typ": "Station"
+      },
+      {
+        "id": "station_worb",
+        "code": "WB",
+        "label": "Worb",
+        "typ": "Station"
+      },
+      {
+        "id": "station_signau",
+        "code": "SIGN",
+        "label": "Signau",
+        "typ": "Station"
+      }
+    ],
+    "141": [
+      {
+        "id": "station_aarburg_oftringen",
+        "code": "ABO",
+        "label": "Aarburg Oftringen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_schönbühl",
+        "code": "SCHB",
+        "label": "Schönbühl",
+        "typ": "Station"
+      },
+      {
+        "id": "station_zollikofen",
+        "code": "ZOL",
+        "label": "Zollikofen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_lyssach",
+        "code": "LYS",
+        "label": "Lyssach",
+        "typ": "Station"
+      },
+      {
+        "id": "station_hindelbank",
+        "code": "HBK",
+        "label": "Hindelbank",
+        "typ": "Station"
+      },
+      {
+        "id": "station_wynigen",
+        "code": "WY",
+        "label": "Wynigen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_herzogenbuchsee",
+        "code": "HB",
+        "label": "Herzogenbuchsee",
+        "typ": "Station"
+      },
+      {
+        "id": "station_riedtwil",
+        "code": "RTW",
+        "label": "Riedtwil",
+        "typ": "Station"
+      },
+      {
+        "id": "station_rothrist",
+        "code": "RTR",
+        "label": "Rothrist",
+        "typ": "Station"
+      },
+      {
+        "id": "station_murgenthal",
+        "code": "MGT",
+        "label": "Murgenthal",
+        "typ": "Station"
+      },
+      {
+        "id": "station_burgdorf",
+        "code": "BDF",
+        "label": "Burgdorf",
+        "typ": "Station"
+      },
+      {
+        "id": "station_mattstetten",
+        "code": "",
+        "label": "Mattstetten",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_roggwil",
+        "code": "ROG",
+        "label": "Roggwil",
+        "typ": "Station"
+      }
+    ],
+    "451": [
+      {
+        "id": "station_niederried",
+        "code": "NR",
+        "label": "Niederried",
+        "typ": "Station"
+      },
+      {
+        "id": "station_brienz",
+        "code": "BRZ",
+        "label": "Brienz",
+        "typ": "Station"
+      },
+      {
+        "id": "station_ringgenberg",
+        "code": "RIN",
+        "label": "Ringgenberg",
+        "typ": "Station"
+      },
+      {
+        "id": "station_brienzwiler",
+        "code": "BRW",
+        "label": "Brienzwiler",
+        "typ": "Station"
+      },
+      {
+        "id": "station_meiringen",
+        "code": "MR",
+        "label": "Meiringen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_oberried",
+        "code": "OAB",
+        "label": "Oberried",
+        "typ": "Station"
+      },
+      {
+        "id": "station_brienz_west",
+        "code": "BRZW",
+        "label": "Brienz West",
+        "typ": "Station"
+      },
+      {
+        "id": "station_ebligen",
+        "code": "EBLI",
+        "label": "Ebligen",
+        "typ": "Station"
+      }
+    ],
+    "452": [
+      {
+        "id": "station_brünig_hasliberg",
+        "code": "BRUE",
+        "label": "Brünig-Hasliberg",
+        "typ": "Station"
+      },
+      {
+        "id": "station_lungern",
+        "code": "LUN",
+        "label": "Lungern",
+        "typ": "Station"
+      },
+      {
+        "id": "station_giswil",
+        "code": "GI",
+        "label": "Giswil",
+        "typ": "Station"
+      },
+      {
+        "id": "station_sarnen",
+        "code": "SAR",
+        "label": "Sarnen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_alpnach_dorf",
+        "code": "ADF",
+        "label": "Alpnach Dorf",
+        "typ": "Station"
+      },
+      {
+        "id": "station_alpnachstad",
+        "code": "AST",
+        "label": "Alpnachstad",
+        "typ": "Station"
+      },
+      {
+        "id": "path2056",
+        "code": "KAAG",
+        "label": "Kaiserstuhl",
+        "typ": "Station"
+      },
+      {
+        "id": "station_kerns_kägiswil",
+        "code": "KER",
+        "label": "Kerns-Kägiswil",
+        "typ": "Station"
+      }
+    ],
+    "361": [
+      {
+        "id": "station_interlaken_ost",
+        "code": "IO",
+        "label": "Interlaken Ost",
+        "typ": "Station"
+      },
+      {
+        "id": "station_interlaken_west",
+        "code": "IW",
+        "label": "Interlaken West",
+        "typ": "Station"
+      }
+    ],
+    "454": [
+      {
+        "id": "station_stansstad",
+        "code": "SSTA",
+        "label": "Stansstad",
+        "typ": "Station"
+      },
+      {
+        "id": "station_engelberg",
+        "code": "EBG",
+        "label": "Engelberg",
+        "typ": "Station"
+      }
+    ],
+    "311": [
+      {
+        "id": "station_wagen_bei_olten",
+        "code": "WBOL",
+        "label": "Wangen bei Olten",
+        "typ": "Station"
+      },
+      {
+        "id": "station_hägendorf",
+        "code": "HAE",
+        "label": "Hägendorf",
+        "typ": "Station"
+      },
+      {
+        "id": "station_härkingen_post",
+        "code": "HRK",
+        "label": "Härkingen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_egerkingen",
+        "code": "EG",
+        "label": "Egerkingen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_oberbuchsiten",
+        "code": "OB",
+        "label": "Oberbuchsiten",
+        "typ": "Station"
+      },
+      {
+        "id": "station_oensingen",
+        "code": "OEN",
+        "label": "Oensingen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_niederbipp",
+        "code": "NB",
+        "label": "Niederbipp",
+        "typ": "Station"
+      },
+      {
+        "id": "station_wangen_a_a",
+        "code": "WAA",
+        "label": "Wangen a.A.",
+        "typ": "Station"
+      },
+      {
+        "id": "station_deitingen",
+        "code": "DN",
+        "label": "Deitingen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_luterbach",
+        "code": "LUT",
+        "label": "Luterbach",
+        "typ": "Station"
+      },
+      {
+        "id": "station_biel_rb",
+        "code": "",
+        "label": "Biel RB",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_solothurn",
+        "code": "SO",
+        "label": "Solothurn",
+        "typ": "Station"
+      },
+      {
+        "id": "station_bettlch",
+        "code": "BET",
+        "label": "Bettlach",
+        "typ": "Station"
+      },
+      {
+        "id": "station_grenchen_süd",
+        "code": "GS",
+        "label": "Grenchen Süd",
+        "typ": "Station"
+      },
+      {
+        "id": "station_selzach",
+        "code": "SEL",
+        "label": "Selzach",
+        "typ": "Station"
+      },
+      {
+        "id": "station_bellach",
+        "code": "BELL",
+        "label": "Bellach",
+        "typ": "Station"
+      },
+      {
+        "id": "station_olten_hammer",
+        "code": "OLH",
+        "label": "Olten Hammer",
+        "typ": "Station"
+      },
+      {
+        "id": "station_solothurn_west",
+        "code": "SW",
+        "label": "Solothurn West",
+        "typ": "Station"
+      },
+      {
+        "id": "station_balsthal",
+        "code": "BTH",
+        "label": "Balsthal",
+        "typ": "Station"
+      }
+    ],
+    "421": [
+      {
+        "id": "station_trimbach",
+        "code": "TRI",
+        "label": "Trimbach",
+        "typ": "Station"
+      },
+      {
+        "id": "station_diepfingen",
+        "code": "DIE",
+        "label": "Diepfingen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_somerau",
+        "code": "SOM",
+        "label": "station_somerau",
+        "typ": "Station"
+      },
+      {
+        "id": "station_rümlingen",
+        "code": "RLG",
+        "label": "Rümlingen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_buckten",
+        "code": "BUC",
+        "label": "Buckten",
+        "typ": "Station"
+      },
+      {
+        "id": "station_olten",
+        "code": "OL",
+        "label": "Olten",
+        "typ": "Station"
+      },
+      {
+        "id": "station_läufelfingen",
+        "code": "LF",
+        "label": "Läufelfingen",
+        "typ": "Station"
+      }
+    ],
+    "411": [
+      {
+        "id": "station_itingen",
+        "code": "IT",
+        "label": "Itingen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_gik",
+        "code": "",
+        "label": "ANG Swissterminal Frenkendorf",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_tecknau",
+        "code": "TK",
+        "label": "Tecknau",
+        "typ": "Station"
+      },
+      {
+        "id": "station_gelterkinden",
+        "code": "GKD",
+        "label": "Gelterkinden",
+        "typ": "Station"
+      },
+      {
+        "id": "station_sissach",
+        "code": "SIS",
+        "label": "Sissach",
+        "typ": "Station"
+      },
+      {
+        "id": "station_liestal",
+        "code": "LST",
+        "label": "Liestal",
+        "typ": "Station"
+      },
+      {
+        "id": "station_frenkendorf_füllinsdorf",
+        "code": "",
+        "label": "Frenkendorf Füllinsdorf",
+        "typ": "Station"
+      },
+      {
+        "id": "station_pratteln",
+        "code": "PR",
+        "label": "Pratteln",
+        "typ": "Station"
+      },
+      {
+        "id": "station_muttenz",
+        "code": "MU",
+        "label": "Muttenz",
+        "typ": "Station"
+      },
+      {
+        "id": "station_lausen",
+        "code": "LSN",
+        "label": "Lausen",
+        "typ": "Station"
+      }
+    ],
+    "502": [
+      {
+        "id": "station_basel_birsfelden_hafen",
+        "code": "",
+        "label": "Basel Birsfelden Hafen",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_gellert",
+        "code": "",
+        "label": "Gellert",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_basel_kleinhüningen_hafen",
+        "code": "",
+        "label": "Basel Kleinhüningen Hafen",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_basel_rb_west",
+        "code": "",
+        "label": "Basel RB West",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_basel_bad_bf",
+        "code": "BAD",
+        "label": "Basel Bad Bf",
+        "typ": "Station"
+      },
+      {
+        "id": "station_eow_haltingen",
+        "code": "",
+        "label": "EOW Haltingen",
+        "typ": "unoccupied_station"
+      }
+    ],
+    "341": [
+      {
+        "id": "station_basel_dreispitz",
+        "code": "",
+        "label": "Basel Dreispitz",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_grellingen",
+        "code": "GREL",
+        "label": "Grellingen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_zwingen",
+        "code": "ZWG",
+        "label": "Zwingen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_laufen",
+        "code": "LFN",
+        "label": "Laufen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_duggingen",
+        "code": "DUG",
+        "label": "Duggingen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_dorchnach-arlesheim",
+        "code": "DOR",
+        "label": "Dornach-Arlesheim",
+        "typ": "Station"
+      },
+      {
+        "id": "station_basel_gb",
+        "code": "",
+        "label": "Basel GB",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "path12859",
+        "code": "DSPZ",
+        "label": "Dreispitz",
+        "typ": "Station"
+      },
+      {
+        "id": "station_soyhières",
+        "code": "",
+        "label": "Soyhières",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_liesberg",
+        "code": "",
+        "label": "Liesberg",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_bärschwil",
+        "code": "",
+        "label": "Bärschwil",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_aesch",
+        "code": "AE",
+        "label": "Aesch",
+        "typ": "Station"
+      },
+      {
+        "id": "station_münchenstein",
+        "code": "MST",
+        "label": "Münchenstein",
+        "typ": "Station"
+      }
+    ],
+    "281": [
+      {
+        "id": "station_courtelary",
+        "code": "CTY",
+        "label": "Courtelary",
+        "typ": "Station"
+      },
+      {
+        "id": "station_cortébert",
+        "code": "CO",
+        "label": "Cortébert",
+        "typ": "Station"
+      },
+      {
+        "id": "station_renan_be",
+        "code": "RE",
+        "label": "Renan BE",
+        "typ": "Station"
+      },
+      {
+        "id": "station_st_imier",
+        "code": "STI",
+        "label": "St. Imier",
+        "typ": "Station"
+      },
+      {
+        "id": "station_le_creux",
+        "code": "LCR",
+        "label": "Le Creux",
+        "typ": "Station"
+      },
+      {
+        "id": "station_sonceboz_sombeval",
+        "code": "SCB",
+        "label": "Sonceboz-Sombeval",
+        "typ": "Station"
+      },
+      {
+        "id": "station_reuchenette_péry",
+        "code": "REU",
+        "label": "Reuchenette-Péry",
+        "typ": "Station"
+      },
+      {
+        "id": "station_mahlenwald",
+        "code": "",
+        "label": "Mahlenwald",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_frinvillier_taubenloch",
+        "code": "FRIN",
+        "label": "Frinvillier-Taubenloch",
+        "typ": "Station"
+      },
+      {
+        "id": "station_la_heutte",
+        "code": "LHE",
+        "label": "La Heutte",
+        "typ": "Station"
+      },
+      {
+        "id": "station_corgémont",
+        "code": "COG",
+        "label": "Corgémont",
+        "typ": "Station"
+      },
+      {
+        "id": "station_cormoret",
+        "code": "CORM",
+        "label": "Cormoret",
+        "typ": "Station"
+      },
+      {
+        "id": "station_villeret",
+        "code": "VT",
+        "label": "Villert",
+        "typ": "Station"
+      },
+      {
+        "id": "station_sonvilier",
+        "code": "SV",
+        "label": "Sonvilier",
+        "typ": "Station"
+      }
+    ],
+    "282": [
+      {
+        "id": "station_tavannes",
+        "code": "TA",
+        "label": "Tavannes",
+        "typ": "Station"
+      },
+      {
+        "id": "station_reconvilier",
+        "code": "REC",
+        "label": "Reconvilier",
+        "typ": "Station"
+      },
+      {
+        "id": "station_court",
+        "code": "CT",
+        "label": "Court",
+        "typ": "Station"
+      },
+      {
+        "id": "station_malleray_bévilard",
+        "code": "MB",
+        "label": "Malleray-Bévilard",
+        "typ": "Station"
+      },
+      {
+        "id": "station_biel_bienne",
+        "code": "BI",
+        "label": "Biel / Bienne",
+        "typ": "Station"
+      },
+      {
+        "id": "station_pontenet",
+        "code": "PON",
+        "label": "Pontenet",
+        "typ": "Station"
+      },
+      {
+        "id": "station_sorvilier",
+        "code": "SOR",
+        "label": "Sorvilier",
+        "typ": "Station"
+      }
+    ],
+    "292": [
+      {
+        "id": "station_delémont",
+        "code": "DMT",
+        "label": "Delémont",
+        "typ": "Station"
+      },
+      {
+        "id": "station_delle",
+        "code": "DL",
+        "label": "Delle",
+        "typ": "Station"
+      },
+      {
+        "id": "station_boncourt",
+        "code": "BCT",
+        "label": "Boncourt",
+        "typ": "Station"
+      },
+      {
+        "id": "station_porrentruy",
+        "code": "POR",
+        "label": "Porrentruy",
+        "typ": "Station"
+      },
+      {
+        "id": "station_bassecourt",
+        "code": "BSC",
+        "label": "Bassecourt",
+        "typ": "Station"
+      },
+      {
+        "id": "station_courgenay",
+        "code": "CG",
+        "label": "Courgenay",
+        "typ": "Station"
+      },
+      {
+        "id": "station_st-ursanne",
+        "code": "SU",
+        "label": "St-Ursanne",
+        "typ": "Station"
+      },
+      {
+        "id": "station_courtemaîche",
+        "code": "CTM",
+        "label": "Courtemaîche",
+        "typ": "Station"
+      },
+      {
+        "id": "station_bure",
+        "code": "",
+        "label": "Bure",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_courtételle",
+        "code": "CTT",
+        "label": "Courtételle",
+        "typ": "Station"
+      },
+      {
+        "id": "station_courfaivre",
+        "code": "CFV",
+        "label": "Courfaivre",
+        "typ": "Station"
+      },
+      {
+        "id": "station_glovelier",
+        "code": "GLO",
+        "label": "Glovelier",
+        "typ": "Station"
+      },
+      {
+        "id": "station_buix",
+        "code": "BX",
+        "label": "Buix",
+        "typ": "Station"
+      },
+      {
+        "id": "station_grandgourt",
+        "code": "GRA",
+        "label": "Grandgourt",
+        "typ": "Station"
+      },
+      {
+        "id": "station_courchavon",
+        "code": "CCH",
+        "label": "Courchavon",
+        "typ": "Station"
+      }
+    ],
+    "291": [
+      {
+        "id": "station_moutier",
+        "code": "MOU",
+        "label": "Moutier",
+        "typ": "Station"
+      },
+      {
+        "id": "station_grenchen_nord",
+        "code": "GN",
+        "label": "Grenchen Nord",
+        "typ": "Station"
+      },
+      {
+        "id": "station_biel_mett_abzw.",
+        "code": "",
+        "label": "Biel Mett Abzw.",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_biel_mett",
+        "code": "BIM",
+        "label": "Biel Mett",
+        "typ": "Station"
+      },
+      {
+        "id": "station_roche_BE",
+        "code": "",
+        "label": "Roche BE",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_courrendlin",
+        "code": "CRD",
+        "label": "Courrendlin",
+        "typ": "Station"
+      },
+      {
+        "id": "station_pieterlen",
+        "code": "PIE",
+        "label": "Pieterlen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_lengnau",
+        "code": "LEN",
+        "label": "Lengnau",
+        "typ": "Station"
+      },
+      {
+        "id": "station_choindez",
+        "code": "CHZ",
+        "label": "Choindez",
+        "typ": "Station"
+      }
+    ],
+    "381": [
+      {
+        "id": "station_holligen",
+        "code": "HOL",
+        "label": "Holligen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_rosshäusern",
+        "code": "ROSS",
+        "label": "Rosshäusern",
+        "typ": "Station"
+      }
+    ],
+    "121": [
+      {
+        "id": "station_schmitten",
+        "code": "SCMI",
+        "label": "Schmitten",
+        "typ": "Station"
+      },
+      {
+        "id": "station_thörishaus",
+        "code": "THO",
+        "label": "Thörishaus",
+        "typ": "Station"
+      },
+      {
+        "id": "station_düdingen",
+        "code": "DUED",
+        "label": "Düdingen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_bern_bümpliz_süd",
+        "code": "BNBS",
+        "label": "Bern Bümpliz Süd",
+        "typ": "Station"
+      },
+      {
+        "id": "station_romont",
+        "code": "ROM",
+        "label": "Romont",
+        "typ": "Station"
+      },
+      {
+        "id": "station_rosé",
+        "code": "ROS",
+        "label": "Rosé",
+        "typ": "Station"
+      },
+      {
+        "id": "station_siviriez",
+        "code": "SIV",
+        "label": "Siviriez",
+        "typ": "Station"
+      },
+      {
+        "id": "station_oron",
+        "code": "OR",
+        "label": "Oron",
+        "typ": "Station"
+      },
+      {
+        "id": "station_conversion",
+        "code": "CVN",
+        "label": "station_conversion",
+        "typ": "Station"
+      },
+      {
+        "id": "station_grandvaux",
+        "code": "GRV",
+        "label": "Grandvaux",
+        "typ": "Station"
+      },
+      {
+        "id": "station_puidoux_chebres",
+        "code": "PUI",
+        "label": "Puidoux-Chebres",
+        "typ": "Station"
+      },
+      {
+        "id": "station_fribourg",
+        "code": "FRI",
+        "label": "Fribourg",
+        "typ": "Station"
+      },
+      {
+        "id": "station_palézieux",
+        "code": "PAL",
+        "label": "Palézieux",
+        "typ": "Station"
+      },
+      {
+        "id": "station_laupen",
+        "code": "LPN",
+        "label": "Laupen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_flamatt",
+        "code": "FLM",
+        "label": "Flamatt",
+        "typ": "Station"
+      },
+      {
+        "id": "station_bossière",
+        "code": "BOSS",
+        "label": "Bossière",
+        "typ": "Station"
+      },
+      {
+        "id": "station_chénens",
+        "code": "CHE",
+        "label": "Chénens",
+        "typ": "Station"
+      },
+      {
+        "id": "station_cottens",
+        "code": "COT",
+        "label": "Cottens",
+        "typ": "Station"
+      },
+      {
+        "id": "station_fillistorf",
+        "code": "FIL",
+        "label": "Fillistorf",
+        "typ": "Station"
+      },
+      {
+        "id": "station_moreillon",
+        "code": "MRL",
+        "label": "Moreillon",
+        "typ": "Station"
+      },
+      {
+        "id": "station_matran",
+        "code": "MTR",
+        "label": "Matran",
+        "typ": "Station"
+      },
+      {
+        "id": "station_neyruz",
+        "code": "NEY",
+        "label": "Neyruz",
+        "typ": "Station"
+      },
+      {
+        "id": "station_pully_nord",
+        "code": "PUN",
+        "label": "Pully Nord",
+        "typ": "Station"
+      },
+      {
+        "id": "station_vauderens",
+        "code": "VD",
+        "label": "Vauderens",
+        "typ": "Station"
+      },
+      {
+        "id": "station_villars_sur_glâne",
+        "code": "VG",
+        "label": "Villars-sur-Glâne",
+        "typ": "Station"
+      },
+      {
+        "id": "station_villaz_st_pierre",
+        "code": "VZ",
+        "label": "Villaz-St-Pierre",
+        "typ": "Station"
+      },
+      {
+        "id": "station_wünnewil",
+        "code": "WUE",
+        "label": "Wünnewil",
+        "typ": "Station"
+      },
+      {
+        "id": "station_thörishaus_dorf",
+        "code": "THOD",
+        "label": "Thörishaus Dorf",
+        "typ": "Station"
+      },
+      {
+        "id": "station_niederwangen",
+        "code": "NWA",
+        "label": "Niederwangen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_oberwangen",
+        "code": "OWA",
+        "label": "Oberwangen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_bern_ausserholligen_sbb",
+        "code": "BNAS",
+        "label": "Bern Ausserholligen SBB",
+        "typ": "Station"
+      },
+      {
+        "id": "station_flamatt_dorf",
+        "code": "FLMD",
+        "label": "Flamatt Dorf",
+        "typ": "Station"
+      },
+      {
+        "id": "station_neuenegg",
+        "code": "NGG",
+        "label": "Neuenegg",
+        "typ": "Station"
+      }
+    ],
+    "211": [
+      {
+        "id": "station_lausanne_sébeillon",
+        "code": "",
+        "label": "Lausanne Sébeillon",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_rivaz",
+        "code": "RIV",
+        "label": "Rivaz",
+        "typ": "Station"
+      },
+      {
+        "id": "station_vevey",
+        "code": "VV",
+        "label": "Vevey",
+        "typ": "Station"
+      },
+      {
+        "id": "station_lutry",
+        "code": "LTY",
+        "label": "Lutry",
+        "typ": "Station"
+      },
+      {
+        "id": "station_cully",
+        "code": "CU",
+        "label": "Cully",
+        "typ": "Station"
+      },
+      {
+        "id": "station_roche_vd",
+        "code": "ROC",
+        "label": "Roche VD",
+        "typ": "Station"
+      },
+      {
+        "id": "station_st_maurice",
+        "code": "SM",
+        "label": "St-Maurice",
+        "typ": "Station"
+      },
+      {
+        "id": "station_aigle",
+        "code": "AIG",
+        "label": "Aigle",
+        "typ": "Station"
+      },
+      {
+        "id": "station_bex",
+        "code": "BEX",
+        "label": "Bex",
+        "typ": "Station"
+      },
+      {
+        "id": "station_st_triphon",
+        "code": "ST",
+        "label": "St-Triphon",
+        "typ": "Station"
+      },
+      {
+        "id": "station_villeneuve",
+        "code": "VIL",
+        "label": "Villeneuve",
+        "typ": "Station"
+      },
+      {
+        "id": "station_martigny",
+        "code": "MA",
+        "label": "Martigny",
+        "typ": "Station"
+      },
+      {
+        "id": "station_vernayaz",
+        "code": "VERN",
+        "label": "Vernayaz",
+        "typ": "Station"
+      },
+      {
+        "id": "station_evionnaz",
+        "code": "EV",
+        "label": "Evionnaz",
+        "typ": "Station"
+      },
+      {
+        "id": "station_saxon",
+        "code": "SAX",
+        "label": "station_saxon",
+        "typ": "Station"
+      },
+      {
+        "id": "station_ardon",
+        "code": "ARD",
+        "label": "Ardon",
+        "typ": "Station"
+      },
+      {
+        "id": "station_sion",
+        "code": "SIO",
+        "label": "Sion",
+        "typ": "Station"
+      },
+      {
+        "id": "station_montreux",
+        "code": "MX",
+        "label": "Montreux",
+        "typ": "Station"
+      },
+      {
+        "id": "station_burier",
+        "code": "BURI",
+        "label": "Burier",
+        "typ": "Station"
+      },
+      {
+        "id": "station_clarens",
+        "code": "CL",
+        "label": "Clarens",
+        "typ": "Station"
+      },
+      {
+        "id": "station_epesses",
+        "code": "EPS",
+        "label": "Epesses",
+        "typ": "Station"
+      },
+      {
+        "id": "path13054",
+        "code": "PU",
+        "label": "Pully",
+        "typ": "Station"
+      },
+      {
+        "id": "station_st_saphorin",
+        "code": "STSA",
+        "label": "St-Saphorin",
+        "typ": "Station"
+      },
+      {
+        "id": "station_territet",
+        "code": "TER",
+        "label": "Territet",
+        "typ": "Station"
+      },
+      {
+        "id": "station_la_tour_de_peilz",
+        "code": "TOUR",
+        "label": "La Tour-de-Peilz",
+        "typ": "Station"
+      },
+      {
+        "id": "station_veytaux_chillon",
+        "code": "VEY",
+        "label": "Veytaux-Chillon",
+        "typ": "Station"
+      },
+      {
+        "id": "station_villette",
+        "code": "VTE",
+        "label": "Villette",
+        "typ": "Station"
+      },
+      {
+        "id": "station_les_paluds",
+        "code": "",
+        "label": "Les Paluds",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_chamoson",
+        "code": "CHA",
+        "label": "Chamoson",
+        "typ": "Station"
+      },
+      {
+        "id": "station_charrat_fully",
+        "code": "CHAR",
+        "label": "Charrat-Fully",
+        "typ": "Station"
+      },
+      {
+        "id": "station_châteauneuf_conthey",
+        "code": "CHF",
+        "label": "Châteauneuf-Conthey",
+        "typ": "Station"
+      },
+      {
+        "id": "station_riddes",
+        "code": "RID",
+        "label": "Riddes",
+        "typ": "Station"
+      },
+      {
+        "id": "station_tl_st_triphon",
+        "code": "ST",
+        "label": "Tanklager St-Triphon",
+        "typ": "unoccupied_station"
+      }
+    ],
+    "111": [
+      {
+        "id": "station_lausanne",
+        "code": "LS",
+        "label": "Lausanne",
+        "typ": "Station"
+      },
+      {
+        "id": "station_lausanne_triage",
+        "code": "LTD",
+        "label": "Lausanne_Triage",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_allaman",
+        "code": "ALL",
+        "label": "Allaman",
+        "typ": "Station"
+      },
+      {
+        "id": "station_st_prex",
+        "code": "STP",
+        "label": "St-Prex",
+        "typ": "Station"
+      },
+      {
+        "id": "station_morges",
+        "code": "MOR",
+        "label": "Morges",
+        "typ": "Station"
+      },
+      {
+        "id": "station_renens",
+        "code": "REN",
+        "label": "Renens VD",
+        "typ": "Station"
+      },
+      {
+        "id": "station_rolle",
+        "code": "ROL",
+        "label": "Rolle",
+        "typ": "Station"
+      },
+      {
+        "id": "station_perroy",
+        "code": "PER",
+        "label": "Perroy",
+        "typ": "Station"
+      },
+      {
+        "id": "station_denges",
+        "code": "DEN",
+        "label": "Denges",
+        "typ": "Station"
+      },
+      {
+        "id": "station_lonay_préverenges",
+        "code": "LON",
+        "label": "Lonay-Préverenges",
+        "typ": "Station"
+      },
+      {
+        "id": "station_morges_st_jean",
+        "code": "STJ",
+        "label": "Morges-St-Jean",
+        "typ": "Station"
+      },
+      {
+        "id": "station_gilly_bursinel",
+        "code": "GIBU",
+        "label": "Gilly-Bursinel",
+        "typ": "Station"
+      },
+      {
+        "id": "station_gland",
+        "code": "GLA",
+        "label": "Gland",
+        "typ": "Station"
+      },
+      {
+        "id": "station_nyon",
+        "code": "NY",
+        "label": "Nyon",
+        "typ": "Station"
+      },
+      {
+        "id": "station_coppet",
+        "code": "COP",
+        "label": "Coppet",
+        "typ": "Station"
+      },
+      {
+        "id": "station_versoix",
+        "code": "VSX",
+        "label": "Versoix",
+        "typ": "Station"
+      },
+      {
+        "id": "station_genève-aéroport",
+        "code": "GEAP",
+        "label": "Genève-Aéroport",
+        "typ": "Station"
+      },
+      {
+        "id": "station_céligny",
+        "code": "",
+        "label": "Céligny",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "path12945",
+        "code": "CHY",
+        "label": "Chambésy",
+        "typ": "Station"
+      },
+      {
+        "id": "station_crans",
+        "code": "",
+        "label": "Crans",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_creux_de_genthod",
+        "code": "CRGD",
+        "label": "Creux-de-Genthod",
+        "typ": "Station"
+      },
+      {
+        "id": "station_founex",
+        "code": "",
+        "label": "Founex",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_genthod_bellevue",
+        "code": "GDBE",
+        "label": "Genthod-Bellevue",
+        "typ": "Station"
+      },
+      {
+        "id": "station_mies",
+        "code": "",
+        "label": "Mies",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_pont_céard",
+        "code": "PTC",
+        "label": "Pont-Céard",
+        "typ": "Station"
+      },
+      {
+        "id": "station_tannay",
+        "code": "TAN",
+        "label": "Tannay",
+        "typ": "Station"
+      },
+      {
+        "id": "station_les_tuileries",
+        "code": "TUI",
+        "label": "Les Tuileries",
+        "typ": "Station"
+      },
+      {
+        "id": "station_genève-sécheron",
+        "code": "GESE",
+        "label": "Genève-Sécheron",
+        "typ": "Station"
+      },
+      {
+        "id": "station_etoy",
+        "code": "ETOY",
+        "label": "Etoy",
+        "typ": "Station"
+      },
+      {
+        "id": "station_prangins",
+        "code": "PRN",
+        "label": "Prangins",
+        "typ": "Station"
+      },
+      {
+        "id": "station_tolochenaz",
+        "code": "TOL",
+        "label": "Tolochenaz",
+        "typ": "Station"
+      }
+    ],
+    "501": [
+      {
+        "id": "station_basel_sbb",
+        "code": "BS",
+        "label": "Basel SBB",
+        "typ": "Station"
+      },
+      {
+        "id": "station_st._johann",
+        "code": "BSSJ",
+        "label": "Basel St. Johann",
+        "typ": "Station"
+      }
+    ],
+    "301": [
+      {
+        "id": "station_twann",
+        "code": "TWN",
+        "label": "Twann",
+        "typ": "Station"
+      },
+      {
+        "id": "station_tüscherz",
+        "code": "TUE",
+        "label": "Tüscherz",
+        "typ": "Station"
+      },
+      {
+        "id": "station_cossonay",
+        "code": "COS",
+        "label": "Cossonay",
+        "typ": "Station"
+      },
+      {
+        "id": "station_chavornay",
+        "code": "CHV",
+        "label": "Chavornay",
+        "typ": "Station"
+      },
+      {
+        "id": "station_ependes",
+        "code": "EP",
+        "label": "Ependes",
+        "typ": "Station"
+      },
+      {
+        "id": "station_cornaux",
+        "code": "CORN",
+        "label": "Cornaux",
+        "typ": "Station"
+      },
+      {
+        "id": "station_yverdon",
+        "code": "YV",
+        "label": "Yverdon",
+        "typ": "Station"
+      },
+      {
+        "id": "station_grandson",
+        "code": "GRS",
+        "label": "Grandson",
+        "typ": "Station"
+      },
+      {
+        "id": "station_onnens_bonvillars",
+        "code": "ONB",
+        "label": "Onnens-Bonvillars",
+        "typ": "Station"
+      },
+      {
+        "id": "statiom_st_aubin",
+        "code": "GOR",
+        "label": "Gorgier-St.Aubin",
+        "typ": "Station"
+      },
+      {
+        "id": "station_neuchâtel_serrières",
+        "code": "NESE",
+        "label": "Neuchâtel-Serrières",
+        "typ": "Station"
+      },
+      {
+        "id": "station_colombier",
+        "code": "CLB",
+        "label": "Colombier",
+        "typ": "Station"
+      },
+      {
+        "id": "station_auvenier",
+        "code": "AUV",
+        "label": "Auvenier",
+        "typ": "Station"
+      },
+      {
+        "id": "station_neuchâtel",
+        "code": "NE",
+        "label": "Neuchâtel",
+        "typ": "Station"
+      },
+      {
+        "id": "station_bavois",
+        "code": "BAV",
+        "label": "Bavois",
+        "typ": "Station"
+      },
+      {
+        "id": "station_daillens",
+        "code": "",
+        "label": "Daillens",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_eclépens",
+        "code": "ECL",
+        "label": "Eclépens",
+        "typ": "Station"
+      },
+      {
+        "id": "station_essert_pittet",
+        "code": "ESP",
+        "label": "Essert-Pittet",
+        "typ": "Station"
+      },
+      {
+        "id": "station_vufflens_la_ville",
+        "code": "VU",
+        "label": "Vufflens-La-Ville",
+        "typ": "Station"
+      },
+      {
+        "id": "station_cressier",
+        "code": "CRNE",
+        "label": "Cressier",
+        "typ": "Station"
+      },
+      {
+        "id": "station_le_landeron",
+        "code": "LD",
+        "label": "Le Landeron",
+        "typ": "Station"
+      },
+      {
+        "id": "station_ligerz",
+        "code": "LIG",
+        "label": "Ligerz",
+        "typ": "Station"
+      },
+      {
+        "id": "station_la_neuveville",
+        "code": "NV",
+        "label": "La Neuveville",
+        "typ": "Station"
+      },
+      {
+        "id": "station_boudry",
+        "code": "BDR",
+        "label": "Boudry",
+        "typ": "Station"
+      },
+      {
+        "id": "station_bevaix",
+        "code": "BV",
+        "label": "Bevaix",
+        "typ": "Station"
+      },
+      {
+        "id": "station_concise",
+        "code": "CC",
+        "label": "Concise",
+        "typ": "Station"
+      },
+      {
+        "id": "station_neuchâtel_vauseyon",
+        "code": "",
+        "label": "Neuchâtel-Vauseyon",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_st_blaise_cff",
+        "code": "SBL",
+        "label": "St-Blaise CFF",
+        "typ": "Station"
+      },
+      {
+        "id": "station_vaumarcus",
+        "code": "VAU",
+        "label": "Vaumarcus",
+        "typ": "Station"
+      }
+    ],
+    "142": [
+      {
+        "id": "station_inkwil",
+        "code": "INK",
+        "label": "Inkwil",
+        "typ": "Station"
+      },
+      {
+        "id": "station_subingen",
+        "code": "SBN",
+        "label": "Subingen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_wanzwil",
+        "code": "",
+        "label": "Wanzwil",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_bahn_2000",
+        "code": "",
+        "label": "NBS",
+        "typ": "Station"
+      }
+    ],
+    "101": [
+      {
+        "id": "station_satigny",
+        "code": "SY",
+        "label": "Satigny",
+        "typ": "Station"
+      },
+      {
+        "id": "station_vernier_meyrin",
+        "code": "VM",
+        "label": "Vernier-Meyrin",
+        "typ": "Station"
+      },
+      {
+        "id": "station_la_plaine",
+        "code": "LP",
+        "label": "La Plaine",
+        "typ": "Station"
+      },
+      {
+        "id": "station_genève",
+        "code": "GE",
+        "label": "Genève",
+        "typ": "Station"
+      },
+      {
+        "id": "statiion_cointrin",
+        "code": "COI",
+        "label": "Cointrin",
+        "typ": "Station"
+      },
+      {
+        "id": "station_russin",
+        "code": "RUS",
+        "label": "Russin",
+        "typ": "Station"
+      },
+      {
+        "id": "station_zimeysa",
+        "code": "ZIM",
+        "label": "Zimeysa",
+        "typ": "Station"
+      },
+      {
+        "id": "station_châtelaine",
+        "code": "CHNE",
+        "label": "Châtelaine",
+        "typ": "unoccupied_station"
+      }
+    ],
+    "102": [
+      {
+        "id": "station_la_praille",
+        "code": "GEPR",
+        "label": "La Praille",
+        "typ": "Station"
+      },
+      {
+        "id": "station_champet_hôpital",
+        "code": "",
+        "label": "Champet-Hôpital",
+        "typ": "Station"
+      },
+      {
+        "id": "station_chêne-bourg",
+        "code": "CHEB",
+        "label": "Chêne-Bourg",
+        "typ": "Station"
+      },
+      {
+        "id": "station_carouge_bachet",
+        "code": "",
+        "label": "Carouge-Bachet",
+        "typ": "Station"
+      },
+      {
+        "id": "station_stade",
+        "code": "GEST",
+        "label": "Stade",
+        "typ": "Station"
+      },
+      {
+        "id": "station_lancy_pont_rouge",
+        "code": "LAPR",
+        "label": "Lancy-Pont-Rouge",
+        "typ": "Station"
+      },
+      {
+        "id": "station_genève-eaux-vives",
+        "code": "GEV",
+        "label": "Genève-Eaux-Vives",
+        "typ": "Station"
+      }
+    ],
+    "201": [
+      {
+        "id": "station_bussigny",
+        "code": "BY",
+        "label": "Bussigny",
+        "typ": "Station"
+      },
+      {
+        "id": "station_croy_romainmôtier",
+        "code": "CR",
+        "label": "Croy-Romainmôtier",
+        "typ": "Station"
+      },
+      {
+        "id": "station_la_sarraz",
+        "code": "LSA",
+        "label": "La Sarraz",
+        "typ": "Station"
+      },
+      {
+        "id": "station_arnex",
+        "code": "AX",
+        "label": "Arnex",
+        "typ": "Station"
+      },
+      {
+        "id": "station_vallorbe",
+        "code": "VAL",
+        "label": "Vallorbe",
+        "typ": "Station"
+      },
+      {
+        "id": "station_le_day",
+        "code": "DAY",
+        "label": "Le Day",
+        "typ": "Station"
+      },
+      {
+        "id": "station_bretonnières",
+        "code": "BRT",
+        "label": "Bretonnières",
+        "typ": "Station"
+      }
+    ],
+    "202": [
+      {
+        "id": "station_brassus",
+        "code": "BRA",
+        "label": "Brassus",
+        "typ": "Station"
+      }
+    ],
+    "261": [
+      {
+        "id": "station_grolley",
+        "code": "GRO",
+        "label": "Grolley",
+        "typ": "Station"
+      },
+      {
+        "id": "station_estvayer_le_lac",
+        "code": "EST",
+        "label": "station_estvayer_le_lac",
+        "typ": "Station"
+      },
+      {
+        "id": "station_cugy",
+        "code": "CGY",
+        "label": "Cugy",
+        "typ": "Station"
+      },
+      {
+        "id": "station_yvonand",
+        "code": "YND",
+        "label": "Yvonand",
+        "typ": "Station"
+      },
+      {
+        "id": "station_givisiez_gfm",
+        "code": "GIV",
+        "label": "Givisiez GFM",
+        "typ": "Station"
+      },
+      {
+        "id": "station_belfaux_cff",
+        "code": "BF",
+        "label": "Belfaux CFF",
+        "typ": "Station"
+      },
+      {
+        "id": "station_yverdon_champittet",
+        "code": "CHP",
+        "label": "Yverdon Champittet",
+        "typ": "Station"
+      },
+      {
+        "id": "station_cheyres",
+        "code": "CHS",
+        "label": "Cheyres",
+        "typ": "Station"
+      },
+      {
+        "id": "station_corcelles_sud",
+        "code": "CS",
+        "label": "Corcelles-Sud",
+        "typ": "Station"
+      },
+      {
+        "id": "station_cousset",
+        "code": "COUS",
+        "label": "Cousset",
+        "typ": "Station"
+      },
+      {
+        "id": "station_léchelles",
+        "code": "LECH",
+        "label": "Léchelles",
+        "typ": "Station"
+      }
+    ],
+    "252": [
+      {
+        "id": "station_payerne",
+        "code": "PAY",
+        "label": "Payerne",
+        "typ": "Station"
+      },
+      {
+        "id": "station_kerzers",
+        "code": "KZ",
+        "label": "Kerzers",
+        "typ": "Station"
+      },
+      {
+        "id": "station_dompierre",
+        "code": "DOP",
+        "label": "Dompierre",
+        "typ": "Station"
+      },
+      {
+        "id": "station_faoug",
+        "code": "FG",
+        "label": "Faoug",
+        "typ": "Station"
+      },
+      {
+        "id": "station_avennches",
+        "code": "AV",
+        "label": "Avenches",
+        "typ": "Station"
+      },
+      {
+        "id": "station_domdider",
+        "code": "DOM",
+        "label": "Domdidier",
+        "typ": "Station"
+      },
+      {
+        "id": "station_corcelles_nord",
+        "code": "CN",
+        "label": "Corcelles Nord",
+        "typ": "Station"
+      },
+      {
+        "id": "station_galmiz",
+        "code": "GZ",
+        "label": "Galmiz",
+        "typ": "Station"
+      },
+      {
+        "id": "station_aarberg",
+        "code": "ABE",
+        "label": "Aarberg",
+        "typ": "Station"
+      },
+      {
+        "id": "station_murten_papillorama",
+        "code": "",
+        "label": "Murten-Papillorama",
+        "typ": "Station"
+      },
+      {
+        "id": "station_muntelier_löwenberg",
+        "code": "LOEW",
+        "label": "Muntelier-Löwenberg",
+        "typ": "Station"
+      },
+      {
+        "id": "station_lyss",
+        "code": "LY",
+        "label": "Lyss",
+        "typ": "Station"
+      },
+      {
+        "id": "station_busswil",
+        "code": "BUS",
+        "label": "Busswil",
+        "typ": "Station"
+      },
+      {
+        "id": "station_murten",
+        "code": "MRT",
+        "label": "Murten",
+        "typ": "Station"
+      },
+      {
+        "id": "station_arch",
+        "code": "",
+        "label": "Arch",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_leutzigen",
+        "code": "",
+        "label": "Leutzigen",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_lüsslingen",
+        "code": "",
+        "label": "Lüsslingen",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_ang_nespresso",
+        "code": "",
+        "label": "ANG Nespresso",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_kallnach",
+        "code": "KAL",
+        "label": "Kallnach",
+        "typ": "Station"
+      },
+      {
+        "id": "station_fräschels",
+        "code": "FRAE",
+        "label": "Fräschels",
+        "typ": "Station"
+      },
+      {
+        "id": "station_dotzigen",
+        "code": "DON",
+        "label": "Dotzigen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_büren_an_der_aare",
+        "code": "BUER",
+        "label": "Büren an der Aare",
+        "typ": "Station"
+      },
+      {
+        "id": "station_bargen",
+        "code": "BRG",
+        "label": "Bargen",
+        "typ": "Station"
+      }
+    ],
+    "251": [
+      {
+        "id": "station_moudon",
+        "code": "MD",
+        "label": "Moudon",
+        "typ": "Station"
+      },
+      {
+        "id": "station_lucens",
+        "code": "LUC",
+        "label": "Lucens",
+        "typ": "Station"
+      },
+      {
+        "id": "station_granges_marnand",
+        "code": "GM",
+        "label": "Granges-Marnand",
+        "typ": "Station"
+      },
+      {
+        "id": "station_ecublens_rue",
+        "code": "ECU",
+        "label": "Ecublenz-Rue",
+        "typ": "Station"
+      },
+      {
+        "id": "station_châtillens",
+        "code": "CHAT",
+        "label": "Châtillens",
+        "typ": "Station"
+      },
+      {
+        "id": "station_palézieux_village",
+        "code": "PALV",
+        "label": "Palézieux-Village",
+        "typ": "Station"
+      },
+      {
+        "id": "station_bressonnaz",
+        "code": "BZ",
+        "label": "Bressonnaz",
+        "typ": "Station"
+      },
+      {
+        "id": "station_henniez",
+        "code": "HEN",
+        "label": "Henniez",
+        "typ": "Station"
+      },
+      {
+        "id": "station_trey",
+        "code": "TREY",
+        "label": "Trey",
+        "typ": "Station"
+      }
+    ],
+    "255": [
+      {
+        "id": "station_ins",
+        "code": "INS",
+        "label": "Ins",
+        "typ": "Station"
+      },
+      {
+        "id": "station_courtepin",
+        "code": "COUR",
+        "label": "Courtepin",
+        "typ": "Station"
+      }
+    ],
+    "321": [
+      {
+        "id": "station_suberg-grossaffoltern",
+        "code": "SUB",
+        "label": "Suberg-Grossaffoltern",
+        "typ": "Station"
+      },
+      {
+        "id": "station_münchenbuchsee",
+        "code": "MUEB",
+        "label": "Münchenbuchsee",
+        "typ": "Station"
+      },
+      {
+        "id": "station_schüpfen",
+        "code": "SCUE",
+        "label": "Schüpfen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_brügg",
+        "code": "BGG",
+        "label": "Brügg",
+        "typ": "Station"
+      },
+      {
+        "id": "station_studen",
+        "code": "",
+        "label": "Studen",
+        "typ": "Station"
+      }
+    ],
+    "272": [
+      {
+        "id": "station_chambrelien",
+        "code": "CHN",
+        "label": "Chambrelien",
+        "typ": "Station"
+      },
+      {
+        "id": "station_corcelles_peseux",
+        "code": "CP",
+        "label": "Corcelles-Peseux",
+        "typ": "Station"
+      },
+      {
+        "id": "station_les_ponts_de_martel",
+        "code": "PDM",
+        "label": "Les Ponts de Martel",
+        "typ": "Station"
+      },
+      {
+        "id": "station_la_chaux_de_fonds",
+        "code": "CF",
+        "label": "La Chaux-de-Fonds",
+        "typ": "Station"
+      },
+      {
+        "id": "station_le_crêt_du_locle",
+        "code": "CRET",
+        "label": "Le crêt du Locle",
+        "typ": "Station"
+      },
+      {
+        "id": "path1",
+        "code": "LOC",
+        "label": "Le Locle",
+        "typ": "Station"
+      },
+      {
+        "id": "station_le_locle_col_des_roches",
+        "code": "COL",
+        "label": "Le Locle Col-des-Roches",
+        "typ": "Station"
+      },
+      {
+        "id": "station_montmallin_montezillon",
+        "code": "",
+        "label": "Montmallin-Montezillon",
+        "typ": "Station"
+      },
+      {
+        "id": "station_les_deurres",
+        "code": "DEU",
+        "label": "Les Deurres",
+        "typ": "Station"
+      },
+      {
+        "id": "g16630",
+        "code": "",
+        "label": "g16630",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_les_gneveys_sur_coffrane",
+        "code": "GEC",
+        "label": "Les Geneveys sur Coffrane",
+        "typ": "Station"
+      },
+      {
+        "id": "station_les_hauts_geneveys",
+        "code": "GEC",
+        "label": "Les Geneveys sur Coffrane",
+        "typ": "Station"
+      },
+      {
+        "id": "station_km_25_8",
+        "code": "",
+        "label": "km 25.8",
+        "typ": "Station"
+      },
+      {
+        "id": "station_le_locle",
+        "code": "LOC",
+        "label": "Le Locle",
+        "typ": "Station"
+      }
+    ],
+    "271": [
+      {
+        "id": "station_noiraigue",
+        "code": "NOI",
+        "label": "Noiraigue",
+        "typ": "Station"
+      },
+      {
+        "id": "station_champ_du_moulin",
+        "code": "CDM",
+        "label": "Champ-du-Moulin",
+        "typ": "Station"
+      },
+      {
+        "id": "station_les_verrières",
+        "code": "VER",
+        "label": "Les Verrières",
+        "typ": "Station"
+      },
+      {
+        "id": "station_buttes",
+        "code": "BT",
+        "label": "Buttes",
+        "typ": "Station"
+      },
+      {
+        "id": "station_travers",
+        "code": "TR",
+        "label": "Travers",
+        "typ": "Station"
+      },
+      {
+        "id": "station_les_bayards",
+        "code": "",
+        "label": "Les Bayards",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_boveresse",
+        "code": "BOV",
+        "label": "Boveresse",
+        "typ": "Station"
+      },
+      {
+        "id": "station_couvet_cff",
+        "code": "CVT",
+        "label": "Couvet CFF",
+        "typ": "Station"
+      },
+      {
+        "id": "station_bôle",
+        "code": "BOLE",
+        "label": "Bôle",
+        "typ": "Station"
+      }
+    ],
+    "222": [
+      {
+        "id": "station_varzo",
+        "code": "VAR",
+        "label": "Varzo",
+        "typ": "Station"
+      },
+      {
+        "id": "station_preglia",
+        "code": "PRE",
+        "label": "Preglia",
+        "typ": "Station"
+      },
+      {
+        "id": "station_iselle_di_trasquera",
+        "code": "IS",
+        "label": "Iselle di Trasquera",
+        "typ": "Station"
+      },
+      {
+        "id": "station_domodossola",
+        "code": "DO",
+        "label": "Domodossola",
+        "typ": "Station"
+      },
+      {
+        "id": "station_domodossola_due",
+        "code": "DOII",
+        "label": "Domodossola II",
+        "typ": "Station"
+      }
+    ],
+    "551": [
+      {
+        "id": "station_locarno",
+        "code": "LO",
+        "label": "Locarno",
+        "typ": "Station"
+      },
+      {
+        "id": "station_cadenazzo",
+        "code": "CD",
+        "label": "Cadenazzo",
+        "typ": "Station"
+      },
+      {
+        "id": "station_riazzino",
+        "code": "RIAZ",
+        "label": "Riazzino",
+        "typ": "Station"
+      },
+      {
+        "id": "station_gordola",
+        "code": "GDA",
+        "label": "Gordola",
+        "typ": "Station"
+      },
+      {
+        "id": "station_s_antonino",
+        "code": "SAN",
+        "label": "S. Antonino",
+        "typ": "Station"
+      },
+      {
+        "id": "station_tenero",
+        "code": "TEN",
+        "label": "Tenero",
+        "typ": "Station"
+      }
+    ],
+    "232": [
+      {
+        "id": "station_bouveret",
+        "code": "BOU",
+        "label": "Bouveret",
+        "typ": "Station"
+      },
+      {
+        "id": "station_vouvry",
+        "code": "VOU",
+        "label": "Vouvry",
+        "typ": "Station"
+      },
+      {
+        "id": "station_monthey",
+        "code": "MTH",
+        "label": "Monthey",
+        "typ": "Station"
+      },
+      {
+        "id": "station_st_gingolph",
+        "code": "STGI",
+        "label": "St-Gingolph",
+        "typ": "Station"
+      },
+      {
+        "id": "station_massongex",
+        "code": "MAS",
+        "label": "Massongex",
+        "typ": "Station"
+      },
+      {
+        "id": "station_les_evouettes",
+        "code": "EVOU",
+        "label": "Les Evouettes",
+        "typ": "Station"
+      },
+      {
+        "id": "station_collombey",
+        "code": "CBY",
+        "label": "Collombey",
+        "typ": "Station"
+      },
+      {
+        "id": "station_vionnaz",
+        "code": "VIO",
+        "label": "Vionnaz",
+        "typ": "Station"
+      }
+    ],
+    "221": [
+      {
+        "id": "station_raron",
+        "code": "RAR",
+        "label": "Raron",
+        "typ": "Station"
+      },
+      {
+        "id": "station_gampel_steg",
+        "code": "GA",
+        "label": "Gampel-Steg",
+        "typ": "Station"
+      },
+      {
+        "id": "station_turtmann",
+        "code": "TUR",
+        "label": "Turtmann",
+        "typ": "Station"
+      },
+      {
+        "id": "station_leuk",
+        "code": "LK",
+        "label": "Leuk",
+        "typ": "Station"
+      },
+      {
+        "id": "station_salgesch",
+        "code": "SAL",
+        "label": "Salgesch",
+        "typ": "Station"
+      },
+      {
+        "id": "station_sierre_siders",
+        "code": "",
+        "label": "Sierre-Siders",
+        "typ": "Station"
+      },
+      {
+        "id": "station_granges_lens",
+        "code": "GRAL",
+        "label": "Granges-Lens",
+        "typ": "Station"
+      },
+      {
+        "id": "station_st_leonard",
+        "code": "SL",
+        "label": "St. Leonard",
+        "typ": "Station"
+      },
+      {
+        "id": "station_visp",
+        "code": "VI",
+        "label": "Visp",
+        "typ": "Station"
+      },
+      {
+        "id": "station_brig",
+        "code": "BR",
+        "label": "Brig",
+        "typ": "Station"
+      }
+    ],
+    "362": [
+      {
+        "id": "station_gstaad",
+        "code": "GST",
+        "label": "Gstaad",
+        "typ": "Station"
+      },
+      {
+        "id": "station_zweisimmen",
+        "code": "ZW",
+        "label": "Zweisimmen",
+        "typ": "Station"
+      }
+    ],
+    "372": [
+      {
+        "id": "station_schwarzenburg",
+        "code": "SCBG",
+        "label": "Schwarzenburg",
+        "typ": "Station"
+      }
+    ],
+    "371": [
+      {
+        "id": "station_bern_fischermätteli",
+        "code": "BNFI",
+        "label": "Bern Fischermätteli",
+        "typ": "Station"
+      },
+      {
+        "id": "station_bern_europaplatz",
+        "code": "BNAS",
+        "label": "Bern Europaplatz",
+        "typ": "Station"
+      }
+    ],
+    "541": [
+      {
+        "id": "station_rodi_fiesso",
+        "code": "RO",
+        "label": "Rodi-Fiesso",
+        "typ": "Station"
+      },
+      {
+        "id": "station_ambri_piotta",
+        "code": "AP",
+        "label": "Ambrî-Piotta",
+        "typ": "Station"
+      },
+      {
+        "id": "station_faido",
+        "code": "FA",
+        "label": "Faido",
+        "typ": "Station"
+      },
+      {
+        "id": "station_pionotondo",
+        "code": "PIA",
+        "label": "Pianotondo",
+        "typ": "Station"
+      },
+      {
+        "id": "station_lavorgo",
+        "code": "LAV",
+        "label": "Lavorgo",
+        "typ": "Station"
+      },
+      {
+        "id": "station_bodio",
+        "code": "BO",
+        "label": "Bodio",
+        "typ": "Station"
+      },
+      {
+        "id": "station_giornico",
+        "code": "GIOC",
+        "label": "Gionico",
+        "typ": "Station"
+      },
+      {
+        "id": "station_bellinzona",
+        "code": "BEL",
+        "label": "Bellinzona",
+        "typ": "Station"
+      },
+      {
+        "id": "station_andermatt",
+        "code": "AND",
+        "label": "Andermatt",
+        "typ": "Station"
+      },
+      {
+        "id": "station_chiggiogna",
+        "code": "",
+        "label": "Chiggiogna",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_pardorea",
+        "code": "",
+        "label": "Pardorea",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_airolo",
+        "code": "AI",
+        "label": "Airolo",
+        "typ": "Station"
+      },
+      {
+        "id": "station_göschenen",
+        "code": "GOE",
+        "label": "Göschenen",
+        "typ": "Station"
+      }
+    ],
+    "533": [
+      {
+        "id": "station_biasca",
+        "code": "BIA",
+        "label": "Biasca",
+        "typ": "Station"
+      },
+      {
+        "id": "station_osogne_cresciano",
+        "code": "OS",
+        "label": "Osaogna-Cresciano",
+        "typ": "Station"
+      },
+      {
+        "id": "station_claro",
+        "code": "CLA",
+        "label": "Claro",
+        "typ": "Station"
+      },
+      {
+        "id": "station_castione_arbedo",
+        "code": "CAST",
+        "label": "Castione-Arbedo",
+        "typ": "Station"
+      },
+      {
+        "id": "station_pollegio",
+        "code": "",
+        "label": "Pollegio",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_altdorf",
+        "code": "AL",
+        "label": "Altdorf",
+        "typ": "Station"
+      },
+      {
+        "id": "station_gbt",
+        "code": "",
+        "label": "GBT",
+        "typ": "unoccupied_station"
+      }
+    ],
+    "542": [
+      {
+        "id": "station_rivera_bironico",
+        "code": "RIB",
+        "label": "Rivera-Bironico",
+        "typ": "Station"
+      },
+      {
+        "id": "station_lugano",
+        "code": "LG",
+        "label": "Lugano",
+        "typ": "Station"
+      },
+      {
+        "id": "station_mezzovico",
+        "code": "MEZ",
+        "label": "Mezzovico",
+        "typ": "Station"
+      },
+      {
+        "id": "station_melide",
+        "code": "MDE",
+        "label": "Melide",
+        "typ": "Station"
+      },
+      {
+        "id": "path12458",
+        "code": "MAR",
+        "label": "Maroggia-Melano",
+        "typ": "Station"
+      },
+      {
+        "id": "station_capolago",
+        "code": "CAP",
+        "label": "Capolago",
+        "typ": "Station"
+      },
+      {
+        "id": "station_chiasso_smistamento",
+        "code": "",
+        "label": "Chiasso Smistamento",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_stabio",
+        "code": "STAO",
+        "label": "Stabio",
+        "typ": "Station"
+      },
+      {
+        "id": "station_mendrisio",
+        "code": "MEN",
+        "label": "Mendrisio",
+        "typ": "Station"
+      },
+      {
+        "id": "station_lugano_vedeggio",
+        "code": "",
+        "label": "Lugano-Vedeggio",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_taverne_torricella",
+        "code": "TAV",
+        "label": "Taverne-Torricella",
+        "typ": "Station"
+      },
+      {
+        "id": "station_giubiasco",
+        "code": "GIU",
+        "label": "Giubiasco",
+        "typ": "Station"
+      },
+      {
+        "id": "station_vezia",
+        "code": "",
+        "label": "Vezia",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "path13288",
+        "code": "",
+        "label": "CER",
+        "typ": "Station"
+      },
+      {
+        "id": "path13338",
+        "code": "LAM",
+        "label": "Lamone-Cadempino",
+        "typ": "Station"
+      },
+      {
+        "id": "station_lugano_paradiso",
+        "code": "LGP",
+        "label": "Lugano-Paradiso",
+        "typ": "Station"
+      },
+      {
+        "id": "station_vigana",
+        "code": "",
+        "label": "Vigana",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_al_motto",
+        "code": "",
+        "label": "Al Motto",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "path2055",
+        "code": "CHI",
+        "label": "Chiasso",
+        "typ": "Station"
+      },
+      {
+        "id": "station_tanklager_stabio",
+        "code": "",
+        "label": "Tanklager Stabio",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_cbt",
+        "code": "",
+        "label": "Cenerie Basitunnel",
+        "typ": "unoccupied_station"
+      },
+      {
+        "id": "station_spao",
+        "code": "",
+        "label": "Bellinzona San Paolo",
+        "typ": "unoccupied_station"
+      }
+    ],
+    "351": [
+      {
+        "id": "station_kandersteg",
+        "code": "KA",
+        "label": "Kandersteg",
+        "typ": "Station"
+      },
+      {
+        "id": "station_goppenstein",
+        "code": "GO",
+        "label": "Goppenstein",
+        "typ": "Station"
+      },
+      {
+        "id": "station_hohtenn",
+        "code": "HT",
+        "label": "Hohtenn",
+        "typ": "Station"
+      },
+      {
+        "id": "station_ausserberg",
+        "code": "AB",
+        "label": "Ausserberg",
+        "typ": "Station"
+      },
+      {
+        "id": "station_eggerberg",
+        "code": "EB",
+        "label": "Eggerberg",
+        "typ": "Station"
+      },
+      {
+        "id": "station_lalden",
+        "code": "LL",
+        "label": "Lalden",
+        "typ": "Station"
+      },
+      {
+        "id": "station_frutigen",
+        "code": "FR",
+        "label": "Frutigen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_kandergrund",
+        "code": "KG",
+        "label": "Kandergrund",
+        "typ": "Station"
+      },
+      {
+        "id": "station_blausee",
+        "code": "BL",
+        "label": "Blausee",
+        "typ": "Station"
+      }
+    ],
+    "552": [
+      {
+        "id": "station_san_nazzaro",
+        "code": "SANA",
+        "label": "San Nazzaro",
+        "typ": "Station"
+      },
+      {
+        "id": "station_magadino_vira",
+        "code": "MAG",
+        "label": "Magadino-Vira",
+        "typ": "Station"
+      },
+      {
+        "id": "station_ranzo",
+        "code": "RZO",
+        "label": "Ranzo",
+        "typ": "Station"
+      },
+      {
+        "id": "station_pino_tronzano",
+        "code": "PINT",
+        "label": "Pino-Tronzano",
+        "typ": "Station"
+      },
+      {
+        "id": "station_maccagno",
+        "code": "MAC",
+        "label": "Maccagno",
+        "typ": "Station"
+      },
+      {
+        "id": "station_luino",
+        "code": "LI",
+        "label": "Luino",
+        "typ": "Station"
+      },
+      {
+        "id": "station_gerra",
+        "code": "GER",
+        "label": "Gerra (Gambarogno)",
+        "typ": "Station"
+      }
+    ],
+    "636": [
+      {
+        "id": "station_uetliberg",
+        "code": "UEBE",
+        "label": "Uetliberg",
+        "typ": "Station"
+      },
+      {
+        "id": "station_borrweg",
+        "code": "BORR",
+        "label": "Borrweg",
+        "typ": "Station"
+      }
+    ],
+    "493": [
+      {
+        "id": "station_huttwil",
+        "code": "HWIL",
+        "label": "Huttwil",
+        "typ": "Station"
+      },
+      {
+        "id": "station_langenthal",
+        "code": "LTH",
+        "label": "Langenthal",
+        "typ": "Station"
+      }
+    ],
+    "491": [
+      {
+        "id": "station_wasen_i._e.",
+        "code": "WAIE",
+        "label": "Wasen i.E.",
+        "typ": "Station"
+      },
+      {
+        "id": "station_ramsei",
+        "code": "RAM",
+        "label": "Ramsei",
+        "typ": "Station"
+      }
+    ],
+    "483": [
+      {
+        "id": "station_hasle_rüegsau",
+        "code": "HA",
+        "label": "Rüegsau",
+        "typ": "Station"
+      }
+    ],
+    "231": [
+      {
+        "id": "station_chexbres_village",
+        "code": "CHX",
+        "label": "Chexbres-Village",
+        "typ": "Station"
+      },
+      {
+        "id": "station_corseaux_cornalles",
+        "code": "CORS",
+        "label": "Corseaux-Cornalles",
+        "typ": "Station"
+      },
+      {
+        "id": "station_vevey_funi",
+        "code": "VVFU",
+        "label": "Vevey Funi",
+        "typ": "Station"
+      }
+    ],
+    "701": [
+      {
+        "id": "station_wipkingen",
+        "code": "ZWIP",
+        "label": "Wipkingen",
+        "typ": "Station"
+      }
+    ],
+    "481": [
+      {
+        "id": "station_gänsbrunnen",
+        "code": "GAE",
+        "label": "Gänsbrunnen",
+        "typ": "Station"
+      },
+      {
+        "id": "station_oberdorf",
+        "code": "ODF",
+        "label": "Oberdorf",
+        "typ": "Station"
+      }
+    ]
+  },
+  "ortskenntnisByLine": {
+    "542": [
+      {
+        "id": "station_tanklager_stabio",
+        "ort": "Stabio"
+      }
+    ],
+    "611": [
+      {
+        "id": "station_tl_ng",
+        "ort": "Niederglatt"
+      }
+    ],
+    "642": [
+      {
+        "id": "station_tanklager_sennwald",
+        "ort": "Sennwald"
+      }
+    ],
+    "211": [
+      {
+        "id": "station_tl_st_triphon",
+        "ort": "St-Triphon"
+      }
+    ]
+  }
+}
