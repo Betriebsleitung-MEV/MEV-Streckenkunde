@@ -152,6 +152,8 @@
         <div style="font-weight:850; margin-bottom:6px;">Routen (101–999)</div>
         <div class="hint">Tippen: 1× kundig · 2× auffrischung · 3× unkundig</div>
         <label>Suche Route</label>
+        <input id="routeSearch" placeholder="z.B. 301 oder Lausanne" />
+
         <div class="cardTop">
           <div class="toggleRow">
             <span class="hint" style="margin:0;">BLS Teilstrecken bearbeiten?</span>
@@ -785,6 +787,7 @@
 
   async function goOrtskunde(){
     // Ortskunde neu aufbauen und anzeigen
+    updateOrtskundeSuggestions();
     rebuildOrts();
     renderOrts();
     renderSummary();
@@ -795,6 +798,15 @@
     st.blsMode=!!v;
     $('blsYes').classList.toggle('active', st.blsMode);
     $('blsNo').classList.toggle('active', !st.blsMode);
+    // Wenn BLS Nein: BLS-Teilstrecken für Route 135 standardmässig false
+    if(!st.blsMode){
+      try{
+        initTeilstreckenForRoute('135');
+        const mm = st.teilstrecken['135'] || {};
+        Object.keys(mm).forEach(k => { mm[k] = false; });
+        st.teilstrecken['135'] = mm;
+      }catch(e){}
+    }
   }
 
   async function init(){
