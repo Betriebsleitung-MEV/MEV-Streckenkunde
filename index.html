@@ -189,8 +189,8 @@
 
       <!-- Step 5 -->
       <div class="card hidden" id="p5">
-        <div style="font-weight:850; margin-bottom:6px;">Ortskunde (Tanklager)</div>
-        <div class="hint">Die Ortskunde kommt aus "Tanklager"-Einträgen (z.B. "Tanklager: Swissterminal"). Standard ist kundig. Tippen = false. Nochmal tippen = true.</div>
+        <div style="font-weight:850; margin-bottom:6px;">Ortskunde (Anschlussgleise und Tanklager)</div>
+        
 
         <div class="cardTop">
           <div class="toggleRow">
@@ -232,6 +232,9 @@
     routeStatus: {},
     teilstrecken: {},
     overrides: {},
+    // Vorschläge Ortskunde (aus RADN kundig + Karten-Auswahl)
+    suggestedOrts: new Set(),
+    tankIndex: { byLine: {}, byCode: {} },
 
     // Ortskunde Option B: ortName -> {kundig:boolean, linien:[...]}
     orts: {},
@@ -264,10 +267,8 @@
 
   function isTanklagerEl(el){
   if(!el || !el.getAttribute) return false;
-  // In deiner SVG: Tanklager="..." (Gross-/Kleinschreibung möglich)
   const tl = String(el.getAttribute('Tanklager') || el.getAttribute('tanklager') || '').trim();
   if(tl) return true;
-  // Fallbacks (falls mal zusätzlich markiert)
   const dt = String(el.getAttribute('data-typ') || el.getAttribute('data-type') || '').trim().toLowerCase();
   if(dt === 'tanklager') return true;
   const id = String(el.id || '').toLowerCase().trim();
@@ -283,7 +284,78 @@
     return id.startsWith('station_') || id.startsWith('unoccupied_station_');
   }
 
-  function findTapTarget(startEl){
+  
+
+  // ===== Tanklager/Anschlussgleise Vorschläge (Abgleich) =====
+  function collectDataLines(el){
+    const out=[];
+    try{
+      const names = el.getAttributeNames ? el.getAttributeNames() : [];
+      for(const a of names){
+        if(!a.startsWith('data-line')) continue;
+        const v = String(el.getAttribute(a) || '').replace(/\D+/g,'');
+        if(v) out.push(v);
+      }
+    }catch(e){}
+    return Array.from(new Set(out)).sort((a,b)=>Number(a)-Number(b));
+  }
+
+  function buildTankIndexFromSvg(){
+    const byLine = {};
+    const byCode = {};
+    if(!st.svgRoot) return {byLine, byCode};
+    const nodes = st.svgRoot.querySelectorAll('[Tanklager], [tanklager]');
+    nodes.forEach(el => {
+      const label = labelNurInkscape(el);
+      if(!label || label === '(ohne Label)') return;
+      const code = String(el.getAttribute('data-code') || '').trim();
+      const lines = collectDataLines(el);
+      if(code){
+        (byCode[code] = byCode[code] || new Set()).add(label);
+      }
+      lines.forEach(l => {
+        (byLine[l] = byLine[l] || new Set()).add(label);
+      });
+    });
+    return {byLine, byCode};
+  }
+
+  function updateOrtskundeSuggestions(){
+    const sug = new Set();
+
+    // 1) Aus RADN-Auswahl: NUR kundig
+    Object.keys(st.routeStatus||{}).forEach(r => {
+      if(st.routeStatus[r] !== 'kundig') return;
+      const set = st.tankIndex?.byLine?.[String(r)];
+      if(set) for(const v of set) sug.add(v);
+    });
+
+    // 2) Aus Karten-Auswahl (Overrides): alles ausser unkundig
+    if(st.svgRoot){
+      Object.keys(st.overrides||{}).forEach(id => {
+        const v = st.overrides[id];
+        if(v === 'unkundig') return;
+        const el = st.svgRoot.getElementById ? st.svgRoot.getElementById(id) : document.getElementById(id);
+        if(!el) return;
+
+        const tl = String(el.getAttribute('Tanklager') || el.getAttribute('tanklager') || '').trim();
+        if(tl){
+          const label = labelNurInkscape(el);
+          if(label && label !== '(ohne Label)') sug.add(label);
+          return;
+        }
+
+        const code = String(el.getAttribute('data-code') || '').trim();
+        if(code){
+          const set = st.tankIndex?.byCode?.[code];
+          if(set) for(const s of set) sug.add(s);
+        }
+      });
+    }
+
+    st.suggestedOrts = sug;
+  }
+function findTapTarget(startEl){
     let el = startEl;
     for(let i=0;i<12 && el;i++){
       if(isStationEl(el) || isTanklagerEl(el)) return el;
@@ -425,6 +497,7 @@
     const status = (st.tap.c===1) ? 'kundig' : (st.tap.c===2) ? 'auffrischung' : 'unkundig';
     st.routeStatus[r]=status;
     if(status!=='unkundig') initTeilstreckenForRoute(r);
+    updateOrtskundeSuggestions();
     renderRouteList();
     setDirty(true);
     toast(`Route ${r}: ${status}`);
@@ -543,6 +616,8 @@
     enableTouchPanZoom();
     enablePointEditing();
     wireHeaderTapToSvg();
+    st.tankIndex = buildTankIndexFromSvg();
+    updateOrtskundeSuggestions();
   }
 
   function enableTouchPanZoom(){
@@ -692,6 +767,7 @@
         st.overrides[pt.id]=st.pick;
         applySelectionToSvg();
         setDirty(true);
+    updateOrtskundeSuggestions();
         toast(`${labelNurInkscape(pt)}: ${st.pick}`);
       }
       ev.preventDefault();
@@ -703,63 +779,62 @@
         st.overrides[pt.id]=st.pick;
         applySelectionToSvg();
         setDirty(true);
+    updateOrtskundeSuggestions();
         toast(`${labelNurInkscape(pt)}: ${st.pick}`);
       }
     });
   }
 
-  // Ortskunde (Tanklager) aus stations_by_line.json
+  // Ortskunde (Anschlussgleise und Tanklager) aus stations_by_line.json
   function rebuildOrts(){
-    const out={};
-    const kundigRoutes = Object.keys(st.routeStatus||{}).filter(r=>st.routeStatus[r]==='kundig');
-    if(st.idx && st.idx.ortskenntnisByLine){
-      kundigRoutes.forEach(r=>{
-        const arr=st.idx.ortskenntnisByLine[String(r)]||[];
-        arr.forEach(p=>{
-          // p.ort enthält den Namen, z.B. Swissterminal Frenkendorf
-          const ort=String(p.ort||'').trim();
-          if(!ort) return;
-          if(!out[ort]) out[ort]={kundig:true, linien:[]};
-          if(!out[ort].linien.includes(String(r))) out[ort].linien.push(String(r));
-        });
-      });
-    }
-    // Option B: vorhandene false behalten
-    Object.keys(out).forEach(ort=>{
-      if(st.orts[ort] && st.orts[ort].kundig===false) out[ort].kundig=false;
-    });
-    st.orts=out;
-  }
-function rebuildOrtsFromSvg(){
-  // Ortskunde nur aus SVG-Elementen mit Attribut Tanklager="..."
-  const out = {};
+  // Ortskunde aus SVG-Elementen mit Attribut Tanklager="..." (Anzeige = inkscape:label)
+  const out={};
   if(st.svgRoot){
     const nodes = st.svgRoot.querySelectorAll('[Tanklager], [tanklager]');
-    nodes.forEach(el => {
-      // Anzeige/Key: inkscape:label reicht (wie gewünscht)
+    nodes.forEach(el=>{
       const ort = labelNurInkscape(el);
       if(!ort || ort === '(ohne Label)') return;
-      if(!out[ort]) out[ort] = { kundig: true, linien: [] };
+      if(!out[ort]) out[ort] = { kundig: false, linien: [] };
+      // data-line* sammeln
+      try{
+        const names = el.getAttributeNames ? el.getAttributeNames() : [];
+        for(const a of names){
+          if(!a.startsWith('data-line')) continue;
+          const v = String(el.getAttribute(a) || '').replace(/\D+/g,'');
+          if(v && !out[ort].linien.includes(v)) out[ort].linien.push(v);
+        }
+      }catch(e){}
     });
   }
-  // vorhandene false behalten
-  Object.keys(out).forEach(ort => {
-    if(st.orts[ort] && st.orts[ort].kundig === false) out[ort].kundig = false;
+  // Vorhandene Auswahl behalten
+  Object.keys(out).forEach(ort=>{
+    if(st.orts[ort] && st.orts[ort].kundig === true) out[ort].kundig = true;
+  });
+  // Linien sortieren
+  Object.keys(out).forEach(ort=>{
+    out[ort].linien = (out[ort].linien||[]).slice().sort((a,b)=>Number(a)-Number(b));
   });
   st.orts = out;
 }
 
-
-  function renderOrts(){
+function renderOrts()function renderOrts(){
     const host=$('ortList'); host.innerHTML='';
-    const keys=Object.keys(st.orts||{}).sort((a,b)=>a.localeCompare(b,'de-CH'));
+    const keys = Object.keys(st.orts||{}).sort((a,b)=>{
+    const la = (st.orts[a]?.linien||[])[0];
+    const lb = (st.orts[b]?.linien||[])[0];
+    const na = la ? Number(la) : 999999;
+    const nb = lb ? Number(lb) : 999999;
+    if(na !== nb) return na-nb;
+    return a.localeCompare(b,'de-CH');
+  });
     if(!keys.length){ host.innerHTML='<div class="hint">Keine Tanklager in der SVG gefunden.</div>'; return; }
     keys.forEach(ort=>{
       const it=st.orts[ort];
       const on=!!it.kundig;
-      const div=document.createElement('div');
-      div.className='item'+(on?'':'');
-      div.innerHTML=`<div class="no">${on?'✅':'✕'}</div><div class="desc"><b style="text-decoration:${on?'none':'line-through'};">${ort}</b><div class="hint">Linien: ${(it.linien||[]).slice().sort((a,b)=>Number(a)-Number(b)).join(', ')}</div></div>`;
+    const suggested = st.suggestedOrts && st.suggestedOrts.has(ort);
+    const div=document.createElement('div');
+    div.className='item' + (suggested?' suggest':'') + (on?'':'');
+      div.innerHTML=`<div class="no">${on?'✅':'✕'}</div><div class="desc"><b style="text-decoration:${on?'none':'line-through'};">${ort}</b>${suggested ? ' <span class="badge sug">Vorschlag</span>' : ''}<div class="hint">Linien: ${(it.linien||[]).slice().sort((a,b)=>Number(a)-Number(b)).join(', ')}</div></div>`;
       div.addEventListener('click',()=>{
         it.kundig=!on;
         st.orts[ort]=it;
@@ -897,7 +972,8 @@ function rebuildOrtsFromSvg(){
   async function goOrtskunde(){
     // Ortskunde neu aufbauen und anzeigen
     try{ await ensureAssetsLoaded(); if(!st.svgRoot) embedSvg(); }catch(e){ console.error(e); }
-    rebuildOrtsFromSvg();
+    updateOrtskundeSuggestions();
+    rebuildOrts();
     renderOrts();
     renderSummary();
     showStep(5);
