@@ -93,6 +93,10 @@
  .item.suggest{outline:2px solid rgba(0, 200, 120, .55);}
  .badge.sug{color: rgba(0,200,120,.95); border-color: rgba(0,200,120,.55); background: rgba(0,200,120,.12);}
  .item.ortOn{background: rgba(0,200,120,.10);}
+ .groupHead{display:flex; gap:10px; align-items:center; padding:10px; border-radius:12px; border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.03);} 
+ .groupTitle{font-weight:900;}
+ .groupMeta{font-size:12px; color:var(--muted);} 
+ .miniBtn{height:34px; padding:0 10px; border-radius:999px; border:1px solid rgba(255,255,255,.16); background: rgba(255,255,255,.06); color:var(--text); font-weight:900; cursor:pointer; font-size:12px;}
 </style>
 </head>
 <body>
@@ -175,8 +179,11 @@
       <div class="card hidden" id="p3">
         <div style="font-weight:850; margin-bottom:6px;">BLS Daten</div>
         <div class="hint">Route wählen und Teilstrecken wegklicken, die nicht kundig sind (false). Standard = false.</div>
-        <label>Route wählen</label>
-        <select id="routePick"></select>
+        <div class="hint" style="margin-top:6px;">Tippen: Teilstrecke toggelt true/false (Standard = false).</div>
+      <div class="toggleRow" style="margin-top:10px;">
+        <button class="toggle active" id="blsFilterAll" type="button">Alle</button>
+        <button class="toggle" id="blsFilterFalse" type="button">Nur false</button>
+      </div>
 
         <div class="cardTop">
           <div class="toggleRow">
@@ -187,7 +194,7 @@
           </div>
         </div>
 
-        <div id="segList"></div>
+        <div id="blsList"></div>
       </div>
 
       <!-- Step 5 -->
@@ -246,6 +253,8 @@
     pick: 'kundig',
     blsMode: false,
   blsAllFalsePending: false,
+  blsFilter: 'all',
+  blsCollapsed: {},
   // Ortskunde
   suggestedOrts: new Set(),
   ortFilter: 'suggested',
@@ -302,7 +311,6 @@ function collectDataLines(el){
       if(v) out.push(v);
     }
   }catch(e){}
-  // unique
   var seen = {};
   var res=[];
   for(var j=0;j<out.length;j++){ if(!seen[out[j]]){ seen[out[j]]=1; res.push(out[j]); } }
@@ -311,7 +319,6 @@ function collectDataLines(el){
 }
 
 function buildIdxTankByLine(){
-  // aus assets/stations_by_line.json: alle Einträge mit tanklager != null
   var out = {};
   try{
     var idx = st.idx || {};
@@ -322,7 +329,6 @@ function buildIdxTankByLine(){
         var it = arr[i] || {};
         if(!it.tanklager) continue;
         var line = String(it.line || lineKey || '').replace(/\D+/g,'');
-        // Sonderfall: unknown-Liste mit code = Liniennummer (z.B. "411")
         if(!line){
           var c = String(it.code || '').replace(/\D+/g,'');
           if(c) line = c;
@@ -365,14 +371,12 @@ function updateOrtskundeSuggestions(){
   var sug = new Set();
   var activeLines = new Set();
 
-  // A) RADN: nur kundig
   Object.keys(st.routeStatus||{}).forEach(function(r){
     if(st.routeStatus[r] !== 'kundig') return;
     var rr = String(r).replace(/\D+/g,'');
     if(rr) activeLines.add(rr);
   });
 
-  // B) Karte: markierte Punkte (Overrides != unkundig) -> data-line*
   if(st.svgRoot){
     Object.keys(st.overrides||{}).forEach(function(id){
       var v = st.overrides[id];
@@ -384,14 +388,12 @@ function updateOrtskundeSuggestions(){
     });
   }
 
-  // C1) Vorschläge via stations_by_line.json (tanklager pro Linie)
   var idxMap = st.idxTankByLine || {};
   activeLines.forEach(function(l){
     var set = idxMap[l];
     if(set) set.forEach(function(lbl){ sug.add(lbl); });
   });
 
-  // C2) Fallback: falls Tanklager-Elemente in SVG data-line haben
   var svgByLine = (st.tankIndex && st.tankIndex.byLine) ? st.tankIndex.byLine : {};
   activeLines.forEach(function(l){
     var set2 = svgByLine[l];
@@ -606,27 +608,129 @@ function resetAllTeilstreckenFalse(){
   }
 
   function renderSegList(){
-    const host=$('segList'); host.innerHTML='';
-    const r=$('routePick').value;
-    if(!r){ host.innerHTML='<div class="hint">Bitte zuerst eine Route wählen.</div>'; return; }
-    initTeilstreckenForRoute(r);
-    const segs=st.routeSegmentsOrdered[r]||[];
-    if(!segs.length){ host.innerHTML='<div class="hint">Keine BLS Teilstrecken vorhanden.</div>'; return; }
-    segs.forEach(it=>{
-      const k=segKey(it);
-      const on = st.teilstrecken[r][k] === true;
-      const div=document.createElement('div');
-      div.className='segItem' + (on?'':' off');
-      const name = (it.fromName||it.toName) ? ` (${it.fromName||''} → ${it.toName||''})` : '';
-      div.innerHTML=`<div style="width:34px; font-weight:900;">${on?'✅':'✕'}</div><div class="desc"><div style="font-weight:900; text-decoration:${on?'none':'line-through'};">${it.seg}  ${it.from} → ${it.to}${name}</div><div class="hint">Tippen toggelt true/false</div></div>`;
-      div.addEventListener('click',()=>{
-        st.teilstrecken[r][k]=!on;
-        setDirty(true);
-        renderSegList();
-      });
-      host.appendChild(div);
-    });
+  // BLS Daten: gruppiert nach Route (wie RADN)
+  const host = $('blsList');
+  if(!host) return;
+  host.innerHTML='';
+
+  const rs = selectedRoutes();
+  if(!rs.length){
+    host.innerHTML = '<div class="hint">Keine Route gewählt.</div>';
+    return;
   }
+
+  const onlyFalse = (st.blsFilter === 'false');
+
+  rs.forEach(function(r){
+    initTeilstreckenForRoute(r);
+    const segs = st.routeSegmentsOrdered[r] || [];
+    if(!segs.length) return;
+
+    // counts
+    var total = segs.length;
+    var trueCnt = 0;
+    for(var i=0;i<segs.length;i++){
+      var it = segs[i];
+      var k = segKey(it);
+      if(st.teilstrecken[r] && st.teilstrecken[r][k] === true) trueCnt++;
+    }
+    var falseCnt = total - trueCnt;
+
+    // Header
+    const wrap = document.createElement('div');
+    wrap.style.marginTop = '10px';
+
+    const head = document.createElement('div');
+    head.className = 'groupHead';
+    const collapsed = !!(st.blsCollapsed && st.blsCollapsed[r]);
+    const title = document.createElement('div');
+    title.className = 'groupTitle';
+    title.textContent = r + ' ' + (st.routes[r] || '');
+
+    const meta = document.createElement('div');
+    meta.className = 'groupMeta';
+    meta.textContent = 'true: ' + trueCnt + ' / false: ' + falseCnt;
+
+    const spacer = document.createElement('span');
+    spacer.style.flex = '1 1 auto';
+
+    const btnAllFalse = document.createElement('button');
+    btnAllFalse.type='button';
+    btnAllFalse.className='miniBtn';
+    btnAllFalse.textContent='alles false';
+    btnAllFalse.addEventListener('click', function(ev){
+      ev.preventDefault();
+      segs.forEach(function(it){
+        st.teilstrecken[r][segKey(it)] = false;
+      });
+      setDirty(true);
+      renderSegList();
+      renderSummary();
+    });
+
+    const btnAllTrue = document.createElement('button');
+    btnAllTrue.type='button';
+    btnAllTrue.className='miniBtn';
+    btnAllTrue.textContent='alles true';
+    btnAllTrue.addEventListener('click', function(ev){
+      ev.preventDefault();
+      segs.forEach(function(it){
+        st.teilstrecken[r][segKey(it)] = true;
+      });
+      setDirty(true);
+      renderSegList();
+      renderSummary();
+    });
+
+    const btnCollapse = document.createElement('button');
+    btnCollapse.type='button';
+    btnCollapse.className='miniBtn';
+    btnCollapse.textContent = collapsed ? 'anzeigen' : 'zuklappen';
+    btnCollapse.addEventListener('click', function(ev){
+      ev.preventDefault();
+      st.blsCollapsed[r] = !collapsed;
+      renderSegList();
+    });
+
+    head.appendChild(title);
+    head.appendChild(meta);
+    head.appendChild(spacer);
+    head.appendChild(btnAllFalse);
+    head.appendChild(btnAllTrue);
+    head.appendChild(btnCollapse);
+    wrap.appendChild(head);
+
+    if(!collapsed){
+      // Segmente
+      segs.forEach(function(it){
+        const k = segKey(it);
+        const on = st.teilstrecken[r][k] === true;
+        if(onlyFalse && on) return;
+
+        const div = document.createElement('div');
+        div.className='segItem' + (on?'':' off');
+        const name = (it.fromName || it.toName) ? (' (' + (it.fromName||'') + ' → ' + (it.toName||'') + ')') : '';
+        div.innerHTML = '<div style="width:34px; font-weight:900;">' + (on?'✅':'✕') + '</div>' +
+          '<div class="desc"><div style="font-weight:900; text-decoration:' + (on?'none':'line-through') + ';">' +
+          it.seg + ' ' + it.from + ' → ' + it.to + name +
+          '</div><div class="hint">Tippen toggelt true/false</div></div>';
+
+        div.addEventListener('click', function(){
+          st.teilstrecken[r][k] = !on;
+          setDirty(true);
+          renderSegList();
+          renderSummary();
+        });
+        div.addEventListener('touchend', function(e){ e.preventDefault(); st.teilstrecken[r][k] = !on; setDirty(true); renderSegList(); renderSummary(); }, {passive:false});
+
+        wrap.appendChild(div);
+      });
+    }
+
+    host.appendChild(wrap);
+  });
+}
+
 
   // Assets
   async function ensureAssetsLoaded(){
@@ -1064,7 +1168,20 @@ function renderOrts(){
     });
 
     $('backToRoutes').addEventListener('click',()=>showStep(2));
-    $('routePick').addEventListener('change',()=>renderSegList());
+
+  $('blsFilterAll').addEventListener('click', ()=>{
+    st.blsFilter='all';
+    $('blsFilterAll').classList.add('active');
+    $('blsFilterFalse').classList.remove('active');
+    renderSegList();
+  });
+  $('blsFilterFalse').addEventListener('click', ()=>{
+    st.blsFilter='false';
+    $('blsFilterFalse').classList.add('active');
+    $('blsFilterAll').classList.remove('active');
+    renderSegList();
+  });
+
     $('toMap').addEventListener('click', async()=>{
       try{ await goMap(); } catch(e){ console.error(e); toast('Karte konnte nicht geladen werden.'); }
     });
