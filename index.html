@@ -249,7 +249,8 @@
     // Vorschläge Ortskunde (aus RADN kundig + Karten-Auswahl)
     suggestedOrts: new Set(),
     tankIndex: { byLine: {}, byCode: {} },
-    ortFilter: 'suggested'
+    ortFilter: 'suggested',
+    codeQueryDigits: ''
   };
 
   // ===== Tap-Anzeige im Header (nur bei Antippen, nie bei Wischen) =====
@@ -361,6 +362,20 @@
           const set = st.tankIndex?.byCode?.[code];
           if(set) for(const s of set) sug.add(s);
         }
+      });
+    }
+
+
+    // 3) Direkte Eingabe (z.B. 411 oder Teil davon)
+    const q = String(st.codeQueryDigits||'').trim();
+    if(q.length){
+      // Match gegen Linien (data-line)
+      Object.keys(st.tankIndex?.byLine||{}).forEach(line => {
+        if(String(line).startsWith(q)) for(const v of st.tankIndex.byLine[line]) sug.add(v);
+      });
+      // Match gegen Codes (data-code)
+      Object.keys(st.tankIndex?.byCode||{}).forEach(code => {
+        if(String(code).startsWith(q)) for(const v of st.tankIndex.byCode[code]) sug.add(v);
       });
     }
 
@@ -824,7 +839,7 @@ function renderOrts(){
     const allKeys = Object.keys(st.orts||{});
     const sugSet = st.suggestedOrts || new Set();
     const useSug = (st.ortFilter === 'suggested') && sugSet.size > 0;
-    const keys = (useSug ? allKeys.filter(k=>sugSet.has(k)) : allKeys).sort((a,b)=>{
+    const keys = (useSug ? allKeys.filter(k => sugSet.has(k) || (st.orts[k] && st.orts[k].kundig===true)) : allKeys).sort((a,b)=>{
       const la = (st.orts[a]?.linien||[])[0];
       const lb = (st.orts[b]?.linien||[])[0];
       const na = la ? Number(la) : 999999;
@@ -832,11 +847,12 @@ function renderOrts(){
       if(na !== nb) return na-nb;
       return a.localeCompare(b,'de-CH');
     });
+    });
     if(!keys.length){ host.innerHTML='<div class="hint">Keine Tanklager in der SVG gefunden.</div>'; return; }
     keys.forEach(ort=>{
       const it=st.orts[ort];
       const on=!!it.kundig;
-    const suggested = st.suggestedOrts && st.suggestedOrts.has(ort);
+    const suggested = (!on) && st.suggestedOrts && st.suggestedOrts.has(ort);
     const div=document.createElement('div');
     div.className='item' + (suggested?' suggest':'') + (on?' ortOn':'');
       div.innerHTML=`<div class="no">${on?'✅':'✕'}</div><div class="desc"><b style="text-decoration:${on?'none':'line-through'};">${ort}</b>${suggested ? ' <span class="badge sug">Vorschlag</span>' : ''}<div class="hint">Linien: ${(it.linien||[]).slice().sort((a,b)=>Number(a)-Number(b)).join(', ')}</div></div>`;
