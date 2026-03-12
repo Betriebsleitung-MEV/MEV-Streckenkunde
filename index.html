@@ -269,9 +269,10 @@
   }
 
   function labelNurInkscape(el){
-    const label = String(el?.getAttribute('inkscape:label') || '').trim();
-    return label || '(ohne Label)';
-  }
+  if(!el || !el.getAttribute) return '(ohne Label)';
+  const label = String(el.getAttribute('inkscape:label') || '').trim();
+  return label || '(ohne Label)';
+}
 
   function isTanklagerEl(el){
     if(!el || !el.getAttribute) return false;
@@ -286,13 +287,12 @@
     return false;
   }
   function isStationEl(el){
-    const dt = String(el?.getAttribute('data-typ') || el?.getAttribute('data-type') || '').trim();
-    if(dt === 'Station') return true;
-    const id = String(el?.id || '').toLowerCase().trim();
-    return id.startsWith('station_') || id.startsWith('unoccupied_station_');
-  }
-
-  
+  if(!el) return false;
+  const dt = String((el.getAttribute && (el.getAttribute('data-typ') || el.getAttribute('data-type'))) || '').trim();
+  if(dt === 'Station') return true;
+  const id = String(el.id || '').toLowerCase().trim();
+  return id.startsWith('station_') || id.startsWith('unoccupied_station_');
+}
 
   // ===== Tanklager/Anschlussgleise Vorschläge (Abgleich) =====
   function collectDataLines(el){
@@ -824,8 +824,8 @@ function renderOrts(){
     const sugSet = st.suggestedOrts || new Set();
     const useSug = (st.ortFilter === 'suggested') && sugSet.size > 0;
     const keys = (useSug ? allKeys.filter(k => sugSet.has(k) || (st.orts[k] && st.orts[k].kundig===true)) : allKeys).sort((a,b)=>{
-      const la = (st.orts[a]?.linien||[])[0];
-      const lb = (st.orts[b]?.linien||[])[0];
+      const la = (((st.orts[a] && st.orts[a].linien) ? st.orts[a].linien : [])[0]);
+      const lb = (((st.orts[b] && st.orts[b].linien) ? st.orts[b].linien : [])[0]);
       const na = la ? Number(la) : 999999;
       const nb = lb ? Number(lb) : 999999;
       if(na !== nb) return na-nb;
