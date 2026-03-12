@@ -263,15 +263,19 @@
   }
 
   function isTanklagerEl(el){
-    const dt = String(el?.getAttribute('data-typ') || el?.getAttribute('data-type') || '').trim().toLowerCase();
-    if(dt === 'tanklager') return true;
-    const id = String(el?.id || '').toLowerCase().trim();
-    if(id === 'tanklager' || id.startsWith('tanklager_') || id.includes('tanklager')) return true;
-    const label = String(el?.getAttribute('inkscape:label') || '').trim().toLowerCase();
-    if(label.startsWith('tanklager') || label.includes('tanklager')) return true;
-    return false;
-  }
-
+  if(!el || !el.getAttribute) return false;
+  // In deiner SVG: Tanklager="..." (Gross-/Kleinschreibung möglich)
+  const tl = String(el.getAttribute('Tanklager') || el.getAttribute('tanklager') || '').trim();
+  if(tl) return true;
+  // Fallbacks (falls mal zusätzlich markiert)
+  const dt = String(el.getAttribute('data-typ') || el.getAttribute('data-type') || '').trim().toLowerCase();
+  if(dt === 'tanklager') return true;
+  const id = String(el.id || '').toLowerCase().trim();
+  if(id === 'tanklager' || id.startsWith('tanklager_') || id.includes('tanklager')) return true;
+  const label = String(el.getAttribute('inkscape:label') || '').trim().toLowerCase();
+  if(label.startsWith('tanklager') || label.includes('tanklager')) return true;
+  return false;
+}
   function isStationEl(el){
     const dt = String(el?.getAttribute('data-typ') || el?.getAttribute('data-type') || '').trim();
     if(dt === 'Station') return true;
@@ -295,6 +299,7 @@
 
     let down = null;
     svgRoot.addEventListener('pointerdown', (ev) => {
+      // nur Primärfinger/Maus
       if(ev.button != null && ev.button !== 0) return;
       down = {x: ev.clientX, y: ev.clientY, t: performance.now()};
     }, {passive:true});
@@ -305,6 +310,8 @@
       const dx = ev.clientX - down.x;
       const dy = ev.clientY - down.y;
       const dist = Math.hypot(dx, dy);
+
+      // nur kurzer Tap, kaum Bewegung
       if(dt <= 550 && dist <= 8){
         const hit = findTapTarget(ev.target);
         if(hit){
@@ -703,24 +710,47 @@
 
   // Ortskunde (Tanklager) aus stations_by_line.json
   function rebuildOrts(){
-  // Ortskunde nur aus Tanklager-Elementen in der SVG aufbauen
-  const out={};
+    const out={};
+    const kundigRoutes = Object.keys(st.routeStatus||{}).filter(r=>st.routeStatus[r]==='kundig');
+    if(st.idx && st.idx.ortskenntnisByLine){
+      kundigRoutes.forEach(r=>{
+        const arr=st.idx.ortskenntnisByLine[String(r)]||[];
+        arr.forEach(p=>{
+          // p.ort enthält den Namen, z.B. Swissterminal Frenkendorf
+          const ort=String(p.ort||'').trim();
+          if(!ort) return;
+          if(!out[ort]) out[ort]={kundig:true, linien:[]};
+          if(!out[ort].linien.includes(String(r))) out[ort].linien.push(String(r));
+        });
+      });
+    }
+    // Option B: vorhandene false behalten
+    Object.keys(out).forEach(ort=>{
+      if(st.orts[ort] && st.orts[ort].kundig===false) out[ort].kundig=false;
+    });
+    st.orts=out;
+  }
+function rebuildOrtsFromSvg(){
+  // Ortskunde nur aus SVG-Elementen mit Attribut Tanklager="..."
+  const out = {};
   if(st.svgRoot){
-    const nodes=st.svgRoot.querySelectorAll('[id], [data-typ], [data-type], [inkscape\:label]');
-    nodes.forEach(el=>{
-      if(!isTanklagerEl(el)) return;
-      const ort=String(el.getAttribute('inkscape:label')||'').trim();
-      if(!ort) return;
-      if(!out[ort]) out[ort]={kundig:true, linien:[]};
+    const nodes = st.svgRoot.querySelectorAll('[Tanklager], [tanklager]');
+    nodes.forEach(el => {
+      // Anzeige/Key: inkscape:label reicht (wie gewünscht)
+      const ort = labelNurInkscape(el);
+      if(!ort || ort === '(ohne Label)') return;
+      if(!out[ort]) out[ort] = { kundig: true, linien: [] };
     });
   }
-  Object.keys(out).forEach(ort=>{
-    if(st.orts[ort] && st.orts[ort].kundig===false) out[ort].kundig=false;
+  // vorhandene false behalten
+  Object.keys(out).forEach(ort => {
+    if(st.orts[ort] && st.orts[ort].kundig === false) out[ort].kundig = false;
   });
-  st.orts=out;
+  st.orts = out;
 }
 
-function renderOrts()function renderOrts(){
+
+  function renderOrts(){
     const host=$('ortList'); host.innerHTML='';
     const keys=Object.keys(st.orts||{}).sort((a,b)=>a.localeCompare(b,'de-CH'));
     if(!keys.length){ host.innerHTML='<div class="hint">Keine Tanklager in der SVG gefunden.</div>'; return; }
@@ -867,7 +897,7 @@ function renderOrts()function renderOrts(){
   async function goOrtskunde(){
     // Ortskunde neu aufbauen und anzeigen
     try{ await ensureAssetsLoaded(); if(!st.svgRoot) embedSvg(); }catch(e){ console.error(e); }
-    rebuildOrts();
+    rebuildOrtsFromSvg();
     renderOrts();
     renderSummary();
     showStep(5);
