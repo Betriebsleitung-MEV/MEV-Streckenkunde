@@ -8,6 +8,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="theme-color" content="#0b1220" />
   <style>
+
     :root{
       --bg:#0b1220; --panel:#121a2b; --panel2:#0f1730; --text:#e8eefc; --muted:#9fb0d0;
       --blue:#0070ff; --red:#ff2a2a; --grey:#7c869b;
@@ -30,11 +31,11 @@
 
     .sheet{position:fixed; left:0; right:0; bottom:0; z-index:20; background:rgba(18,26,43,.96);
       border-top:1px solid rgba(255,255,255,.10); border-radius: 18px 18px 0 0; box-shadow: var(--shadow);
-      height: min(62vh, 520px); display:flex; flex-direction:column;
+      height: min(66vh, 560px); display:flex; flex-direction:column;
     }
     .grab{width:48px; height:5px; border-radius:999px; background: rgba(255,255,255,.18); margin: 6px auto 0;}
     .sheetHeader{padding:10px 12px 8px; display:flex; align-items:center; gap:10px;}
-    .steps{display:flex; gap:8px;}
+    .steps{display:flex; gap:8px; flex-wrap:wrap;}
     .step{font-size:12px; padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.14); color:var(--muted);}
     .step.active{color:var(--text); border-color: rgba(0,112,255,.55); background: rgba(0,112,255,.12);}
     .dirty{margin-left:auto; font-size:12px; color:var(--muted);}
@@ -56,14 +57,26 @@
     .btn:disabled{opacity:.55; cursor:not-allowed;}
 
     .list{display:grid; gap:8px; margin-top:10px;}
-    .item{display:flex; gap:10px; padding:10px; border-radius:14px; border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04); cursor:pointer;}
-    .no{width:54px; font-weight:900;}
+    .item{display:flex; gap:10px; padding:10px; border-radius:14px; border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04); cursor:pointer; align-items:flex-start;}
+    .item.active{outline: 2px solid rgba(0,112,255,.45); background: rgba(0,112,255,.10);}
+    .no{width:56px; font-weight:900;}
+    .desc{flex:1 1 auto;}
 
-    .statusBar{display:flex; gap:10px; flex-wrap:wrap; margin-top:6px;}
+    .pill{font-size:12px; font-weight:800; padding:4px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.14); white-space:nowrap;}
+    .pill.k{color: var(--blue); border-color: rgba(0,112,255,.45); background: rgba(0,112,255,.10);}
+    .pill.a{color: var(--red); border-color: rgba(255,42,42,.45); background: rgba(255,42,42,.10);}
+    .pill.u{color: #cbd5e1; border-color: rgba(124,134,155,.45); background: rgba(124,134,155,.10);}
+
+    .statusBar{display:flex; gap:10px; flex-wrap:wrap; margin-top:8px;}
     .sbtn{height:44px; min-width:92px; padding:0 12px; border-radius:14px; border:1px solid rgba(255,255,255,.14); font-weight:800; cursor:pointer;}
     .sbtn.blue{background: var(--goodBg); border-color: rgba(0,112,255,.55);}
     .sbtn.red{background: var(--warnBg); border-color: rgba(255,42,42,.55);}
     .sbtn.grey{background: var(--neuBg); border-color: rgba(124,134,155,.55);}
+
+    .filters{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;}
+    .fbtn{height:36px; padding:0 10px; border-radius:999px; border:1px solid rgba(255,255,255,.16); background: rgba(255,255,255,.06);
+      color:var(--text); font-weight:700; cursor:pointer; font-size:12px;}
+    .fbtn.active{outline: 2px solid rgba(140,90,255,.55);}
 
     .segWrap{margin-top:10px; padding:10px; border:1px dashed rgba(255,255,255,.16); border-radius:14px; background: rgba(0,0,0,.12);}
     .segHead{display:flex; justify-content:space-between; align-items:center; gap:10px;}
@@ -71,15 +84,16 @@
     .ortItem{display:flex; gap:10px; align-items:flex-start; padding:10px; border-radius:14px; border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04);}
     .chk{width:22px; height:22px; margin-top:1px;}
 
-    .toast{position:fixed; left:50%; bottom: calc(min(62vh,520px) + 10px); transform:translateX(-50%);
+    .toast{position:fixed; left:50%; bottom: calc(min(66vh,560px) + 10px); transform:translateX(-50%);
       background: rgba(18,26,43,.98); border: 1px solid rgba(255,255,255,.16);
       padding: 10px 12px; border-radius: 12px; font-size: 13px; color: var(--text);
       max-width: min(860px, 92vw); display:none; z-index:30;}
     .toast.show{display:block;}
+
   </style>
 </head>
 <body>
-  <div class="topbar"><div class="brand">MEV Streckenkunde</div><div class="build">Build: 2026-03-12 06:36 UTC</div></div>
+  <div class="topbar"><div class="brand">MEV Streckenkunde</div><div class="build">Build: 2026-03-12 06:54 UTC</div></div>
   <div class="map"><div id="mapHost"><div style="padding:12px; color:#111;"><b>SVG noch nicht geladen.</b><br>Wird nach Personendaten aus <code>assets/map.svg</code> geladen.</div></div></div>
   <div class="toast" id="toast"></div>
 
@@ -94,6 +108,7 @@
       <div class="dirty" id="dirty"></div>
     </div>
     <div class="sheetBody">
+
       <div class="card" id="p1">
         <div style="font-weight:850; margin-bottom:6px;">Personendaten</div>
         <div class="hint">Mitarbeiter auswählen. Danach lädt die Karte automatisch.</div>
@@ -115,12 +130,24 @@
         <div class="hint" id="auto" style="margin-top:8px;"><b>Autoload:</b> warte …</div>
       </div>
 
+
       <div class="card" id="p2" style="display:none;">
         <div style="font-weight:850; margin-bottom:6px;">Linien</div>
-        <div class="hint">Linie wählen (Nummer) und Status setzen. Teilsegmente möglich.</div>
-        <label>Linie (Nummer) eingeben und Enter</label>
-        <input id="lineInput" placeholder="z.B. 511" />
-        <div style="margin-top:10px;"><b>Auswahl:</b> <span id="selLine" style="color:var(--muted);">—</span></div>
+        <div class="hint">Linie in der Liste auswählen, dann Status setzen. Filter hilft beim schnellen Setzen.</div>
+
+        <label>Suche / Filter</label>
+        <input id="lineSearch" placeholder="z.B. 511 oder Basel" />
+        <div class="filters" id="filterBar">
+          <button class="fbtn active" data-filter="all">Alle</button>
+          <button class="fbtn" data-filter="none">Ohne Status</button>
+          <button class="fbtn" data-filter="kundig">Kundig</button>
+          <button class="fbtn" data-filter="auffrischung">Auffrischung</button>
+          <button class="fbtn" data-filter="unkundig">Unkundig</button>
+        </div>
+
+        <div style="margin-top:12px;"><b>Auswahl:</b> <span id="selLine" style="color:var(--muted);">—</span></div>
+        <div class="hint" id="selDesc" style="margin-top:4px;"></div>
+
         <div class="statusBar">
           <button class="sbtn blue" data-st="kundig">Kundig</button>
           <button class="sbtn red" data-st="auffrischung">Auffrischung</button>
@@ -129,7 +156,7 @@
 
         <div class="segWrap">
           <div class="segHead"><b>Teilstrecken</b><button class="btn" id="addSeg" disabled>Segment hinzufügen</button></div>
-          <div class="hint">Start/Ende über Suche innerhalb der gewählten Linie.</div>
+          <div class="hint">Start/Ende über Suche innerhalb der gewählten Linie. Mehrere Segmente möglich.</div>
           <label>Start</label>
           <input id="segFrom" placeholder="Code oder Name" disabled />
           <div id="fromHits" class="list" style="display:none; max-height:160px; overflow:auto;"></div>
@@ -143,10 +170,12 @@
           <button class="btn" id="back1">Zurück</button>
           <button class="btn primary" id="toOrts">Weiter</button>
         </div>
+
         <div style="height:1px; background: rgba(255,255,255,.08); margin:12px 0;"></div>
-        <div class="hint">Gewählte Linien</div>
-        <div id="chosen" class="list" style="max-height:220px; overflow:auto;"></div>
+        <div class="hint">Linienliste</div>
+        <div id="lineList" class="list" style="max-height:260px; overflow:auto;"></div>
       </div>
+
 
       <div class="card" id="p3" style="display:none;">
         <div style="font-weight:850; margin-bottom:6px;">Ortskenntnis</div>
@@ -171,7 +200,7 @@
 <script>
 (() => {
   const $ = (id) => document.getElementById(id);
-  const toast = (m) => { const t=$('toast'); t.textContent=m; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 2500); };
+  const toast = (m) => { const t=$('toast'); t.textContent=m; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 2400); };
   const setDirty = (v) => $('dirty').textContent = v ? 'nicht gespeichert' : '';
 
   const st = {
@@ -180,11 +209,14 @@
     routes: {},
     idx: null,
     selectedLine: '',
-    lines: {},
-    orts: {},
-    undo: []
+    lines: {}, // line -> {status, segments[]}
+    orts: {}, // ortName -> {done, lines[]}
+    undo: [],
+    lineFilter: 'all',
+    lineSearch: ''
   };
 
+  // ----------------- UI step navigation -----------------
   function show(step){
     $('p1').style.display = step===1 ? '' : 'none';
     $('p2').style.display = step===2 ? '' : 'none';
@@ -194,6 +226,7 @@
     $('s3').classList.toggle('active', step===3);
   }
 
+  // ----------------- Asset loading -----------------
   function abs(rel){
     const base = window.location.href.split('#')[0];
     return new URL(rel, base).toString();
@@ -209,7 +242,7 @@
     return await r.text();
   }
 
-  // --- SVG minimal pan/zoom ---
+  // ----------------- SVG minimal pan/zoom -----------------
   let svgRoot=null, vbBase=null, vbCur=null;
   function getVB(svg){
     const vb = svg.getAttribute('viewBox');
@@ -271,6 +304,7 @@
     enableTouch();
   }
 
+  // ----------------- Person & employees -----------------
   function renderEmpHits(q){
     const host=$('empHits'); host.innerHTML='';
     const qq=String(q||'').toLowerCase().trim();
@@ -278,11 +312,11 @@
       if(!qq) return true;
       const s=(String(e.nachname||'')+' '+String(e.vorname||'')+' '+String(e.personalnummer||'')).toLowerCase();
       return s.includes(qq);
-    }).slice(0,20);
+    }).slice(0, 40);
     if(!hits.length){ host.innerHTML='<div class="hint">Keine Treffer.</div>'; return; }
     hits.forEach(e=>{
       const div=document.createElement('div'); div.className='item';
-      div.innerHTML=`<div class="no">${String(e.personalnummer||'').trim()||'—'}</div><div><b>${e.nachname} ${e.vorname}</b><div class="hint">Tippen zum übernehmen</div></div>`;
+      div.innerHTML=`<div class="no">${String(e.personalnummer||'').trim()||'—'}</div><div class="desc"><b>${e.nachname} ${e.vorname}</b><div class="hint">Tippen zum übernehmen</div></div>`;
       div.addEventListener('click',()=>{
         $('vorname').value=e.vorname||''; $('nachname').value=e.nachname||''; $('pnr').value=String(e.personalnummer||'');
         syncPerson();
@@ -307,44 +341,130 @@
     setDirty(true);
   }
 
-  function setLine(l){
-    st.selectedLine=String(l||'').replace(/\D+/g,'');
-    $('selLine').textContent = st.selectedLine || '—';
-    const enabled=!!st.selectedLine;
-    $('segFrom').disabled=!enabled; $('segTo').disabled=!enabled; $('addSeg').disabled=!enabled;
-    if(enabled && !st.lines[st.selectedLine]) st.lines[st.selectedLine]={status:'unkundig', segments:[]};
-    renderChosen();
-    setDirty(true);
+  // ----------------- Lines list helpers -----------------
+  function statusOf(line){
+    const it = st.lines[String(line)];
+    return it ? (it.status||'none') : 'none';
   }
-  function pushUndo(){
-    st.undo.push(JSON.stringify({lines: st.lines, orts: st.orts}));
-    if(st.undo.length>30) st.undo.shift();
-    $('undo').disabled = st.undo.length===0;
+  function statusPill(status){
+    if(status==='kundig') return '<span class="pill k">kundig</span>';
+    if(status==='auffrischung') return '<span class="pill a">auffrischung</span>';
+    if(status==='unkundig') return '<span class="pill u">unkundig</span>';
+    return '<span class="pill u">—</span>';
   }
-  function applyStatus(status){
-    if(!st.selectedLine){ toast('Bitte zuerst eine Linie wählen.'); return; }
-    pushUndo();
-    st.lines[st.selectedLine]=st.lines[st.selectedLine]||{status:'unkundig',segments:[]};
-    st.lines[st.selectedLine].status=status;
-    renderChosen();
-    rebuildOrts();
-    setDirty(true);
-    toast('Linie '+st.selectedLine+': '+status);
+
+  function allLines(){
+    const s = new Set();
+    try{
+      Object.keys(st.routes||{}).forEach(k=>{ if(/^\d+$/.test(k)) s.add(k); });
+    }catch(e){}
+    try{
+      if(st.idx && st.idx.lines) Object.keys(st.idx.lines).forEach(k=>{ if(/^\d+$/.test(k)) s.add(k); });
+      else if(st.idx && st.idx.stationsByLine) Object.keys(st.idx.stationsByLine).forEach(k=>{ if(/^\d+$/.test(k)) s.add(k); });
+    }catch(e){}
+    return Array.from(s).sort((a,b)=>Number(a)-Number(b));
   }
-  function renderChosen(){
-    const host=$('chosen'); host.innerHTML='';
-    const keys=Object.keys(st.lines);
-    if(!keys.length){ host.innerHTML='<div class="hint">Noch keine Linien markiert.</div>'; return; }
-    keys.sort((a,b)=>Number(a)-Number(b));
-    keys.forEach(line=>{
-      const it=st.lines[line];
-      const div=document.createElement('div'); div.className='item';
-      div.innerHTML=`<div class="no">${line}</div><div><b>${(st.routes[line]||'')}</b><div class="hint">Status: ${it.status} · Segmente: ${(it.segments||[]).length}</div></div>`;
-      div.addEventListener('click',()=>{ setLine(line); toast('Linie gewählt: '+line); });
+
+  function lineMatchesFilter(line){
+    const f = st.lineFilter;
+    const stt = statusOf(line);
+    if(f==='all') return true;
+    if(f==='none') return stt==='none';
+    return stt===f;
+  }
+
+  function lineMatchesSearch(line){
+    const q = (st.lineSearch||'').toLowerCase().trim();
+    if(!q) return true;
+    const num = String(line);
+    const desc = String((st.routes||{})[num]||'').toLowerCase();
+    return num.includes(q) || desc.includes(q);
+  }
+
+  function currentVisibleLines(){
+    return allLines().filter(l=>lineMatchesFilter(l) && lineMatchesSearch(l));
+  }
+
+  function renderLineList(){
+    const host = $('lineList');
+    if(!host) return;
+    host.innerHTML='';
+    const lines = currentVisibleLines();
+    if(!lines.length){ host.innerHTML='<div class="hint">Keine Linien (Filter/Suche).</div>'; return; }
+    lines.forEach(line=>{
+      const div=document.createElement('div');
+      div.className='item' + (String(line)===String(st.selectedLine) ? ' active' : '');
+      const desc = String((st.routes||{})[String(line)]||'');
+      div.innerHTML=`<div class="no">${line}</div><div class="desc"><b>${desc||' '}</b><div class="hint">Tippen zum auswählen</div></div>${statusPill(statusOf(line))}`;
+      div.addEventListener('click',()=>{
+        setLine(line);
+      });
       host.appendChild(div);
     });
   }
 
+  function setLine(line){
+    st.selectedLine=String(line||'').replace(/\D+/g,'');
+    $('selLine').textContent = st.selectedLine || '—';
+    if($('selDesc')) $('selDesc').textContent = String((st.routes||{})[st.selectedLine]||'');
+    const enabled=!!st.selectedLine;
+    $('segFrom').disabled=!enabled; $('segTo').disabled=!enabled; $('addSeg').disabled=!enabled;
+    if(enabled && !st.lines[st.selectedLine]) st.lines[st.selectedLine]={status:'none', segments:[]};
+    renderLineList();
+    renderSegs();
+    setDirty(true);
+  }
+
+  // ----------------- Undo & status setters -----------------
+  function pushUndo(){
+    st.undo.push(JSON.stringify({lines: st.lines, orts: st.orts}));
+    if(st.undo.length>40) st.undo.shift();
+    const ub = $('undo');
+    if(ub) ub.disabled = st.undo.length===0;
+  }
+
+  function applyStatusSelected(status){
+    if(!st.selectedLine){ toast('Bitte zuerst eine Linie auswählen.'); return; }
+    pushUndo();
+    st.lines[st.selectedLine]=st.lines[st.selectedLine]||{status:'none',segments:[]};
+    st.lines[st.selectedLine].status=status;
+    setDirty(true);
+    rebuildOrts();
+    renderLineList();
+    toast('Linie '+st.selectedLine+': '+status);
+  }
+
+  // ----------------- Bulk ops (variant B will wire) -----------------
+  function bulkSet(status){
+    const lines = currentVisibleLines();
+    if(!lines.length){ toast('Keine sichtbaren Linien.'); return; }
+    pushUndo();
+    lines.forEach(line=>{
+      const k=String(line);
+      st.lines[k]=st.lines[k]||{status:'none',segments:[]};
+      st.lines[k].status=status;
+    });
+    setDirty(true);
+    rebuildOrts();
+    renderLineList();
+    toast('Bulk gesetzt: '+status);
+  }
+  function bulkClear(){
+    const lines = currentVisibleLines();
+    if(!lines.length){ toast('Keine sichtbaren Linien.'); return; }
+    pushUndo();
+    lines.forEach(line=>{
+      delete st.lines[String(line)];
+      if(String(line)===String(st.selectedLine)) st.selectedLine='';
+    });
+    setDirty(true);
+    rebuildOrts();
+    renderLineList();
+    renderSegs();
+    toast('Bulk: Status entfernt.');
+  }
+
+  // ----------------- Segments / station search -----------------
   function stationsForLine(line){
     try{ if(st.idx && st.idx.stationsByLine && st.idx.stationsByLine[String(line)]) return st.idx.stationsByLine[String(line)]; }catch(e){}
     return [];
@@ -362,7 +482,7 @@
     host.style.display=''; host.innerHTML='';
     hits.forEach(it=>{
       const div=document.createElement('div'); div.className='item';
-      div.innerHTML=`<div class="no">${String(it.code||'').toUpperCase()||'—'}</div><div><b>${it.label||it.id}</b><div class="hint">${it.id}</div></div>`;
+      div.innerHTML=`<div class="no">${String(it.code||'').toUpperCase()||'—'}</div><div class="desc"><b>${it.label||it.id}</b><div class="hint">${it.id}</div></div>`;
       div.addEventListener('click',()=>{
         const inp=$(inputId);
         inp.value=(it.code?String(it.code).toUpperCase()+' – ':'')+(it.label||it.id);
@@ -374,18 +494,18 @@
     });
   }
   function renderSegs(){
-    const host=$('segList'); host.innerHTML='';
+    const host=$('segList'); if(!host) return;
+    host.innerHTML='';
     const line=st.selectedLine; if(!line||!st.lines[line]) return;
     const segs=st.lines[line].segments||[];
     if(!segs.length){ host.innerHTML='<div class="hint">Keine Segmente.</div>'; return; }
     segs.forEach((s,idx)=>{
       const div=document.createElement('div'); div.className='item';
-      div.innerHTML=`<div class="no">${idx+1}</div><div><b>${s.fromText}</b> → <b>${s.toText}</b></div><div style="margin-left:auto;"><button class="btn">Löschen</button></div>`;
+      div.innerHTML=`<div class="no">${idx+1}</div><div class="desc"><b>${s.fromText}</b> → <b>${s.toText}</b></div><div style="margin-left:auto;"><button class="btn">Löschen</button></div>`;
       div.querySelector('button').addEventListener('click',()=>{
         pushUndo();
         segs.splice(idx,1);
         renderSegs();
-        renderChosen();
         setDirty(true);
       });
       host.appendChild(div);
@@ -399,17 +519,20 @@
     if(!fId||!tId){ toast('Bitte Start und Ende wählen.'); return; }
     pushUndo();
     const fTxt=$('segFrom').value; const tTxt=$('segTo').value;
-    st.lines[line]=st.lines[line]||{status:'unkundig',segments:[]};
+    st.lines[line]=st.lines[line]||{status:'none',segments:[]};
+    st.lines[line].segments = st.lines[line].segments || [];
     st.lines[line].segments.push({fromId:fId,toId:tId,fromText:fTxt,toText:tTxt});
     $('segFrom').value=''; $('segTo').value='';
     delete $('segFrom').dataset.pickId; delete $('segTo').dataset.pickId;
-    renderSegs(); renderChosen(); setDirty(true);
+    renderSegs();
+    setDirty(true);
     toast('Segment hinzugefügt.');
   }
 
+  // ----------------- Ortskenntnis (dedupe) -----------------
   function rebuildOrts(){
     const ortMap={};
-    const selLines=Object.keys(st.lines);
+    const selLines=Object.keys(st.lines).filter(l=>st.lines[l] && st.lines[l].status && st.lines[l].status!=='none');
     try{
       if(st.idx && st.idx.ortskenntnisByLine){
         selLines.forEach(line=>{
@@ -435,7 +558,7 @@
       const it=st.orts[ort];
       const div=document.createElement('div'); div.className='ortItem';
       div.innerHTML = `<input class="chk" type="checkbox" ${it.done?'checked':''} />
-        <div><b>${ort}</b><div class="hint">Linien: ${it.lines.slice().sort((a,b)=>Number(a)-Number(b)).join(', ')}</div></div>`;
+        <div class="desc"><b>${ort}</b><div class="hint">Linien: ${it.lines.slice().sort((a,b)=>Number(a)-Number(b)).join(', ')}</div></div>`;
       const chk=div.querySelector('input');
       chk.addEventListener('change',()=>{ pushUndo(); st.orts[ort].done=chk.checked; setDirty(true); renderSummary(); });
       host.appendChild(div);
@@ -447,13 +570,14 @@
     let k=0,a=0,u=0;
     keys.forEach(line=>{
       const s=st.lines[line].status;
-      if(s==='kundig') k++; else if(s==='auffrischung') a++; else u++;
+      if(s==='kundig') k++; else if(s==='auffrischung') a++; else if(s==='unkundig') u++;
     });
     const orts=Object.keys(st.orts);
     const done=orts.filter(o=>st.orts[o].done).length;
     $('summary').innerHTML = `Linien: <b>${k}</b> kundig, <b>${a}</b> auffrischung, <b>${u}</b> unkundig.<br>Ortskenntnis: <b>${done}</b> erledigt, <b>${orts.length-done}</b> offen.`;
   }
 
+  // ----------------- Export / Local -----------------
   function payload(){
     const linien={};
     Object.keys(st.lines).sort((a,b)=>Number(a)-Number(b)).forEach(l=>{
@@ -480,7 +604,7 @@
       st.lines = {};
       if(p.linien){
         Object.keys(p.linien).forEach(l=>{
-          st.lines[l] = { status: p.linien[l].status||'unkundig', segments: (p.linien[l].segmente||[]).map(s=>({fromId:s.fromId,toId:s.toId,fromText:s.from,toText:s.to})) };
+          st.lines[l] = { status: p.linien[l].status||'none', segments: (p.linien[l].segmente||[]).map(s=>({fromId:s.fromId,toId:s.toId,fromText:s.from,toText:s.to})) };
         });
       }
       st.orts = {};
@@ -488,7 +612,8 @@
         Object.keys(p.ortskenntnis).forEach(o=>{ st.orts[o] = { done: !!p.ortskenntnis[o].erledigt, lines: (p.ortskenntnis[o].linien||[]) }; });
       }
       syncPerson();
-      renderChosen();
+      rebuildOrts();
+      renderLineList();
       renderOrts();
       renderSummary();
       setDirty(false);
@@ -520,11 +645,16 @@
     try{
       const s=JSON.parse(last);
       st.lines=s.lines||{}; st.orts=s.orts||{};
-      renderChosen(); renderOrts(); renderSummary(); setDirty(true); toast('Rückgängig.');
+      rebuildOrts();
+      renderLineList();
+      renderSegs();
+      renderOrts();
+      renderSummary();
+      setDirty(true); toast('Rückgängig.');
     }catch(e){ toast('Rückgängig fehlgeschlagen.'); }
   }
 
-  // --- Autoload after person ---
+  // ----------------- Autoload after person -----------------
   let loaded=false, running=false;
   async function autoload(){
     if(loaded||running) return;
@@ -538,11 +668,13 @@
       const svg=await loadText(abs('assets/map.svg')); embedSvg(svg);
       $('auto').innerHTML='<b>Autoload:</b> fertig';
       loaded=true;
+      renderLineList();
     }catch(e){ console.error(e); $('auto').innerHTML='<b>Autoload:</b> Fehler: '+(e.message||e); }
     finally{ running=false; }
   }
 
-  $('datum').value = todayISO();
+  // ----------------- Wire events -----------------
+  $('datum').value = (new Date()).toISOString().slice(0,10);
   syncPerson();
   show(1);
 
@@ -556,7 +688,7 @@
   ['vorname','nachname','datum','pnr'].forEach(id=>$(id).addEventListener('input',syncPerson));
 
   $('resetPerson').addEventListener('click',()=>{
-    $('vorname').value=''; $('nachname').value=''; $('pnr').value=''; $('datum').value=todayISO();
+    $('vorname').value=''; $('nachname').value=''; $('pnr').value=''; $('datum').value=(new Date()).toISOString().slice(0,10);
     syncPerson();
     toast('Zurückgesetzt.');
   });
@@ -569,15 +701,20 @@
   $('back1').addEventListener('click',()=>show(1));
   $('back2').addEventListener('click',()=>show(2));
 
-  $('lineInput').addEventListener('keydown',(e)=>{
-    if(e.key==='Enter'){ e.preventDefault(); setLine($('lineInput').value); renderSegs(); }
-  });
+  if($('lineSearch')) $('lineSearch').addEventListener('input',()=>{ st.lineSearch=$('lineSearch').value; renderLineList(); });
 
-  document.querySelectorAll('[data-st]').forEach(b=>b.addEventListener('click',()=>{ applyStatus(b.getAttribute('data-st')); renderSegs(); }));
+  document.querySelectorAll('#filterBar .fbtn').forEach(b=>b.addEventListener('click',()=>{
+    document.querySelectorAll('#filterBar .fbtn').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    st.lineFilter = b.getAttribute('data-filter')||'all';
+    renderLineList();
+  }));
+
+  document.querySelectorAll('[data-st]').forEach(b=>b.addEventListener('click',()=>applyStatusSelected(b.getAttribute('data-st'))));
 
   $('segFrom').addEventListener('input',()=>showHits('segFrom','fromHits',$('segFrom').value));
   $('segTo').addEventListener('input',()=>showHits('segTo','toHits',$('segTo').value));
-  $('addSeg').addEventListener('click',()=>{ addSeg(); renderSegs(); });
+  $('addSeg').addEventListener('click',()=>addSeg());
 
   $('toOrts').addEventListener('click',()=>{ rebuildOrts(); renderOrts(); renderSummary(); show(3); });
 
@@ -586,6 +723,11 @@
   $('saveLocal').addEventListener('click',saveLocal);
   $('loadLocal').addEventListener('click',loadLocal);
   $('export').addEventListener('click',exportJson);
+
+  // Variant-specific hooks
+// Variante A: keine Bulk-Aktionen
+
+
 })();
 </script>
 </body>
