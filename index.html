@@ -89,11 +89,7 @@
       padding: 10px 12px; border-radius: 12px; font-size: 13px; color: var(--text);
       max-width: min(860px, 92vw); display:none; z-index:50;}
     .toast.show{display:block;}
-  
-    .item.suggest{outline:2px solid rgba(0, 200, 120, .55);}
-    .badge.sug{color: rgba(0,200,120,.95); border-color: rgba(0,200,120,.55); background: rgba(0,200,120,.12);}
-    .item.ortOn{background: rgba(0,200,120,.10);}
-</style>
+  </style>
 </head>
 <body>
   <div class="topbar"><div class="brand">MEV Streckenkunde</div><div class="build">Build: 2026-03-12 09:54 UTC</div></div>
@@ -119,9 +115,9 @@
     <div class="grab"></div>
     <div class="sheetHeader">
       <div class="steps">
-        <span class="step active" id="s1">1 Profil</span>
-        <span class="step" id="s2">2 RADN</span>
-        <span class="step" id="s3">3 BLS Daten</span>
+        <span class="step active" id="s1">1 Person</span>
+        <span class="step" id="s2">2 Routen</span>
+        <span class="step" id="s3">3 BLS Teilstrecken</span>
         <span class="step" id="s4">4 Karte</span>
         <span class="step" id="s5">5 Ortskunde</span>
       </div>
@@ -153,11 +149,9 @@
 
       <!-- Step 2 -->
       <div class="card hidden" id="p2">
-        <div style="font-weight:850; margin-bottom:6px;">RADN-Strecken (101–791)</div>
+        <div style="font-weight:850; margin-bottom:6px;">Routen (101–999)</div>
         <div class="hint">Tippen: 1× kundig · 2× auffrischung · 3× unkundig</div>
-        <label>Suche RADN-Strecke</label>
-        <input id="routeSearch" placeholder="z.B. 301 oder Lausanne" />
-
+        <label>Suche Route</label>
         <div class="cardTop">
           <div class="toggleRow">
             <span class="hint" style="margin:0;">BLS Teilstrecken bearbeiten?</span>
@@ -175,7 +169,7 @@
       <!-- Step 3 -->
       <div class="card hidden" id="p3">
         <div style="font-weight:850; margin-bottom:6px;">BLS Teilstrecken (nur wegklicken)</div>
-        <div class="hint">Route wählen und Teilstrecken wegklicken, die nicht kundig sind (false). Standard = false.</div>
+        <div class="hint">Route wählen und Teilstrecken wegklicken, die nicht kundig sind (false). Standard = true.</div>
         <label>Route wählen</label>
         <select id="routePick"></select>
 
@@ -193,14 +187,12 @@
 
       <!-- Step 5 -->
       <div class="card hidden" id="p5">
-        <div style="font-weight:850; margin-bottom:6px;">Ortskunde (Anschlussgleise und Tanklager)</div>
-        
+        <div style="font-weight:850; margin-bottom:6px;">Ortskunde (Tanklager)</div>
+        <div class="hint">Die Ortskunde kommt aus "Tanklager"-Einträgen (z.B. "Tanklager: Swissterminal"). Standard ist kundig. Tippen = false. Nochmal tippen = true.</div>
 
         <div class="cardTop">
           <div class="toggleRow">
             <span class="hint" style="margin:0;">Prüfen und bestätigen</span>
-          <button class="toggle active" id="ortFilterSug" type="button">Vorschläge</button>
-          <button class="toggle" id="ortFilterAll" type="button">Alle</button>
             <span style="flex:1 1 auto"></span>
             <button class="btn" id="backToMap" type="button">Zurück zur Karte</button>
             <button class="btn" id="saveLocal" type="button">Auf Gerät speichern</button>
@@ -245,172 +237,8 @@
     tap: {key:null, t:0, c:0},
     mode: 'pan',
     pick: 'kundig',
-    blsMode: false,
-    // Vorschläge Ortskunde (aus RADN kundig + Karten-Auswahl)
-    suggestedOrts: new Set(),
-    tankIndex: { byLine: {}, byCode: {} },
-    ortFilter: 'suggested'
+    blsMode: false
   };
-
-  // ===== Tap-Anzeige im Header (nur bei Antippen, nie bei Wischen) =====
-  const buildEl = document.querySelector('.topbar .build');
-  const originalBuildText = buildEl ? buildEl.textContent : '';
-  let buildTimer = null;
-  let wiredSvgForHeaderTap = null;
-
-  function showHeaderTemp(text, ms = 1800){
-    if(!buildEl) return;
-    buildEl.textContent = text;
-    clearTimeout(buildTimer);
-    if(ms > 0 && originalBuildText){
-      buildTimer = setTimeout(() => { buildEl.textContent = originalBuildText; }, ms);
-    }
-  }
-
-  function labelNurInkscape(el){
-    const label = String(el?.getAttribute('inkscape:label') || '').trim();
-    return label || '(ohne Label)';
-  }
-
-  function isTanklagerEl(el){
-    if(!el || !el.getAttribute) return false;
-    const tl = String(el.getAttribute('Tanklager') || el.getAttribute('tanklager') || '').trim();
-    if(tl) return true;
-    const dt = String(el.getAttribute('data-typ') || el.getAttribute('data-type') || '').trim().toLowerCase();
-    if(dt === 'tanklager') return true;
-    const id = String(el.id || '').toLowerCase().trim();
-    if(id === 'tanklager' || id.startsWith('tanklager_') || id.includes('tanklager')) return true;
-    const label = String(el.getAttribute('inkscape:label') || '').trim().toLowerCase();
-    if(label.startsWith('tanklager') || label.includes('tanklager')) return true;
-    return false;
-  }
-  function isStationEl(el){
-    const dt = String(el?.getAttribute('data-typ') || el?.getAttribute('data-type') || '').trim();
-    if(dt === 'Station') return true;
-    const id = String(el?.id || '').toLowerCase().trim();
-    return id.startsWith('station_') || id.startsWith('unoccupied_station_');
-  }
-
-  
-
-  // ===== Tanklager/Anschlussgleise Vorschläge (Abgleich) =====
-  function collectDataLines(el){
-    const out=[];
-    try{
-      const names = el.getAttributeNames ? el.getAttributeNames() : [];
-      for(const a of names){
-        if(!a.startsWith('data-line')) continue;
-        const v = String(el.getAttribute(a) || '').replace(/\D+/g,'');
-        if(v) out.push(v);
-      }
-    }catch(e){}
-    return Array.from(new Set(out)).sort((a,b)=>Number(a)-Number(b));
-  }
-
-  function buildTankIndexFromSvg(){
-    const byLine = {};
-    const byCode = {};
-    if(!st.svgRoot) return {byLine, byCode};
-
-    const nodes = st.svgRoot.querySelectorAll('[Tanklager], [tanklager]');
-    nodes.forEach(el => {
-      const label = labelNurInkscape(el);
-      if(!label || label === '(ohne Label)') return;
-
-      const code = String(el.getAttribute('data-code') || '').trim();
-      const lines = collectDataLines(el);
-
-      if(code){
-        (byCode[code] = byCode[code] || new Set()).add(label);
-      }
-      lines.forEach(l => {
-        (byLine[l] = byLine[l] || new Set()).add(label);
-      });
-    });
-
-    return {byLine, byCode};
-  }
-
-  function updateOrtskundeSuggestions(){
-    const sug = new Set();
-
-    // 1) Aus RADN-Auswahl: NUR kundig
-    Object.keys(st.routeStatus||{}).forEach(r => {
-      if(st.routeStatus[r] !== 'kundig') return;
-      const set = st.tankIndex?.byLine?.[String(r)];
-      if(set) for(const v of set) sug.add(v);
-    });
-
-    // 2) Aus Karten-Auswahl (Overrides): alles ausser unkundig
-    if(st.svgRoot){
-      Object.keys(st.overrides||{}).forEach(id => {
-        const v = st.overrides[id];
-        if(v === 'unkundig') return;
-        const el = st.svgRoot.getElementById ? st.svgRoot.getElementById(id) : document.getElementById(id);
-        if(!el) return;
-
-        const tl = String(el.getAttribute('Tanklager') || el.getAttribute('tanklager') || '').trim();
-        if(tl){
-          const label = labelNurInkscape(el);
-          if(label && label !== '(ohne Label)') sug.add(label);
-          return;
-        }
-
-        const code = String(el.getAttribute('data-code') || '').trim();
-        if(code){
-          const set = st.tankIndex?.byCode?.[code];
-          if(set) for(const s of set) sug.add(s);
-        }
-      });
-    }
-
-    st.suggestedOrts = sug;
-  }
-function findTapTarget(startEl){
-    let el = startEl;
-    for(let i=0;i<12 && el;i++){
-      if(isStationEl(el) || isTanklagerEl(el)) return el;
-      el = el.parentElement || el.parentNode;
-    }
-    return null;
-  }
-
-  function wireHeaderTapToSvg(){
-    if(!st.svgRoot || !buildEl) return;
-    const svgRoot = st.svgRoot;
-    if(wiredSvgForHeaderTap === svgRoot) return;
-
-    let down = null;
-    svgRoot.addEventListener('pointerdown', (ev) => {
-      // nur Primärfinger/Maus
-      if(ev.button != null && ev.button !== 0) return;
-      down = {x: ev.clientX, y: ev.clientY, t: performance.now()};
-    }, {passive:true});
-
-    svgRoot.addEventListener('pointerup', (ev) => {
-      if(!down) return;
-      const dt = performance.now() - down.t;
-      const dx = ev.clientX - down.x;
-      const dy = ev.clientY - down.y;
-      const dist = Math.hypot(dx, dy);
-
-      // nur kurzer Tap, kaum Bewegung
-      if(dt <= 550 && dist <= 8){
-        const hit = findTapTarget(ev.target);
-        if(hit){
-          const label = labelNurInkscape(hit);
-          const text = isTanklagerEl(hit) ? `Tanklager: ${label}` : label;
-          showHeaderTemp(text, 1800);
-        }
-      }
-      down = null;
-    }, {passive:true});
-
-    svgRoot.addEventListener('pointercancel', () => { down = null; }, {passive:true});
-
-    wiredSvgForHeaderTap = svgRoot;
-  }
-
 
   function showStep(step){
     $('p1').classList.toggle('hidden', step!==1);
@@ -490,16 +318,14 @@ function findTapTarget(startEl){
 
   function allRoutes(){
     return Object.keys(st.routes||{}).filter(k=>/^\d{3}$/.test(k)).filter(k=>{
-      const n=Number(k); return n>=101 && n<=791;
+      const n=Number(k); return n>=101 && n<=999;
     }).sort((a,b)=>Number(a)-Number(b));
   }
 
   function routeMatchesSearch(route){
-    const q=String($('routeSearch').value||'').toLowerCase().trim();
-    if(!q) return true;
-    const desc=String(st.routes[route]||'').toLowerCase();
-    return route.includes(q) || desc.includes(q);
-  }
+  // Suchfeld entfernt (Stabilität)
+  return true;
+}
 
   function tapRoute(r){
     const now=Date.now();
@@ -508,7 +334,6 @@ function findTapTarget(startEl){
     const status = (st.tap.c===1) ? 'kundig' : (st.tap.c===2) ? 'auffrischung' : 'unkundig';
     st.routeStatus[r]=status;
     if(status!=='unkundig') initTeilstreckenForRoute(r);
-    updateOrtskundeSuggestions();
     renderRouteList();
     setDirty(true);
     toast(`Route ${r}: ${status}`);
@@ -542,7 +367,7 @@ function findTapTarget(startEl){
     st.teilstrecken[r]=st.teilstrecken[r]||{};
     arr.forEach(it=>{
       const k=segKey(it);
-      if(st.teilstrecken[r][k]===undefined) st.teilstrecken[r][k]=false;
+      if(st.teilstrecken[r][k]===undefined) st.teilstrecken[r][k]=true;
     });
   }
 
@@ -570,7 +395,7 @@ function findTapTarget(startEl){
     if(!segs.length){ host.innerHTML='<div class="hint">Keine BLS Teilstrecken vorhanden.</div>'; return; }
     segs.forEach(it=>{
       const k=segKey(it);
-      const on = st.teilstrecken[r][k] === true;
+      const on = st.teilstrecken[r][k] !== false;
       const div=document.createElement('div');
       div.className='segItem' + (on?'':' off');
       const name = (it.fromName||it.toName) ? ` (${it.fromName||''} → ${it.toName||''})` : '';
@@ -626,9 +451,6 @@ function findTapTarget(startEl){
     setViewBox({...st.viewBase});
     enableTouchPanZoom();
     enablePointEditing();
-    wireHeaderTapToSvg();
-    st.tankIndex = buildTankIndexFromSvg();
-    updateOrtskundeSuggestions();
   }
 
   function enableTouchPanZoom(){
@@ -778,8 +600,7 @@ function findTapTarget(startEl){
         st.overrides[pt.id]=st.pick;
         applySelectionToSvg();
         setDirty(true);
-      updateOrtskundeSuggestions();
-        toast(`${labelNurInkscape(pt)}: ${st.pick}`);
+        toast(`${pt.id}: ${st.pick}`);
       }
       ev.preventDefault();
     },{passive:false});
@@ -790,56 +611,44 @@ function findTapTarget(startEl){
         st.overrides[pt.id]=st.pick;
         applySelectionToSvg();
         setDirty(true);
-      updateOrtskundeSuggestions();
-        toast(`${labelNurInkscape(pt)}: ${st.pick}`);
+        toast(`${pt.id}: ${st.pick}`);
       }
     });
   }
 
-  // Ortskunde (Anschlussgleise und Tanklager) aus stations_by_line.json
+  // Ortskunde (Tanklager) aus stations_by_line.json
   function rebuildOrts(){
-  // Ortskunde aus SVG-Elementen mit Attribut Tanklager="..." (Anzeige = inkscape:label)
-  const out={};
-  if(st.svgRoot){
-    const nodes = st.svgRoot.querySelectorAll('[Tanklager], [tanklager]');
-    nodes.forEach(el=>{
-      const ort = labelNurInkscape(el);
-      if(!ort || ort === '(ohne Label)') return;
-      if(!out[ort]) out[ort] = { kundig: false, linien: [] };
-      const lines = collectDataLines(el);
-      lines.forEach(v=>{ if(v && !out[ort].linien.includes(v)) out[ort].linien.push(v); });
+    const out={};
+    const kundigRoutes = Object.keys(st.routeStatus||{}).filter(r=>st.routeStatus[r]==='kundig');
+    if(st.idx && st.idx.ortskenntnisByLine){
+      kundigRoutes.forEach(r=>{
+        const arr=st.idx.ortskenntnisByLine[String(r)]||[];
+        arr.forEach(p=>{
+          // p.ort enthält den Namen, z.B. Swissterminal Frenkendorf
+          const ort=String(p.ort||'').trim();
+          if(!ort) return;
+          if(!out[ort]) out[ort]={kundig:true, linien:[]};
+          if(!out[ort].linien.includes(String(r))) out[ort].linien.push(String(r));
+        });
+      });
+    }
+    // Option B: vorhandene false behalten
+    Object.keys(out).forEach(ort=>{
+      if(st.orts[ort] && st.orts[ort].kundig===false) out[ort].kundig=false;
     });
+    st.orts=out;
   }
-  Object.keys(out).forEach(ort=>{
-    if(st.orts[ort] && st.orts[ort].kundig === true) out[ort].kundig = true;
-  });
-  Object.keys(out).forEach(ort=>{
-    out[ort].linien = (out[ort].linien||[]).slice().sort((a,b)=>Number(a)-Number(b));
-  });
-  st.orts = out;
-}
 
-function renderOrts(){
+  function renderOrts(){
     const host=$('ortList'); host.innerHTML='';
-    const allKeys = Object.keys(st.orts||{});
-    const sugSet = st.suggestedOrts || new Set();
-    const useSug = (st.ortFilter === 'suggested') && sugSet.size > 0;
-    const keys = (useSug ? allKeys.filter(k=>sugSet.has(k)) : allKeys).sort((a,b)=>{
-      const la = (st.orts[a]?.linien||[])[0];
-      const lb = (st.orts[b]?.linien||[])[0];
-      const na = la ? Number(la) : 999999;
-      const nb = lb ? Number(lb) : 999999;
-      if(na !== nb) return na-nb;
-      return a.localeCompare(b,'de-CH');
-    });
-    if(!keys.length){ host.innerHTML='<div class="hint">Keine Tanklager in der SVG gefunden.</div>'; return; }
+    const keys=Object.keys(st.orts||{}).sort((a,b)=>a.localeCompare(b,'de-CH'));
+    if(!keys.length){ host.innerHTML='<div class="hint">Keine Ortskunde aus kundigen Routen.</div>'; return; }
     keys.forEach(ort=>{
       const it=st.orts[ort];
       const on=!!it.kundig;
-    const suggested = st.suggestedOrts && st.suggestedOrts.has(ort);
-    const div=document.createElement('div');
-    div.className='item' + (suggested?' suggest':'') + (on?' ortOn':'');
-      div.innerHTML=`<div class="no">${on?'✅':'✕'}</div><div class="desc"><b style="text-decoration:${on?'none':'line-through'};">${ort}</b>${suggested ? ' <span class="badge sug">Vorschlag</span>' : ''}<div class="hint">Linien: ${(it.linien||[]).slice().sort((a,b)=>Number(a)-Number(b)).join(', ')}</div></div>`;
+      const div=document.createElement('div');
+      div.className='item'+(on?'':'');
+      div.innerHTML=`<div class="no">${on?'✅':'✕'}</div><div class="desc"><b style="text-decoration:${on?'none':'line-through'};">${ort}</b><div class="hint">Linien: ${(it.linien||[]).slice().sort((a,b)=>Number(a)-Number(b)).join(', ')}</div></div>`;
       div.addEventListener('click',()=>{
         it.kundig=!on;
         st.orts[ort]=it;
@@ -875,7 +684,7 @@ function renderOrts(){
       (st.routeSegmentsOrdered[r]||[]).forEach(it=>{
         const k=segKey(it);
         const val = st.teilstrecken[r] && st.teilstrecken[r][k];
-        teilstrecken[r].push({seg:it.seg, from:it.from, to:it.to, fromName:it.fromName||'', toName:it.toName||'', kundig:(val===true)});
+        teilstrecken[r].push({seg:it.seg, from:it.from, to:it.to, fromName:it.fromName||'', toName:it.toName||'', kundig:(val!==false)});
       });
     });
     const ortskunde={};
@@ -976,8 +785,6 @@ function renderOrts(){
 
   async function goOrtskunde(){
     // Ortskunde neu aufbauen und anzeigen
-    try{ await ensureAssetsLoaded(); if(!st.svgRoot) embedSvg(); }catch(e){ console.error(e); }
-    updateOrtskundeSuggestions();
     rebuildOrts();
     renderOrts();
     renderSummary();
@@ -1016,9 +823,6 @@ function renderOrts(){
       try{ await ensureAssetsLoaded(); renderRouteList(); showStep(2); }
       catch(e){ console.error(e); toast('Fehler beim Laden der Assets.'); }
     });
-
-    $('routeSearch').addEventListener('input',()=>renderRouteList());
-
     $('blsYes').addEventListener('click',()=>setBls(true));
     $('blsNo').addEventListener('click',()=>setBls(false));
     setBls(false);
@@ -1052,21 +856,6 @@ function renderOrts(){
     // Ortskunde nav
     $('backToMap').addEventListener('click',()=>{
       showStep(4);
-
-    // Ortskunde Filter (Vorschläge / Alle)
-    $('ortFilterSug').addEventListener('click', ()=>{
-      st.ortFilter='suggested';
-      $('ortFilterSug').classList.add('active');
-      $('ortFilterAll').classList.remove('active');
-      renderOrts();
-    });
-    $('ortFilterAll').addEventListener('click', ()=>{
-      st.ortFilter='all';
-      $('ortFilterAll').classList.add('active');
-      $('ortFilterSug').classList.remove('active');
-      renderOrts();
-    });
-
     });
 
     $('modePan').addEventListener('click',()=>setMode('pan'));
