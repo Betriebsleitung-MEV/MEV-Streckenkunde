@@ -1015,8 +1015,8 @@ function renderOrts(){
     try{
       const emp=await loadJson(abs('assets/mitarbeiter.json'));
       st.employees=Array.isArray(emp.employees)?emp.employees:[];
-    }catch(e){ st.employees=[]; }
-    renderEmpHits('');
+    }catch(e){ console.error(e); st.employees=[]; toast('Mitarbeiterliste konnte nicht geladen werden.'); try{ $('empHits').innerHTML='<div class="hint">Mitarbeiterliste konnte nicht geladen werden (assets/mitarbeiter.json).</div>'; }catch(_){} }
+    if(st.employees && st.employees.length){ renderEmpHits(''); }
 
     // wiring
     $('empSearch').addEventListener('input',()=>renderEmpHits($('empSearch').value));
