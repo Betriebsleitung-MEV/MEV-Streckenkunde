@@ -93,6 +93,9 @@
 .item.suggest{outline:2px solid rgba(0, 200, 120, .55);}
 .badge.sug{color: rgba(0,200,120,.95); border-color: rgba(0,200,120,.55); background: rgba(0,200,120,.12);}
 .item.ortOn{background: rgba(0,200,120,.10);}
+.badge.rel{color: rgba(0,160,255,.95); border-color: rgba(0,160,255,.55); background: rgba(0,160,255,.12);}
+.badge.manOn{color: rgba(0,200,120,.95); border-color: rgba(0,200,120,.55); background: rgba(0,200,120,.12);}
+.badge.manOff{color: rgba(255,90,90,.95); border-color: rgba(255,90,90,.55); background: rgba(255,90,90,.12);}
 .groupHead{display:flex; gap:10px; align-items:center; padding:10px; border-radius:12px; border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.03);}
 .groupTitle{font-weight:900;}
 .groupMeta{font-size:12px; color:var(--muted);}
@@ -101,7 +104,7 @@
 </style>
 </head>
 <body>
-  <div class="topbar"><div class="brand">MEV Streckenkunde</div><div class="build">Build: 2026-03-12 17:40 BLS+Ortskunde Merge</div></div>
+  <div class="topbar"><div class="brand">MEV Streckenkunde</div><div class="build">Build: 2026-03-12 18:05 Ortskunde-AuswahlAlle-UX + BLS-gruppiert</div></div>
 
   <!-- Step 4: Map view -->
   <div class="mapWrap hidden" id="viewMap">
@@ -208,8 +211,10 @@
         <div class="cardTop">
           <div class="toggleRow">
             <span class="hint" style="margin:0;">Prüfen und bestätigen</span>
-  <button class="toggle active" id="ortFilterSug" type="button">Auswahl</button>
-  <button class="toggle" id="ortFilterAll" type="button">Alle</button>
+<button class="toggle active" id="ortFilterSug" type="button">Auswahl</button>
+<button class="toggle" id="ortFilterAll" type="button">Alle</button>
+<span style="flex:1 1 auto"></span>
+<span class="hint" id="ortStats" style="margin:0;"></span>
             <span style="flex:1 1 auto"></span>
             <button class="btn" id="backToMap" type="button">Zurück zur Karte</button>
             <button class="btn" id="saveLocal" type="button">Auf Gerät speichern</button>
@@ -260,7 +265,7 @@
 
   // ===== Tap-Anzeige im Header (nur bei Antippen, nie bei Wischen) =====
   const buildEl = document.querySelector('.topbar .build');
-  const originalBuildText = buildEl ? buildEl.textContent : 'Build: 2026-03-12 17:40 BLS+Ortskunde Merge';
+  const originalBuildText = buildEl ? buildEl.textContent : 'Build: 2026-03-12 18:05 Ortskunde-AuswahlAlle-UX + BLS-gruppiert';
   let buildTimer = null;
   let wiredSvgForHeaderTap = null;
 
@@ -315,7 +320,6 @@ function collectDataLines(el){
 }
 
 function buildIdxTankByLine(){
-  // aus assets/stations_by_line.json: alle Einträge mit tanklager != null
   var out = {};
   try{
     var idx = st.idx || {};
@@ -326,7 +330,6 @@ function buildIdxTankByLine(){
         var it = arr[i] || {};
         if(!it.tanklager) continue;
         var line = String(it.line || lineKey || '').replace(/\D+/g,'');
-        // Sonderfall: unknown-Liste mit code = Liniennummer (z.B. "411")
         if(!line){
           var c = String(it.code || '').replace(/\D+/g,'');
           if(c) line = c;
@@ -363,14 +366,12 @@ function updateOrtskundeSuggestions(){
   var sug = new Set();
   var activeLines = new Set();
 
-  // A) RADN: nur kundig
   Object.keys(st.routeStatus||{}).forEach(function(r){
     if(st.routeStatus[r] !== 'kundig') return;
     var rr = String(r).replace(/\D+/g,'');
     if(rr) activeLines.add(rr);
   });
 
-  // B) Karte: markierte Punkte (Overrides != unkundig)
   if(st.svgRoot){
     Object.keys(st.overrides||{}).forEach(function(id){
       var v = st.overrides[id];
@@ -382,14 +383,12 @@ function updateOrtskundeSuggestions(){
     });
   }
 
-  // C1) Vorschläge via stations_by_line.json
   var idxMap = st.idxTankByLine || {};
   activeLines.forEach(function(l){
     var set = idxMap[l];
     if(set) set.forEach(function(lbl){ sug.add(lbl); });
   });
 
-  // C2) Fallback via SVG Tanklager data-line
   var svgByLine = (st.tankIndex && st.tankIndex.byLine) ? st.tankIndex.byLine : {};
   activeLines.forEach(function(l){
     var set2 = svgByLine[l];
@@ -602,7 +601,6 @@ function findTapTarget(startEl){
 }
 
 function renderSegList(){
-  // BLS Daten: gruppiert nach Route (wie RADN)
   const host = $('blsList');
   if(!host) return;
   host.innerHTML='';
@@ -622,7 +620,6 @@ function renderSegList(){
     const segs = st.routeSegmentsOrdered[r] || [];
     if(!segs.length) return;
 
-    // counts
     var total = segs.length;
     var trueCnt = 0;
     for(var i=0;i<segs.length;i++){
@@ -639,10 +636,8 @@ function renderSegList(){
     head.className = 'groupHead';
     const collapsed = !!(st.blsCollapsed && st.blsCollapsed[r]);
 
-    // Route-Text: doppelte Nummer vermeiden
     var desc = String(st.routes[r] || '').trim();
-    var titleText = desc;
-    if(!titleText){ titleText = String(r); }
+    var titleText = desc || String(r);
     if(desc && desc.indexOf(String(r)) !== 0){
       titleText = String(r) + ' ' + desc;
     }
@@ -664,9 +659,7 @@ function renderSegList(){
     btnAllFalse.textContent='alles unkundig';
     btnAllFalse.addEventListener('click', function(ev){
       ev.preventDefault();
-      segs.forEach(function(it){
-        st.teilstrecken[r][segKey(it)] = false;
-      });
+      segs.forEach(function(it){ st.teilstrecken[r][segKey(it)] = false; });
       setDirty(true);
       renderSegList();
       renderSummary();
@@ -678,9 +671,7 @@ function renderSegList(){
     btnAllTrue.textContent='alles kundig';
     btnAllTrue.addEventListener('click', function(ev){
       ev.preventDefault();
-      segs.forEach(function(it){
-        st.teilstrecken[r][segKey(it)] = true;
-      });
+      segs.forEach(function(it){ st.teilstrecken[r][segKey(it)] = true; });
       setDirty(true);
       renderSegList();
       renderSummary();
@@ -964,14 +955,40 @@ function renderSegList(){
   st.orts = out;
 }
 
+function updateOrtsStats(currentKeys){
+  try{
+    var allKeys = Object.keys(st.orts||{});
+    var sugSet = st.suggestedOrts || new Set();
+    var selCount = allKeys.filter(function(k){
+      if(sugSet.has(k)) return true;
+      if(st.ortsManual && Object.prototype.hasOwnProperty.call(st.ortsManual,k) && st.ortsManual[k]===true) return true;
+      return false;
+    }).length;
+    var allCount = allKeys.length;
+    var on=0, off=0;
+    (currentKeys||[]).forEach(function(ort){
+      var manual = (st.ortsManual && Object.prototype.hasOwnProperty.call(st.ortsManual, ort)) ? st.ortsManual[ort] : null;
+      var relevant = (sugSet && sugSet.has(ort));
+      var isOn = (manual===true) ? true : (manual===false) ? false : (relevant ? true : false);
+      if(isOn) on++; else off++;
+    });
+    var mode = (st.ortFilter==='all') ? 'Alle' : 'Auswahl';
+    var txt = 'Anzeige: Auswahl ' + selCount + ' / Alle ' + allCount + ' | ' + mode + ': kundig ' + on + ' / unkundig ' + off;
+    if($('ortStats')) $('ortStats').textContent = txt;
+  }catch(e){}
+}
+
 function renderOrts(){
     const host=$('ortList'); host.innerHTML='';
     const keys=Object.keys(st.orts||{}).sort((a,b)=>a.localeCompare(b,'de-CH'));
+    updateOrtsStats(keys);
+
     if(!keys.length){ host.innerHTML='<div class="hint">Keine Ortskunde aus kundigen Routen.</div>'; return; }
     keys.forEach(ort=>{
       const it=st.orts[ort];
-      const manual = (st.ortsManual && st.ortsManual.hasOwnProperty(ort)) ? st.ortsManual[ort] : null;
-    const on = (manual===true) ? true : (manual===false) ? false : (st.suggestedOrts && st.suggestedOrts.has(ort)) ? true : false;
+      const manual = (st.ortsManual && Object.prototype.hasOwnProperty.call(st.ortsManual, ort)) ? st.ortsManual[ort] : null;
+    const relevant = (st.suggestedOrts && st.suggestedOrts.has(ort));
+    const on = (manual===true) ? true : (manual===false) ? false : (relevant ? true : false);
       const div=document.createElement('div');
       div.className='item'+(on?'':'');
       div.innerHTML=`<div class="no">${on?'✅':'✕'}</div><div class="desc"><b style="text-decoration:${on?'none':'line-through'};">${ort}</b><div class="hint">Linien: ${(it.linien||[]).slice().sort((a,b)=>Number(a)-Number(b)).join(', ')}</div></div>`;
@@ -1199,21 +1216,16 @@ function renderOrts(){
     // Ortskunde nav
     $('backToMap').addEventListener('click',()=>{
     showStep(4);
-
-  $('ortFilterSug').addEventListener('click', ()=>{
-    st.ortFilter='suggested';
-    $('ortFilterSug').classList.add('active');
-    $('ortFilterAll').classList.remove('active');
-    renderOrts();
   });
   $('ortFilterAll').addEventListener('click', ()=>{
     st.ortFilter='all';
     $('ortFilterAll').classList.add('active');
     $('ortFilterSug').classList.remove('active');
+    toast('Alle Tanklager anzeigen');
     renderOrts();
   });
 
-  });
+    });
 
     $('modePan').addEventListener('click',()=>setMode('pan'));
     $('modeEdit').addEventListener('click',()=>setMode('edit'));
