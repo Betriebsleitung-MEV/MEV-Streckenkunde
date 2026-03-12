@@ -23,14 +23,11 @@
     .brand{font-weight:750;}
     .build{margin-left:auto; font-size:12px; color:var(--muted);}
 
-    /* Views */
-    .view{position:fixed; inset:54px 0 0 0;}
     .hidden{display:none !important;}
 
-    /* Login + Lines panel */
     .sheet{position:fixed; left:0; right:0; bottom:0; z-index:20; background:rgba(18,26,43,.96);
       border-top:1px solid rgba(255,255,255,.10); border-radius: 18px 18px 0 0; box-shadow: var(--shadow);
-      height: min(70vh, 620px); display:flex; flex-direction:column;
+      height: min(74vh, 680px); display:flex; flex-direction:column;
     }
     .grab{width:48px; height:5px; border-radius:999px; background: rgba(255,255,255,.18); margin: 6px auto 0;}
     .sheetHeader{padding:10px 12px 8px; display:flex; align-items:center; gap:10px;}
@@ -43,7 +40,7 @@
     .card{border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04); border-radius:14px; padding:12px;}
     .hint{font-size:12px; color:var(--muted); line-height:1.35;}
     label{display:block; font-size:12px; color:var(--muted); margin:10px 0 6px;}
-    input{width:100%; height:40px; border-radius:12px; border:1px solid rgba(255,255,255,.14); background:var(--panel2); color:var(--text); padding:0 12px; outline:none;}
+    input, select{width:100%; height:40px; border-radius:12px; border:1px solid rgba(255,255,255,.14); background:var(--panel2); color:var(--text); padding:0 12px; outline:none;}
     input::placeholder{color: rgba(159,176,208,.7);}
 
     .row3{display:grid; grid-template-columns: 1fr 1fr 140px; gap:10px;}
@@ -57,15 +54,19 @@
 
     .list{display:grid; gap:8px; margin-top:10px;}
     .item{display:flex; gap:10px; padding:10px; border-radius:14px; border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04); cursor:pointer; align-items:flex-start;}
-    .item.active{outline: 2px solid rgba(0,112,255,.45); background: rgba(0,112,255,.10);}
-    .no{width:64px; font-weight:900;}
+    .no{width:70px; font-weight:900;}
     .desc{flex:1 1 auto;}
     .badge{font-size:12px; font-weight:900; padding:4px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.14); white-space:nowrap;}
     .badge.k{color: var(--blue); border-color: rgba(0,112,255,.45); background: rgba(0,112,255,.10);}
     .badge.a{color: var(--red); border-color: rgba(255,42,42,.45); background: rgba(255,42,42,.10);}
     .badge.n{color: rgba(255,255,255,.65); border-color: rgba(255,255,255,.14); background: rgba(255,255,255,.04);}
 
-    /* Map view */
+    .segItem{display:flex; gap:10px; align-items:flex-start; padding:10px; border-radius:12px; border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04);
+      margin-top:8px;}
+    .segItem.off{opacity:.55;}
+    .segMeta{font-size:12px; color:var(--muted);}
+
+    /* Map */
     .mapWrap{position:fixed; inset:54px 0 0 0; background:#fff;}
     #mapHost{position:absolute; inset:0; overflow:hidden;}
     #mapHost svg{width:100%; height:100%; display:block; touch-action:none;}
@@ -86,10 +87,9 @@
     .ortItem{display:flex; gap:10px; align-items:flex-start; padding:10px; border-radius:12px; border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04);
       margin-top:8px;}
     .ortItem.off{opacity:.55;}
-    .ortName{font-weight:900;}
     .ortMeta{font-size:12px; color:var(--muted);}
 
-    .toast{position:fixed; left:50%; bottom: calc(min(70vh,620px) + 10px); transform:translateX(-50%);
+    .toast{position:fixed; left:50%; bottom: calc(min(74vh,680px) + 10px); transform:translateX(-50%);
       background: rgba(18,26,43,.98); border: 1px solid rgba(255,255,255,.16);
       padding: 10px 12px; border-radius: 12px; font-size: 13px; color: var(--text);
       max-width: min(860px, 92vw); display:none; z-index:50;}
@@ -97,9 +97,9 @@
   </style>
 </head>
 <body>
-  <div class="topbar"><div class="brand">MEV Streckenkunde</div><div class="build">Build: 2026-03-12 08:10 UTC</div></div>
+  <div class="topbar"><div class="brand">MEV Streckenkunde</div><div class="build">Build: 2026-03-12 09:22 UTC</div></div>
 
-  <!-- Map view (Step 3) -->
+  <!-- Map view (Step 4) -->
   <div class="mapWrap hidden" id="viewMap">
     <div id="mapHost"><div style="padding:12px; color:#111;"><b>SVG noch nicht geladen.</b></div></div>
   </div>
@@ -115,10 +115,10 @@
 
   <div class="mapPanel hidden" id="mapPanel">
     <h3>Ortskunde (Tanklager/Terminal)</h3>
-    <div class="hint">Standard ist kundig. Tippen = nicht kundig (false). Nochmal tippen = kundig (true).</div>
+    <div class="hint">Standard ist kundig. Tippen = false. Nochmal tippen = true.</div>
     <div id="ortList"></div>
     <div class="btnRow" style="margin-top:12px;">
-      <button class="btn" id="backToLines">Zurück</button>
+      <button class="btn" id="backToSegments">Zurück</button>
       <button class="btn" id="saveLocal">Auf Gerät speichern</button>
       <button class="btn" id="loadLocal">Vom Gerät laden</button>
       <button class="btn primary" id="export">Export (JSON)</button>
@@ -126,23 +126,23 @@
     <div class="hint" id="summary" style="margin-top:10px;"></div>
   </div>
 
-  <!-- Steps 1+2 sheet -->
+  <!-- Steps sheet -->
   <div class="sheet" id="sheet">
     <div class="grab"></div>
     <div class="sheetHeader">
       <div class="steps">
         <span class="step active" id="s1">1 Person</span>
-        <span class="step" id="s2">2 Linien</span>
-        <span class="step" id="s3">3 Karte</span>
+        <span class="step" id="s2">2 Routen</span>
+        <span class="step" id="s3">3 Teilstrecken</span>
+        <span class="step" id="s4">4 Karte</span>
       </div>
       <div class="dirty" id="dirty"></div>
     </div>
     <div class="sheetBody">
 
-      <!-- Step 1 -->
       <div class="card" id="p1">
         <div style="font-weight:850; margin-bottom:6px;">Personendaten</div>
-        <div class="hint">Mitarbeiter auswählen. Danach geht es zur Linienauswahl.</div>
+        <div class="hint">Mitarbeiter auswählen. Danach Routen setzen.</div>
         <label>Suche Mitarbeiter</label>
         <input id="empSearch" placeholder="Name, Vorname oder Nummer" />
         <div id="empHits" class="list" style="max-height:180px; overflow:auto;"></div>
@@ -155,21 +155,32 @@
         <label>Personalnummer (optional)</label>
         <input id="pnr" inputmode="numeric" pattern="[0-9]*" placeholder="z.B. 123456" />
         <div class="btnRow">
-          <button class="btn primary" id="toLines" disabled>Weiter zur Linienauswahl</button>
+          <button class="btn primary" id="toRoutes" disabled>Weiter zu Routen</button>
           <button class="btn" id="resetPerson">Zurücksetzen</button>
         </div>
         <div class="hint" id="auto" style="margin-top:8px;"><b>Status:</b> warte …</div>
       </div>
 
-      <!-- Step 2 -->
       <div class="card hidden" id="p2">
-        <div style="font-weight:850; margin-bottom:6px;">Linienauswahl</div>
-        <div class="hint">Tippen: 1× kundig (blau) · 2× auffrischung (rot) · 3× unkundig (Original)</div>
-        <label>Suche Linie</label>
-        <input id="lineSearch" placeholder="z.B. 502 oder Basel" />
-        <div class="list" id="lineList" style="max-height:360px; overflow:auto;"></div>
+        <div style="font-weight:850; margin-bottom:6px;">Routen (101–999)</div>
+        <div class="hint">Tippen: 1× kundig · 2× auffrischung · 3× unkundig</div>
+        <label>Suche Route</label>
+        <input id="routeSearch" placeholder="z.B. 301 oder Lausanne" />
+        <div class="list" id="routeList" style="max-height:360px; overflow:auto;"></div>
         <div class="btnRow">
           <button class="btn" id="backToPerson">Zurück</button>
+          <button class="btn primary" id="toSegments">Weiter zu Teilstrecken</button>
+        </div>
+      </div>
+
+      <div class="card hidden" id="p3">
+        <div style="font-weight:850; margin-bottom:6px;">Teilstrecken (nur wegklicken)</div>
+        <div class="hint">Wähle eine Route und klicke die Teilstrecken weg, die nicht kundig sind (false). Standard = true.</div>
+        <label>Route wählen</label>
+        <select id="routePick"></select>
+        <div id="segList" style="margin-top:10px;"></div>
+        <div class="btnRow">
+          <button class="btn" id="backToRoutes">Zurück</button>
           <button class="btn primary" id="toMap">Weiter zur Karte</button>
         </div>
       </div>
@@ -182,53 +193,54 @@
 <script>
 (() => {
   const $ = (id) => document.getElementById(id);
-  const toast = (m) => { const t=$('toast'); t.textContent=m; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 2400); };
+  const toast = (m) => { const t=$('toast'); t.textContent=m; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 2200); };
   const setDirty = (v) => $('dirty').textContent = v ? 'nicht gespeichert' : '';
 
-  // State
   const st = {
     person: {vorname:'', nachname:'', datum:'', personalnummer:''},
     employees: [],
     routes: {},
-    idx: null, // stations_by_line.json
+    routeSegmentsOrdered: {},
+    idx: null,
     svgText: null,
     svgRoot: null,
     viewBase: null,
     viewCur: null,
 
-    // line status: 'kundig' | 'auffrischung' | 'unkundig'
-    lines: {},
+    // Route status: 'kundig'|'auffrischung'|'unkundig'
+    routeStatus: {},
 
-    // station overrides by element id: 'kundig'|'auffrischung'|'unkundig'
+    // Teilstrecken: route -> segKey -> kundig(boolean)
+    teilstrecken: {},
+
+    // station overrides
     overrides: {},
 
-    // Ortskunde (Option B): ortName -> {kundig:boolean, linien:[...]}
+    // ortskunde
     orts: {},
 
-    // UI
     tap: {line:null, t:0, c:0},
     mode: 'pan',
-    pick: 'kundig',
-    undo: []
+    pick: 'kundig'
   };
 
-  // Step UI
   function showStep(step){
     $('p1').classList.toggle('hidden', step!==1);
     $('p2').classList.toggle('hidden', step!==2);
+    $('p3').classList.toggle('hidden', step!==3);
 
     $('s1').classList.toggle('active', step===1);
     $('s2').classList.toggle('active', step===2);
     $('s3').classList.toggle('active', step===3);
+    $('s4').classList.toggle('active', step===4);
 
-    $('viewMap').classList.toggle('hidden', step!==3);
-    $('mapBar').classList.toggle('hidden', step!==3);
-    $('mapPanel').classList.toggle('hidden', step!==3);
+    $('viewMap').classList.toggle('hidden', step!==4);
+    $('mapBar').classList.toggle('hidden', step!==4);
+    $('mapPanel').classList.toggle('hidden', step!==4);
 
-    $('sheet').classList.toggle('hidden', step===3);
+    $('sheet').classList.toggle('hidden', step===4);
   }
 
-  // Asset helpers
   function abs(rel){
     const base = window.location.href.split('#')[0];
     return new URL(rel, base).toString();
@@ -272,73 +284,127 @@
     st.person.personalnummer=String($('pnr').value||'').replace(/\D+/g,'');
     $('pnr').value=st.person.personalnummer;
     const ok=!!(st.person.vorname&&st.person.nachname&&st.person.datum);
-    $('toLines').disabled=!ok;
+    $('toRoutes').disabled=!ok;
     $('auto').innerHTML = '<b>Status:</b> ' + (ok ? 'bereit' : 'warte …');
     setDirty(true);
   }
 
-  // Lines list
-  function statusBadge(status){
+  // Routes list (101-999)
+  function badge(status){
     if(status==='kundig') return '<span class="badge k">kundig</span>';
     if(status==='auffrischung') return '<span class="badge a">auffrischung</span>';
     return '<span class="badge n">unkundig</span>';
   }
-  function allLines(){
-    const s = new Set();
-    try{ Object.keys(st.routes||{}).forEach(k=>{ if(/^\d+$/.test(k)) s.add(k); }); }catch(e){}
-    try{
-      if(st.idx && st.idx.lines) Object.keys(st.idx.lines).forEach(k=>{ if(/^\d+$/.test(k)) s.add(k); });
-      else if(st.idx && st.idx.stationsByLine) Object.keys(st.idx.stationsByLine).forEach(k=>{ if(/^\d+$/.test(k)) s.add(k); });
-    }catch(e){}
-    return Array.from(s).sort((a,b)=>Number(a)-Number(b));
+  function allRoutes(){
+    return Object.keys(st.routes||{}).filter(k=>/^\d{3}$/.test(k)).map(k=>k).filter(k=>{
+      const n=Number(k); return n>=101 && n<=999;
+    }).sort((a,b)=>Number(a)-Number(b));
   }
-  function lineMatchesSearch(line){
-    const q = String($('lineSearch').value||'').toLowerCase().trim();
+  function routeMatchesSearch(route){
+    const q=String($('routeSearch').value||'').toLowerCase().trim();
     if(!q) return true;
-    const num = String(line);
-    const desc = String((st.routes||{})[num]||'').toLowerCase();
-    return num.includes(q) || desc.includes(q);
+    const desc=String(st.routes[route]||'').toLowerCase();
+    return route.includes(q) || desc.includes(q);
   }
-  function renderLineList(){
-    const host = $('lineList');
-    host.innerHTML='';
-    const lines = allLines().filter(lineMatchesSearch);
-    if(!lines.length){ host.innerHTML='<div class="hint">Keine Treffer.</div>'; return; }
-    lines.forEach(line=>{
-      const desc = String((st.routes||{})[String(line)]||'');
-      const status = st.lines[String(line)] || 'unkundig';
+  function renderRouteList(){
+    const host=$('routeList'); host.innerHTML='';
+    const routes=allRoutes().filter(routeMatchesSearch);
+    if(!routes.length){ host.innerHTML='<div class="hint">Keine Treffer.</div>'; return; }
+    routes.forEach(r=>{
+      const status=st.routeStatus[r]||'unkundig';
       const div=document.createElement('div');
       div.className='item';
-      div.dataset.line = String(line);
-      div.innerHTML=`<div class="no">${line}</div><div class="desc"><b>${desc||' '}</b><div class="hint">1× kundig · 2× auffrischung · 3× unkundig</div></div>${statusBadge(status)}`;
-      div.addEventListener('click', ()=> tapLine(String(line)));
-      div.addEventListener('touchend', (e)=>{ e.preventDefault(); tapLine(String(line)); }, {passive:false});
+      div.innerHTML=`<div class="no">${r}</div><div class="desc"><b>${st.routes[r]||''}</b><div class="hint">1× kundig · 2× auffrischung · 3× unkundig</div></div>${badge(status)}`;
+      div.addEventListener('click', ()=> tapRoute(r));
+      div.addEventListener('touchend', (e)=>{ e.preventDefault(); tapRoute(r); }, {passive:false});
+      host.appendChild(div);
+    });
+  }
+  function tapRoute(r){
+    const now=Date.now();
+    if(st.tap.line===r && (now-st.tap.t)<450) st.tap.c+=1; else { st.tap.line=r; st.tap.c=1; }
+    st.tap.t=now;
+    const status = (st.tap.c===1) ? 'kundig' : (st.tap.c===2) ? 'auffrischung' : 'unkundig';
+    st.routeStatus[r]=status;
+    // initialize teilstrecken default true when route is not unkundig
+    if(status!=='unkundig') initTeilstreckenForRoute(r);
+    setDirty(true);
+    renderRouteList();
+    toast(`Route ${r}: ${status}`);
+  }
+
+  function selectedRoutes(){
+    return allRoutes().filter(r => (st.routeStatus[r]==='kundig' || st.routeStatus[r]==='auffrischung'));
+  }
+
+  // Teilstrecken (only wegklicken)
+  function segKey(it){
+    // unique key per direction
+    return `${it.seg}|${it.from}>${it.to}`;
+  }
+  function initTeilstreckenForRoute(r){
+    if(!st.routeSegmentsOrdered[r]) return;
+    st.teilstrecken[r]=st.teilstrecken[r]||{};
+    st.routeSegmentsOrdered[r].forEach(it=>{
+      const k=segKey(it);
+      if(st.teilstrecken[r][k]===undefined) st.teilstrecken[r][k]=true;
+    });
+  }
+
+  function renderRoutePick(){
+    const sel=$('routePick');
+    sel.innerHTML='';
+    const routes=selectedRoutes();
+    if(!routes.length){
+      const opt=document.createElement('option');
+      opt.value=''; opt.textContent='Keine Route gewählt';
+      sel.appendChild(opt);
+      sel.disabled=true;
+      return;
+    }
+    sel.disabled=false;
+    routes.forEach(r=>{
+      const opt=document.createElement('option');
+      opt.value=r;
+      opt.textContent = `${r}  ${st.routes[r]||''}`;
+      sel.appendChild(opt);
+    });
+  }
+
+  function renderSegList(){
+    const host=$('segList');
+    const r=$('routePick').value;
+    host.innerHTML='';
+    if(!r){ host.innerHTML='<div class="hint">Bitte zuerst eine Route wählen.</div>'; return; }
+    initTeilstreckenForRoute(r);
+    const segs=st.routeSegmentsOrdered[r]||[];
+    if(!segs.length){ host.innerHTML='<div class="hint">Keine Teilstrecken vorhanden.</div>'; return; }
+
+    segs.forEach(it=>{
+      const k=segKey(it);
+      const on = st.teilstrecken[r][k] !== false;
+      const div=document.createElement('div');
+      div.className='segItem' + (on ? '' : ' off');
+      const left = on ? '✅' : '✕';
+      const name = (it.fromName||it.toName) ? ` (${it.fromName||''} → ${it.toName||''})` : '';
+      div.innerHTML = `
+        <div style="width:34px; font-weight:900;">${left}</div>
+        <div class="desc">
+          <div style="font-weight:900; text-decoration:${on?'none':'line-through'};">${it.seg}  ${it.from} → ${it.to}${name}</div>
+          <div class="segMeta">Tippen: wegklicken (false) / wieder aktivieren (true)</div>
+        </div>
+      `;
+      div.addEventListener('click', ()=>{
+        st.teilstrecken[r][k] = !on;
+        setDirty(true);
+        renderSegList();
+        renderSummary();
+      });
       host.appendChild(div);
     });
   }
 
-  function tapLine(line){
-    const now = Date.now();
-    if(st.tap.line === line && (now - st.tap.t) < 450){
-      st.tap.c += 1;
-    } else {
-      st.tap.line = line;
-      st.tap.c = 1;
-    }
-    st.tap.t = now;
-
-    let status = 'kundig';
-    if(st.tap.c === 1) status = 'kundig';
-    else if(st.tap.c === 2) status = 'auffrischung';
-    else status = 'unkundig';
-
-    st.lines[line] = status;
-    setDirty(true);
-    renderLineList();
-    toast(`Linie ${line}: ${status}`);
-  }
-
-  // ----------------- SVG coloring -----------------
+  // SVG colouring (route-level only for now)
   function ensureOrig(el){
     if (el.dataset.origFill === undefined) el.dataset.origFill = el.getAttribute('fill') ?? '';
     if (el.dataset.origStroke === undefined) el.dataset.origStroke = el.getAttribute('stroke') ?? '';
@@ -350,24 +416,21 @@
     if (el.dataset.origStroke !== '') el.setAttribute('stroke', el.dataset.origStroke); else el.removeAttribute('stroke');
     if (el.dataset.origFillOpacity !== '') el.setAttribute('fill-opacity', el.dataset.origFillOpacity); else el.removeAttribute('fill-opacity');
     if (el.dataset.origStrokeOpacity !== '') el.setAttribute('stroke-opacity', el.dataset.origStrokeOpacity); else el.removeAttribute('stroke-opacity');
-    el.style.fill = '';
-    el.style.stroke = '';
-    el.style.fillOpacity = '';
-    el.style.strokeOpacity = '';
+    el.style.fill=''; el.style.stroke=''; el.style.fillOpacity=''; el.style.strokeOpacity='';
   }
   function isPoint(el){
     const raw = String((el.getAttribute('data-typ') || el.getAttribute('data-type') || '')).trim().toLowerCase();
     return raw === 'station' || raw === 'unoccupied_station';
   }
   function matchesAnyLine(el, lineDigits){
-    const target = String(lineDigits||'').replace(/\D+/g,'');
+    const target=String(lineDigits||'').replace(/\D+/g,'');
     if(!target) return false;
     try{
       const attrs = el.getAttributeNames ? el.getAttributeNames() : [];
       for(let i=0;i<attrs.length;i++){
-        const a = attrs[i];
-        if(a.indexOf('data-line') !== 0) continue;
-        const v = String(el.getAttribute(a)||'').replace(/\D+/g,'');
+        const a=attrs[i];
+        if(a.indexOf('data-line')!==0) continue;
+        const v=String(el.getAttribute(a)||'').replace(/\D+/g,'');
         if(v && v===target) return true;
       }
     }catch(e){}
@@ -375,112 +438,94 @@
   }
   function setVisual(el, status){
     ensureOrig(el);
-    if(status === 'unkundig'){
-      restoreOrig(el);
-      return;
-    }
-    const col = (status === 'kundig') ? getComputedStyle(document.documentElement).getPropertyValue('--blue').trim() :
-                (status === 'auffrischung') ? getComputedStyle(document.documentElement).getPropertyValue('--red').trim() : '';
+    if(status==='unkundig'){ restoreOrig(el); return; }
+    const col = (status==='kundig') ? getComputedStyle(document.documentElement).getPropertyValue('--blue').trim() :
+                (status==='auffrischung') ? getComputedStyle(document.documentElement).getPropertyValue('--red').trim() : '';
     if(!col){ restoreOrig(el); return; }
-    el.style.fill = col;
-    el.style.fillOpacity = '1';
-    el.style.stroke = col;
-    el.style.strokeOpacity = '1';
+    el.style.fill=col; el.style.fillOpacity='1';
+    el.style.stroke=col; el.style.strokeOpacity='1';
   }
-
-  function getLineStatusForElement(el){
-    // kundig wins over auffrischung
+  function getRouteStatusForElement(el){
     let hasK=false, hasA=false;
-    const keys = Object.keys(st.lines||{});
+    const keys=Object.keys(st.routeStatus||{});
     for(let i=0;i<keys.length;i++){
-      const line = keys[i];
-      const stt = st.lines[line];
-      if(stt !== 'kundig' && stt !== 'auffrischung') continue;
-      if(!matchesAnyLine(el, line)) continue;
-      if(stt === 'kundig'){ hasK=true; break; }
-      if(stt === 'auffrischung') hasA=true;
+      const r=keys[i];
+      const stt=st.routeStatus[r];
+      if(stt!=='kundig' && stt!=='auffrischung') continue;
+      if(!matchesAnyLine(el, r)) continue;
+      if(stt==='kundig'){ hasK=true; break; }
+      if(stt==='auffrischung') hasA=true;
     }
     if(hasK) return 'kundig';
     if(hasA) return 'auffrischung';
     return 'unkundig';
   }
-
   function applySelectionToSvg(){
     if(!st.svgRoot) return;
     const nodes = st.svgRoot.querySelectorAll('[data-typ], [data-type]');
     nodes.forEach(el=>{
       if(!isPoint(el)) return;
-      let status = getLineStatusForElement(el);
-      if(el.id && st.overrides[el.id]) status = st.overrides[el.id];
+      let status=getRouteStatusForElement(el);
+      if(el.id && st.overrides[el.id]) status=st.overrides[el.id];
       setVisual(el, status);
     });
   }
 
-  // ----------------- Touch pan/zoom for SVG -----------------
+  // Touch pan/zoom
   function getInitialViewBox(svg){
     const vb = svg.getAttribute('viewBox');
-    if (vb) {
+    if(vb){
       const parts = vb.trim().split(/[\s,]+/).map(Number);
-      if (parts.length===4 && parts.every(n=>Number.isFinite(n))) return {x:parts[0], y:parts[1], w:parts[2], h:parts[3]};
+      if(parts.length===4 && parts.every(n=>Number.isFinite(n))) return {x:parts[0],y:parts[1],w:parts[2],h:parts[3]};
     }
-    const w = Number(svg.getAttribute('width')) || 1000;
-    const h = Number(svg.getAttribute('height')) || 1000;
-    return {x:0, y:0, w:w, h:h};
+    const w=Number(svg.getAttribute('width'))||1000;
+    const h=Number(svg.getAttribute('height'))||1000;
+    return {x:0,y:0,w:w,h:h};
   }
   function setViewBox(vb){
     if(!st.svgRoot) return;
     st.svgRoot.setAttribute('viewBox', `${vb.x} ${vb.y} ${vb.w} ${vb.h}`);
-    st.viewCur = vb;
+    st.viewCur=vb;
   }
   function enableTouchPanZoom(){
     if(!st.svgRoot) return;
-    let mode = 'none';
-    let pan = null;
-    let pinch = null;
-    const dist = (a,b) => Math.hypot(a.clientX-b.clientX, a.clientY-b.clientY);
-    function clientToSvgXY(cx, cy){
-      const pt = st.svgRoot.createSVGPoint();
-      pt.x=cx; pt.y=cy;
-      const ctm = st.svgRoot.getScreenCTM();
+    let mode='none', pan=null, pinch=null;
+    const dist=(a,b)=>Math.hypot(a.clientX-b.clientX, a.clientY-b.clientY);
+    function clientToSvgXY(cx,cy){
+      const pt=st.svgRoot.createSVGPoint(); pt.x=cx; pt.y=cy;
+      const ctm=st.svgRoot.getScreenCTM();
       if(!ctm) return {x:0,y:0};
-      const sp = pt.matrixTransform(ctm.inverse());
-      return {x:sp.x, y:sp.y};
+      const sp=pt.matrixTransform(ctm.inverse());
+      return {x:sp.x,y:sp.y};
     }
-
-    st.svgRoot.addEventListener('touchstart', (e)=>{
-      if(st.mode !== 'pan') return;
-      if(!st.viewCur || !st.viewBase) return;
+    st.svgRoot.addEventListener('touchstart',(e)=>{
+      if(st.mode!=='pan') return;
+      if(!st.viewCur||!st.viewBase) return;
       if(e.touches.length===1){
-        const t=e.touches[0];
-        mode='pan';
-        pan={x:t.clientX, y:t.clientY, vb:{...st.viewCur}};
-        pinch=null;
+        const t=e.touches[0]; mode='pan'; pan={x:t.clientX,y:t.clientY,vb:{...st.viewCur}}; pinch=null;
       } else if(e.touches.length>=2){
-        mode='pinch';
-        pinch={d:dist(e.touches[0],e.touches[1]), vb:{...st.viewCur}};
-        pan=null;
+        mode='pinch'; pinch={d:dist(e.touches[0],e.touches[1]), vb:{...st.viewCur}}; pan=null;
       }
       e.preventDefault();
-    }, {passive:false});
-
-    st.svgRoot.addEventListener('touchmove', (e)=>{
-      if(st.mode !== 'pan') return;
-      if(!st.viewCur || !st.viewBase) return;
+    },{passive:false});
+    st.svgRoot.addEventListener('touchmove',(e)=>{
+      if(st.mode!=='pan') return;
+      if(!st.viewCur||!st.viewBase) return;
       if(mode==='pan' && pan && e.touches.length===1){
         const t=e.touches[0];
-        const dx=t.clientX-pan.x; const dy=t.clientY-pan.y;
+        const dx=t.clientX-pan.x, dy=t.clientY-pan.y;
         const rect=st.svgRoot.getBoundingClientRect();
-        const sx=pan.vb.w/rect.width; const sy=pan.vb.h/rect.height;
-        setViewBox({x: pan.vb.x - dx*sx, y: pan.vb.y - dy*sy, w: pan.vb.w, h: pan.vb.h});
+        const sx=pan.vb.w/rect.width, sy=pan.vb.h/rect.height;
+        setViewBox({x:pan.vb.x-dx*sx, y:pan.vb.y-dy*sy, w:pan.vb.w, h:pan.vb.h});
       }
       if(mode==='pinch' && pinch && e.touches.length>=2){
         const d=dist(e.touches[0],e.touches[1]);
         if(d<=0) return;
-        const scale = pinch.d / d;
+        const scale=pinch.d/d;
         const vb0=pinch.vb;
-        const nw=vb0.w*scale; const nh=vb0.h*scale;
+        const nw=vb0.w*scale, nh=vb0.h*scale;
         const minW=st.viewBase.w*0.02, maxW=st.viewBase.w*20;
-        if(nw<minW || nw>maxW) return;
+        if(nw<minW||nw>maxW) return;
         const mx=(e.touches[0].clientX+e.touches[1].clientX)/2;
         const my=(e.touches[0].clientY+e.touches[1].clientY)/2;
         const mid=clientToSvgXY(mx,my);
@@ -489,228 +534,174 @@
         setViewBox({x:nx,y:ny,w:nw,h:nh});
       }
       e.preventDefault();
-    }, {passive:false});
-
-    st.svgRoot.addEventListener('touchend', (e)=>{
-      if(st.mode !== 'pan') return;
+    },{passive:false});
+    st.svgRoot.addEventListener('touchend',(e)=>{
+      if(st.mode!=='pan') return;
       if(e.touches.length===0){ mode='none'; pan=null; pinch=null; }
       e.preventDefault();
-    }, {passive:false});
+    },{passive:false});
   }
 
-  // ----------------- Point picking (edit mode) -----------------
+  // Point editing
   function findPointFromTarget(t){
-    if(!t) return null;
     let el=t;
     for(let i=0;i<10 && el;i++){
-      if(el.getAttribute && (el.getAttribute('data-typ') || el.getAttribute('data-type'))) return el;
-      el = el.parentElement;
+      if(el.getAttribute && (el.getAttribute('data-typ')||el.getAttribute('data-type'))) return el;
+      el=el.parentElement;
     }
     return null;
   }
-  function pointFromClientXYRadius(cx, cy, r){
-    const rad = Number(r||0);
-    const offs = [
-      [0,0],[rad,0],[-rad,0],[0,rad],[0,-rad],[rad,rad],[rad,-rad],[-rad,rad],[-rad,-rad]
-    ];
-    for(let i=0;i<offs.length;i++){
-      const x=cx+offs[i][0], y=cy+offs[i][1];
-      const els = document.elementsFromPoint ? document.elementsFromPoint(x,y) : [document.elementFromPoint(x,y)];
-      for(let k=0;k<els.length;k++){
-        const pt = findPointFromTarget(els[k]);
+  function pointFromClientXYRadius(cx,cy,r){
+    const rad=Number(r||0);
+    const offs=[[0,0],[rad,0],[-rad,0],[0,rad],[0,-rad],[rad,rad],[rad,-rad],[-rad,rad],[-rad,-rad]];
+    for(const o of offs){
+      const x=cx+o[0], y=cy+o[1];
+      const els=document.elementsFromPoint?document.elementsFromPoint(x,y):[document.elementFromPoint(x,y)];
+      for(const e of els){
+        const pt=findPointFromTarget(e);
         if(pt && isPoint(pt)) return pt;
       }
     }
     return null;
   }
-  function setPointStatus(pt, status){
-    if(!pt || !pt.id) return;
-    st.overrides[pt.id] = status;
-    if(status==='unkundig'){
-      // still keep override explicit
-    }
+  function setPointStatus(pt,status){
+    if(!pt||!pt.id) return;
+    st.overrides[pt.id]=status;
     applySelectionToSvg();
     toast(`${pt.id}: ${status}`);
     setDirty(true);
   }
-
   function enablePointEditing(){
     if(!st.svgRoot) return;
-    st.svgRoot.addEventListener('click', (ev)=>{
-      if(st.mode !== 'edit') return;
-      const pt = findPointFromTarget(ev.target);
-      if(pt && isPoint(pt)){
-        setPointStatus(pt, st.pick);
-        ev.preventDefault();
-        ev.stopPropagation();
-      }
-    });
-    st.svgRoot.addEventListener('touchend', (ev)=>{
-      if(st.mode !== 'edit') return;
-      if(!ev.changedTouches || !ev.changedTouches.length) return;
-      const t=ev.changedTouches[0];
-      const pt = pointFromClientXYRadius(t.clientX, t.clientY, 12);
-      if(pt){
-        setPointStatus(pt, st.pick);
-      }
+    st.svgRoot.addEventListener('touchend',(ev)=>{
+      if(st.mode!=='edit') return;
+      const t=ev.changedTouches && ev.changedTouches[0];
+      if(!t) return;
+      const pt=pointFromClientXYRadius(t.clientX,t.clientY,12);
+      if(pt) setPointStatus(pt, st.pick);
       ev.preventDefault();
-    }, {passive:false});
-  }
-
-  // ----------------- Ortskunde -----------------
-  function rebuildOrtsFromKundigLines(){
-    const out = {};
-    const lines = Object.keys(st.lines||{}).filter(l => st.lines[l] === 'kundig');
-    // collect per line
-    try{
-      if(st.idx && st.idx.ortskenntnisByLine){
-        lines.forEach(line=>{
-          const arr = st.idx.ortskenntnisByLine[String(line)] || [];
-          arr.forEach(p=>{
-            const ort = String(p.ort||'').trim();
-            if(!ort) return;
-            if(!out[ort]) out[ort] = { kundig: true, linien: [] };
-            if(!out[ort].linien.includes(String(line))) out[ort].linien.push(String(line));
-          });
-        });
-      }
-    }catch(e){}
-
-    // Merge existing toggles (Option B: keep false if user removed)
-    Object.keys(out).forEach(ort=>{
-      if(st.orts[ort] && st.orts[ort].kundig === false) out[ort].kundig = false;
+    },{passive:false});
+    st.svgRoot.addEventListener('click',(ev)=>{
+      if(st.mode!=='edit') return;
+      const pt=findPointFromTarget(ev.target);
+      if(pt && isPoint(pt)) setPointStatus(pt, st.pick);
     });
-
-    // Keep previously known orts that are no longer in kundig lines? -> drop (because only kundige ortskunde berücksichtigen)
-    st.orts = out;
   }
 
-  function renderOrts(){
-    const host = $('ortList');
-    host.innerHTML = '';
-    const keys = Object.keys(st.orts||{}).sort((a,b)=>a.localeCompare(b,'de-CH'));
-    if(!keys.length){
-      host.innerHTML = '<div class="hint">Keine Ortskunde aus kundigen Linien.</div>';
-      return;
-    }
-    keys.forEach(ort=>{
-      const it = st.orts[ort];
-      const div = document.createElement('div');
-      div.className = 'ortItem' + (it.kundig ? '' : ' off');
-      div.innerHTML = `
-        <div style="width:34px; font-weight:900;">${it.kundig ? '✅' : '✕'}</div>
-        <div class="desc">
-          <div class="ortName" style="text-decoration:${it.kundig ? 'none' : 'line-through'};">${ort}</div>
-          <div class="ortMeta">Linien: ${(it.linien||[]).slice().sort((a,b)=>Number(a)-Number(b)).join(', ')}</div>
-        </div>
-      `;
-      div.addEventListener('click', ()=>{
-        // toggle true/false (Option B)
-        it.kundig = !it.kundig;
-        st.orts[ort] = it;
-        setDirty(true);
-        renderOrts();
-        renderSummary();
+  // Ortskunde from stations_by_line.json, only kundig routes
+  function rebuildOrts(){
+    const out={};
+    const routes = Object.keys(st.routeStatus||{}).filter(r=>st.routeStatus[r]==='kundig');
+    if(st.idx && st.idx.ortskenntnisByLine){
+      routes.forEach(r=>{
+        const arr=st.idx.ortskenntnisByLine[String(r)]||[];
+        arr.forEach(p=>{
+          const ort=String(p.ort||'').trim();
+          if(!ort) return;
+          if(!out[ort]) out[ort]={kundig:true, linien:[]};
+          if(!out[ort].linien.includes(String(r))) out[ort].linien.push(String(r));
+        });
       });
+    }
+    // preserve false toggles
+    Object.keys(out).forEach(ort=>{
+      if(st.orts[ort] && st.orts[ort].kundig===false) out[ort].kundig=false;
+    });
+    st.orts=out;
+  }
+  function renderOrts(){
+    const host=$('ortList'); host.innerHTML='';
+    const keys=Object.keys(st.orts||{}).sort((a,b)=>a.localeCompare(b,'de-CH'));
+    if(!keys.length){ host.innerHTML='<div class="hint">Keine Ortskunde aus kundigen Routen.</div>'; return; }
+    keys.forEach(ort=>{
+      const it=st.orts[ort];
+      const on=!!it.kundig;
+      const div=document.createElement('div');
+      div.className='ortItem'+(on?'':' off');
+      div.innerHTML=`<div style="width:34px; font-weight:900;">${on?'✅':'✕'}</div><div class="desc"><div style="font-weight:900; text-decoration:${on?'none':'line-through'};">${ort}</div><div class="ortMeta">Linien: ${(it.linien||[]).slice().sort((a,b)=>Number(a)-Number(b)).join(', ')}</div></div>`;
+      div.addEventListener('click',()=>{ it.kundig=!on; st.orts[ort]=it; setDirty(true); renderOrts(); renderSummary(); });
       host.appendChild(div);
     });
   }
 
   function renderSummary(){
-    const keys = Object.keys(st.lines||{});
+    const keys=Object.keys(st.routeStatus||{});
     let k=0,a=0,u=0;
-    keys.forEach(line=>{
-      const s = st.lines[line];
-      if(s==='kundig') k++;
-      else if(s==='auffrischung') a++;
-      else u++;
+    keys.forEach(r=>{ const s=st.routeStatus[r]; if(s==='kundig') k++; else if(s==='auffrischung') a++; else u++; });
+    const segRoutes=Object.keys(st.teilstrecken||{});
+    let segTotal=0, segFalse=0;
+    segRoutes.forEach(r=>{
+      const m=st.teilstrecken[r]||{};
+      Object.keys(m).forEach(k=>{ segTotal++; if(m[k]===false) segFalse++; });
     });
-    const orts = Object.keys(st.orts||{});
-    const ortTrue = orts.filter(o => st.orts[o].kundig).length;
-    const ortFalse = orts.length - ortTrue;
-    $('summary').innerHTML = `Linien: <b>${k}</b> kundig, <b>${a}</b> auffrischung, <b>${u}</b> unkundig. · Ortskunde: <b>${ortTrue}</b> true, <b>${ortFalse}</b> false.`;
+    const orts=Object.keys(st.orts||{});
+    const ortTrue=orts.filter(o=>st.orts[o].kundig).length;
+    $('summary').innerHTML = `Routen: <b>${k}</b> kundig, <b>${a}</b> auffrischung, <b>${u}</b> unkundig. · Teilstrecken: <b>${segTotal-segFalse}</b> true, <b>${segFalse}</b> false. · Ortskunde: <b>${ortTrue}</b> true, <b>${orts.length-ortTrue}</b> false.`;
   }
 
-  // ----------------- Export/Local (Option B) -----------------
   function payload(){
-    const linien = {};
-    Object.keys(st.lines).sort((a,b)=>Number(a)-Number(b)).forEach(line=>{
-      const s = st.lines[line];
-      linien[line] = { status: s, kundig: (s==='kundig'), auffrischung: (s==='auffrischung'), unkundig: (s!=='kundig') };
+    const linien={};
+    Object.keys(st.routeStatus).sort((a,b)=>Number(a)-Number(b)).forEach(r=>{
+      const s=st.routeStatus[r];
+      linien[r] = { status: s, kundig: (s==='kundig'), auffrischung: (s==='auffrischung'), unkundig: (s!=='kundig') };
     });
-
-    // Ortskunde Option B: include all collected (from kundig lines) with kundig true/false
-    const ortskunde = {};
-    Object.keys(st.orts).sort((a,b)=>a.localeCompare(b,'de-CH')).forEach(ort=>{
-      ortskunde[ort] = { kundig: !!st.orts[ort].kundig, linien: (st.orts[ort].linien||[]).slice() };
+    const teilstrecken={};
+    Object.keys(st.teilstrecken).sort((a,b)=>Number(a)-Number(b)).forEach(r=>{
+      teilstrecken[r]=[];
+      const segs=st.routeSegmentsOrdered[r]||[];
+      segs.forEach(it=>{
+        const k=segKey(it);
+        const val = st.teilstrecken[r] && st.teilstrecken[r][k];
+        teilstrecken[r].push({seg: it.seg, from: it.from, to: it.to, fromName: it.fromName||'', toName: it.toName||'', kundig: (val!==false)});
+      });
     });
-
-    // Overrides export (optional for later mutation)
-    const overrides = st.overrides || {};
-
-    return {
-      erzeugtAm: new Date().toISOString(),
-      person: {...st.person},
-      linien,
-      ortskunde,
-      overrides
-    };
+    const ortskunde={};
+    Object.keys(st.orts).sort((a,b)=>a.localeCompare(b,'de-CH')).forEach(o=>{
+      ortskunde[o]={kundig: !!st.orts[o].kundig, linien: (st.orts[o].linien||[]).slice()};
+    });
+    return { erzeugtAm: new Date().toISOString(), person: {...st.person}, linien, teilstrecken, ortskunde, overrides: st.overrides||{} };
   }
 
   function saveLocal(){
-    localStorage.setItem('mev_streckenkunde_state_v3', JSON.stringify(payload()));
+    localStorage.setItem('mev_streckenkunde_state_v4', JSON.stringify(payload()));
     setDirty(false);
     toast('Auf Gerät gespeichert.');
   }
   function loadLocal(){
-    const raw = localStorage.getItem('mev_streckenkunde_state_v3');
+    const raw=localStorage.getItem('mev_streckenkunde_state_v4');
     if(!raw){ toast('Keine Daten gespeichert.'); return; }
     try{
-      const p = JSON.parse(raw);
+      const p=JSON.parse(raw);
       if(p.person){
-        st.person = {
-          vorname: String(p.person.vorname||''),
-          nachname: String(p.person.nachname||''),
-          datum: String(p.person.datum||''),
-          personalnummer: String(p.person.personalnummer||'')
-        };
-        $('vorname').value = st.person.vorname;
-        $('nachname').value = st.person.nachname;
-        $('datum').value = st.person.datum;
-        $('pnr').value = st.person.personalnummer;
+        st.person={vorname:String(p.person.vorname||''),nachname:String(p.person.nachname||''),datum:String(p.person.datum||''),personalnummer:String(p.person.personalnummer||'')};
+        $('vorname').value=st.person.vorname; $('nachname').value=st.person.nachname; $('datum').value=st.person.datum; $('pnr').value=st.person.personalnummer;
       }
-      st.lines = {};
-      if(p.linien){
-        Object.keys(p.linien).forEach(line=>{
-          const s = p.linien[line].status || (p.linien[line].kundig ? 'kundig' : (p.linien[line].auffrischung ? 'auffrischung' : 'unkundig'));
-          st.lines[String(line)] = s;
+      st.routeStatus={};
+      if(p.linien){ Object.keys(p.linien).forEach(r=>{ st.routeStatus[String(r)]=p.linien[r].status|| (p.linien[r].kundig?'kundig':(p.linien[r].auffrischung?'auffrischung':'unkundig')); }); }
+      st.teilstrecken={};
+      if(p.teilstrecken){
+        Object.keys(p.teilstrecken).forEach(r=>{
+          st.teilstrecken[String(r)]={};
+          (p.teilstrecken[r]||[]).forEach(it=>{ st.teilstrecken[String(r)][`${it.seg}|${it.from}>${it.to}`] = !!it.kundig; });
         });
       }
-      st.orts = {};
-      if(p.ortskunde){
-        Object.keys(p.ortskunde).forEach(ort=>{
-          st.orts[ort] = { kundig: !!p.ortskunde[ort].kundig, linien: (p.ortskunde[ort].linien||[]).slice() };
-        });
-      }
-      st.overrides = p.overrides || {};
+      st.orts={};
+      if(p.ortskunde){ Object.keys(p.ortskunde).forEach(o=>{ st.orts[o]={kundig:!!p.ortskunde[o].kundig, linien:(p.ortskunde[o].linien||[])}; }); }
+      st.overrides=p.overrides||{};
 
+      renderRouteList();
+      renderRoutePick();
+      renderSegList();
+      if(st.svgRoot) applySelectionToSvg();
+      rebuildOrts(); renderOrts(); renderSummary();
       setDirty(false);
-      syncPerson();
-      renderLineList();
-      if(st.svgRoot){ applySelectionToSvg(); }
-      rebuildOrtsFromKundigLines();
-      renderOrts();
-      renderSummary();
       toast('Vom Gerät geladen.');
-    } catch(e){
-      console.error(e);
-      toast('Laden fehlgeschlagen.');
-    }
+    }catch(e){ console.error(e); toast('Laden fehlgeschlagen.'); }
   }
 
   async function exportJson(){
-    const p = payload();
-    if(!p.person.vorname || !p.person.nachname || !p.person.datum){ toast('Personendaten fehlen.'); return; }
+    const p=payload();
+    if(!p.person.vorname||!p.person.nachname||!p.person.datum){ toast('Personendaten fehlen.'); return; }
     const safe=(s)=>String(s||'').replace(/[^a-zA-Z0-9\-_. ]/g,'').trim().replace(/\s+/g,'_');
     const fn=('streckenkunde_'+safe(p.person.nachname)+'_'+safe(p.person.vorname)+'_'+safe(p.person.datum)+'.json').replace(/__+/g,'_');
     const blob=new Blob([JSON.stringify(p,null,2)],{type:'application/json'});
@@ -718,9 +709,7 @@
       const file=new File([blob],fn,{type:'application/json'});
       if(navigator.share && navigator.canShare && navigator.canShare({files:[file]})){
         await navigator.share({title:'Streckenkunde', files:[file]});
-        setDirty(false);
-        toast('Teilen geöffnet.');
-        return;
+        setDirty(false); toast('Teilen geöffnet.'); return;
       }
     }catch(e){}
     const url=URL.createObjectURL(blob);
@@ -730,60 +719,51 @@
     toast('Datei gespeichert.');
   }
 
-  // ----------------- Load & start map -----------------
+  // Assets loading
   async function ensureAssetsLoaded(){
-    if(st.idx && st.svgText) return;
-    try{
-      try{ const idx = await loadJson(abs('assets/index.json')); st.routes = idx.routes || {}; }catch(e){}
-      st.idx = await loadJson(abs('assets/stations_by_line.json'));
-      st.svgText = await loadText(abs('assets/map.svg'));
-    }catch(e){
-      console.error(e);
-      throw e;
-    }
+    if(st.idx && st.svgText && Object.keys(st.routes).length) return;
+    const idx=await loadJson(abs('assets/index.json'));
+    st.routes = idx.routes || {};
+    st.routeSegmentsOrdered = idx.routeSegmentsOrdered || {};
+    st.idx = await loadJson(abs('assets/stations_by_line.json'));
+    st.svgText = await loadText(abs('assets/map.svg'));
   }
 
   function embedSvg(){
-    const txt = st.svgText;
-    const doc = new DOMParser().parseFromString(txt,'image/svg+xml');
-    const err = doc.querySelector('parsererror');
+    const doc=new DOMParser().parseFromString(st.svgText,'image/svg+xml');
+    const err=doc.querySelector('parsererror');
     if(err){ toast('SVG Parse-Fehler'); console.error(err.textContent); return; }
-    const svg = doc.querySelector('svg');
+    const svg=doc.querySelector('svg');
     if(!svg){ toast('Keine SVG gefunden'); return; }
     const host=$('mapHost'); host.innerHTML='';
     const imported=document.importNode(svg,true);
     imported.style.width='100%'; imported.style.height='100%'; imported.style.display='block';
     host.appendChild(imported);
-    st.svgRoot = imported;
-    st.viewBase = getInitialViewBox(st.svgRoot);
+    st.svgRoot=imported;
+    st.viewBase=getInitialViewBox(st.svgRoot);
     setViewBox({...st.viewBase});
-    // Start: komplette Übersicht
-    // (kein zusätzlicher Zoom, damit "komplett anzeigen" stimmt)
     enableTouchPanZoom();
     enablePointEditing();
   }
 
-  // Map mode buttons
   function setMode(m){
-    st.mode = m;
+    st.mode=m;
     $('modePan').classList.toggle('active', m==='pan');
     $('modeEdit').classList.toggle('active', m==='edit');
-    toast(m==='pan' ? 'Modus: Verschieben/Zoomen' : 'Modus: Punkte bearbeiten');
+    toast(m==='pan'?'Modus: Verschieben/Zoomen':'Modus: Punkte bearbeiten');
   }
   function setPick(p){
-    st.pick = p;
+    st.pick=p;
     $('pickK').classList.toggle('active', p==='kundig');
     $('pickA').classList.toggle('active', p==='auffrischung');
     $('pickN').classList.toggle('active', p==='unkundig');
   }
 
-  // ----------------- Wiring -----------------
-  function init(){
-    // date default
-    $('datum').value = (new Date()).toISOString().slice(0,10);
-
-    syncPerson();
+  // Wire
+  async function init(){
+    $('datum').value=(new Date()).toISOString().slice(0,10);
     showStep(1);
+    syncPerson();
 
     // load employees
     (async()=>{
@@ -794,63 +774,44 @@
 
     $('empSearch').addEventListener('input',()=>renderEmpHits($('empSearch').value));
     ['vorname','nachname','datum','pnr'].forEach(id=>$(id).addEventListener('input',syncPerson));
+    $('resetPerson').addEventListener('click',()=>{ $('vorname').value=''; $('nachname').value=''; $('pnr').value=''; $('datum').value=(new Date()).toISOString().slice(0,10); syncPerson(); toast('Zurückgesetzt.'); });
 
-    $('resetPerson').addEventListener('click',()=>{
-      $('vorname').value=''; $('nachname').value=''; $('pnr').value=''; $('datum').value=(new Date()).toISOString().slice(0,10);
-      syncPerson();
-      toast('Zurückgesetzt.');
+    $('toRoutes').addEventListener('click', async()=>{
+      try{ await ensureAssetsLoaded(); renderRouteList(); showStep(2); }
+      catch(e){ console.error(e); toast('Fehler beim Laden der Assets.'); }
     });
 
-    $('toLines').addEventListener('click', async()=>{
-      try{
-        await ensureAssetsLoaded();
-        renderLineList();
-        showStep(2);
-      }catch(e){
-        toast('Fehler beim Laden der Assets.');
-      }
+    $('backToPerson').addEventListener('click',()=>showStep(1));
+    $('routeSearch').addEventListener('input',()=>renderRouteList());
+
+    $('toSegments').addEventListener('click',()=>{
+      renderRoutePick();
+      renderSegList();
+      showStep(3);
     });
 
-    $('backToPerson').addEventListener('click', ()=> showStep(1));
-
-    $('lineSearch').addEventListener('input', ()=> renderLineList());
+    $('backToRoutes').addEventListener('click',()=>showStep(2));
+    $('routePick').addEventListener('change',()=>renderSegList());
 
     $('toMap').addEventListener('click', async()=>{
-      try{
-        await ensureAssetsLoaded();
-        if(!st.svgRoot) embedSvg();
-        // apply line selection
-        applySelectionToSvg();
-        // build orts from kundig lines, default true
-        rebuildOrtsFromKundigLines();
-        renderOrts();
-        renderSummary();
-        // show map
-        showStep(3);
-        setMode('pan');
-        setPick('kundig');
-      }catch(e){
-        toast('Karte konnte nicht geladen werden.');
-      }
+      try{ await ensureAssetsLoaded(); if(!st.svgRoot) embedSvg(); applySelectionToSvg(); rebuildOrts(); renderOrts(); renderSummary(); showStep(4); setMode('pan'); setPick('kundig'); }
+      catch(e){ console.error(e); toast('Karte konnte nicht geladen werden.'); }
     });
 
-    $('backToLines').addEventListener('click', ()=>{
-      showStep(2);
-    });
+    $('backToSegments').addEventListener('click',()=>showStep(3));
 
-    $('modePan').addEventListener('click', ()=> setMode('pan'));
-    $('modeEdit').addEventListener('click', ()=> setMode('edit'));
-    $('pickK').addEventListener('click', ()=> setPick('kundig'));
-    $('pickA').addEventListener('click', ()=> setPick('auffrischung'));
-    $('pickN').addEventListener('click', ()=> setPick('unkundig'));
+    $('modePan').addEventListener('click',()=>setMode('pan'));
+    $('modeEdit').addEventListener('click',()=>setMode('edit'));
+    $('pickK').addEventListener('click',()=>setPick('kundig'));
+    $('pickA').addEventListener('click',()=>setPick('auffrischung'));
+    $('pickN').addEventListener('click',()=>setPick('unkundig'));
 
-    $('saveLocal').addEventListener('click', saveLocal);
-    $('loadLocal').addEventListener('click', loadLocal);
-    $('export').addEventListener('click', exportJson);
+    $('saveLocal').addEventListener('click',saveLocal);
+    $('loadLocal').addEventListener('click',loadLocal);
+    $('export').addEventListener('click',exportJson);
 
-    // initial
-    setPick('kundig');
     setMode('pan');
+    setPick('kundig');
   }
 
   init();
