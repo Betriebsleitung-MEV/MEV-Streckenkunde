@@ -116,8 +116,8 @@
     <div class="sheetHeader">
       <div class="steps">
         <span class="step active" id="s1">1 Person</span>
-        <span class="step" id="s2">2 Routen</span>
-        <span class="step" id="s3">3 BLS Teilstrecken</span>
+        <span class="step" id="s2"><span class="stepMain">2 RADN</span><span class="stepSub">101–791</span></span>
+        <span class="step" id="s3">3 BLS Daten</span>
         <span class="step" id="s4">4 Karte</span>
         <span class="step" id="s5">5 Ortskunde</span>
       </div>
@@ -143,8 +143,10 @@
         <div class="toggleRow" style="margin-top:12px;">
           <button class="btn primary" id="toRoutes" type="button" disabled>Weiter zu Routen</button>
           <button class="btn" id="resetPerson" type="button">Zurücksetzen</button>
+  <button class="btn" id="loadLocalTop" type="button">Vom Gerät laden</button>
         </div>
         <div class="hint" id="auto" style="margin-top:8px;"><b>Status:</b> warte …</div>
+  <div class="hint" id="loadHint" style="margin-top:6px;"></div>
       </div>
 
       <!-- Step 2 -->
@@ -152,8 +154,6 @@
         <div style="font-weight:850; margin-bottom:6px;">Routen (101–999)</div>
         <div class="hint">Tippen: 1× kundig · 2× auffrischung · 3× unkundig</div>
         <label>Suche Route</label>
-        <input id="routeSearch" placeholder="z.B. 301 oder Lausanne" />
-
         <div class="cardTop">
           <div class="toggleRow">
             <span class="hint" style="margin:0;">BLS Teilstrecken bearbeiten?</span>
@@ -161,8 +161,7 @@
             <button class="toggle" id="blsYes" type="button">Ja</button>
             <span style="flex:1 1 auto"></span>
             <button class="btn" id="backToPerson" type="button">Zurück</button>
-            <button class="btn" id="toOrtskunde2" type="button">Ortskunde</button>
-      <button class="btn primary" id="nextFromRoutes" type="button">Weiter</button>
+            <button class="btn primary" id="nextFromRoutes" type="button">Weiter</button>
           </div>
         </div>
 
@@ -171,7 +170,7 @@
 
       <!-- Step 3 -->
       <div class="card hidden" id="p3">
-        <div style="font-weight:850; margin-bottom:6px;">BLS Teilstrecken (nur wegklicken)</div>
+        <div style="font-weight:850; margin-bottom:6px;">BLS Daten</div>
         <div class="hint">Route wählen und Teilstrecken wegklicken, die nicht kundig sind (false). Standard = true.</div>
         <label>Route wählen</label>
         <select id="routePick"></select>
@@ -181,8 +180,7 @@
             <span class="hint" style="margin:0;">Tippen auf Teilstrecke = false</span>
             <span style="flex:1 1 auto"></span>
             <button class="btn" id="backToRoutes" type="button">Zurück</button>
-            <button class="btn" id="toOrtskunde3" type="button">Ortskunde</button>
-      <button class="btn primary" id="toMap" type="button">Weiter zur Karte</button>
+            <button class="btn primary" id="toMap" type="button">Weiter zur Karte</button>
           </div>
         </div>
 
@@ -218,7 +216,6 @@
 (() => {
   const $ = (id) => document.getElementById(id);
   const toast = (m) => { const t=$('toast'); t.textContent=m; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 2200); };
-  const debugLog = (m) => { try{ console.log('[MEV]', m); }catch(e){} };
   const setDirty = (v) => $('dirty').textContent = v ? 'nicht gespeichert' : '';
 
   const st = {
@@ -242,7 +239,8 @@
     tap: {key:null, t:0, c:0},
     mode: 'pan',
     pick: 'kundig',
-    blsMode: false
+    blsMode: false,
+ blsAllFalsePending: false
   };
 
   function showStep(step){
@@ -328,11 +326,9 @@
   }
 
   function routeMatchesSearch(route){
-    const q=String($('routeSearch').value||'').toLowerCase().trim();
-    if(!q) return true;
-    const desc=String(st.routes[route]||'').toLowerCase();
-    return route.includes(q) || desc.includes(q);
-  }
+  // Suchfeld entfernt (Stabilität)
+  return true;
+}
 
   function tapRoute(r){
     const now=Date.now();
@@ -378,6 +374,28 @@
     });
   }
 
+
+function resetAllTeilstreckenFalse(){
+  // setzt alle BLS-Teilstrecken auf false (unkundig)
+  try{
+    if(!st.routeSegmentsOrdered || !Object.keys(st.routeSegmentsOrdered).length){
+      st.teilstrecken = {};
+      st.blsAllFalsePending = true;
+      return;
+    }
+    Object.keys(st.routeSegmentsOrdered).forEach(r=>{
+      initTeilstreckenForRoute(r);
+      const mm = st.teilstrecken[r] || {};
+      Object.keys(mm).forEach(k=>{ mm[k] = false; });
+      st.teilstrecken[r] = mm;
+    });
+    st.blsAllFalsePending = false;
+  }catch(e){
+    console.error(e);
+    st.blsAllFalsePending = true;
+  }
+}
+
   function renderRoutePick(){
     const sel=$('routePick'); sel.innerHTML='';
     const rs=selectedRoutes();
@@ -422,6 +440,9 @@
     const idx=await loadJson(abs('assets/index.json'));
     st.routes = idx.routes || {};
     st.routeSegmentsOrdered = idx.routeSegmentsOrdered || {};
+    // Falls BLS-Modus aus: Teilstrecken global auf false setzen
+    if(!st.blsMode && st.blsAllFalsePending){ resetAllTeilstreckenFalse(); }
+
     st.idx = await loadJson(abs('assets/stations_by_line.json'));
     st.svgText = await loadText(abs('assets/map.svg'));
   }
@@ -791,31 +812,19 @@
   }
 
   async function goOrtskunde(){
-    debugLog('goOrtskunde() start');
-    toast('Ortskunde laden …');
-    try{
-      await ensureAssetsLoaded();
-      if(!st.svgRoot) embedSvg();
-      // Vorschläge und Liste neu bauen
-      if(typeof updateOrtskundeSuggestions === 'function') updateOrtskundeSuggestions();
-      if(typeof rebuildOrts === 'function') rebuildOrts();
-      if(typeof renderOrts === 'function') renderOrts();
-      if(typeof renderSummary === 'function') renderSummary();
-      showStep(5);
-      toast('Ortskunde bereit.');
-      debugLog('goOrtskunde() ok');
-    }catch(e){
-      console.error(e);
-      toast('Ortskunde Fehler – Konsole prüfen.');
-      try{ $('ortList').innerHTML = '<div class="hint">Ortskunde Fehler: ' + String(e && e.message ? e.message : e) + '</div>'; }catch(_){}
-      debugLog('goOrtskunde() error');
-    }
+    // Ortskunde neu aufbauen und anzeigen
+    rebuildOrts();
+    renderOrts();
+    renderSummary();
+    showStep(5);
   }
 
   function setBls(v){
     st.blsMode=!!v;
+    if(!st.blsMode) st.blsAllFalsePending = true;
     $('blsYes').classList.toggle('active', st.blsMode);
     $('blsNo').classList.toggle('active', !st.blsMode);
+    if(!st.blsMode){ resetAllTeilstreckenFalse(); }
   }
 
   async function init(){
@@ -832,6 +841,7 @@
 
     // wiring
     $('empSearch').addEventListener('input',()=>renderEmpHits($('empSearch').value));
+    $('loadLocalTop').addEventListener('click', loadLocal);
     ['vorname','nachname','datum','pnr'].forEach(id=>$(id).addEventListener('input',syncPerson));
 
     $('resetPerson').addEventListener('click',()=>{
@@ -844,9 +854,6 @@
       try{ await ensureAssetsLoaded(); renderRouteList(); showStep(2); }
       catch(e){ console.error(e); toast('Fehler beim Laden der Assets.'); }
     });
-
-    $('routeSearch').addEventListener('input',()=>renderRouteList());
-
     $('blsYes').addEventListener('click',()=>setBls(true));
     $('blsNo').addEventListener('click',()=>setBls(false));
     setBls(false);
@@ -863,16 +870,6 @@
       }
     });
 
-    $('toOrtskunde2').addEventListener('click',()=>{
-      debugLog('toOrtskunde2 click');
-      goOrtskunde();
-    });
-    $('toOrtskunde3').addEventListener('click',()=>{
-      debugLog('toOrtskunde3 click');
-      goOrtskunde();
-    });
-
-
     $('backToRoutes').addEventListener('click',()=>showStep(2));
     $('routePick').addEventListener('change',()=>renderSegList());
     $('toMap').addEventListener('click', async()=>{
@@ -884,7 +881,6 @@
       if(st.blsMode) showStep(3); else showStep(2);
     });
     $('toOrtskunde').addEventListener('click',()=>{
-      debugLog('toOrtskunde click');
       goOrtskunde();
     });
 
