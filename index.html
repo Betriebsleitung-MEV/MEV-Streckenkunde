@@ -8,30 +8,29 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="theme-color" content="#0b1220" />
   <style>
-
     :root{
       --bg:#0b1220; --panel:#121a2b; --panel2:#0f1730; --text:#e8eefc; --muted:#9fb0d0;
-      --blue:#0070ff; --red:#ff2a2a; --grey:#7c869b;
-      --goodBg: rgba(0,112,255,.12); --warnBg: rgba(255,42,42,.12); --neuBg: rgba(124,134,155,.14);
+      --blue:#0070ff; --red:#ff2a2a;
       --shadow: 0 10px 30px rgba(0,0,0,.35);
     }
     *{box-sizing:border-box;}
     html,body{height:100%;}
     body{margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background:var(--bg); color:var(--text); overflow:hidden;}
 
-    .topbar{position:fixed; left:0; right:0; top:0; z-index:10; height:54px; display:flex; align-items:center; gap:10px;
+    .topbar{position:fixed; left:0; right:0; top:0; z-index:30; height:54px; display:flex; align-items:center; gap:10px;
       padding: 10px 12px; border-bottom:1px solid rgba(255,255,255,.08); background: rgba(11,18,32,.85); backdrop-filter: blur(8px);
     }
     .brand{font-weight:750;}
     .build{margin-left:auto; font-size:12px; color:var(--muted);}
 
-    .map{position:fixed; inset:54px 0 0 0; background:#fff;}
-    #mapHost{width:100%; height:100%; overflow:hidden;}
-    #mapHost svg{width:100%; height:100%; display:block; touch-action:none;}
+    /* Views */
+    .view{position:fixed; inset:54px 0 0 0;}
+    .hidden{display:none !important;}
 
+    /* Login + Lines panel */
     .sheet{position:fixed; left:0; right:0; bottom:0; z-index:20; background:rgba(18,26,43,.96);
       border-top:1px solid rgba(255,255,255,.10); border-radius: 18px 18px 0 0; box-shadow: var(--shadow);
-      height: min(66vh, 560px); display:flex; flex-direction:column;
+      height: min(70vh, 620px); display:flex; flex-direction:column;
     }
     .grab{width:48px; height:5px; border-radius:999px; background: rgba(255,255,255,.18); margin: 6px auto 0;}
     .sheetHeader{padding:10px 12px 8px; display:flex; align-items:center; gap:10px;}
@@ -59,59 +58,91 @@
     .list{display:grid; gap:8px; margin-top:10px;}
     .item{display:flex; gap:10px; padding:10px; border-radius:14px; border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04); cursor:pointer; align-items:flex-start;}
     .item.active{outline: 2px solid rgba(0,112,255,.45); background: rgba(0,112,255,.10);}
-    .no{width:56px; font-weight:900;}
+    .no{width:64px; font-weight:900;}
     .desc{flex:1 1 auto;}
+    .badge{font-size:12px; font-weight:900; padding:4px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.14); white-space:nowrap;}
+    .badge.k{color: var(--blue); border-color: rgba(0,112,255,.45); background: rgba(0,112,255,.10);}
+    .badge.a{color: var(--red); border-color: rgba(255,42,42,.45); background: rgba(255,42,42,.10);}
+    .badge.n{color: rgba(255,255,255,.65); border-color: rgba(255,255,255,.14); background: rgba(255,255,255,.04);}
 
-    .pill{font-size:12px; font-weight:800; padding:4px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.14); white-space:nowrap;}
-    .pill.k{color: var(--blue); border-color: rgba(0,112,255,.45); background: rgba(0,112,255,.10);}
-    .pill.a{color: var(--red); border-color: rgba(255,42,42,.45); background: rgba(255,42,42,.10);}
-    .pill.u{color: #cbd5e1; border-color: rgba(124,134,155,.45); background: rgba(124,134,155,.10);}
+    /* Map view */
+    .mapWrap{position:fixed; inset:54px 0 0 0; background:#fff;}
+    #mapHost{position:absolute; inset:0; overflow:hidden;}
+    #mapHost svg{width:100%; height:100%; display:block; touch-action:none;}
 
-    .statusBar{display:flex; gap:10px; flex-wrap:wrap; margin-top:8px;}
-    .sbtn{height:44px; min-width:92px; padding:0 12px; border-radius:14px; border:1px solid rgba(255,255,255,.14); font-weight:800; cursor:pointer;}
-    .sbtn.blue{background: var(--goodBg); border-color: rgba(0,112,255,.55);}
-    .sbtn.red{background: var(--warnBg); border-color: rgba(255,42,42,.55);}
-    .sbtn.grey{background: var(--neuBg); border-color: rgba(124,134,155,.55);}
+    .mapBar{position:fixed; left:10px; right:10px; top:64px; z-index:40; display:flex; gap:10px; flex-wrap:wrap;
+      padding:10px; border-radius:14px; border:1px solid rgba(255,255,255,.16); background: rgba(18,26,43,.92); backdrop-filter: blur(8px);
+    }
+    .pillBtn{height:40px; padding:0 12px; border-radius:999px; border:1px solid rgba(255,255,255,.16); background: rgba(255,255,255,.06);
+      color:var(--text); font-weight:900; cursor:pointer; font-size:12px;}
+    .pillBtn.active{outline:2px solid rgba(0,112,255,.55);}
 
-    .filters{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;}
-    .fbtn{height:36px; padding:0 10px; border-radius:999px; border:1px solid rgba(255,255,255,.16); background: rgba(255,255,255,.06);
-      color:var(--text); font-weight:700; cursor:pointer; font-size:12px;}
-    .fbtn.active{outline: 2px solid rgba(140,90,255,.55);}
+    .mapPanel{position:fixed; left:10px; right:10px; bottom:10px; z-index:40;
+      padding:10px; border-radius:14px; border:1px solid rgba(255,255,255,.16); background: rgba(18,26,43,.92); backdrop-filter: blur(8px);
+      max-height: 34vh; overflow:auto;
+    }
+    .mapPanel h3{margin:0 0 6px; font-size:14px;}
 
-    .segWrap{margin-top:10px; padding:10px; border:1px dashed rgba(255,255,255,.16); border-radius:14px; background: rgba(0,0,0,.12);}
-    .segHead{display:flex; justify-content:space-between; align-items:center; gap:10px;}
+    .ortItem{display:flex; gap:10px; align-items:flex-start; padding:10px; border-radius:12px; border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04);
+      margin-top:8px;}
+    .ortItem.off{opacity:.55;}
+    .ortName{font-weight:900;}
+    .ortMeta{font-size:12px; color:var(--muted);}
 
-    .ortItem{display:flex; gap:10px; align-items:flex-start; padding:10px; border-radius:14px; border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04);}
-    .chk{width:22px; height:22px; margin-top:1px;}
-
-    .toast{position:fixed; left:50%; bottom: calc(min(66vh,560px) + 10px); transform:translateX(-50%);
+    .toast{position:fixed; left:50%; bottom: calc(min(70vh,620px) + 10px); transform:translateX(-50%);
       background: rgba(18,26,43,.98); border: 1px solid rgba(255,255,255,.16);
       padding: 10px 12px; border-radius: 12px; font-size: 13px; color: var(--text);
-      max-width: min(860px, 92vw); display:none; z-index:30;}
+      max-width: min(860px, 92vw); display:none; z-index:50;}
     .toast.show{display:block;}
-
   </style>
 </head>
 <body>
-  <div class="topbar"><div class="brand">MEV Streckenkunde</div><div class="build">Build: 2026-03-12 06:54 UTC</div></div>
-  <div class="map"><div id="mapHost"><div style="padding:12px; color:#111;"><b>SVG noch nicht geladen.</b><br>Wird nach Personendaten aus <code>assets/map.svg</code> geladen.</div></div></div>
-  <div class="toast" id="toast"></div>
+  <div class="topbar"><div class="brand">MEV Streckenkunde</div><div class="build">Build: 2026-03-12 08:10 UTC</div></div>
 
-  <div class="sheet">
+  <!-- Map view (Step 3) -->
+  <div class="mapWrap hidden" id="viewMap">
+    <div id="mapHost"><div style="padding:12px; color:#111;"><b>SVG noch nicht geladen.</b></div></div>
+  </div>
+
+  <div class="mapBar hidden" id="mapBar">
+    <button class="pillBtn active" id="modePan">Verschieben/Zoomen</button>
+    <button class="pillBtn" id="modeEdit">Punkte bearbeiten</button>
+    <span style="flex:1 1 auto"></span>
+    <button class="pillBtn" data-pick="kundig" id="pickK">Kundig (blau)</button>
+    <button class="pillBtn" data-pick="auffrischung" id="pickA">Auffrischung (rot)</button>
+    <button class="pillBtn" data-pick="unkundig" id="pickN">Unkundig (Original)</button>
+  </div>
+
+  <div class="mapPanel hidden" id="mapPanel">
+    <h3>Ortskunde (Tanklager/Terminal)</h3>
+    <div class="hint">Standard ist kundig. Tippen = nicht kundig (false). Nochmal tippen = kundig (true).</div>
+    <div id="ortList"></div>
+    <div class="btnRow" style="margin-top:12px;">
+      <button class="btn" id="backToLines">Zurück</button>
+      <button class="btn" id="saveLocal">Auf Gerät speichern</button>
+      <button class="btn" id="loadLocal">Vom Gerät laden</button>
+      <button class="btn primary" id="export">Export (JSON)</button>
+    </div>
+    <div class="hint" id="summary" style="margin-top:10px;"></div>
+  </div>
+
+  <!-- Steps 1+2 sheet -->
+  <div class="sheet" id="sheet">
     <div class="grab"></div>
     <div class="sheetHeader">
       <div class="steps">
         <span class="step active" id="s1">1 Person</span>
         <span class="step" id="s2">2 Linien</span>
-        <span class="step" id="s3">3 Ortskenntnis</span>
+        <span class="step" id="s3">3 Karte</span>
       </div>
       <div class="dirty" id="dirty"></div>
     </div>
     <div class="sheetBody">
 
+      <!-- Step 1 -->
       <div class="card" id="p1">
         <div style="font-weight:850; margin-bottom:6px;">Personendaten</div>
-        <div class="hint">Mitarbeiter auswählen. Danach lädt die Karte automatisch.</div>
+        <div class="hint">Mitarbeiter auswählen. Danach geht es zur Linienauswahl.</div>
         <label>Suche Mitarbeiter</label>
         <input id="empSearch" placeholder="Name, Vorname oder Nummer" />
         <div id="empHits" class="list" style="max-height:180px; overflow:auto;"></div>
@@ -124,86 +155,29 @@
         <label>Personalnummer (optional)</label>
         <input id="pnr" inputmode="numeric" pattern="[0-9]*" placeholder="z.B. 123456" />
         <div class="btnRow">
-          <button class="btn primary" id="toLines" disabled>Weiter</button>
+          <button class="btn primary" id="toLines" disabled>Weiter zur Linienauswahl</button>
           <button class="btn" id="resetPerson">Zurücksetzen</button>
         </div>
-        <div class="hint" id="auto" style="margin-top:8px;"><b>Autoload:</b> warte …</div>
+        <div class="hint" id="auto" style="margin-top:8px;"><b>Status:</b> warte …</div>
       </div>
 
-
-      <div class="card" id="p2" style="display:none;">
-        <div style="font-weight:850; margin-bottom:6px;">Linien</div>
-        <div class="hint">Linie in der Liste auswählen oder per Filter: "Alle sichtbaren" auf einmal setzen.</div>
-
-        <label>Suche / Filter</label>
-        <input id="lineSearch" placeholder="z.B. 511 oder Basel" />
-        <div class="filters" id="filterBar">
-          <button class="fbtn active" data-filter="all">Alle</button>
-          <button class="fbtn" data-filter="none">Ohne Status</button>
-          <button class="fbtn" data-filter="kundig">Kundig</button>
-          <button class="fbtn" data-filter="auffrischung">Auffrischung</button>
-          <button class="fbtn" data-filter="unkundig">Unkundig</button>
-        </div>
-
-        <div style="margin-top:10px;" class="hint">Bulk-Aktion (gilt für alle aktuell sichtbaren Linien in der Liste):</div>
-        <div class="statusBar">
-          <button class="sbtn blue" id="bulkK">Alle sichtbaren kundig</button>
-          <button class="sbtn red" id="bulkA">Alle sichtbaren auffrischung</button>
-          <button class="sbtn grey" id="bulkU">Alle sichtbaren unkundig</button>
-          <button class="btn" id="bulkClear">Status entfernen</button>
-        </div>
-
-        <div style="margin-top:12px;"><b>Auswahl:</b> <span id="selLine" style="color:var(--muted);">—</span></div>
-        <div class="hint" id="selDesc" style="margin-top:4px;"></div>
-
-        <div class="statusBar">
-          <button class="sbtn blue" data-st="kundig">Kundig (nur Auswahl)</button>
-          <button class="sbtn red" data-st="auffrischung">Auffrischung (nur Auswahl)</button>
-          <button class="sbtn grey" data-st="unkundig">Unkundig (nur Auswahl)</button>
-        </div>
-
-        <div class="segWrap">
-          <div class="segHead"><b>Teilstrecken</b><button class="btn" id="addSeg" disabled>Segment hinzufügen</button></div>
-          <div class="hint">Start/Ende über Suche innerhalb der gewählten Linie. Mehrere Segmente möglich.</div>
-          <label>Start</label>
-          <input id="segFrom" placeholder="Code oder Name" disabled />
-          <div id="fromHits" class="list" style="display:none; max-height:160px; overflow:auto;"></div>
-          <label>Ende</label>
-          <input id="segTo" placeholder="Code oder Name" disabled />
-          <div id="toHits" class="list" style="display:none; max-height:160px; overflow:auto;"></div>
-          <div id="segList" class="list"></div>
-        </div>
-
+      <!-- Step 2 -->
+      <div class="card hidden" id="p2">
+        <div style="font-weight:850; margin-bottom:6px;">Linienauswahl</div>
+        <div class="hint">Tippen: 1× kundig (blau) · 2× auffrischung (rot) · 3× unkundig (Original)</div>
+        <label>Suche Linie</label>
+        <input id="lineSearch" placeholder="z.B. 502 oder Basel" />
+        <div class="list" id="lineList" style="max-height:360px; overflow:auto;"></div>
         <div class="btnRow">
-          <button class="btn" id="back1">Zurück</button>
-          <button class="btn primary" id="toOrts">Weiter</button>
+          <button class="btn" id="backToPerson">Zurück</button>
+          <button class="btn primary" id="toMap">Weiter zur Karte</button>
         </div>
-
-        <div style="height:1px; background: rgba(255,255,255,.08); margin:12px 0;"></div>
-        <div class="hint">Linienliste</div>
-        <div id="lineList" class="list" style="max-height:260px; overflow:auto;"></div>
-      </div>
-
-
-      <div class="card" id="p3" style="display:none;">
-        <div style="font-weight:850; margin-bottom:6px;">Ortskenntnis</div>
-        <div class="hint">Orte werden einmal angezeigt (auch wenn mehrere Linien betroffen sind). Nicht abgehakt = Ortskenntnis unkundig.</div>
-        <div id="ortEmpty" class="hint" style="margin-top:8px;">Keine Ortskenntnisse vorhanden.</div>
-        <div id="orts" class="list"></div>
-
-        <div style="height:1px; background: rgba(255,255,255,.08); margin:12px 0;"></div>
-        <div class="btnRow">
-          <button class="btn" id="back2">Zurück</button>
-          <button class="btn" id="undo">Rückgängig</button>
-          <button class="btn" id="saveLocal">Auf Gerät speichern</button>
-          <button class="btn" id="loadLocal">Vom Gerät laden</button>
-          <button class="btn primary" id="export">Export (JSON)</button>
-        </div>
-        <div class="hint" id="summary" style="margin-top:10px;"></div>
       </div>
 
     </div>
   </div>
+
+  <div class="toast" id="toast"></div>
 
 <script>
 (() => {
@@ -211,30 +185,50 @@
   const toast = (m) => { const t=$('toast'); t.textContent=m; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 2400); };
   const setDirty = (v) => $('dirty').textContent = v ? 'nicht gespeichert' : '';
 
+  // State
   const st = {
     person: {vorname:'', nachname:'', datum:'', personalnummer:''},
     employees: [],
     routes: {},
-    idx: null,
-    selectedLine: '',
-    lines: {}, // line -> {status, segments[]}
-    orts: {}, // ortName -> {done, lines[]}
-    undo: [],
-    lineFilter: 'all',
-    lineSearch: ''
+    idx: null, // stations_by_line.json
+    svgText: null,
+    svgRoot: null,
+    viewBase: null,
+    viewCur: null,
+
+    // line status: 'kundig' | 'auffrischung' | 'unkundig'
+    lines: {},
+
+    // station overrides by element id: 'kundig'|'auffrischung'|'unkundig'
+    overrides: {},
+
+    // Ortskunde (Option B): ortName -> {kundig:boolean, linien:[...]}
+    orts: {},
+
+    // UI
+    tap: {line:null, t:0, c:0},
+    mode: 'pan',
+    pick: 'kundig',
+    undo: []
   };
 
-  // ----------------- UI step navigation -----------------
-  function show(step){
-    $('p1').style.display = step===1 ? '' : 'none';
-    $('p2').style.display = step===2 ? '' : 'none';
-    $('p3').style.display = step===3 ? '' : 'none';
+  // Step UI
+  function showStep(step){
+    $('p1').classList.toggle('hidden', step!==1);
+    $('p2').classList.toggle('hidden', step!==2);
+
     $('s1').classList.toggle('active', step===1);
     $('s2').classList.toggle('active', step===2);
     $('s3').classList.toggle('active', step===3);
+
+    $('viewMap').classList.toggle('hidden', step!==3);
+    $('mapBar').classList.toggle('hidden', step!==3);
+    $('mapPanel').classList.toggle('hidden', step!==3);
+
+    $('sheet').classList.toggle('hidden', step===3);
   }
 
-  // ----------------- Asset loading -----------------
+  // Asset helpers
   function abs(rel){
     const base = window.location.href.split('#')[0];
     return new URL(rel, base).toString();
@@ -250,69 +244,7 @@
     return await r.text();
   }
 
-  // ----------------- SVG minimal pan/zoom -----------------
-  let svgRoot=null, vbBase=null, vbCur=null;
-  function getVB(svg){
-    const vb = svg.getAttribute('viewBox');
-    if(vb){ const p = vb.trim().split(/[\s,]+/).map(Number); if(p.length===4 && p.every(n=>Number.isFinite(n))) return {x:p[0],y:p[1],w:p[2],h:p[3]}; }
-    const w = Number(svg.getAttribute('width'))||1000; const h = Number(svg.getAttribute('height'))||1000;
-    return {x:0,y:0,w:w,h:h};
-  }
-  function setVB(v){ if(!svgRoot) return; svgRoot.setAttribute('viewBox', `${v.x} ${v.y} ${v.w} ${v.h}`); vbCur=v; }
-  function enableTouch(){
-    if(!svgRoot) return;
-    let mode='none', pan=null, pinch=null;
-    const dist=(a,b)=>Math.hypot(a.clientX-b.clientX, a.clientY-b.clientY);
-    function clientToSvg(cx,cy){
-      const pt = svgRoot.createSVGPoint(); pt.x=cx; pt.y=cy;
-      const ctm = svgRoot.getScreenCTM(); if(!ctm) return {x:0,y:0};
-      const sp = pt.matrixTransform(ctm.inverse()); return {x:sp.x,y:sp.y};
-    }
-    svgRoot.addEventListener('touchstart',(e)=>{
-      if(!vbCur||!vbBase) return;
-      if(e.touches.length===1){ const t=e.touches[0]; mode='pan'; pan={x:t.clientX,y:t.clientY,vb:{...vbCur}}; pinch=null; }
-      else if(e.touches.length>=2){ mode='pinch'; pinch={d:dist(e.touches[0],e.touches[1]),vb:{...vbCur}}; pan=null; }
-      e.preventDefault();
-    },{passive:false});
-    svgRoot.addEventListener('touchmove',(e)=>{
-      if(!vbCur||!vbBase) return;
-      if(mode==='pan' && pan && e.touches.length===1){
-        const t=e.touches[0]; const dx=t.clientX-pan.x; const dy=t.clientY-pan.y;
-        const rect=svgRoot.getBoundingClientRect(); const sx=pan.vb.w/rect.width; const sy=pan.vb.h/rect.height;
-        setVB({x:pan.vb.x-dx*sx, y:pan.vb.y-dy*sy, w:pan.vb.w, h:pan.vb.h});
-      }
-      if(mode==='pinch' && pinch && e.touches.length>=2){
-        const d=dist(e.touches[0],e.touches[1]); if(d<=0) return;
-        const scale=pinch.d/d; const vb0=pinch.vb; const nw=vb0.w*scale; const nh=vb0.h*scale;
-        const minW=vbBase.w*0.02, maxW=vbBase.w*20; if(nw<minW||nw>maxW) return;
-        const mx=(e.touches[0].clientX+e.touches[1].clientX)/2; const my=(e.touches[0].clientY+e.touches[1].clientY)/2;
-        const mid=clientToSvg(mx,my);
-        const nx = mid.x - (mid.x - vb0.x) * (nw / vb0.w);
-        const ny = mid.y - (mid.y - vb0.y) * (nh / vb0.h);
-        setVB({x:nx,y:ny,w:nw,h:nh});
-      }
-      e.preventDefault();
-    },{passive:false});
-    svgRoot.addEventListener('touchend',(e)=>{ if(e.touches.length===0){mode='none'; pan=null; pinch=null;} e.preventDefault(); },{passive:false});
-  }
-  function embedSvg(txt){
-    const doc = new DOMParser().parseFromString(txt,'image/svg+xml');
-    const err = doc.querySelector('parsererror');
-    if(err){ toast('SVG Parse-Fehler'); console.error(err.textContent); return; }
-    const svg = doc.querySelector('svg');
-    if(!svg){ toast('Keine SVG gefunden'); return; }
-    const host=$('mapHost'); host.innerHTML='';
-    const imported=document.importNode(svg,true);
-    imported.style.width='100%'; imported.style.height='100%'; imported.style.display='block';
-    host.appendChild(imported);
-    svgRoot=imported;
-    vbBase=getVB(svgRoot);
-    setVB({...vbBase});
-    try{ const z=2.0; setVB({x:vbBase.x+(vbBase.w-vbBase.w/z)/2, y:vbBase.y, w:vbBase.w/z, h:vbBase.h/z}); }catch(e){}
-    enableTouch();
-  }
-
-  // ----------------- Person & employees -----------------
+  // Person
   function renderEmpHits(q){
     const host=$('empHits'); host.innerHTML='';
     const qq=String(q||'').toLowerCase().trim();
@@ -333,10 +265,6 @@
       host.appendChild(div);
     });
   }
-  function todayISO(){
-    const d=new Date(); const z=n=> (n<10?'0':'')+n;
-    return d.getFullYear()+'-'+z(d.getMonth()+1)+'-'+z(d.getDate());
-  }
   function syncPerson(){
     st.person.vorname=String($('vorname').value||'').trim();
     st.person.nachname=String($('nachname').value||'').trim();
@@ -345,292 +273,444 @@
     $('pnr').value=st.person.personalnummer;
     const ok=!!(st.person.vorname&&st.person.nachname&&st.person.datum);
     $('toLines').disabled=!ok;
-    $('auto').innerHTML = '<b>Autoload:</b> ' + (ok ? 'bereit' : 'warte …');
+    $('auto').innerHTML = '<b>Status:</b> ' + (ok ? 'bereit' : 'warte …');
     setDirty(true);
   }
 
-  // ----------------- Lines list helpers -----------------
-  function statusOf(line){
-    const it = st.lines[String(line)];
-    return it ? (it.status||'none') : 'none';
+  // Lines list
+  function statusBadge(status){
+    if(status==='kundig') return '<span class="badge k">kundig</span>';
+    if(status==='auffrischung') return '<span class="badge a">auffrischung</span>';
+    return '<span class="badge n">unkundig</span>';
   }
-  function statusPill(status){
-    if(status==='kundig') return '<span class="pill k">kundig</span>';
-    if(status==='auffrischung') return '<span class="pill a">auffrischung</span>';
-    if(status==='unkundig') return '<span class="pill u">unkundig</span>';
-    return '<span class="pill u">—</span>';
-  }
-
   function allLines(){
     const s = new Set();
-    try{
-      Object.keys(st.routes||{}).forEach(k=>{ if(/^\d+$/.test(k)) s.add(k); });
-    }catch(e){}
+    try{ Object.keys(st.routes||{}).forEach(k=>{ if(/^\d+$/.test(k)) s.add(k); }); }catch(e){}
     try{
       if(st.idx && st.idx.lines) Object.keys(st.idx.lines).forEach(k=>{ if(/^\d+$/.test(k)) s.add(k); });
       else if(st.idx && st.idx.stationsByLine) Object.keys(st.idx.stationsByLine).forEach(k=>{ if(/^\d+$/.test(k)) s.add(k); });
     }catch(e){}
     return Array.from(s).sort((a,b)=>Number(a)-Number(b));
   }
-
-  function lineMatchesFilter(line){
-    const f = st.lineFilter;
-    const stt = statusOf(line);
-    if(f==='all') return true;
-    if(f==='none') return stt==='none';
-    return stt===f;
-  }
-
   function lineMatchesSearch(line){
-    const q = (st.lineSearch||'').toLowerCase().trim();
+    const q = String($('lineSearch').value||'').toLowerCase().trim();
     if(!q) return true;
     const num = String(line);
     const desc = String((st.routes||{})[num]||'').toLowerCase();
     return num.includes(q) || desc.includes(q);
   }
-
-  function currentVisibleLines(){
-    return allLines().filter(l=>lineMatchesFilter(l) && lineMatchesSearch(l));
-  }
-
   function renderLineList(){
     const host = $('lineList');
-    if(!host) return;
     host.innerHTML='';
-    const lines = currentVisibleLines();
-    if(!lines.length){ host.innerHTML='<div class="hint">Keine Linien (Filter/Suche).</div>'; return; }
+    const lines = allLines().filter(lineMatchesSearch);
+    if(!lines.length){ host.innerHTML='<div class="hint">Keine Treffer.</div>'; return; }
     lines.forEach(line=>{
-      const div=document.createElement('div');
-      div.className='item' + (String(line)===String(st.selectedLine) ? ' active' : '');
       const desc = String((st.routes||{})[String(line)]||'');
-      div.innerHTML=`<div class="no">${line}</div><div class="desc"><b>${desc||' '}</b><div class="hint">Tippen zum auswählen</div></div>${statusPill(statusOf(line))}`;
-      div.addEventListener('click',()=>{
-        setLine(line);
-      });
+      const status = st.lines[String(line)] || 'unkundig';
+      const div=document.createElement('div');
+      div.className='item';
+      div.dataset.line = String(line);
+      div.innerHTML=`<div class="no">${line}</div><div class="desc"><b>${desc||' '}</b><div class="hint">1× kundig · 2× auffrischung · 3× unkundig</div></div>${statusBadge(status)}`;
+      div.addEventListener('click', ()=> tapLine(String(line)));
+      div.addEventListener('touchend', (e)=>{ e.preventDefault(); tapLine(String(line)); }, {passive:false});
       host.appendChild(div);
     });
   }
 
-  function setLine(line){
-    st.selectedLine=String(line||'').replace(/\D+/g,'');
-    $('selLine').textContent = st.selectedLine || '—';
-    if($('selDesc')) $('selDesc').textContent = String((st.routes||{})[st.selectedLine]||'');
-    const enabled=!!st.selectedLine;
-    $('segFrom').disabled=!enabled; $('segTo').disabled=!enabled; $('addSeg').disabled=!enabled;
-    if(enabled && !st.lines[st.selectedLine]) st.lines[st.selectedLine]={status:'none', segments:[]};
-    renderLineList();
-    renderSegs();
+  function tapLine(line){
+    const now = Date.now();
+    if(st.tap.line === line && (now - st.tap.t) < 450){
+      st.tap.c += 1;
+    } else {
+      st.tap.line = line;
+      st.tap.c = 1;
+    }
+    st.tap.t = now;
+
+    let status = 'kundig';
+    if(st.tap.c === 1) status = 'kundig';
+    else if(st.tap.c === 2) status = 'auffrischung';
+    else status = 'unkundig';
+
+    st.lines[line] = status;
     setDirty(true);
+    renderLineList();
+    toast(`Linie ${line}: ${status}`);
   }
 
-  // ----------------- Undo & status setters -----------------
-  function pushUndo(){
-    st.undo.push(JSON.stringify({lines: st.lines, orts: st.orts}));
-    if(st.undo.length>40) st.undo.shift();
-    const ub = $('undo');
-    if(ub) ub.disabled = st.undo.length===0;
+  // ----------------- SVG coloring -----------------
+  function ensureOrig(el){
+    if (el.dataset.origFill === undefined) el.dataset.origFill = el.getAttribute('fill') ?? '';
+    if (el.dataset.origStroke === undefined) el.dataset.origStroke = el.getAttribute('stroke') ?? '';
+    if (el.dataset.origFillOpacity === undefined) el.dataset.origFillOpacity = el.getAttribute('fill-opacity') ?? '';
+    if (el.dataset.origStrokeOpacity === undefined) el.dataset.origStrokeOpacity = el.getAttribute('stroke-opacity') ?? '';
+  }
+  function restoreOrig(el){
+    if (el.dataset.origFill !== '') el.setAttribute('fill', el.dataset.origFill); else el.removeAttribute('fill');
+    if (el.dataset.origStroke !== '') el.setAttribute('stroke', el.dataset.origStroke); else el.removeAttribute('stroke');
+    if (el.dataset.origFillOpacity !== '') el.setAttribute('fill-opacity', el.dataset.origFillOpacity); else el.removeAttribute('fill-opacity');
+    if (el.dataset.origStrokeOpacity !== '') el.setAttribute('stroke-opacity', el.dataset.origStrokeOpacity); else el.removeAttribute('stroke-opacity');
+    el.style.fill = '';
+    el.style.stroke = '';
+    el.style.fillOpacity = '';
+    el.style.strokeOpacity = '';
+  }
+  function isPoint(el){
+    const raw = String((el.getAttribute('data-typ') || el.getAttribute('data-type') || '')).trim().toLowerCase();
+    return raw === 'station' || raw === 'unoccupied_station';
+  }
+  function matchesAnyLine(el, lineDigits){
+    const target = String(lineDigits||'').replace(/\D+/g,'');
+    if(!target) return false;
+    try{
+      const attrs = el.getAttributeNames ? el.getAttributeNames() : [];
+      for(let i=0;i<attrs.length;i++){
+        const a = attrs[i];
+        if(a.indexOf('data-line') !== 0) continue;
+        const v = String(el.getAttribute(a)||'').replace(/\D+/g,'');
+        if(v && v===target) return true;
+      }
+    }catch(e){}
+    return false;
+  }
+  function setVisual(el, status){
+    ensureOrig(el);
+    if(status === 'unkundig'){
+      restoreOrig(el);
+      return;
+    }
+    const col = (status === 'kundig') ? getComputedStyle(document.documentElement).getPropertyValue('--blue').trim() :
+                (status === 'auffrischung') ? getComputedStyle(document.documentElement).getPropertyValue('--red').trim() : '';
+    if(!col){ restoreOrig(el); return; }
+    el.style.fill = col;
+    el.style.fillOpacity = '1';
+    el.style.stroke = col;
+    el.style.strokeOpacity = '1';
   }
 
-  function applyStatusSelected(status){
-    if(!st.selectedLine){ toast('Bitte zuerst eine Linie auswählen.'); return; }
-    pushUndo();
-    st.lines[st.selectedLine]=st.lines[st.selectedLine]||{status:'none',segments:[]};
-    st.lines[st.selectedLine].status=status;
-    setDirty(true);
-    rebuildOrts();
-    renderLineList();
-    toast('Linie '+st.selectedLine+': '+status);
+  function getLineStatusForElement(el){
+    // kundig wins over auffrischung
+    let hasK=false, hasA=false;
+    const keys = Object.keys(st.lines||{});
+    for(let i=0;i<keys.length;i++){
+      const line = keys[i];
+      const stt = st.lines[line];
+      if(stt !== 'kundig' && stt !== 'auffrischung') continue;
+      if(!matchesAnyLine(el, line)) continue;
+      if(stt === 'kundig'){ hasK=true; break; }
+      if(stt === 'auffrischung') hasA=true;
+    }
+    if(hasK) return 'kundig';
+    if(hasA) return 'auffrischung';
+    return 'unkundig';
   }
 
-  // ----------------- Bulk ops (variant B will wire) -----------------
-  function bulkSet(status){
-    const lines = currentVisibleLines();
-    if(!lines.length){ toast('Keine sichtbaren Linien.'); return; }
-    pushUndo();
-    lines.forEach(line=>{
-      const k=String(line);
-      st.lines[k]=st.lines[k]||{status:'none',segments:[]};
-      st.lines[k].status=status;
-    });
-    setDirty(true);
-    rebuildOrts();
-    renderLineList();
-    toast('Bulk gesetzt: '+status);
-  }
-  function bulkClear(){
-    const lines = currentVisibleLines();
-    if(!lines.length){ toast('Keine sichtbaren Linien.'); return; }
-    pushUndo();
-    lines.forEach(line=>{
-      delete st.lines[String(line)];
-      if(String(line)===String(st.selectedLine)) st.selectedLine='';
-    });
-    setDirty(true);
-    rebuildOrts();
-    renderLineList();
-    renderSegs();
-    toast('Bulk: Status entfernt.');
-  }
-
-  // ----------------- Segments / station search -----------------
-  function stationsForLine(line){
-    try{ if(st.idx && st.idx.stationsByLine && st.idx.stationsByLine[String(line)]) return st.idx.stationsByLine[String(line)]; }catch(e){}
-    return [];
-  }
-  function showHits(inputId, hostId, q){
-    const line=st.selectedLine; if(!line) return;
-    const arr=stationsForLine(line);
-    const qq=String(q||'').toLowerCase().trim();
-    const host=$(hostId);
-    if(!qq){ host.style.display='none'; host.innerHTML=''; return; }
-    const hits=arr.filter(it=>{
-      const s=(String(it.code||'')+' '+String(it.label||'')+' '+String(it.id||'')).toLowerCase();
-      return s.includes(qq);
-    }).slice(0,18);
-    host.style.display=''; host.innerHTML='';
-    hits.forEach(it=>{
-      const div=document.createElement('div'); div.className='item';
-      div.innerHTML=`<div class="no">${String(it.code||'').toUpperCase()||'—'}</div><div class="desc"><b>${it.label||it.id}</b><div class="hint">${it.id}</div></div>`;
-      div.addEventListener('click',()=>{
-        const inp=$(inputId);
-        inp.value=(it.code?String(it.code).toUpperCase()+' – ':'')+(it.label||it.id);
-        inp.dataset.pickId=it.id;
-        host.style.display='none'; host.innerHTML='';
-        toast('Station gewählt.');
-      });
-      host.appendChild(div);
-    });
-  }
-  function renderSegs(){
-    const host=$('segList'); if(!host) return;
-    host.innerHTML='';
-    const line=st.selectedLine; if(!line||!st.lines[line]) return;
-    const segs=st.lines[line].segments||[];
-    if(!segs.length){ host.innerHTML='<div class="hint">Keine Segmente.</div>'; return; }
-    segs.forEach((s,idx)=>{
-      const div=document.createElement('div'); div.className='item';
-      div.innerHTML=`<div class="no">${idx+1}</div><div class="desc"><b>${s.fromText}</b> → <b>${s.toText}</b></div><div style="margin-left:auto;"><button class="btn">Löschen</button></div>`;
-      div.querySelector('button').addEventListener('click',()=>{
-        pushUndo();
-        segs.splice(idx,1);
-        renderSegs();
-        setDirty(true);
-      });
-      host.appendChild(div);
+  function applySelectionToSvg(){
+    if(!st.svgRoot) return;
+    const nodes = st.svgRoot.querySelectorAll('[data-typ], [data-type]');
+    nodes.forEach(el=>{
+      if(!isPoint(el)) return;
+      let status = getLineStatusForElement(el);
+      if(el.id && st.overrides[el.id]) status = st.overrides[el.id];
+      setVisual(el, status);
     });
   }
-  function addSeg(){
-    const line=st.selectedLine;
-    if(!line){ toast('Bitte Linie wählen.'); return; }
-    const fId=$('segFrom').dataset.pickId||'';
-    const tId=$('segTo').dataset.pickId||'';
-    if(!fId||!tId){ toast('Bitte Start und Ende wählen.'); return; }
-    pushUndo();
-    const fTxt=$('segFrom').value; const tTxt=$('segTo').value;
-    st.lines[line]=st.lines[line]||{status:'none',segments:[]};
-    st.lines[line].segments = st.lines[line].segments || [];
-    st.lines[line].segments.push({fromId:fId,toId:tId,fromText:fTxt,toText:tTxt});
-    $('segFrom').value=''; $('segTo').value='';
-    delete $('segFrom').dataset.pickId; delete $('segTo').dataset.pickId;
-    renderSegs();
-    setDirty(true);
-    toast('Segment hinzugefügt.');
+
+  // ----------------- Touch pan/zoom for SVG -----------------
+  function getInitialViewBox(svg){
+    const vb = svg.getAttribute('viewBox');
+    if (vb) {
+      const parts = vb.trim().split(/[\s,]+/).map(Number);
+      if (parts.length===4 && parts.every(n=>Number.isFinite(n))) return {x:parts[0], y:parts[1], w:parts[2], h:parts[3]};
+    }
+    const w = Number(svg.getAttribute('width')) || 1000;
+    const h = Number(svg.getAttribute('height')) || 1000;
+    return {x:0, y:0, w:w, h:h};
+  }
+  function setViewBox(vb){
+    if(!st.svgRoot) return;
+    st.svgRoot.setAttribute('viewBox', `${vb.x} ${vb.y} ${vb.w} ${vb.h}`);
+    st.viewCur = vb;
+  }
+  function enableTouchPanZoom(){
+    if(!st.svgRoot) return;
+    let mode = 'none';
+    let pan = null;
+    let pinch = null;
+    const dist = (a,b) => Math.hypot(a.clientX-b.clientX, a.clientY-b.clientY);
+    function clientToSvgXY(cx, cy){
+      const pt = st.svgRoot.createSVGPoint();
+      pt.x=cx; pt.y=cy;
+      const ctm = st.svgRoot.getScreenCTM();
+      if(!ctm) return {x:0,y:0};
+      const sp = pt.matrixTransform(ctm.inverse());
+      return {x:sp.x, y:sp.y};
+    }
+
+    st.svgRoot.addEventListener('touchstart', (e)=>{
+      if(st.mode !== 'pan') return;
+      if(!st.viewCur || !st.viewBase) return;
+      if(e.touches.length===1){
+        const t=e.touches[0];
+        mode='pan';
+        pan={x:t.clientX, y:t.clientY, vb:{...st.viewCur}};
+        pinch=null;
+      } else if(e.touches.length>=2){
+        mode='pinch';
+        pinch={d:dist(e.touches[0],e.touches[1]), vb:{...st.viewCur}};
+        pan=null;
+      }
+      e.preventDefault();
+    }, {passive:false});
+
+    st.svgRoot.addEventListener('touchmove', (e)=>{
+      if(st.mode !== 'pan') return;
+      if(!st.viewCur || !st.viewBase) return;
+      if(mode==='pan' && pan && e.touches.length===1){
+        const t=e.touches[0];
+        const dx=t.clientX-pan.x; const dy=t.clientY-pan.y;
+        const rect=st.svgRoot.getBoundingClientRect();
+        const sx=pan.vb.w/rect.width; const sy=pan.vb.h/rect.height;
+        setViewBox({x: pan.vb.x - dx*sx, y: pan.vb.y - dy*sy, w: pan.vb.w, h: pan.vb.h});
+      }
+      if(mode==='pinch' && pinch && e.touches.length>=2){
+        const d=dist(e.touches[0],e.touches[1]);
+        if(d<=0) return;
+        const scale = pinch.d / d;
+        const vb0=pinch.vb;
+        const nw=vb0.w*scale; const nh=vb0.h*scale;
+        const minW=st.viewBase.w*0.02, maxW=st.viewBase.w*20;
+        if(nw<minW || nw>maxW) return;
+        const mx=(e.touches[0].clientX+e.touches[1].clientX)/2;
+        const my=(e.touches[0].clientY+e.touches[1].clientY)/2;
+        const mid=clientToSvgXY(mx,my);
+        const nx = mid.x - (mid.x - vb0.x) * (nw / vb0.w);
+        const ny = mid.y - (mid.y - vb0.y) * (nh / vb0.h);
+        setViewBox({x:nx,y:ny,w:nw,h:nh});
+      }
+      e.preventDefault();
+    }, {passive:false});
+
+    st.svgRoot.addEventListener('touchend', (e)=>{
+      if(st.mode !== 'pan') return;
+      if(e.touches.length===0){ mode='none'; pan=null; pinch=null; }
+      e.preventDefault();
+    }, {passive:false});
   }
 
-  // ----------------- Ortskenntnis (dedupe) -----------------
-  function rebuildOrts(){
-    const ortMap={};
-    const selLines=Object.keys(st.lines).filter(l=>st.lines[l] && st.lines[l].status && st.lines[l].status!=='none');
+  // ----------------- Point picking (edit mode) -----------------
+  function findPointFromTarget(t){
+    if(!t) return null;
+    let el=t;
+    for(let i=0;i<10 && el;i++){
+      if(el.getAttribute && (el.getAttribute('data-typ') || el.getAttribute('data-type'))) return el;
+      el = el.parentElement;
+    }
+    return null;
+  }
+  function pointFromClientXYRadius(cx, cy, r){
+    const rad = Number(r||0);
+    const offs = [
+      [0,0],[rad,0],[-rad,0],[0,rad],[0,-rad],[rad,rad],[rad,-rad],[-rad,rad],[-rad,-rad]
+    ];
+    for(let i=0;i<offs.length;i++){
+      const x=cx+offs[i][0], y=cy+offs[i][1];
+      const els = document.elementsFromPoint ? document.elementsFromPoint(x,y) : [document.elementFromPoint(x,y)];
+      for(let k=0;k<els.length;k++){
+        const pt = findPointFromTarget(els[k]);
+        if(pt && isPoint(pt)) return pt;
+      }
+    }
+    return null;
+  }
+  function setPointStatus(pt, status){
+    if(!pt || !pt.id) return;
+    st.overrides[pt.id] = status;
+    if(status==='unkundig'){
+      // still keep override explicit
+    }
+    applySelectionToSvg();
+    toast(`${pt.id}: ${status}`);
+    setDirty(true);
+  }
+
+  function enablePointEditing(){
+    if(!st.svgRoot) return;
+    st.svgRoot.addEventListener('click', (ev)=>{
+      if(st.mode !== 'edit') return;
+      const pt = findPointFromTarget(ev.target);
+      if(pt && isPoint(pt)){
+        setPointStatus(pt, st.pick);
+        ev.preventDefault();
+        ev.stopPropagation();
+      }
+    });
+    st.svgRoot.addEventListener('touchend', (ev)=>{
+      if(st.mode !== 'edit') return;
+      if(!ev.changedTouches || !ev.changedTouches.length) return;
+      const t=ev.changedTouches[0];
+      const pt = pointFromClientXYRadius(t.clientX, t.clientY, 12);
+      if(pt){
+        setPointStatus(pt, st.pick);
+      }
+      ev.preventDefault();
+    }, {passive:false});
+  }
+
+  // ----------------- Ortskunde -----------------
+  function rebuildOrtsFromKundigLines(){
+    const out = {};
+    const lines = Object.keys(st.lines||{}).filter(l => st.lines[l] === 'kundig');
+    // collect per line
     try{
       if(st.idx && st.idx.ortskenntnisByLine){
-        selLines.forEach(line=>{
-          const arr=st.idx.ortskenntnisByLine[String(line)]||[];
+        lines.forEach(line=>{
+          const arr = st.idx.ortskenntnisByLine[String(line)] || [];
           arr.forEach(p=>{
-            const ort=String(p.ort||'').trim();
+            const ort = String(p.ort||'').trim();
             if(!ort) return;
-            ortMap[ort]=ortMap[ort]||{done: (st.orts[ort]?.done)||false, lines:[]};
-            if(!ortMap[ort].lines.includes(line)) ortMap[ort].lines.push(line);
+            if(!out[ort]) out[ort] = { kundig: true, linien: [] };
+            if(!out[ort].linien.includes(String(line))) out[ort].linien.push(String(line));
           });
         });
       }
     }catch(e){}
-    const out={};
-    Object.keys(ortMap).sort((a,b)=>a.localeCompare(b,'de-CH')).forEach(k=>out[k]=ortMap[k]);
-    st.orts=out;
+
+    // Merge existing toggles (Option B: keep false if user removed)
+    Object.keys(out).forEach(ort=>{
+      if(st.orts[ort] && st.orts[ort].kundig === false) out[ort].kundig = false;
+    });
+
+    // Keep previously known orts that are no longer in kundig lines? -> drop (because only kundige ortskunde berücksichtigen)
+    st.orts = out;
   }
+
   function renderOrts(){
-    const host=$('orts'); host.innerHTML='';
-    const keys=Object.keys(st.orts);
-    $('ortEmpty').style.display = keys.length ? 'none' : '';
+    const host = $('ortList');
+    host.innerHTML = '';
+    const keys = Object.keys(st.orts||{}).sort((a,b)=>a.localeCompare(b,'de-CH'));
+    if(!keys.length){
+      host.innerHTML = '<div class="hint">Keine Ortskunde aus kundigen Linien.</div>';
+      return;
+    }
     keys.forEach(ort=>{
-      const it=st.orts[ort];
-      const div=document.createElement('div'); div.className='ortItem';
-      div.innerHTML = `<input class="chk" type="checkbox" ${it.done?'checked':''} />
-        <div class="desc"><b>${ort}</b><div class="hint">Linien: ${it.lines.slice().sort((a,b)=>Number(a)-Number(b)).join(', ')}</div></div>`;
-      const chk=div.querySelector('input');
-      chk.addEventListener('change',()=>{ pushUndo(); st.orts[ort].done=chk.checked; setDirty(true); renderSummary(); });
+      const it = st.orts[ort];
+      const div = document.createElement('div');
+      div.className = 'ortItem' + (it.kundig ? '' : ' off');
+      div.innerHTML = `
+        <div style="width:34px; font-weight:900;">${it.kundig ? '✅' : '✕'}</div>
+        <div class="desc">
+          <div class="ortName" style="text-decoration:${it.kundig ? 'none' : 'line-through'};">${ort}</div>
+          <div class="ortMeta">Linien: ${(it.linien||[]).slice().sort((a,b)=>Number(a)-Number(b)).join(', ')}</div>
+        </div>
+      `;
+      div.addEventListener('click', ()=>{
+        // toggle true/false (Option B)
+        it.kundig = !it.kundig;
+        st.orts[ort] = it;
+        setDirty(true);
+        renderOrts();
+        renderSummary();
+      });
       host.appendChild(div);
     });
   }
 
   function renderSummary(){
-    const keys=Object.keys(st.lines);
+    const keys = Object.keys(st.lines||{});
     let k=0,a=0,u=0;
     keys.forEach(line=>{
-      const s=st.lines[line].status;
-      if(s==='kundig') k++; else if(s==='auffrischung') a++; else if(s==='unkundig') u++;
+      const s = st.lines[line];
+      if(s==='kundig') k++;
+      else if(s==='auffrischung') a++;
+      else u++;
     });
-    const orts=Object.keys(st.orts);
-    const done=orts.filter(o=>st.orts[o].done).length;
-    $('summary').innerHTML = `Linien: <b>${k}</b> kundig, <b>${a}</b> auffrischung, <b>${u}</b> unkundig.<br>Ortskenntnis: <b>${done}</b> erledigt, <b>${orts.length-done}</b> offen.`;
+    const orts = Object.keys(st.orts||{});
+    const ortTrue = orts.filter(o => st.orts[o].kundig).length;
+    const ortFalse = orts.length - ortTrue;
+    $('summary').innerHTML = `Linien: <b>${k}</b> kundig, <b>${a}</b> auffrischung, <b>${u}</b> unkundig. · Ortskunde: <b>${ortTrue}</b> true, <b>${ortFalse}</b> false.`;
   }
 
-  // ----------------- Export / Local -----------------
+  // ----------------- Export/Local (Option B) -----------------
   function payload(){
-    const linien={};
-    Object.keys(st.lines).sort((a,b)=>Number(a)-Number(b)).forEach(l=>{
-      linien[l] = { status: st.lines[l].status, segmente: (st.lines[l].segments||[]).map(s=>({fromId:s.fromId,toId:s.toId,from:s.fromText,to:s.toText})) };
+    const linien = {};
+    Object.keys(st.lines).sort((a,b)=>Number(a)-Number(b)).forEach(line=>{
+      const s = st.lines[line];
+      linien[line] = { status: s, kundig: (s==='kundig'), auffrischung: (s==='auffrischung'), unkundig: (s!=='kundig') };
     });
-    const orts={};
-    Object.keys(st.orts).forEach(o=>{ orts[o] = { erledigt: !!st.orts[o].done, linien: st.orts[o].lines.slice() }; });
-    return { erzeugtAm: new Date().toISOString(), person: st.person, linien, ortskenntnis: orts };
+
+    // Ortskunde Option B: include all collected (from kundig lines) with kundig true/false
+    const ortskunde = {};
+    Object.keys(st.orts).sort((a,b)=>a.localeCompare(b,'de-CH')).forEach(ort=>{
+      ortskunde[ort] = { kundig: !!st.orts[ort].kundig, linien: (st.orts[ort].linien||[]).slice() };
+    });
+
+    // Overrides export (optional for later mutation)
+    const overrides = st.overrides || {};
+
+    return {
+      erzeugtAm: new Date().toISOString(),
+      person: {...st.person},
+      linien,
+      ortskunde,
+      overrides
+    };
   }
+
   function saveLocal(){
-    localStorage.setItem('mev_streckenkunde_state_v1', JSON.stringify(payload()));
-    setDirty(false); toast('Auf Gerät gespeichert.');
+    localStorage.setItem('mev_streckenkunde_state_v3', JSON.stringify(payload()));
+    setDirty(false);
+    toast('Auf Gerät gespeichert.');
   }
   function loadLocal(){
-    const raw=localStorage.getItem('mev_streckenkunde_state_v1');
+    const raw = localStorage.getItem('mev_streckenkunde_state_v3');
     if(!raw){ toast('Keine Daten gespeichert.'); return; }
     try{
-      const p=JSON.parse(raw);
-      st.person = p.person||st.person;
-      $('vorname').value=st.person.vorname||'';
-      $('nachname').value=st.person.nachname||'';
-      $('datum').value=st.person.datum||'';
-      $('pnr').value=st.person.personalnummer||'';
+      const p = JSON.parse(raw);
+      if(p.person){
+        st.person = {
+          vorname: String(p.person.vorname||''),
+          nachname: String(p.person.nachname||''),
+          datum: String(p.person.datum||''),
+          personalnummer: String(p.person.personalnummer||'')
+        };
+        $('vorname').value = st.person.vorname;
+        $('nachname').value = st.person.nachname;
+        $('datum').value = st.person.datum;
+        $('pnr').value = st.person.personalnummer;
+      }
       st.lines = {};
       if(p.linien){
-        Object.keys(p.linien).forEach(l=>{
-          st.lines[l] = { status: p.linien[l].status||'none', segments: (p.linien[l].segmente||[]).map(s=>({fromId:s.fromId,toId:s.toId,fromText:s.from,toText:s.to})) };
+        Object.keys(p.linien).forEach(line=>{
+          const s = p.linien[line].status || (p.linien[line].kundig ? 'kundig' : (p.linien[line].auffrischung ? 'auffrischung' : 'unkundig'));
+          st.lines[String(line)] = s;
         });
       }
       st.orts = {};
-      if(p.ortskenntnis){
-        Object.keys(p.ortskenntnis).forEach(o=>{ st.orts[o] = { done: !!p.ortskenntnis[o].erledigt, lines: (p.ortskenntnis[o].linien||[]) }; });
+      if(p.ortskunde){
+        Object.keys(p.ortskunde).forEach(ort=>{
+          st.orts[ort] = { kundig: !!p.ortskunde[ort].kundig, linien: (p.ortskunde[ort].linien||[]).slice() };
+        });
       }
+      st.overrides = p.overrides || {};
+
+      setDirty(false);
       syncPerson();
-      rebuildOrts();
       renderLineList();
+      if(st.svgRoot){ applySelectionToSvg(); }
+      rebuildOrtsFromKundigLines();
       renderOrts();
       renderSummary();
-      setDirty(false);
       toast('Vom Gerät geladen.');
-    }catch(e){ console.error(e); toast('Laden fehlgeschlagen.'); }
+    } catch(e){
+      console.error(e);
+      toast('Laden fehlgeschlagen.');
+    }
   }
+
   async function exportJson(){
-    const p=payload();
-    if(!p.person.vorname||!p.person.nachname||!p.person.datum){ toast('Personendaten fehlen.'); return; }
+    const p = payload();
+    if(!p.person.vorname || !p.person.nachname || !p.person.datum){ toast('Personendaten fehlen.'); return; }
     const safe=(s)=>String(s||'').replace(/[^a-zA-Z0-9\-_. ]/g,'').trim().replace(/\s+/g,'_');
     const fn=('streckenkunde_'+safe(p.person.nachname)+'_'+safe(p.person.vorname)+'_'+safe(p.person.datum)+'.json').replace(/__+/g,'_');
     const blob=new Blob([JSON.stringify(p,null,2)],{type:'application/json'});
@@ -638,112 +718,142 @@
       const file=new File([blob],fn,{type:'application/json'});
       if(navigator.share && navigator.canShare && navigator.canShare({files:[file]})){
         await navigator.share({title:'Streckenkunde', files:[file]});
-        setDirty(false); toast('Teilen geöffnet.'); return;
+        setDirty(false);
+        toast('Teilen geöffnet.');
+        return;
       }
     }catch(e){}
     const url=URL.createObjectURL(blob);
     const a=document.createElement('a'); a.href=url; a.download=fn; document.body.appendChild(a); a.click(); a.remove();
     setTimeout(()=>URL.revokeObjectURL(url),2000);
-    setDirty(false); toast('Datei gespeichert.');
+    setDirty(false);
+    toast('Datei gespeichert.');
   }
-  function undo(){
-    const last=st.undo.pop();
-    $('undo').disabled = st.undo.length===0;
-    if(!last){ toast('Nichts zum Rückgängig machen.'); return; }
+
+  // ----------------- Load & start map -----------------
+  async function ensureAssetsLoaded(){
+    if(st.idx && st.svgText) return;
     try{
-      const s=JSON.parse(last);
-      st.lines=s.lines||{}; st.orts=s.orts||{};
-      rebuildOrts();
-      renderLineList();
-      renderSegs();
-      renderOrts();
-      renderSummary();
-      setDirty(true); toast('Rückgängig.');
-    }catch(e){ toast('Rückgängig fehlgeschlagen.'); }
+      try{ const idx = await loadJson(abs('assets/index.json')); st.routes = idx.routes || {}; }catch(e){}
+      st.idx = await loadJson(abs('assets/stations_by_line.json'));
+      st.svgText = await loadText(abs('assets/map.svg'));
+    }catch(e){
+      console.error(e);
+      throw e;
+    }
   }
 
-  // ----------------- Autoload after person -----------------
-  let loaded=false, running=false;
-  async function autoload(){
-    if(loaded||running) return;
-    const ok=!!(st.person.vorname&&st.person.nachname&&st.person.datum);
-    if(!ok){ $('auto').innerHTML='<b>Autoload:</b> warte …'; return; }
-    running=true;
-    $('auto').innerHTML='<b>Autoload:</b> lade Daten …';
-    try{
-      try{ const idx=await loadJson(abs('assets/index.json')); st.routes=idx.routes||{}; }catch(e){}
-      try{ st.idx=await loadJson(abs('assets/stations_by_line.json')); }catch(e){}
-      const svg=await loadText(abs('assets/map.svg')); embedSvg(svg);
-      $('auto').innerHTML='<b>Autoload:</b> fertig';
-      loaded=true;
-      renderLineList();
-    }catch(e){ console.error(e); $('auto').innerHTML='<b>Autoload:</b> Fehler: '+(e.message||e); }
-    finally{ running=false; }
+  function embedSvg(){
+    const txt = st.svgText;
+    const doc = new DOMParser().parseFromString(txt,'image/svg+xml');
+    const err = doc.querySelector('parsererror');
+    if(err){ toast('SVG Parse-Fehler'); console.error(err.textContent); return; }
+    const svg = doc.querySelector('svg');
+    if(!svg){ toast('Keine SVG gefunden'); return; }
+    const host=$('mapHost'); host.innerHTML='';
+    const imported=document.importNode(svg,true);
+    imported.style.width='100%'; imported.style.height='100%'; imported.style.display='block';
+    host.appendChild(imported);
+    st.svgRoot = imported;
+    st.viewBase = getInitialViewBox(st.svgRoot);
+    setViewBox({...st.viewBase});
+    // Start: komplette Übersicht
+    // (kein zusätzlicher Zoom, damit "komplett anzeigen" stimmt)
+    enableTouchPanZoom();
+    enablePointEditing();
   }
 
-  // ----------------- Wire events -----------------
-  $('datum').value = (new Date()).toISOString().slice(0,10);
-  syncPerson();
-  show(1);
+  // Map mode buttons
+  function setMode(m){
+    st.mode = m;
+    $('modePan').classList.toggle('active', m==='pan');
+    $('modeEdit').classList.toggle('active', m==='edit');
+    toast(m==='pan' ? 'Modus: Verschieben/Zoomen' : 'Modus: Punkte bearbeiten');
+  }
+  function setPick(p){
+    st.pick = p;
+    $('pickK').classList.toggle('active', p==='kundig');
+    $('pickA').classList.toggle('active', p==='auffrischung');
+    $('pickN').classList.toggle('active', p==='unkundig');
+  }
 
-  (async()=>{
-    try{ const emp=await loadJson(abs('assets/mitarbeiter.json')); st.employees=Array.isArray(emp.employees)?emp.employees:[]; }
-    catch(e){ st.employees=[]; }
-    renderEmpHits('');
-  })();
+  // ----------------- Wiring -----------------
+  function init(){
+    // date default
+    $('datum').value = (new Date()).toISOString().slice(0,10);
 
-  $('empSearch').addEventListener('input',()=>renderEmpHits($('empSearch').value));
-  ['vorname','nachname','datum','pnr'].forEach(id=>$(id).addEventListener('input',syncPerson));
-
-  $('resetPerson').addEventListener('click',()=>{
-    $('vorname').value=''; $('nachname').value=''; $('pnr').value=''; $('datum').value=(new Date()).toISOString().slice(0,10);
     syncPerson();
-    toast('Zurückgesetzt.');
-  });
+    showStep(1);
 
-  $('toLines').addEventListener('click', async()=>{
-    await autoload();
-    show(2);
-  });
+    // load employees
+    (async()=>{
+      try{ const emp=await loadJson(abs('assets/mitarbeiter.json')); st.employees=Array.isArray(emp.employees)?emp.employees:[]; }
+      catch(e){ st.employees=[]; }
+      renderEmpHits('');
+    })();
 
-  $('back1').addEventListener('click',()=>show(1));
-  $('back2').addEventListener('click',()=>show(2));
+    $('empSearch').addEventListener('input',()=>renderEmpHits($('empSearch').value));
+    ['vorname','nachname','datum','pnr'].forEach(id=>$(id).addEventListener('input',syncPerson));
 
-  if($('lineSearch')) $('lineSearch').addEventListener('input',()=>{ st.lineSearch=$('lineSearch').value; renderLineList(); });
+    $('resetPerson').addEventListener('click',()=>{
+      $('vorname').value=''; $('nachname').value=''; $('pnr').value=''; $('datum').value=(new Date()).toISOString().slice(0,10);
+      syncPerson();
+      toast('Zurückgesetzt.');
+    });
 
-  document.querySelectorAll('#filterBar .fbtn').forEach(b=>b.addEventListener('click',()=>{
-    document.querySelectorAll('#filterBar .fbtn').forEach(x=>x.classList.remove('active'));
-    b.classList.add('active');
-    st.lineFilter = b.getAttribute('data-filter')||'all';
-    renderLineList();
-  }));
+    $('toLines').addEventListener('click', async()=>{
+      try{
+        await ensureAssetsLoaded();
+        renderLineList();
+        showStep(2);
+      }catch(e){
+        toast('Fehler beim Laden der Assets.');
+      }
+    });
 
-  document.querySelectorAll('[data-st]').forEach(b=>b.addEventListener('click',()=>applyStatusSelected(b.getAttribute('data-st'))));
+    $('backToPerson').addEventListener('click', ()=> showStep(1));
 
-  $('segFrom').addEventListener('input',()=>showHits('segFrom','fromHits',$('segFrom').value));
-  $('segTo').addEventListener('input',()=>showHits('segTo','toHits',$('segTo').value));
-  $('addSeg').addEventListener('click',()=>addSeg());
+    $('lineSearch').addEventListener('input', ()=> renderLineList());
 
-  $('toOrts').addEventListener('click',()=>{ rebuildOrts(); renderOrts(); renderSummary(); show(3); });
+    $('toMap').addEventListener('click', async()=>{
+      try{
+        await ensureAssetsLoaded();
+        if(!st.svgRoot) embedSvg();
+        // apply line selection
+        applySelectionToSvg();
+        // build orts from kundig lines, default true
+        rebuildOrtsFromKundigLines();
+        renderOrts();
+        renderSummary();
+        // show map
+        showStep(3);
+        setMode('pan');
+        setPick('kundig');
+      }catch(e){
+        toast('Karte konnte nicht geladen werden.');
+      }
+    });
 
-  $('undo').addEventListener('click',undo);
-  $('undo').disabled = true;
-  $('saveLocal').addEventListener('click',saveLocal);
-  $('loadLocal').addEventListener('click',loadLocal);
-  $('export').addEventListener('click',exportJson);
+    $('backToLines').addEventListener('click', ()=>{
+      showStep(2);
+    });
 
-  // Variant-specific hooks
-// Variante B: Bulk-Aktionen
-  const bk = document.getElementById('bulkK');
-  const ba = document.getElementById('bulkA');
-  const bu = document.getElementById('bulkU');
-  const bc = document.getElementById('bulkClear');
-  if(bk) bk.addEventListener('click', ()=> bulkSet('kundig'));
-  if(ba) ba.addEventListener('click', ()=> bulkSet('auffrischung'));
-  if(bu) bu.addEventListener('click', ()=> bulkSet('unkundig'));
-  if(bc) bc.addEventListener('click', ()=> bulkClear());
+    $('modePan').addEventListener('click', ()=> setMode('pan'));
+    $('modeEdit').addEventListener('click', ()=> setMode('edit'));
+    $('pickK').addEventListener('click', ()=> setPick('kundig'));
+    $('pickA').addEventListener('click', ()=> setPick('auffrischung'));
+    $('pickN').addEventListener('click', ()=> setPick('unkundig'));
 
+    $('saveLocal').addEventListener('click', saveLocal);
+    $('loadLocal').addEventListener('click', loadLocal);
+    $('export').addEventListener('click', exportJson);
 
+    // initial
+    setPick('kundig');
+    setMode('pan');
+  }
+
+  init();
 })();
 </script>
 </body>
