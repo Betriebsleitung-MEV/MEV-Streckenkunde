@@ -90,17 +90,15 @@
       max-width: min(860px, 92vw); display:none; z-index:50;}
     .toast.show{display:block;}
   
- .item.suggest{outline:2px solid rgba(0, 200, 120, .55);}
- .badge.sug{color: rgba(0,200,120,.95); border-color: rgba(0,200,120,.55); background: rgba(0,200,120,.12);}
- .item.ortOn{background: rgba(0,200,120,.10);}
- .groupHead{display:flex; gap:10px; align-items:center; padding:10px; border-radius:12px; border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.03);} 
- .groupTitle{font-weight:900;}
- .groupMeta{font-size:12px; color:var(--muted);} 
- .miniBtn{height:34px; padding:0 10px; border-radius:999px; border:1px solid rgba(255,255,255,.16); background: rgba(255,255,255,.06); color:var(--text); font-weight:900; cursor:pointer; font-size:12px;}
+.groupHead{display:flex; gap:10px; align-items:center; padding:10px; border-radius:12px; border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.03);}
+.groupTitle{font-weight:900;}
+.groupMeta{font-size:12px; color:var(--muted);}
+.miniBtn{height:34px; padding:0 10px; border-radius:999px; border:1px solid rgba(255,255,255,.16); background: rgba(255,255,255,.06); color:var(--text); font-weight:900; cursor:pointer; font-size:12px;}
+#errBar{position:fixed; left:10px; right:10px; top:118px; z-index:60; display:none; padding:10px; border-radius:12px; border:1px solid rgba(255,0,0,.35); background: rgba(255,0,0,.10); color:var(--text); font-size:12px;}
 </style>
 </head>
 <body>
-  <div class="topbar"><div class="brand">MEV Streckenkunde</div><div class="build">Build: 2026-03-12 09:54 UTC</div></div>
+  <div class="topbar"><div class="brand">MEV Streckenkunde</div><div class="build">Build: 2026-03-12 17:15 BLS-V1+BuildFix</div></div>
 
   <!-- Step 4: Map view -->
   <div class="mapWrap hidden" id="viewMap">
@@ -151,10 +149,8 @@
         <div class="toggleRow" style="margin-top:12px;">
           <button class="btn primary" id="toRoutes" type="button" disabled>Weiter zu Routen</button>
           <button class="btn" id="resetPerson" type="button">Zurücksetzen</button>
- <button class="btn" id="loadLocalTop" type="button">Vom Gerät laden</button>
         </div>
         <div class="hint" id="auto" style="margin-top:8px;"><b>Status:</b> warte …</div>
- <div class="hint" id="loadHint" style="margin-top:6px;"></div>
       </div>
 
       <!-- Step 2 -->
@@ -180,10 +176,11 @@
         <div style="font-weight:850; margin-bottom:6px;">BLS Daten</div>
         <div class="hint">Route wählen und Teilstrecken wegklicken, die nicht kundig sind (false). Standard = false.</div>
         <div class="hint" style="margin-top:6px;">Tippen: Teilstrecke toggelt true/false (Standard = false).</div>
-      <div class="toggleRow" style="margin-top:10px;">
-        <button class="toggle active" id="blsFilterAll" type="button">Alle</button>
-        <button class="toggle" id="blsFilterFalse" type="button">Nur false</button>
-      </div>
+<label>BLS Anzeige</label>
+<div class="toggleRow" style="margin-top:10px;">
+  <button class="toggle active" id="blsFilterAll" type="button">Alle</button>
+  <button class="toggle" id="blsFilterFalse" type="button">Nur false</button>
+</div>
 
         <div class="cardTop">
           <div class="toggleRow">
@@ -199,14 +196,12 @@
 
       <!-- Step 5 -->
       <div class="card hidden" id="p5">
-        <div style="font-weight:850; margin-bottom:6px;">Ortskunde (Anschlussgleise und Tanklager)</div>
-        
+        <div style="font-weight:850; margin-bottom:6px;">Ortskunde (Tanklager)</div>
+        <div class="hint">Die Ortskunde kommt aus "Tanklager"-Einträgen (z.B. "Tanklager: Swissterminal"). Standard ist kundig. Tippen = false. Nochmal tippen = true.</div>
 
         <div class="cardTop">
           <div class="toggleRow">
             <span class="hint" style="margin:0;">Prüfen und bestätigen</span>
-      <button class="toggle active" id="ortFilterSug" type="button">Auswahl</button>
-      <button class="toggle" id="ortFilterAll" type="button">Alle</button>
             <span style="flex:1 1 auto"></span>
             <button class="btn" id="backToMap" type="button">Zurück zur Karte</button>
             <button class="btn" id="saveLocal" type="button">Auf Gerät speichern</button>
@@ -223,6 +218,7 @@
   </div>
 
   <div class="toast" id="toast"></div>
+<div id="errBar"></div>
 
 <script>
 (() => {
@@ -251,20 +247,12 @@
     tap: {key:null, t:0, c:0},
     mode: 'pan',
     pick: 'kundig',
-    blsMode: false,
-  blsAllFalsePending: false,
-  blsFilter: 'all',
-  blsCollapsed: {},
-  // Ortskunde
-  suggestedOrts: new Set(),
-  ortFilter: 'suggested',
-  ortsManual: {},
-  idxTankByLine: {}
+    blsMode: false
   };
 
   // ===== Tap-Anzeige im Header (nur bei Antippen, nie bei Wischen) =====
   const buildEl = document.querySelector('.topbar .build');
-  const originalBuildText = buildEl ? buildEl.textContent : '';
+  const originalBuildText = buildEl ? buildEl.textContent : 'Build: 2026-03-12 17:15 BLS-V1+BuildFix';
   let buildTimer = null;
   let wiredSvgForHeaderTap = null;
 
@@ -278,132 +266,28 @@
   }
 
   function labelNurInkscape(el){
-  if(!el || !el.getAttribute) return '(ohne Label)';
-  var label = String(el.getAttribute('inkscape:label') || '').trim();
-  return label || '(ohne Label)';
-}
-
-  function isTanklagerEl(el){
-  if(!el || !el.getAttribute) return false;
-  var tl = String(el.getAttribute('Tanklager') || el.getAttribute('tanklager') || '').trim();
-  return !!tl;
-}
-
-  function isStationEl(el){
-  if(!el) return false;
-  var dt = String((el.getAttribute && (el.getAttribute('data-typ') || el.getAttribute('data-type'))) || '').trim();
-  if(dt === 'Station') return true;
-  var id = String(el.id || '').toLowerCase().trim();
-  return id.indexOf('station_')===0 || id.indexOf('unoccupied_station_')===0;
-}
-
-  
-
-// ===== Tanklager/Anschlussgleise: Abgleich über data-line =====
-function collectDataLines(el){
-  var out=[];
-  try{
-    var names = el.getAttributeNames ? el.getAttributeNames() : [];
-    for(var i=0;i<names.length;i++){
-      var a = names[i];
-      if(a.indexOf('data-line')!==0) continue;
-      var v = String(el.getAttribute(a) || '').replace(/\D+/g,'');
-      if(v) out.push(v);
-    }
-  }catch(e){}
-  var seen = {};
-  var res=[];
-  for(var j=0;j<out.length;j++){ if(!seen[out[j]]){ seen[out[j]]=1; res.push(out[j]); } }
-  res.sort(function(a,b){ return Number(a)-Number(b); });
-  return res;
-}
-
-function buildIdxTankByLine(){
-  var out = {};
-  try{
-    var idx = st.idx || {};
-    Object.keys(idx).forEach(function(lineKey){
-      var arr = idx[lineKey];
-      if(!Array.isArray(arr)) return;
-      for(var i=0;i<arr.length;i++){
-        var it = arr[i] || {};
-        if(!it.tanklager) continue;
-        var line = String(it.line || lineKey || '').replace(/\D+/g,'');
-        if(!line){
-          var c = String(it.code || '').replace(/\D+/g,'');
-          if(c) line = c;
-        }
-        if(!line) continue;
-        var label = String(it.label || it.tanklager || '').trim();
-        if(!label) continue;
-        if(!out[line]) out[line] = new Set();
-        out[line].add(label);
-      }
-    });
-  }catch(e){}
-  st.idxTankByLine = out;
-}
-
-function buildTankIndexFromSvg(){
-  var byLine = {};
-  var byCode = {};
-  if(!st.svgRoot) return {byLine:byLine, byCode:byCode};
-  var nodes = st.svgRoot.querySelectorAll('[Tanklager], [tanklager]');
-  nodes.forEach(function(el){
-    var label = labelNurInkscape(el);
-    if(!label || label === '(ohne Label)') return;
-    var lines = collectDataLines(el);
-    for(var i=0;i<lines.length;i++){
-      var l = lines[i];
-      if(!byLine[l]) byLine[l] = new Set();
-      byLine[l].add(label);
-    }
-    var code = String(el.getAttribute('data-code') || '').trim();
-    if(code){
-      if(!byCode[code]) byCode[code] = new Set();
-      byCode[code].add(label);
-    }
-  });
-  return {byLine:byLine, byCode:byCode};
-}
-
-function updateOrtskundeSuggestions(){
-  var sug = new Set();
-  var activeLines = new Set();
-
-  Object.keys(st.routeStatus||{}).forEach(function(r){
-    if(st.routeStatus[r] !== 'kundig') return;
-    var rr = String(r).replace(/\D+/g,'');
-    if(rr) activeLines.add(rr);
-  });
-
-  if(st.svgRoot){
-    Object.keys(st.overrides||{}).forEach(function(id){
-      var v = st.overrides[id];
-      if(v === 'unkundig') return;
-      var el = st.svgRoot.getElementById ? st.svgRoot.getElementById(id) : null;
-      if(!el) return;
-      var ls = collectDataLines(el);
-      for(var i=0;i<ls.length;i++) activeLines.add(ls[i]);
-    });
+    const label = String(el?.getAttribute('inkscape:label') || '').trim();
+    return label || '(ohne Label)';
   }
 
-  var idxMap = st.idxTankByLine || {};
-  activeLines.forEach(function(l){
-    var set = idxMap[l];
-    if(set) set.forEach(function(lbl){ sug.add(lbl); });
-  });
+  function isTanklagerEl(el){
+    const dt = String(el?.getAttribute('data-typ') || el?.getAttribute('data-type') || '').trim().toLowerCase();
+    if(dt === 'tanklager') return true;
+    const id = String(el?.id || '').toLowerCase().trim();
+    if(id === 'tanklager' || id.startsWith('tanklager_') || id.includes('tanklager')) return true;
+    const label = String(el?.getAttribute('inkscape:label') || '').trim().toLowerCase();
+    if(label.startsWith('tanklager') || label.includes('tanklager')) return true;
+    return false;
+  }
 
-  var svgByLine = (st.tankIndex && st.tankIndex.byLine) ? st.tankIndex.byLine : {};
-  activeLines.forEach(function(l){
-    var set2 = svgByLine[l];
-    if(set2) set2.forEach(function(lbl){ sug.add(lbl); });
-  });
+  function isStationEl(el){
+    const dt = String(el?.getAttribute('data-typ') || el?.getAttribute('data-type') || '').trim();
+    if(dt === 'Station') return true;
+    const id = String(el?.id || '').toLowerCase().trim();
+    return id.startsWith('station_') || id.startsWith('unoccupied_station_');
+  }
 
-  st.suggestedOrts = sug;
-}
-
-function findTapTarget(startEl){
+  function findTapTarget(startEl){
     let el = startEl;
     for(let i=0;i<12 && el;i++){
       if(isStationEl(el) || isTanklagerEl(el)) return el;
@@ -579,19 +463,6 @@ function findTapTarget(startEl){
     });
   }
 
-function resetAllTeilstreckenFalse(){
-  try{
-    if(!st.routeSegmentsOrdered || !Object.keys(st.routeSegmentsOrdered).length){ st.teilstrecken = {}; st.blsAllFalsePending = true; return; }
-    Object.keys(st.routeSegmentsOrdered).forEach(function(r){
-      initTeilstreckenForRoute(r);
-      var mm = st.teilstrecken[r] || {};
-      Object.keys(mm).forEach(function(k){ mm[k]=false; });
-      st.teilstrecken[r]=mm;
-    });
-    st.blsAllFalsePending = false;
-  }catch(e){ st.blsAllFalsePending = true; }
-}
-
   function renderRoutePick(){
     const sel=$('routePick'); sel.innerHTML='';
     const rs=selectedRoutes();
@@ -608,7 +479,6 @@ function resetAllTeilstreckenFalse(){
   }
 
   function renderSegList(){
-  // BLS Daten: gruppiert nach Route (wie RADN)
   const host = $('blsList');
   if(!host) return;
   host.innerHTML='';
@@ -626,7 +496,6 @@ function resetAllTeilstreckenFalse(){
     const segs = st.routeSegmentsOrdered[r] || [];
     if(!segs.length) return;
 
-    // counts
     var total = segs.length;
     var trueCnt = 0;
     for(var i=0;i<segs.length;i++){
@@ -636,13 +505,13 @@ function resetAllTeilstreckenFalse(){
     }
     var falseCnt = total - trueCnt;
 
-    // Header
     const wrap = document.createElement('div');
     wrap.style.marginTop = '10px';
 
     const head = document.createElement('div');
     head.className = 'groupHead';
     const collapsed = !!(st.blsCollapsed && st.blsCollapsed[r]);
+
     const title = document.createElement('div');
     title.className = 'groupTitle';
     title.textContent = r + ' ' + (st.routes[r] || '');
@@ -660,9 +529,7 @@ function resetAllTeilstreckenFalse(){
     btnAllFalse.textContent='alles false';
     btnAllFalse.addEventListener('click', function(ev){
       ev.preventDefault();
-      segs.forEach(function(it){
-        st.teilstrecken[r][segKey(it)] = false;
-      });
+      segs.forEach(function(it){ st.teilstrecken[r][segKey(it)] = false; });
       setDirty(true);
       renderSegList();
       renderSummary();
@@ -674,9 +541,7 @@ function resetAllTeilstreckenFalse(){
     btnAllTrue.textContent='alles true';
     btnAllTrue.addEventListener('click', function(ev){
       ev.preventDefault();
-      segs.forEach(function(it){
-        st.teilstrecken[r][segKey(it)] = true;
-      });
+      segs.forEach(function(it){ st.teilstrecken[r][segKey(it)] = true; });
       setDirty(true);
       renderSegList();
       renderSummary();
@@ -701,7 +566,6 @@ function resetAllTeilstreckenFalse(){
     wrap.appendChild(head);
 
     if(!collapsed){
-      // Segmente
       segs.forEach(function(it){
         const k = segKey(it);
         const on = st.teilstrecken[r][k] === true;
@@ -738,9 +602,7 @@ function resetAllTeilstreckenFalse(){
     const idx=await loadJson(abs('assets/index.json'));
     st.routes = idx.routes || {};
     st.routeSegmentsOrdered = idx.routeSegmentsOrdered || {};
-    if(!st.blsMode && st.blsAllFalsePending){ resetAllTeilstreckenFalse(); }
     st.idx = await loadJson(abs('assets/stations_by_line.json'));
-    buildIdxTankByLine();
     st.svgText = await loadText(abs('assets/map.svg'));
   }
 
@@ -777,9 +639,6 @@ function resetAllTeilstreckenFalse(){
     enableTouchPanZoom();
     enablePointEditing();
     wireHeaderTapToSvg();
-    st.tankIndex = buildTankIndexFromSvg();
-    buildIdxTankByLine();
-    updateOrtskundeSuggestions();
   }
 
   function enableTouchPanZoom(){
@@ -839,8 +698,8 @@ function resetAllTeilstreckenFalse(){
 
   // Point editing + colouring
   function ensureOrig(el){
-    if(el.dataset.origFill===undefined){ var f = el.getAttribute('fill'); el.dataset.origFill = (f===null || f===undefined) ? '' : f; }
-    if(el.dataset.origStroke===undefined){ var s = el.getAttribute('stroke'); el.dataset.origStroke = (s===null || s===undefined) ? '' : s; }
+    if(el.dataset.origFill===undefined) el.dataset.origFill = el.getAttribute('fill') ?? '';
+    if(el.dataset.origStroke===undefined) el.dataset.origStroke = el.getAttribute('stroke') ?? '';
   }
   function restoreOrig(el){
     if(el.dataset.origFill!=='') el.setAttribute('fill', el.dataset.origFill); else el.removeAttribute('fill');
@@ -945,37 +804,42 @@ function resetAllTeilstreckenFalse(){
     });
   }
 
-  // Ortskunde (Anschlussgleise und Tanklager) aus stations_by_line.json
+  // Ortskunde (Tanklager) aus stations_by_line.json
   function rebuildOrts(){
-  var out = {};
-  if(st.svgRoot){
-    var nodes = st.svgRoot.querySelectorAll('[Tanklager], [tanklager]');
-    nodes.forEach(function(el){
-      var ort = labelNurInkscape(el);
-      if(!ort || ort === '(ohne Label)') return;
-      if(!out[ort]) out[ort] = { linien: [] };
-      var lines = collectDataLines(el);
-      for(var i=0;i<lines.length;i++){ if(out[ort].linien.indexOf(lines[i])===-1) out[ort].linien.push(lines[i]); }
+    const out={};
+    const kundigRoutes = Object.keys(st.routeStatus||{}).filter(r=>st.routeStatus[r]==='kundig');
+    if(st.idx && st.idx.ortskenntnisByLine){
+      kundigRoutes.forEach(r=>{
+        const arr=st.idx.ortskenntnisByLine[String(r)]||[];
+        arr.forEach(p=>{
+          // p.ort enthält den Namen, z.B. Swissterminal Frenkendorf
+          const ort=String(p.ort||'').trim();
+          if(!ort) return;
+          if(!out[ort]) out[ort]={kundig:true, linien:[]};
+          if(!out[ort].linien.includes(String(r))) out[ort].linien.push(String(r));
+        });
+      });
+    }
+    // Option B: vorhandene false behalten
+    Object.keys(out).forEach(ort=>{
+      if(st.orts[ort] && st.orts[ort].kundig===false) out[ort].kundig=false;
     });
+    st.orts=out;
   }
-  Object.keys(out).forEach(function(ort){ out[ort].linien.sort(function(a,b){ return Number(a)-Number(b); }); });
-  st.orts = out;
-}
 
-function renderOrts(){
+  function renderOrts(){
     const host=$('ortList'); host.innerHTML='';
     const keys=Object.keys(st.orts||{}).sort((a,b)=>a.localeCompare(b,'de-CH'));
     if(!keys.length){ host.innerHTML='<div class="hint">Keine Ortskunde aus kundigen Routen.</div>'; return; }
     keys.forEach(ort=>{
       const it=st.orts[ort];
-      const manual = (st.ortsManual && st.ortsManual.hasOwnProperty(ort)) ? st.ortsManual[ort] : null;
-    const on = (manual===true) ? true : (manual===false) ? false : (st.suggestedOrts && st.suggestedOrts.has(ort)) ? true : false;
+      const on=!!it.kundig;
       const div=document.createElement('div');
       div.className='item'+(on?'':'');
       div.innerHTML=`<div class="no">${on?'✅':'✕'}</div><div class="desc"><b style="text-decoration:${on?'none':'line-through'};">${ort}</b><div class="hint">Linien: ${(it.linien||[]).slice().sort((a,b)=>Number(a)-Number(b)).join(', ')}</div></div>`;
       div.addEventListener('click',()=>{
-        var nv = !on;
-      st.ortsManual[ort] = nv;
+        it.kundig=!on;
+        st.orts[ort]=it;
         setDirty(true);
         renderOrts();
         renderSummary();
@@ -1050,13 +914,11 @@ function renderOrts(){
         });
       }
       st.orts={};
-      if(p.ortskunde){ Object.keys(p.ortskunde).forEach(o=>{ st.orts[o]={linien:(p.ortskunde[o].linien||[])}; st.ortsManual[o]=!!p.ortskunde[o].kundig; }); }
+      if(p.ortskunde){ Object.keys(p.ortskunde).forEach(o=>{ st.orts[o]={kundig:!!p.ortskunde[o].kundig, linien:(p.ortskunde[o].linien||[])}; }); }
       st.overrides=p.overrides||{};
 
       syncPerson();
-      renderRouteList();
-      renderRoutePick();
-      renderSegList();
+      renderRouteList();      renderSegList();
       if(st.svgRoot) applySelectionToSvg();
       rebuildOrts(); renderOrts(); renderSummary();
       setDirty(false);
@@ -1116,17 +978,15 @@ function renderOrts(){
   }
 
   function setBls(v){
-  st.blsMode=!!v;
-  $('blsYes').classList.toggle('active', st.blsMode);
-  $('blsNo').classList.toggle('active', !st.blsMode);
-  if(!st.blsMode){ st.blsAllFalsePending = true; resetAllTeilstreckenFalse(); }
-}
+    st.blsMode=!!v;
+    $('blsYes').classList.toggle('active', st.blsMode);
+    $('blsNo').classList.toggle('active', !st.blsMode);
+  }
 
   async function init(){
     $('datum').value=(new Date()).toISOString().slice(0,10);
     syncPerson();
     showStep(1);
-  try{ if(localStorage.getItem('mev_streckenkunde_state_v4_2')) $('loadHint').innerHTML='Gespeicherte Daten gefunden. <b>Vom Gerät laden</b> antippen.'; }catch(e){}
 
     // employees
     try{
@@ -1137,7 +997,6 @@ function renderOrts(){
 
     // wiring
     $('empSearch').addEventListener('input',()=>renderEmpHits($('empSearch').value));
-  $('loadLocalTop').addEventListener('click', loadLocal);
     ['vorname','nachname','datum','pnr'].forEach(id=>$(id).addEventListener('input',syncPerson));
 
     $('resetPerson').addEventListener('click',()=>{
@@ -1150,7 +1009,6 @@ function renderOrts(){
       try{ await ensureAssetsLoaded(); renderRouteList(); showStep(2); }
       catch(e){ console.error(e); toast('Fehler beim Laden der Assets.'); }
     });
-
     $('blsYes').addEventListener('click',()=>setBls(true));
     $('blsNo').addEventListener('click',()=>setBls(false));
     setBls(false);
@@ -1158,14 +1016,13 @@ function renderOrts(){
     $('backToPerson').addEventListener('click',()=>showStep(1));
 
     $('nextFromRoutes').addEventListener('click', async()=>{
-      if(st.blsMode){
-        renderRoutePick();
-        renderSegList();
-        showStep(3);
-      } else {
-        try{ await goMap(); } catch(e){ console.error(e); toast('Karte konnte nicht geladen werden.'); }
-      }
-    });
+    if(st.blsMode){
+      renderSegList();
+      showStep(3);
+    } else {
+      try{ await goMap(); } catch(e){ console.error(e); toast('Karte konnte nicht geladen werden.'); }
+    }
+  });
 
     $('backToRoutes').addEventListener('click',()=>showStep(2));
 
@@ -1181,7 +1038,6 @@ function renderOrts(){
     $('blsFilterAll').classList.remove('active');
     renderSegList();
   });
-
     $('toMap').addEventListener('click', async()=>{
       try{ await goMap(); } catch(e){ console.error(e); toast('Karte konnte nicht geladen werden.'); }
     });
@@ -1196,22 +1052,8 @@ function renderOrts(){
 
     // Ortskunde nav
     $('backToMap').addEventListener('click',()=>{
-    showStep(4);
-
-  $('ortFilterSug').addEventListener('click', ()=>{
-    st.ortFilter='suggested';
-    $('ortFilterSug').classList.add('active');
-    $('ortFilterAll').classList.remove('active');
-    renderOrts();
-  });
-  $('ortFilterAll').addEventListener('click', ()=>{
-    st.ortFilter='all';
-    $('ortFilterAll').classList.add('active');
-    $('ortFilterSug').classList.remove('active');
-    renderOrts();
-  });
-
-  });
+      showStep(4);
+    });
 
     $('modePan').addEventListener('click',()=>setMode('pan'));
     $('modeEdit').addEventListener('click',()=>setMode('edit'));
@@ -1223,6 +1065,13 @@ function renderOrts(){
     $('loadLocal').addEventListener('click',loadLocal);
     $('export').addEventListener('click',exportJson);
   }
+
+  window.addEventListener('error', (ev)=>{
+    try{ const eb=$('errBar'); if(eb){ eb.style.display='block'; eb.textContent='JS-Fehler: '+(ev.message||ev.type); } }catch(e){}
+  });
+  window.addEventListener('unhandledrejection', (ev)=>{
+    try{ const eb=$('errBar'); if(eb){ eb.style.display='block'; eb.textContent='Promise-Fehler: '+String(ev.reason||ev); } }catch(e){}
+  });
 
   init();
 })();
