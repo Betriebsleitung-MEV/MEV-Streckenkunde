@@ -1,3 +1,9633 @@
 {
-  "routes": {}
+  "routes": {
+    "101": "101 Ge Aeroport / La Plaine - Genève / Ge-La Praille",
+    "102": "102 Annemasse - Genève",
+    "111": "111 La Praille / Genève-Aéroport - Nyon - Lausanne",
+    "121": "121 Lausanne - Fribourg/Freiburg - /Laupen - Bern",
+    "141": "141 Bern - Burgdorf - Olten",
+    "142": "142 Bern/Solothurn - NBS - Olten",
+    "151": "Olten - Lenzburg - Brugg - RB Limmattal / Olten - Lenzburg - Zürich",
+    "161": "161 Brugg - Zürich Altstetten - Zürich HB",
+    "171": "171 Wettingen - / RB Limmattal - Würenlos - Z Seebach - Z Oerlikon / Opfikon - Glattbrugg",
+    "201": "201 Vallorbe - Lausanne / Lausanne-Tr",
+    "202": "202 Vallorbe - Le Brassus",
+    "203": "203 Chavornay - Orbe",
+    "211": "211 Lausanne - Aigle - Sion",
+    "221": "221 Sion - Brig - Domo",
+    "222": "222 Brig - Domo- Domo II",
+    "231": "231 Puidox-Ch - Vevey",
+    "232": "232 St-Gingolph - St-Maurice",
+    "241": "301 Lausanne Tr - / Lausanne - Biel/Bienne - BIPO",
+    "251": "251 Palézieux - Payerne",
+    "252": "252 Payerne - Lyss - Büren",
+    "254": "254 Bulle - Romont - Fribourg",
+    "255": "255 Fribourg - Murten - Ins - Neuchatel",
+    "261": "261 Yverdon - Fribourg",
+    "271": "271 Pontarlier - Neuchâtel",
+    "272": "272 Le Locle-Col - Neuchâtel",
+    "273": "273 Travers - Fleurier - Buttes",
+    "281": "281 Chaux-de-Fonds – Biel/Bienne – BIPO",
+    "282": "282 Moutier – Sonceboz – Biel/Bienne – BIPO",
+    "291": "291 Delémont - Lengnau - Biel/Bienne",
+    "292": "292 Delle - Delémont",
+    "301": "301 Lausanne Tr - / Lausanne - Biel/Bienne - BIPO",
+    "311": "311 Biel/Bienne - Solothurn - Oensingen - Olten",
+    "321": "321 BIPO - / Biel/Bienne - Bern W'haus",
+    "322": "322 Bern W'haus - Bern - Thun - Reichenbach",
+    "331": "331 Bern W'haus – Bern – Langnau",
+    "332": "332 Langnau - Luzern",
+    "341": "341 Basel RB/PB - Delémont",
+    "351": "351 Reichenbach i/K - Kandersteg - Brig",
+    "361": "361 Spiez - Interlaken Ost",
+    "362": "362 Spiez - Zweisimmen",
+    "371": "371 Bern - Belp - Thun",
+    "372": "372 Bern - Schwarzenburg",
+    "381": "381 Bern - Neuchâtel",
+    "391": "391 Reichenbach i/K - LBS - Visp",
+    "411": "411 Basel - Gelerkinden - Olten",
+    "421": "421 Sissach - Läufelfingen - Olten",
+    "422": "422 Olten RB - /Rothrist - Aarburg O. - Luzern",
+    "431": "431 Luzern - Lenzburg",
+    "436": "Zofingen - Suhr - Wettingen",
+    "461": "461 Zug - Luzern",
+    "462": "462 Thalwil - Arth-Goldau",
+    "481": "481 Solothurn - Moutier",
+    "482": "482 Solothurn - Burgdorf",
+    "483": "483 Burgdorf - Langnau",
+    "484": "484 Burgdorf - Thun",
+    "491": "491 Ramsei - Sumiswald-Grünen",
+    "493": "493 Langenthal - Wolhusen",
+    "501": "501 Basel St. Johann - / Basel PB - Basel GB - Basel RB - Pratteln",
+    "502": "502 Basel Kl. Hafen - BS PB - Basel Bad Bf - BS RB / Birsfelden H - BS RB",
+    "511": "511 Basel - Brugg",
+    "521": "521 Brugg - / Brugg Nord - / Lenzburg - Rotkreuz",
+    "531": "531 Rotkreuz - Göschenen",
+    "532": "532 Luzern - Meggen - Arth-Goldau",
+    "533": "533 Altdorf - GBT - Bellinzona",
+    "541": "541 Göschenen - Bellinzona",
+    "542": "542 Bellinzona - Chiasso Vg / SM / - LgV / - Stabio",
+    "551": "551 Bellinzona - Locarno",
+    "552": "552 Bellinzona - Luino",
+    "601": "601 Stein-S - Laufenburg- / RBL - Wettingen - Koblenz",
+    "602": "602 Koblenz - Winterthur",
+    "611": "611 Schaffhausen - Bülach - Z Oerlikon",
+    "612": "612 Niederweningen - Oberglatt",
+    "631": "631 Zürich - Thalwil - Pfäffikon",
+    "632": "632 Zug - Affoltern - Altstätten",
+    "641": "641 Pfäffikon - Sargans",
+    "642": "642 Buchs - Chur",
+    "651": "651 Zürich - Meilen - Rapperswil",
+    "652": "652 Z Oerlikon / Zürich - Uster - Rapperswil",
+    "661": "661 Zürich - Stettbach - Effretikon - Hinwil",
+    "701": "701 Z Altstetten - / Zürich - Z Oerlikon",
+    "702": "702 Z Oerlikon - Winterthur",
+    "711": "711 Winterthur - St. Gallen - St. Fiden",
+    "721": "721 St. Gallen - Rorschach - Buchs",
+    "731": "731 Schaffhausen - Winterthur",
+    "732": "732 Winterthur - Etzwilen",
+    "741": "741 Winterthur - Romanshorn",
+    "742": "742 Sulgen - Gossau",
+    "751": "751 Rapperswil - Linthal",
+    "752": "752 Pfäffikon - Wattwil",
+    "753": "753 Nesslau - Wattwil - Wil",
+    "754": "754 Winterthur - Wald - Rapperswil",
+    "761": "761 Konstanz - Wil",
+    "771": "771 Schaffhausen - Kreuzlingen",
+    "772": "772 Konstanz / Kreuzlingen - Rorschach",
+    "781": "781 Pfäffikon - Arth-Goldau",
+    "782": "782 Wädenswil - Einsiedeln",
+    "791": "791 Wattwil - St. Gallen - Romanshorn"
+  },
+  "routeSegments": {
+    "101": [
+      {
+        "from": "LP",
+        "to": "LPFR"
+      },
+      {
+        "from": "LPFR",
+        "to": "LP"
+      },
+      {
+        "from": "LP",
+        "to": "VM"
+      },
+      {
+        "from": "VM",
+        "to": "LP"
+      },
+      {
+        "from": "CHNE",
+        "to": "VM"
+      },
+      {
+        "from": "VM",
+        "to": "CHNE"
+      },
+      {
+        "from": "CHNE",
+        "to": "GEAP"
+      },
+      {
+        "from": "GEAP",
+        "to": "CHNE"
+      },
+      {
+        "from": "CHNE",
+        "to": "FUBI"
+      },
+      {
+        "from": "FUBI",
+        "to": "CHNE"
+      },
+      {
+        "from": "FUBI",
+        "to": "SJ"
+      },
+      {
+        "from": "SJ",
+        "to": "FUBI"
+      },
+      {
+        "from": "FUBI",
+        "to": "JON"
+      },
+      {
+        "from": "JON",
+        "to": "FUBI"
+      }
+    ],
+    "102": [
+      {
+        "from": "CHEB",
+        "to": "CHEF"
+      },
+      {
+        "from": "CHEF",
+        "to": "CHEB"
+      },
+      {
+        "from": "CHEB",
+        "to": "GEPR"
+      },
+      {
+        "from": "GEPR",
+        "to": "CHEB"
+      }
+    ],
+    "111": [
+      {
+        "from": "GEPR",
+        "to": "GEST"
+      },
+      {
+        "from": "GEST",
+        "to": "GEPR"
+      },
+      {
+        "from": "ARCA",
+        "to": "LTN"
+      },
+      {
+        "from": "LTN",
+        "to": "ARCA"
+      },
+      {
+        "from": "GEPR",
+        "to": "JON"
+      },
+      {
+        "from": "JON",
+        "to": "GEPR"
+      },
+      {
+        "from": "JON",
+        "to": "SJ"
+      },
+      {
+        "from": "SJ",
+        "to": "JON"
+      },
+      {
+        "from": "GE",
+        "to": "SJ"
+      },
+      {
+        "from": "SJ",
+        "to": "GE"
+      },
+      {
+        "from": "GE",
+        "to": "NY"
+      },
+      {
+        "from": "NY",
+        "to": "GE"
+      },
+      {
+        "from": "MOR",
+        "to": "NY"
+      },
+      {
+        "from": "NY",
+        "to": "MOR"
+      },
+      {
+        "from": "LONA",
+        "to": "MOR"
+      },
+      {
+        "from": "MOR",
+        "to": "LONA"
+      },
+      {
+        "from": "LONA",
+        "to": "LTD"
+      },
+      {
+        "from": "LTD",
+        "to": "LONA"
+      },
+      {
+        "from": "LTD",
+        "to": "LTN"
+      },
+      {
+        "from": "LTN",
+        "to": "LTD"
+      },
+      {
+        "from": "ARCA",
+        "to": "RENO"
+      },
+      {
+        "from": "RENO",
+        "to": "ARCA"
+      },
+      {
+        "from": "LS",
+        "to": "LSPA"
+      }
+    ],
+    "121": [
+      {
+        "from": "LS",
+        "to": "PUI"
+      },
+      {
+        "from": "PUI",
+        "to": "LS"
+      },
+      {
+        "from": "PAL",
+        "to": "PUI"
+      },
+      {
+        "from": "PUI",
+        "to": "PAL"
+      },
+      {
+        "from": "PAL",
+        "to": "ROM"
+      },
+      {
+        "from": "ROM",
+        "to": "PAL"
+      },
+      {
+        "from": "FRI",
+        "to": "ROM"
+      },
+      {
+        "from": "ROM",
+        "to": "FRI"
+      },
+      {
+        "from": "FLM",
+        "to": "FRI"
+      },
+      {
+        "from": "FRI",
+        "to": "FLM"
+      },
+      {
+        "from": "FLM",
+        "to": "LPN"
+      },
+      {
+        "from": "LPN",
+        "to": "FLM"
+      },
+      {
+        "from": "BNSH",
+        "to": "FLM"
+      },
+      {
+        "from": "FLM",
+        "to": "BNSH"
+      },
+      {
+        "from": "BN",
+        "to": "BNSH"
+      },
+      {
+        "from": "BNSH",
+        "to": "BN"
+      },
+      {
+        "from": "ALT",
+        "to": "GÜMMEN"
+      }
+    ],
+    "141": [
+      {
+        "from": "BN",
+        "to": "BNWD"
+      },
+      {
+        "from": "BNWD",
+        "to": "BN"
+      },
+      {
+        "from": "RTR",
+        "to": "ABOW"
+      },
+      {
+        "from": "ABOW",
+        "to": "RTR"
+      },
+      {
+        "from": "BNWD",
+        "to": "LGUS"
+      },
+      {
+        "from": "LGUS",
+        "to": "BNWD"
+      },
+      {
+        "from": "LGUS",
+        "to": "LGUT"
+      },
+      {
+        "from": "LGUT",
+        "to": "LGUS"
+      },
+      {
+        "from": "LGUT",
+        "to": "ZOL"
+      },
+      {
+        "from": "ZOL",
+        "to": "LGUT"
+      },
+      {
+        "from": "MATA",
+        "to": "ZOL"
+      },
+      {
+        "from": "ZOL",
+        "to": "MATA"
+      },
+      {
+        "from": "BDF",
+        "to": "MATA"
+      },
+      {
+        "from": "MATA",
+        "to": "BDF"
+      },
+      {
+        "from": "BDF",
+        "to": "HB"
+      },
+      {
+        "from": "HB",
+        "to": "BDF"
+      },
+      {
+        "from": "HB",
+        "to": "LTH"
+      },
+      {
+        "from": "LTH",
+        "to": "HB"
+      },
+      {
+        "from": "LTH",
+        "to": "RTR"
+      },
+      {
+        "from": "RTR",
+        "to": "LTH"
+      },
+      {
+        "from": "ABO",
+        "to": "ABOW"
+      },
+      {
+        "from": "ABOW",
+        "to": "ABO"
+      },
+      {
+        "from": "ABO",
+        "to": "OL"
+      },
+      {
+        "from": "OL",
+        "to": "ABO"
+      }
+    ],
+    "142": [
+      {
+        "from": "AESP",
+        "to": "LGUT"
+      },
+      {
+        "from": "LGUT",
+        "to": "AESP"
+      },
+      {
+        "from": "SO",
+        "to": "WANZ"
+      },
+      {
+        "from": "WANZ",
+        "to": "SO"
+      },
+      {
+        "from": "AESP",
+        "to": "MATA"
+      },
+      {
+        "from": "MATA",
+        "to": "AESP"
+      },
+      {
+        "from": "AESP",
+        "to": "WANZ"
+      },
+      {
+        "from": "WANZ",
+        "to": "AESP"
+      },
+      {
+        "from": "RTR",
+        "to": "WANZ"
+      },
+      {
+        "from": "WANZ",
+        "to": "RTR"
+      },
+      {
+        "from": "O",
+        "to": "RTR"
+      },
+      {
+        "from": "RTR",
+        "to": "OL"
+      }
+    ],
+    "151": [
+      {
+        "from": "OLNO",
+        "to": "OLO"
+      },
+      {
+        "from": "OLO",
+        "to": "OLNO"
+      },
+      {
+        "from": "GMT",
+        "to": "OTH"
+      },
+      {
+        "from": "KLW",
+        "to": "GMT"
+      },
+      {
+        "from": "OTH",
+        "to": "GMT"
+      },
+      {
+        "from": "DK",
+        "to": "OLO"
+      },
+      {
+        "from": "OLO",
+        "to": "DK"
+      },
+      {
+        "from": "BG",
+        "to": "RU"
+      },
+      {
+        "from": "RU",
+        "to": "BG"
+      },
+      {
+        "from": "DK",
+        "to": "WOES"
+      },
+      {
+        "from": "WOES",
+        "to": "DK"
+      },
+      {
+        "from": "DK",
+        "to": "SCOE"
+      },
+      {
+        "from": "WOES",
+        "to": "SCOE"
+      },
+      {
+        "from": "AA",
+        "to": "WOES"
+      },
+      {
+        "from": "WOES",
+        "to": "AA"
+      },
+      {
+        "from": "AA",
+        "to": "RU"
+      },
+      {
+        "from": "RU",
+        "to": "AA"
+      },
+      {
+        "from": "LB",
+        "to": "RU"
+      },
+      {
+        "from": "RU",
+        "to": "LB"
+      },
+      {
+        "from": "GEXI",
+        "to": "LB"
+      },
+      {
+        "from": "LB",
+        "to": "GEXI"
+      },
+      {
+        "from": "GEXI",
+        "to": "OTH"
+      },
+      {
+        "from": "OTH",
+        "to": "GEXI"
+      },
+      {
+        "from": "GMT",
+        "to": "KLW"
+      }
+    ],
+    "161": [
+      {
+        "from": "BG",
+        "to": "TG"
+      },
+      {
+        "from": "TG",
+        "to": "BG"
+      },
+      {
+        "from": "TG",
+        "to": "WE"
+      },
+      {
+        "from": "WE",
+        "to": "TG"
+      },
+      {
+        "from": "ZAS",
+        "to": "ZHDB"
+      },
+      {
+        "from": "ZHDB",
+        "to": "ZAS"
+      },
+      {
+        "from": "KLW",
+        "to": "WE"
+      },
+      {
+        "from": "WE",
+        "to": "KLW"
+      },
+      {
+        "from": "ZAS",
+        "to": "ZHER"
+      },
+      {
+        "from": "ZHDB",
+        "to": "ZER"
+      },
+      {
+        "from": "KLW",
+        "to": "SILB"
+      },
+      {
+        "from": "SILB",
+        "to": "KLW"
+      },
+      {
+        "from": "DT",
+        "to": "SILB"
+      },
+      {
+        "from": "SILB",
+        "to": "DT"
+      },
+      {
+        "from": "DT",
+        "to": "ZAS"
+      },
+      {
+        "from": "ZAS",
+        "to": "DT"
+      },
+      {
+        "from": "ZAS",
+        "to": "ZVB"
+      },
+      {
+        "from": "ZVB",
+        "to": "ZAS"
+      },
+      {
+        "from": "ZLST",
+        "to": "ZVB"
+      },
+      {
+        "from": "ZVB",
+        "to": "ZLST"
+      },
+      {
+        "from": "ZLST",
+        "to": "ZUE"
+      },
+      {
+        "from": "ZUE",
+        "to": "ZLST"
+      }
+    ],
+    "171": [
+      {
+        "from": "WE",
+        "to": "WUER"
+      },
+      {
+        "from": "WUER",
+        "to": "WE"
+      },
+      {
+        "from": "KLW",
+        "to": "WUER"
+      },
+      {
+        "from": "WUER",
+        "to": "KLW"
+      },
+      {
+        "from": "WUER",
+        "to": "ZSEB"
+      },
+      {
+        "from": "ZSEB",
+        "to": "WUER"
+      },
+      {
+        "from": "ZOEN",
+        "to": "ZSEB"
+      },
+      {
+        "from": "ZSEB",
+        "to": "ZOEN"
+      },
+      {
+        "from": "OPS",
+        "to": "ZSEB"
+      },
+      {
+        "from": "ZSEB",
+        "to": "OPS"
+      },
+      {
+        "from": "GLB",
+        "to": "OPS"
+      },
+      {
+        "from": "OPS",
+        "to": "GLB"
+      }
+    ],
+    "201": [
+      {
+        "from": "VAL",
+        "to": "VLB"
+      },
+      {
+        "from": "VLB",
+        "to": "VAL"
+      },
+      {
+        "from": "DAY",
+        "to": "VAL"
+      },
+      {
+        "from": "VAL",
+        "to": "DAY"
+      },
+      {
+        "from": "DAIL",
+        "to": "DAY"
+      },
+      {
+        "from": "DAY",
+        "to": "DAIL"
+      },
+      {
+        "from": "BUY",
+        "to": "LTE"
+      },
+      {
+        "from": "LTE",
+        "to": "BUY"
+      }
+    ],
+    "202": [
+      {
+        "from": "BRA",
+        "to": "DAY"
+      },
+      {
+        "from": "DAY",
+        "to": "BRA"
+      }
+    ],
+    "203": [
+      {
+        "from": "CHV",
+        "to": "ORBE"
+      }
+    ],
+    "211": [
+      {
+        "from": "LS",
+        "to": "VV"
+      },
+      {
+        "from": "VV",
+        "to": "LS"
+      },
+      {
+        "from": "AIG",
+        "to": "VV"
+      },
+      {
+        "from": "VV",
+        "to": "AIG"
+      },
+      {
+        "from": "AIG",
+        "to": "ST"
+      },
+      {
+        "from": "ST",
+        "to": "AIG"
+      },
+      {
+        "from": "PDS",
+        "to": "ST"
+      },
+      {
+        "from": "ST",
+        "to": "PDS"
+      },
+      {
+        "from": "MA",
+        "to": "PDS"
+      },
+      {
+        "from": "PDS",
+        "to": "MA"
+      },
+      {
+        "from": "MA",
+        "to": "SIO"
+      },
+      {
+        "from": "SIO",
+        "to": "MA"
+      }
+    ],
+    "221": [
+      {
+        "from": "SIE",
+        "to": "SIO"
+      },
+      {
+        "from": "SIO",
+        "to": "SIE"
+      },
+      {
+        "from": "GA",
+        "to": "SIE"
+      },
+      {
+        "from": "SIE",
+        "to": "GA"
+      },
+      {
+        "from": "GA",
+        "to": "STGE"
+      },
+      {
+        "from": "STGE",
+        "to": "GA"
+      },
+      {
+        "from": "STGE",
+        "to": "VI"
+      },
+      {
+        "from": "VI",
+        "to": "STGE"
+      },
+      {
+        "from": "BRLO",
+        "to": "VI"
+      },
+      {
+        "from": "VI",
+        "to": "BRLO"
+      },
+      {
+        "from": "BR",
+        "to": "BRLO"
+      },
+      {
+        "from": "BRLO",
+        "to": "BR"
+      },
+      {
+        "from": "BR",
+        "to": "IS"
+      },
+      {
+        "from": "IS",
+        "to": "BR"
+      },
+      {
+        "from": "DOBI",
+        "to": "IS"
+      },
+      {
+        "from": "IS",
+        "to": "DOBI"
+      },
+      {
+        "from": "DOBI",
+        "to": "DOFS"
+      },
+      {
+        "from": "DOFS",
+        "to": "DOBI"
+      }
+    ],
+    "222": [
+      {
+        "from": "DO2",
+        "to": "DOBI"
+      },
+      {
+        "from": "DOBI",
+        "to": "DO2"
+      }
+    ],
+    "231": [
+      {
+        "from": "PUI",
+        "to": "VV"
+      }
+    ],
+    "232": [
+      {
+        "from": "MTH",
+        "to": "STGI"
+      },
+      {
+        "from": "STGI",
+        "to": "MTH"
+      },
+      {
+        "from": "MTH",
+        "to": "PDS"
+      },
+      {
+        "from": "PDS",
+        "to": "MTH"
+      }
+    ],
+    "241": [
+      {
+        "from": "LSBI",
+        "to": "LSSB"
+      },
+      {
+        "from": "RENB",
+        "to": "LSSB"
+      }
+    ],
+    "252": [
+      {
+        "from": "AV",
+        "to": "PAY"
+      },
+      {
+        "from": "PAY",
+        "to": "AV"
+      },
+      {
+        "from": "AV",
+        "to": "MRT"
+      },
+      {
+        "from": "MRT",
+        "to": "MUN"
+      },
+      {
+        "from": "MUN",
+        "to": "MRT"
+      },
+      {
+        "from": "KZ",
+        "to": "MUN"
+      },
+      {
+        "from": "MUN",
+        "to": "KZ"
+      },
+      {
+        "from": "ABE",
+        "to": "KZ"
+      },
+      {
+        "from": "KZ",
+        "to": "ABE"
+      },
+      {
+        "from": "ABE",
+        "to": "LY"
+      },
+      {
+        "from": "LY",
+        "to": "ABE"
+      },
+      {
+        "from": "BUER",
+        "to": "BUS"
+      },
+      {
+        "from": "BUS",
+        "to": "BUER"
+      }
+    ],
+    "254": [
+      {
+        "from": "BUL",
+        "to": "ROM"
+      },
+      {
+        "from": "ROM",
+        "to": "BUL"
+      }
+    ],
+    "255": [
+      {
+        "from": "GIVO",
+        "to": "MRT"
+      },
+      {
+        "from": "MRT",
+        "to": "GIVO"
+      },
+      {
+        "from": "INS",
+        "to": "MUN"
+      },
+      {
+        "from": "MUN",
+        "to": "INS"
+      }
+    ],
+    "261": [
+      {
+        "from": "PAY",
+        "to": "YV"
+      },
+      {
+        "from": "YV",
+        "to": "PAY"
+      },
+      {
+        "from": "GIV",
+        "to": "GIVD"
+      },
+      {
+        "from": "GIVO",
+        "to": "PAY"
+      },
+      {
+        "from": "PAY",
+        "to": "GIVO"
+      },
+      {
+        "from": "FRI",
+        "to": "GIVO"
+      },
+      {
+        "from": "GIVO",
+        "to": "FRI"
+      }
+    ],
+    "271": [
+      {
+        "from": "VER",
+        "to": "VERF"
+      },
+      {
+        "from": "VERF",
+        "to": "VER"
+      },
+      {
+        "from": "TR",
+        "to": "VER"
+      },
+      {
+        "from": "VER",
+        "to": "TR"
+      },
+      {
+        "from": "AUV",
+        "to": "TR"
+      },
+      {
+        "from": "TR",
+        "to": "AUV"
+      }
+    ],
+    "272": [
+      {
+        "from": "LOC",
+        "to": "LOCF"
+      },
+      {
+        "from": "LOCF",
+        "to": "LOC"
+      },
+      {
+        "from": "CF",
+        "to": "LOC"
+      },
+      {
+        "from": "LOC",
+        "to": "CF"
+      },
+      {
+        "from": "CF",
+        "to": "NEBI"
+      },
+      {
+        "from": "NEBI",
+        "to": "CF"
+      }
+    ],
+    "273": [
+      {
+        "from": "TR",
+        "to": "FLE"
+      },
+      {
+        "from": "FLE",
+        "to": "SSP"
+      },
+      {
+        "from": "FLE",
+        "to": "BT"
+      }
+    ],
+    "281": [
+      {
+        "from": "CF",
+        "to": "SCB"
+      },
+      {
+        "from": "SCB",
+        "to": "CF"
+      },
+      {
+        "from": "REU",
+        "to": "SCB"
+      },
+      {
+        "from": "SCB",
+        "to": "REU"
+      },
+      {
+        "from": "BI",
+        "to": "REU"
+      },
+      {
+        "from": "REU",
+        "to": "BI"
+      }
+    ],
+    "282": [
+      {
+        "from": "MOU",
+        "to": "TA"
+      },
+      {
+        "from": "TA",
+        "to": "MOU"
+      },
+      {
+        "from": "SCB",
+        "to": "TA"
+      },
+      {
+        "from": "TA",
+        "to": "SCB"
+      }
+    ],
+    "291": [
+      {
+        "from": "MOU",
+        "to": "DMT"
+      },
+      {
+        "from": "LEN",
+        "to": "MOU"
+      },
+      {
+        "from": "MOU",
+        "to": "LEN"
+      }
+    ],
+    "292": [
+      {
+        "from": "CTM",
+        "to": "DLF"
+      },
+      {
+        "from": "DLF",
+        "to": "CTM"
+      },
+      {
+        "from": "BURE",
+        "to": "CTM"
+      },
+      {
+        "from": "CTM",
+        "to": "POR"
+      },
+      {
+        "from": "POR",
+        "to": "CTM"
+      },
+      {
+        "from": "POR",
+        "to": "GLO"
+      },
+      {
+        "from": "DMT",
+        "to": "GLO"
+      },
+      {
+        "from": "GLO",
+        "to": "DMT"
+      }
+    ],
+    "301": [
+      {
+        "from": "LS",
+        "to": "LSBI"
+      },
+      {
+        "from": "LSBI",
+        "to": "LS"
+      },
+      {
+        "from": "NE",
+        "to": "NEBI"
+      },
+      {
+        "from": "NEBI",
+        "to": "NE"
+      },
+      {
+        "from": "LSBI",
+        "to": "RENB"
+      },
+      {
+        "from": "RENB",
+        "to": "LSBI"
+      },
+      {
+        "from": "RENB",
+        "to": "RENO"
+      },
+      {
+        "from": "RENO",
+        "to": "RENB"
+      },
+      {
+        "from": "RENO",
+        "to": "BY"
+      },
+      {
+        "from": "BY",
+        "to": "DAIL"
+      },
+      {
+        "from": "DAIL",
+        "to": "BY"
+      },
+      {
+        "from": "CHV",
+        "to": "DAIL"
+      },
+      {
+        "from": "DAIL",
+        "to": "CHV"
+      },
+      {
+        "from": "CHV",
+        "to": "YE"
+      },
+      {
+        "from": "YE",
+        "to": "CHV"
+      },
+      {
+        "from": "AUV",
+        "to": "YV"
+      },
+      {
+        "from": "AUV",
+        "to": "NEBI"
+      },
+      {
+        "from": "NEB",
+        "to": "AUV"
+      },
+      {
+        "from": "NE",
+        "to": "NEMA"
+      },
+      {
+        "from": "NEMA",
+        "to": "NE"
+      },
+      {
+        "from": "CORN",
+        "to": "NEMA"
+      },
+      {
+        "from": "NEMA",
+        "to": "CORN"
+      },
+      {
+        "from": "BI",
+        "to": "CORN"
+      },
+      {
+        "from": "CORN",
+        "to": "BI"
+      }
+    ],
+    "311": [
+      {
+        "from": "BI",
+        "to": "BIMA"
+      },
+      {
+        "from": "BIMA",
+        "to": "BI"
+      },
+      {
+        "from": "BI",
+        "to": "BIPO"
+      },
+      {
+        "from": "BIMA",
+        "to": "LEN"
+      },
+      {
+        "from": "LEN",
+        "to": "BIMA"
+      },
+      {
+        "from": "LEN",
+        "to": "SW"
+      },
+      {
+        "from": "SW",
+        "to": "LEN"
+      },
+      {
+        "from": "SO",
+        "to": "SW"
+      },
+      {
+        "from": "SW",
+        "to": "SO"
+      },
+      {
+        "from": "NB",
+        "to": "SO"
+      },
+      {
+        "from": "SO",
+        "to": "NB"
+      },
+      {
+        "from": "NB",
+        "to": "OEN"
+      },
+      {
+        "from": "OEN",
+        "to": "NB"
+      },
+      {
+        "from": "OEN",
+        "to": "OL"
+      },
+      {
+        "from": "OL",
+        "to": "OEN"
+      }
+    ],
+    "321": [
+      {
+        "from": "BI",
+        "to": "MAD"
+      },
+      {
+        "from": "MAD",
+        "to": "BI"
+      },
+      {
+        "from": "STU",
+        "to": "STUA"
+      },
+      {
+        "from": "BUS",
+        "to": "MAD"
+      },
+      {
+        "from": "MAD",
+        "to": "BUS"
+      },
+      {
+        "from": "BUS",
+        "to": "LY"
+      },
+      {
+        "from": "LY",
+        "to": "BUS"
+      },
+      {
+        "from": "LY",
+        "to": "ZOL"
+      },
+      {
+        "from": "ZOL",
+        "to": "LY"
+      }
+    ],
+    "322": [
+      {
+        "from": "LGUS",
+        "to": "WKD"
+      },
+      {
+        "from": "WKD",
+        "to": "LGUS"
+      },
+      {
+        "from": "BNWD",
+        "to": "WKD"
+      },
+      {
+        "from": "WKD",
+        "to": "BNWD"
+      },
+      {
+        "from": "WKD",
+        "to": "GUES"
+      },
+      {
+        "from": "GUES",
+        "to": "WKD"
+      },
+      {
+        "from": "GUES",
+        "to": "THAB"
+      },
+      {
+        "from": "THAB",
+        "to": "GUES"
+      },
+      {
+        "from": "TH",
+        "to": "THAB"
+      },
+      {
+        "from": "THAB",
+        "to": "TH"
+      },
+      {
+        "from": "SPAB",
+        "to": "TH"
+      },
+      {
+        "from": "TH",
+        "to": "SPAB"
+      },
+      {
+        "from": "SP",
+        "to": "SPAB"
+      },
+      {
+        "from": "SPAB",
+        "to": "SP"
+      },
+      {
+        "from": "REIK",
+        "to": "SP"
+      },
+      {
+        "from": "SP",
+        "to": "REIK"
+      }
+    ],
+    "331": [
+      {
+        "from": "GUES",
+        "to": "KF"
+      },
+      {
+        "from": "KF",
+        "to": "GUES"
+      },
+      {
+        "from": "KF",
+        "to": "OM"
+      },
+      {
+        "from": "OM",
+        "to": "KF"
+      },
+      {
+        "from": "LN",
+        "to": "OM"
+      },
+      {
+        "from": "OM",
+        "to": "LN"
+      }
+    ],
+    "332": [
+      {
+        "from": "LN",
+        "to": "WH"
+      },
+      {
+        "from": "WH",
+        "to": "LN"
+      },
+      {
+        "from": "FMUE",
+        "to": "WH"
+      },
+      {
+        "from": "WH",
+        "to": "FMUE"
+      }
+    ],
+    "341": [
+      {
+        "from": "BS",
+        "to": "RUC"
+      },
+      {
+        "from": "RUC",
+        "to": "BS"
+      },
+      {
+        "from": "RUC",
+        "to": "BSDS"
+      },
+      {
+        "from": "BSJA",
+        "to": "BSVL"
+      },
+      {
+        "from": "BSVL",
+        "to": "BSJA"
+      },
+      {
+        "from": "BSBG",
+        "to": "BSVL"
+      },
+      {
+        "from": "BSVL",
+        "to": "BSBG"
+      },
+      {
+        "from": "BSVL",
+        "to": "RUC"
+      },
+      {
+        "from": "RUC",
+        "to": "BSVL"
+      },
+      {
+        "from": "DMT",
+        "to": "RUC"
+      },
+      {
+        "from": "RUC",
+        "to": "DMT"
+      }
+    ],
+    "351": [
+      {
+        "from": "REIK",
+        "to": "WENE"
+      },
+      {
+        "from": "GO",
+        "to": "GOAR"
+      },
+      {
+        "from": "FR",
+        "to": "WENE"
+      },
+      {
+        "from": "WENE",
+        "to": "FR"
+      },
+      {
+        "from": "FR",
+        "to": "KA"
+      },
+      {
+        "from": "KA",
+        "to": "FR"
+      },
+      {
+        "from": "GO",
+        "to": "KA"
+      },
+      {
+        "from": "KA",
+        "to": "GO"
+      },
+      {
+        "from": "BRLO",
+        "to": "GO"
+      },
+      {
+        "from": "GO",
+        "to": "BRLO"
+      }
+    ],
+    "361": [
+      {
+        "from": "IO",
+        "to": "SP"
+      },
+      {
+        "from": "SP",
+        "to": "IO"
+      }
+    ],
+    "362": [
+      {
+        "from": "SPAB",
+        "to": "ZW"
+      },
+      {
+        "from": "ZW",
+        "to": "SPAB"
+      }
+    ],
+    "371": [
+      {
+        "from": "BN",
+        "to": "HOL"
+      },
+      {
+        "from": "HOL",
+        "to": "BN"
+      },
+      {
+        "from": "BNFI",
+        "to": "BNSH"
+      },
+      {
+        "from": "BNSH",
+        "to": "BNFI"
+      },
+      {
+        "from": "BNFI",
+        "to": "THAB"
+      },
+      {
+        "from": "THAB",
+        "to": "BNFI"
+      }
+    ],
+    "372": [
+      {
+        "from": "BNFI",
+        "to": "SCBG"
+      },
+      {
+        "from": "SCHB",
+        "to": "BNFI"
+      }
+    ],
+    "381": [
+      {
+        "from": "HOL",
+        "to": "KZ"
+      },
+      {
+        "from": "KZ",
+        "to": "HOL"
+      },
+      {
+        "from": "INS",
+        "to": "KZ"
+      },
+      {
+        "from": "KZ",
+        "to": "INS"
+      },
+      {
+        "from": "NEMA",
+        "to": "INS"
+      }
+    ],
+    "391": [
+      {
+        "from": "FRNP",
+        "to": "WENE"
+      },
+      {
+        "from": "WENE",
+        "to": "FRNP"
+      },
+      {
+        "from": "FR",
+        "to": "FRNO"
+      },
+      {
+        "from": "FRNP",
+        "to": "FR"
+      },
+      {
+        "from": "FRNP",
+        "to": "STGE"
+      },
+      {
+        "from": "STGE",
+        "to": "FRNP"
+      }
+    ],
+    "411": [
+      {
+        "from": "BS",
+        "to": "BSNO"
+      },
+      {
+        "from": "BSNO",
+        "to": "BS"
+      },
+      {
+        "from": "OLN",
+        "to": "SIS"
+      },
+      {
+        "from": "SIS",
+        "to": "OLN"
+      },
+      {
+        "from": "BSNO",
+        "to": "MU"
+      },
+      {
+        "from": "MU",
+        "to": "BSNO"
+      },
+      {
+        "from": "OLN",
+        "to": "OLO"
+      },
+      {
+        "from": "OLO",
+        "to": "OLN"
+      },
+      {
+        "from": "MUOS",
+        "to": "MU"
+      },
+      {
+        "from": "MU",
+        "to": "MUOS"
+      },
+      {
+        "from": "LSTN",
+        "to": "MUOS"
+      },
+      {
+        "from": "MUOS",
+        "to": "LSTN"
+      },
+      {
+        "from": "MUOS",
+        "to": "PRUW"
+      },
+      {
+        "from": "PRUW",
+        "to": "MUOS"
+      },
+      {
+        "from": "PR",
+        "to": "PRUW"
+      },
+      {
+        "from": "PRUW",
+        "to": "PR"
+      },
+      {
+        "from": "FRE",
+        "to": "PR"
+      },
+      {
+        "from": "PR",
+        "to": "FRE"
+      },
+      {
+        "from": "FRE",
+        "to": "LSTN"
+      },
+      {
+        "from": "LITN",
+        "to": "FRE"
+      },
+      {
+        "from": "SIS",
+        "to": "LSTN"
+      },
+      {
+        "from": "OLN",
+        "to": "OLNO"
+      },
+      {
+        "from": "OLNO",
+        "to": "OLN"
+      },
+      {
+        "from": "OL",
+        "to": "OLNO"
+      },
+      {
+        "from": "OLNO",
+        "to": "OL"
+      }
+    ],
+    "421": [
+      {
+        "from": "OLN",
+        "to": "SIS"
+      },
+      {
+        "from": "SIS",
+        "to": "OLN"
+      }
+    ],
+    "422": [
+      {
+        "from": "ABO",
+        "to": "ABOS"
+      },
+      {
+        "from": "ABOS",
+        "to": "ABO"
+      },
+      {
+        "from": "ABOS",
+        "to": "ABOW"
+      },
+      {
+        "from": "ABOW",
+        "to": "ABOS"
+      },
+      {
+        "from": "ABOS",
+        "to": "ZF"
+      },
+      {
+        "from": "ZF",
+        "to": "ABOS"
+      },
+      {
+        "from": "SS",
+        "to": "ZF"
+      },
+      {
+        "from": "ZF",
+        "to": "SS"
+      },
+      {
+        "from": "RBG",
+        "to": "SS"
+      },
+      {
+        "from": "SS",
+        "to": "RBG"
+      },
+      {
+        "from": "HUEB",
+        "to": "RBG"
+      },
+      {
+        "from": "RBG",
+        "to": "HUEB"
+      },
+      {
+        "from": "FMUE",
+        "to": "HUEB"
+      },
+      {
+        "from": "HUEB",
+        "to": "FMUE"
+      },
+      {
+        "from": "FMUE",
+        "to": "GTS"
+      },
+      {
+        "from": "GTS",
+        "to": "FUME"
+      },
+      {
+        "from": "GTS",
+        "to": "LZ"
+      },
+      {
+        "from": "LZ",
+        "to": "GTS"
+      }
+    ],
+    "431": [
+      {
+        "from": "LB",
+        "to": "HUEB"
+      }
+    ],
+    "436": [
+      {
+        "from": "SUHR",
+        "to": "ZF"
+      },
+      {
+        "from": "ZF",
+        "to": "SUHR"
+      },
+      {
+        "from": "LB",
+        "to": "SUHR"
+      },
+      {
+        "from": "SUHR",
+        "to": "LB"
+      },
+      {
+        "from": "GMT",
+        "to": "WE"
+      },
+      {
+        "from": "WE",
+        "to": "GMT"
+      }
+    ],
+    "461": [
+      {
+        "from": "KOLM",
+        "to": "ZG"
+      },
+      {
+        "from": "ZG",
+        "to": "KOLM"
+      },
+      {
+        "from": "KOLM",
+        "to": "RK"
+      },
+      {
+        "from": "RK",
+        "to": "KOLM"
+      },
+      {
+        "from": "FMUE",
+        "to": "RK"
+      },
+      {
+        "from": "RK",
+        "to": "FMUE"
+      }
+    ],
+    "462": [
+      {
+        "from": "SBG",
+        "to": "TW"
+      },
+      {
+        "from": "TW",
+        "to": "SBG"
+      },
+      {
+        "from": "SBG",
+        "to": "ZG"
+      },
+      {
+        "from": "ZG",
+        "to": "SBG"
+      },
+      {
+        "from": "GD",
+        "to": "ZG"
+      },
+      {
+        "from": "ZG",
+        "to": "GD"
+      }
+    ],
+    "481": [
+      {
+        "from": "MOU",
+        "to": "SW"
+      },
+      {
+        "from": "SW",
+        "to": "MOU"
+      }
+    ],
+    "482": [
+      {
+        "from": "BIST",
+        "to": "SO"
+      },
+      {
+        "from": "SO",
+        "to": "BIST"
+      },
+      {
+        "from": "BIST",
+        "to": "GLF"
+      },
+      {
+        "from": "GLF",
+        "to": "BIST"
+      },
+      {
+        "from": "GLF",
+        "to": "WR"
+      },
+      {
+        "from": "WR",
+        "to": "GLF"
+      },
+      {
+        "from": "BDF",
+        "to": "WR"
+      },
+      {
+        "from": "WR",
+        "to": "BDF"
+      }
+    ],
+    "483": [
+      {
+        "from": "BDF",
+        "to": "OBB"
+      },
+      {
+        "from": "OBB",
+        "to": "BDF"
+      },
+      {
+        "from": "HA",
+        "to": "OBB"
+      },
+      {
+        "from": "OBB",
+        "to": "HA"
+      },
+      {
+        "from": "HA",
+        "to": "RAM"
+      },
+      {
+        "from": "RAM",
+        "to": "HA"
+      },
+      {
+        "from": "LN",
+        "to": "OM"
+      },
+      {
+        "from": "OM",
+        "to": "LN"
+      }
+    ],
+    "484": [
+      {
+        "from": "HA",
+        "to": "KF"
+      },
+      {
+        "from": "KF",
+        "to": "HA"
+      },
+      {
+        "from": "KF",
+        "to": "THAB"
+      },
+      {
+        "from": "THAB",
+        "to": "KF"
+      }
+    ],
+    "491": [
+      {
+        "from": "RAM",
+        "to": "SWG"
+      },
+      {
+        "from": "SWG",
+        "to": "RAM"
+      }
+    ],
+    "493": [
+      {
+        "from": "HWIL",
+        "to": "LTH"
+      },
+      {
+        "from": "LTH",
+        "to": "HWIL"
+      },
+      {
+        "from": "HWIL",
+        "to": "ZELL"
+      },
+      {
+        "from": "ZELL",
+        "to": "HWIL"
+      },
+      {
+        "from": "GET",
+        "to": "ZELL"
+      },
+      {
+        "from": "ZELL",
+        "to": "GET"
+      },
+      {
+        "from": "GET",
+        "to": "MAU"
+      },
+      {
+        "from": "MAU",
+        "to": "GET"
+      },
+      {
+        "from": "MAU",
+        "to": "WH"
+      },
+      {
+        "from": "WH",
+        "to": "MAU"
+      }
+    ],
+    "501": [
+      {
+        "from": "BSFR",
+        "to": "BSSJ"
+      },
+      {
+        "from": "BSSJ",
+        "to": "BSFR"
+      },
+      {
+        "from": "BASEL",
+        "to": "RB"
+      },
+      {
+        "from": "BS",
+        "to": "BSSJ"
+      },
+      {
+        "from": "BSSJ",
+        "to": "BS"
+      },
+      {
+        "from": "BS",
+        "to": "BSGB"
+      },
+      {
+        "from": "BSGB",
+        "to": "BS"
+      },
+      {
+        "from": "BSGB",
+        "to": "BSJA"
+      },
+      {
+        "from": "BSJA",
+        "to": "BSGB"
+      },
+      {
+        "from": "BSHA",
+        "to": "BSJA"
+      },
+      {
+        "from": "BSJA",
+        "to": "BSHA"
+      }
+    ],
+    "502": [
+      {
+        "from": "BSKH",
+        "to": "BADH"
+      },
+      {
+        "from": "BSNO",
+        "to": "GELL"
+      },
+      {
+        "from": "GELL",
+        "to": "BSNO"
+      },
+      {
+        "from": "BAD",
+        "to": "BADH"
+      },
+      {
+        "from": "BADH",
+        "to": "BAD"
+      },
+      {
+        "from": "BAD",
+        "to": "GELL"
+      },
+      {
+        "from": "GELL",
+        "to": "BAD"
+      },
+      {
+        "from": "BSHA",
+        "to": "GELL"
+      },
+      {
+        "from": "GELL",
+        "to": "BSHA"
+      },
+      {
+        "from": "BSHA",
+        "to": "BSNK"
+      },
+      {
+        "from": "BSNK",
+        "to": "BSHA"
+      },
+      {
+        "from": "BSBH",
+        "to": "BSNK"
+      },
+      {
+        "from": "BSNK",
+        "to": "BSBH"
+      },
+      {
+        "from": "BSBH",
+        "to": "SHAL"
+      },
+      {
+        "from": "SHAL",
+        "to": "BSBH"
+      },
+      {
+        "from": "BRBE",
+        "to": "SHAL"
+      },
+      {
+        "from": "SHAL",
+        "to": "BRBE"
+      }
+    ],
+    "511": [
+      {
+        "from": "PR",
+        "to": "STS"
+      },
+      {
+        "from": "STS",
+        "to": "PR"
+      },
+      {
+        "from": "BGN",
+        "to": "STS"
+      },
+      {
+        "from": "STS",
+        "to": "BGN"
+      },
+      {
+        "from": "BG",
+        "to": "BGN"
+      },
+      {
+        "from": "BGN",
+        "to": "BG"
+      }
+    ],
+    "521": [
+      {
+        "from": "BG",
+        "to": "BGS"
+      },
+      {
+        "from": "BGS",
+        "to": "BG"
+      },
+      {
+        "from": "BGN",
+        "to": "BGS"
+      },
+      {
+        "from": "BGS",
+        "to": "BGN"
+      },
+      {
+        "from": "BGS",
+        "to": "OTH"
+      },
+      {
+        "from": "OTH",
+        "to": "BGS"
+      },
+      {
+        "from": "HDK",
+        "to": "OTH"
+      },
+      {
+        "from": "OTH",
+        "to": "HDK"
+      },
+      {
+        "from": "GEXI",
+        "to": "HDK"
+      },
+      {
+        "from": "HDK",
+        "to": "GEXI"
+      },
+      {
+        "from": "HDK",
+        "to": "WO"
+      },
+      {
+        "from": "WO",
+        "to": "HDK"
+      },
+      {
+        "from": "RK",
+        "to": "WO"
+      },
+      {
+        "from": "WO",
+        "to": "RK"
+      }
+    ],
+    "531": [
+      {
+        "from": "IM",
+        "to": "RK"
+      },
+      {
+        "from": "RK",
+        "to": "IM"
+      },
+      {
+        "from": "GD",
+        "to": "IM"
+      },
+      {
+        "from": "IM",
+        "to": "GD"
+      },
+      {
+        "from": "GD",
+        "to": "RYAB"
+      },
+      {
+        "from": "RYAB",
+        "to": "GD"
+      },
+      {
+        "from": "ER",
+        "to": "RYAB"
+      },
+      {
+        "from": "RYAB",
+        "to": "ER"
+      },
+      {
+        "from": "ER",
+        "to": "GOE"
+      },
+      {
+        "from": "GOE",
+        "to": "ER"
+      }
+    ],
+    "532": [
+      {
+        "from": "GTS",
+        "to": "IM"
+      },
+      {
+        "from": "IM",
+        "to": "GTS"
+      }
+    ],
+    "533": [
+      {
+        "from": "POZZ",
+        "to": "RYN"
+      },
+      {
+        "from": "RYN",
+        "to": "POZZ"
+      },
+      {
+        "from": "GIDI",
+        "to": "POZZ"
+      },
+      {
+        "from": "POZZ",
+        "to": "GIDI"
+      },
+      {
+        "from": "GIDI",
+        "to": "POLN"
+      },
+      {
+        "from": "POLN",
+        "to": "GIDI"
+      },
+      {
+        "from": "GIDI",
+        "to": "SPAO"
+      },
+      {
+        "from": "SPAO",
+        "to": "GIDI"
+      },
+      {
+        "from": "BEL",
+        "to": "SPAO"
+      },
+      {
+        "from": "SPAO",
+        "to": "BEL"
+      }
+    ],
+    "541": [
+      {
+        "from": "AI",
+        "to": "GOE"
+      },
+      {
+        "from": "GOE",
+        "to": "AI"
+      },
+      {
+        "from": "AI",
+        "to": "BO"
+      },
+      {
+        "from": "BO",
+        "to": "AI"
+      },
+      {
+        "from": "BO",
+        "to": "POLN"
+      },
+      {
+        "from": "POLN",
+        "to": "BO"
+      }
+    ],
+    "542": [
+      {
+        "from": "BEL",
+        "to": "GIU"
+      },
+      {
+        "from": "GIU",
+        "to": "BEL"
+      },
+      {
+        "from": "GIU",
+        "to": "GIUO"
+      },
+      {
+        "from": "GIUO",
+        "to": "GIU"
+      },
+      {
+        "from": "GIU",
+        "to": "TAV"
+      },
+      {
+        "from": "TAV",
+        "to": "GIU"
+      },
+      {
+        "from": "CAMO",
+        "to": "GIUO/SAD"
+      },
+      {
+        "from": "GIUO/SAD",
+        "to": "CAMO"
+      },
+      {
+        "from": "MEN",
+        "to": "STAF"
+      },
+      {
+        "from": "STAF",
+        "to": "MEN"
+      },
+      {
+        "from": "CAMO",
+        "to": "VEZB"
+      },
+      {
+        "from": "VEZB",
+        "to": "CAMO"
+      },
+      {
+        "from": "LG",
+        "to": "VEZB"
+      },
+      {
+        "from": "VEZB",
+        "to": "LG"
+      },
+      {
+        "from": "LG",
+        "to": "MEN"
+      },
+      {
+        "from": "MEN",
+        "to": "LG"
+      },
+      {
+        "from": "BASM",
+        "to": "MEN"
+      },
+      {
+        "from": "MEN",
+        "to": "BASM"
+      },
+      {
+        "from": "BASM",
+        "to": "CHI"
+      },
+      {
+        "from": "CHI",
+        "to": "BASM"
+      },
+      {
+        "from": "BASM",
+        "to": "CHSU"
+      },
+      {
+        "from": "TAV",
+        "to": "VEZB"
+      },
+      {
+        "from": "VEZB",
+        "to": "TAV"
+      },
+      {
+        "from": "TAV",
+        "to": "LGV"
+      },
+      {
+        "from": "GAGO",
+        "to": "STAF"
+      },
+      {
+        "from": "STAF",
+        "to": "GAGO"
+      }
+    ],
+    "551": [
+      {
+        "from": "CDO",
+        "to": "LO"
+      },
+      {
+        "from": "LO",
+        "to": "CDO"
+      }
+    ],
+    "552": [
+      {
+        "from": "GIUO",
+        "to": "SAD"
+      },
+      {
+        "from": "SAD",
+        "to": "GIUO"
+      },
+      {
+        "from": "CDO",
+        "to": "SAD"
+      },
+      {
+        "from": "SAD",
+        "to": "CDO"
+      },
+      {
+        "from": "CDO",
+        "to": "PINC"
+      },
+      {
+        "from": "PINC",
+        "to": "CDO"
+      },
+      {
+        "from": "PINC",
+        "to": "CMA"
+      }
+    ],
+    "601": [
+      {
+        "from": "KB",
+        "to": "STS"
+      },
+      {
+        "from": "STS",
+        "to": "KB"
+      },
+      {
+        "from": "KB",
+        "to": "TG"
+      },
+      {
+        "from": "TG",
+        "to": "KB"
+      }
+    ],
+    "602": [
+      {
+        "from": "KB",
+        "to": "REK"
+      },
+      {
+        "from": "REK",
+        "to": "RB"
+      },
+      {
+        "from": "KAAG",
+        "to": "REK"
+      },
+      {
+        "from": "REK",
+        "to": "KAAG"
+      },
+      {
+        "from": "KAAG",
+        "to": "ZWD"
+      },
+      {
+        "from": "ZWD",
+        "to": "KAAG"
+      },
+      {
+        "from": "EGL",
+        "to": "ZWD"
+      },
+      {
+        "from": "ZWD",
+        "to": "EGL"
+      },
+      {
+        "from": "BUE",
+        "to": "WWE"
+      },
+      {
+        "from": "WWE",
+        "to": "BUE"
+      }
+    ],
+    "611": [
+      {
+        "from": "SH",
+        "to": "SHNO"
+      },
+      {
+        "from": "SHNO",
+        "to": "SH"
+      },
+      {
+        "from": "NE",
+        "to": "SH"
+      },
+      {
+        "from": "SH",
+        "to": "NE"
+      },
+      {
+        "from": "EGL",
+        "to": "NE"
+      },
+      {
+        "from": "NE",
+        "to": "EGL"
+      },
+      {
+        "from": "BUE",
+        "to": "EGL"
+      },
+      {
+        "from": "EGL",
+        "to": "BUE"
+      },
+      {
+        "from": "BUE",
+        "to": "OGL"
+      },
+      {
+        "from": "OGL",
+        "to": "BUE"
+      },
+      {
+        "from": "GLB",
+        "to": "OGL"
+      },
+      {
+        "from": "OGL",
+        "to": "GLB"
+      },
+      {
+        "from": "GLB",
+        "to": "ZOEN"
+      },
+      {
+        "from": "ZOEN",
+        "to": "GLB"
+      },
+      {
+        "from": "ZOEN",
+        "to": "ZOER"
+      },
+      {
+        "from": "ZOER",
+        "to": "ZOEN"
+      }
+    ],
+    "612": [
+      {
+        "from": "NW",
+        "to": "OGL"
+      },
+      {
+        "from": "OGL",
+        "to": "NW"
+      }
+    ],
+    "631": [
+      {
+        "from": "ZAU",
+        "to": "ZLST"
+      },
+      {
+        "from": "ZLST",
+        "to": "ZAU"
+      },
+      {
+        "from": "ZAU",
+        "to": "ZVB"
+      },
+      {
+        "from": "ZVB",
+        "to": "ZAU"
+      },
+      {
+        "from": "TWNO",
+        "to": "ZAU"
+      },
+      {
+        "from": "ZAU",
+        "to": "TWNO"
+      },
+      {
+        "from": "ZAU",
+        "to": "ZWIE"
+      },
+      {
+        "from": "ZWIE",
+        "to": "ZAU"
+      },
+      {
+        "from": "TWNO",
+        "to": "ZWIE"
+      },
+      {
+        "from": "ZWIE",
+        "to": "TWNO"
+      },
+      {
+        "from": "TW",
+        "to": "TWNO"
+      },
+      {
+        "from": "TWNO",
+        "to": "TW"
+      },
+      {
+        "from": "TW",
+        "to": "WAE"
+      },
+      {
+        "from": "PF",
+        "to": "WAE"
+      },
+      {
+        "from": "WAE",
+        "to": "PF"
+      }
+    ],
+    "632": [
+      {
+        "from": "AF",
+        "to": "KOLM"
+      },
+      {
+        "from": "KOLM",
+        "to": "AF"
+      },
+      {
+        "from": "AF",
+        "to": "ZAS"
+      },
+      {
+        "from": "ZAS",
+        "to": "AF"
+      }
+    ],
+    "641": [
+      {
+        "from": "PF",
+        "to": "ZB"
+      },
+      {
+        "from": "ZB",
+        "to": "PF"
+      },
+      {
+        "from": "SA",
+        "to": "ZB"
+      },
+      {
+        "from": "ZB",
+        "to": "SA"
+      }
+    ],
+    "642": [
+      {
+        "from": "TRUE",
+        "to": "BU"
+      },
+      {
+        "from": "SA",
+        "to": "TRUE"
+      },
+      {
+        "from": "TRUE",
+        "to": "SA"
+      },
+      {
+        "from": "SA",
+        "to": "SASL"
+      },
+      {
+        "from": "TRUE",
+        "to": "SASL"
+      },
+      {
+        "from": "LQ",
+        "to": "SA"
+      },
+      {
+        "from": "SA",
+        "to": "LQ"
+      },
+      {
+        "from": "LQ",
+        "to": "ZIZS"
+      },
+      {
+        "from": "ZIZS",
+        "to": "LQ"
+      },
+      {
+        "from": "CH",
+        "to": "ZIZS"
+      },
+      {
+        "from": "ZIZS",
+        "to": "CH"
+      },
+      {
+        "from": "CH",
+        "to": "CHGB"
+      },
+      {
+        "from": "CHGB",
+        "to": "CH"
+      }
+    ],
+    "651": [
+      {
+        "from": "ZSTH",
+        "to": "ZUE"
+      },
+      {
+        "from": "ZUE",
+        "to": "ZSTH"
+      },
+      {
+        "from": "RW",
+        "to": "ZSTH"
+      },
+      {
+        "from": "ZSTH",
+        "to": "RW"
+      }
+    ],
+    "652": [
+      {
+        "from": "CHRI",
+        "to": "WS"
+      },
+      {
+        "from": "WS",
+        "to": "CHRI"
+      },
+      {
+        "from": "CHRI",
+        "to": "NGUT"
+      },
+      {
+        "from": "NGUT",
+        "to": "CHRI"
+      },
+      {
+        "from": "CHRI",
+        "to": "WZ"
+      },
+      {
+        "from": "WZ",
+        "to": "CHRI"
+      },
+      {
+        "from": "RUE",
+        "to": "WZ"
+      },
+      {
+        "from": "WZ",
+        "to": "RUE"
+      },
+      {
+        "from": "RUE",
+        "to": "RW"
+      },
+      {
+        "from": "RW",
+        "to": "RUE"
+      }
+    ],
+    "661": [
+      {
+        "from": "STET",
+        "to": "ZSTH"
+      },
+      {
+        "from": "ZSTH",
+        "to": "STET"
+      },
+      {
+        "from": "DTL",
+        "to": "NGUT"
+      },
+      {
+        "from": "NGUT",
+        "to": "DTL"
+      },
+      {
+        "from": "EF",
+        "to": "WZ"
+      },
+      {
+        "from": "WZ",
+        "to": "EF"
+      },
+      {
+        "from": "HI",
+        "to": "WZ"
+      },
+      {
+        "from": "WZ",
+        "to": "HI"
+      }
+    ],
+    "701": [
+      {
+        "from": "ZAS",
+        "to": "HRD"
+      },
+      {
+        "from": "ZLST",
+        "to": "ZHDB"
+      },
+      {
+        "from": "HRD",
+        "to": "ZBST"
+      },
+      {
+        "from": "ZBST",
+        "to": "HRD"
+      },
+      {
+        "from": "ZBST",
+        "to": "ZLST"
+      },
+      {
+        "from": "ZLST",
+        "to": "ZBST"
+      },
+      {
+        "from": "ZBST",
+        "to": "ZOER"
+      },
+      {
+        "from": "ZOER",
+        "to": "ZBST"
+      },
+      {
+        "from": "ZBST",
+        "to": "ZUE"
+      },
+      {
+        "from": "ZUE",
+        "to": "ZBST"
+      },
+      {
+        "from": "HRD",
+        "to": "ZHBD"
+      },
+      {
+        "from": "ZHDB",
+        "to": "HRD"
+      }
+    ],
+    "702": [
+      {
+        "from": "WS",
+        "to": "ZOER"
+      },
+      {
+        "from": "ZOER",
+        "to": "WS"
+      },
+      {
+        "from": "OPS",
+        "to": "ZOEN"
+      },
+      {
+        "from": "ZOEN",
+        "to": "OPS"
+      },
+      {
+        "from": "DTL",
+        "to": "WS"
+      },
+      {
+        "from": "WS",
+        "to": "DTL"
+      },
+      {
+        "from": "DORF",
+        "to": "OP"
+      },
+      {
+        "from": "OP",
+        "to": "DORF"
+      },
+      {
+        "from": "DTL",
+        "to": "HUER"
+      },
+      {
+        "from": "HUER",
+        "to": "DTL"
+      },
+      {
+        "from": "EF",
+        "to": "HUER"
+      },
+      {
+        "from": "HUER",
+        "to": "EF"
+      },
+      {
+        "from": "EF",
+        "to": "WWE"
+      },
+      {
+        "from": "WWE",
+        "to": "EF"
+      },
+      {
+        "from": "W",
+        "to": "WWE"
+      },
+      {
+        "from": "WWE",
+        "to": "W"
+      },
+      {
+        "from": "OP",
+        "to": "OPS"
+      },
+      {
+        "from": "OPS",
+        "to": "OP"
+      },
+      {
+        "from": "DORF",
+        "to": "HUER"
+      },
+      {
+        "from": "HUER",
+        "to": "DORF"
+      }
+    ],
+    "711": [
+      {
+        "from": "SCAL",
+        "to": "W"
+      },
+      {
+        "from": "W",
+        "to": "SCAL"
+      },
+      {
+        "from": "SCAL",
+        "to": "WGR"
+      },
+      {
+        "from": "WGR",
+        "to": "SCAL"
+      },
+      {
+        "from": "WGR",
+        "to": "WIL"
+      },
+      {
+        "from": "WIL",
+        "to": "WGR"
+      },
+      {
+        "from": "WIL",
+        "to": "WILM"
+      },
+      {
+        "from": "WILM",
+        "to": "WIL"
+      },
+      {
+        "from": "GSS",
+        "to": "WILM"
+      },
+      {
+        "from": "WILM",
+        "to": "GSS"
+      },
+      {
+        "from": "GSS",
+        "to": "SGW"
+      },
+      {
+        "from": "SGW",
+        "to": "GSS"
+      },
+      {
+        "from": "SG",
+        "to": "SGW"
+      },
+      {
+        "from": "SGW",
+        "to": "SG"
+      }
+    ],
+    "721": [
+      {
+        "from": "SG",
+        "to": "SGFN"
+      },
+      {
+        "from": "SGFN",
+        "to": "SG"
+      },
+      {
+        "from": "RH",
+        "to": "SGFN"
+      },
+      {
+        "from": "SGFN",
+        "to": "RH"
+      },
+      {
+        "from": "RH",
+        "to": "SMG"
+      },
+      {
+        "from": "SMG",
+        "to": "RH"
+      },
+      {
+        "from": "SAS",
+        "to": "SMG"
+      },
+      {
+        "from": "SMG",
+        "to": "SAS"
+      },
+      {
+        "from": "BU",
+        "to": "SAS"
+      },
+      {
+        "from": "SAS",
+        "to": "BU"
+      }
+    ],
+    "731": [
+      {
+        "from": "NH",
+        "to": "W"
+      },
+      {
+        "from": "W",
+        "to": "NH"
+      }
+    ],
+    "732": [
+      {
+        "from": "EW",
+        "to": "OWT"
+      },
+      {
+        "from": "OWT",
+        "to": "EW"
+      }
+    ],
+    "741": [
+      {
+        "from": "OWT",
+        "to": "SCAL"
+      },
+      {
+        "from": "SCAL",
+        "to": "OWT"
+      },
+      {
+        "from": "OWTO",
+        "to": "OWTP"
+      },
+      {
+        "from": "OWT",
+        "to": "OWTO"
+      },
+      {
+        "from": "OWTO",
+        "to": "OWT"
+      },
+      {
+        "from": "FF",
+        "to": "FFPP"
+      },
+      {
+        "from": "FF",
+        "to": "OWTO"
+      },
+      {
+        "from": "OWTO",
+        "to": "FF"
+      },
+      {
+        "from": "FF",
+        "to": "WF"
+      },
+      {
+        "from": "WF",
+        "to": "FF"
+      },
+      {
+        "from": "SLG",
+        "to": "WF"
+      },
+      {
+        "from": "WF",
+        "to": "SLG"
+      },
+      {
+        "from": "RHW",
+        "to": "SLG"
+      },
+      {
+        "from": "SLG",
+        "to": "RHW"
+      },
+      {
+        "from": "RH",
+        "to": "RHW"
+      },
+      {
+        "from": "RHW",
+        "to": "RH"
+      },
+      {
+        "from": "RHS",
+        "to": "RHW"
+      },
+      {
+        "from": "RHW",
+        "to": "RHS"
+      },
+      {
+        "from": "OWTO",
+        "to": "OWTU"
+      }
+    ],
+    "742": [
+      {
+        "from": "SLG",
+        "to": "BZN"
+      },
+      {
+        "from": "BZN",
+        "to": "GSS"
+      },
+      {
+        "from": "BZN",
+        "to": "SLG"
+      },
+      {
+        "from": "GSS",
+        "to": "BZN"
+      }
+    ],
+    "751": [
+      {
+        "from": "UZ",
+        "to": "ZB"
+      },
+      {
+        "from": "ZB",
+        "to": "UZ"
+      },
+      {
+        "from": "LIN",
+        "to": "ZB"
+      },
+      {
+        "from": "ZB",
+        "to": "LIN"
+      }
+    ],
+    "752": [
+      {
+        "from": "PF",
+        "to": "RW"
+      },
+      {
+        "from": "RW",
+        "to": "PF"
+      },
+      {
+        "from": "RW",
+        "to": "UZ"
+      },
+      {
+        "from": "UZ",
+        "to": "RW"
+      },
+      {
+        "from": "UZ",
+        "to": "WA"
+      },
+      {
+        "from": "WA",
+        "to": "UZ"
+      }
+    ],
+    "753": [
+      {
+        "from": "NL",
+        "to": "WA"
+      },
+      {
+        "from": "WA",
+        "to": "NL"
+      },
+      {
+        "from": "LSG",
+        "to": "WA"
+      },
+      {
+        "from": "WA",
+        "to": "LSG"
+      },
+      {
+        "from": "LSG",
+        "to": "WILM"
+      },
+      {
+        "from": "WILM",
+        "to": "LSG"
+      }
+    ],
+    "754": [
+      {
+        "from": "BMA",
+        "to": "WGR"
+      },
+      {
+        "from": "WGR",
+        "to": "BMA"
+      },
+      {
+        "from": "BMA",
+        "to": "RUE"
+      },
+      {
+        "from": "RUE",
+        "to": "RMA"
+      }
+    ],
+    "761": [
+      {
+        "from": "KOGA",
+        "to": "KR"
+      },
+      {
+        "from": "KR",
+        "to": "KOGA"
+      },
+      {
+        "from": "KR",
+        "to": "TAMO"
+      },
+      {
+        "from": "TAMO",
+        "to": "KR"
+      },
+      {
+        "from": "TAMO",
+        "to": "WF"
+      },
+      {
+        "from": "WF",
+        "to": "TAMO"
+      },
+      {
+        "from": "BTW",
+        "to": "WF"
+      },
+      {
+        "from": "WF",
+        "to": "BTW"
+      },
+      {
+        "from": "BET",
+        "to": "WIL"
+      },
+      {
+        "from": "WIL",
+        "to": "BET"
+      }
+    ],
+    "771": [
+      {
+        "from": "EW",
+        "to": "SH"
+      },
+      {
+        "from": "SH",
+        "to": "EW"
+      },
+      {
+        "from": "EW",
+        "to": "TAMO"
+      },
+      {
+        "from": "TAMO",
+        "to": "EW"
+      }
+    ],
+    "772": [
+      {
+        "from": "KOGA",
+        "to": "KRH"
+      },
+      {
+        "from": "KRH",
+        "to": "KOGA"
+      },
+      {
+        "from": "KR",
+        "to": "KRH"
+      },
+      {
+        "from": "KRH",
+        "to": "KR"
+      },
+      {
+        "from": "KRH",
+        "to": "RH"
+      },
+      {
+        "from": "RH",
+        "to": "KRH"
+      },
+      {
+        "from": "RH",
+        "to": "RHS"
+      },
+      {
+        "from": "RHS",
+        "to": "RH"
+      },
+      {
+        "from": "RHS",
+        "to": "RHSE"
+      },
+      {
+        "from": "RHSE",
+        "to": "RHS"
+      },
+      {
+        "from": "RHSE",
+        "to": "RS"
+      },
+      {
+        "from": "RS",
+        "to": "RHSE"
+      }
+    ],
+    "781": [
+      {
+        "from": "PF",
+        "to": "SAM"
+      },
+      {
+        "from": "SAM",
+        "to": "PF"
+      },
+      {
+        "from": "BIB",
+        "to": "SAM"
+      },
+      {
+        "from": "SAM",
+        "to": "BIB"
+      },
+      {
+        "from": "BIB",
+        "to": "RTT"
+      },
+      {
+        "from": "RTT",
+        "to": "BIB"
+      },
+      {
+        "from": "GD",
+        "to": "RTT"
+      },
+      {
+        "from": "RTT",
+        "to": "GD"
+      }
+    ],
+    "782": [
+      {
+        "from": "SAM",
+        "to": "WA"
+      },
+      {
+        "from": "WA",
+        "to": "SAM"
+      },
+      {
+        "from": "EIS",
+        "to": "SAM"
+      },
+      {
+        "from": "SAM",
+        "to": "EIS"
+      }
+    ],
+    "791": [
+      {
+        "from": "HE",
+        "to": "LSG"
+      },
+      {
+        "from": "LSG",
+        "to": "HE"
+      },
+      {
+        "from": "HE",
+        "to": "SGW"
+      },
+      {
+        "from": "SGW",
+        "to": "HE"
+      },
+      {
+        "from": "RHSE",
+        "to": "SGFN"
+      },
+      {
+        "from": "SGFN",
+        "to": "RHSE"
+      }
+    ]
+  },
+  "routeSegmentsOrdered": {
+    "101": [
+      {
+        "seg": "101.01",
+        "from": "LP",
+        "to": "LPFR",
+        "fromName": "La Plaine",
+        "toName": "La Plaine-Frontière"
+      },
+      {
+        "seg": "101.01",
+        "from": "LPFR",
+        "to": "LP",
+        "fromName": "La Plaine-Frontière",
+        "toName": "La Plaine"
+      },
+      {
+        "seg": "101.02",
+        "from": "LP",
+        "to": "VM",
+        "fromName": "La Plaine",
+        "toName": "Meyrin"
+      },
+      {
+        "seg": "101.02",
+        "from": "VM",
+        "to": "LP",
+        "fromName": "Meyrin",
+        "toName": "La Plaine"
+      },
+      {
+        "seg": "101.03",
+        "from": "CHNE",
+        "to": "VM",
+        "fromName": "Châtelaine (bif)",
+        "toName": "Meyrin"
+      },
+      {
+        "seg": "101.03",
+        "from": "VM",
+        "to": "CHNE",
+        "fromName": "Meyrin",
+        "toName": "Châtelaine (bif)"
+      },
+      {
+        "seg": "101.04",
+        "from": "CHNE",
+        "to": "GEAP",
+        "fromName": "Châtelaine (bif)",
+        "toName": "Genève-Aéroport"
+      },
+      {
+        "seg": "101.04",
+        "from": "GEAP",
+        "to": "CHNE",
+        "fromName": "Genève-Aéroport",
+        "toName": "Châtelaine (bif)"
+      },
+      {
+        "seg": "101.05",
+        "from": "CHNE",
+        "to": "FUBI",
+        "fromName": "Châtelaine (bif)",
+        "toName": "Furet (bif)"
+      },
+      {
+        "seg": "101.05",
+        "from": "FUBI",
+        "to": "CHNE",
+        "fromName": "Furet (bif)",
+        "toName": "Châtelaine (bif)"
+      },
+      {
+        "seg": "101.06",
+        "from": "FUBI",
+        "to": "SJ",
+        "fromName": "Furet (bif)",
+        "toName": "St-Jean (bif)"
+      },
+      {
+        "seg": "101.06",
+        "from": "SJ",
+        "to": "FUBI",
+        "fromName": "St-Jean (bif)",
+        "toName": "Furet (bif)"
+      },
+      {
+        "seg": "101.07",
+        "from": "FUBI",
+        "to": "JON",
+        "fromName": "Furet (bif)",
+        "toName": "Jonction (Genève)"
+      },
+      {
+        "seg": "101.07",
+        "from": "JON",
+        "to": "FUBI",
+        "fromName": "Jonction (Genève)",
+        "toName": "Furet (bif)"
+      }
+    ],
+    "102": [
+      {
+        "seg": "102.01",
+        "from": "CHEB",
+        "to": "CHEF",
+        "fromName": "Chêne-Bourg",
+        "toName": "Chene-Bourg-Frontiere"
+      },
+      {
+        "seg": "102.01",
+        "from": "CHEF",
+        "to": "CHEB",
+        "fromName": "Chene-Bourg-Frontiere",
+        "toName": "Chêne-Bourg"
+      },
+      {
+        "seg": "102.02",
+        "from": "CHEB",
+        "to": "GEPR",
+        "fromName": "Chêne-Bourg",
+        "toName": "Genève-La-Praille"
+      },
+      {
+        "seg": "102.02",
+        "from": "GEPR",
+        "to": "CHEB",
+        "fromName": "Genève-La-Praille",
+        "toName": "Chêne-Bourg"
+      }
+    ],
+    "111": [
+      {
+        "seg": "111.01",
+        "from": "GEPR",
+        "to": "GEST",
+        "fromName": "Genève-La-Praille",
+        "toName": "Genève-Stade"
+      },
+      {
+        "seg": "111.01",
+        "from": "GEST",
+        "to": "GEPR",
+        "fromName": "Genève-Stade",
+        "toName": "Genève-La-Praille"
+      },
+      {
+        "seg": "111.01",
+        "from": "ARCA",
+        "to": "LTN",
+        "fromName": "Archy A (bif)",
+        "toName": "Lausanne-Triage Nord"
+      },
+      {
+        "seg": "111.01",
+        "from": "LTN",
+        "to": "ARCA",
+        "fromName": "Lausanne-Triage Nord",
+        "toName": "Archy A (bif)"
+      },
+      {
+        "seg": "111.02",
+        "from": "GEPR",
+        "to": "JON",
+        "fromName": "Genève-La-Praille",
+        "toName": "Jonction (Genève)"
+      },
+      {
+        "seg": "111.02",
+        "from": "JON",
+        "to": "GEPR",
+        "fromName": "Jonction (Genève)",
+        "toName": "Genève-La-Praille"
+      },
+      {
+        "seg": "111.03",
+        "from": "JON",
+        "to": "SJ",
+        "fromName": "Jonction (Genève)",
+        "toName": "St-Jean (bif)"
+      },
+      {
+        "seg": "111.03",
+        "from": "SJ",
+        "to": "JON",
+        "fromName": "St-Jean (bif)",
+        "toName": "Jonction (Genève)"
+      },
+      {
+        "seg": "111.04",
+        "from": "GE",
+        "to": "SJ",
+        "fromName": "Genève",
+        "toName": "St-Jean (bif)"
+      },
+      {
+        "seg": "111.04",
+        "from": "SJ",
+        "to": "GE",
+        "fromName": "St-Jean (bif)",
+        "toName": "Genève"
+      },
+      {
+        "seg": "111.05",
+        "from": "GE",
+        "to": "NY",
+        "fromName": "Genève",
+        "toName": "Nyon"
+      },
+      {
+        "seg": "111.05",
+        "from": "NY",
+        "to": "GE",
+        "fromName": "Nyon",
+        "toName": "Genève"
+      },
+      {
+        "seg": "111.06",
+        "from": "MOR",
+        "to": "NY",
+        "fromName": "Morges",
+        "toName": "Nyon"
+      },
+      {
+        "seg": "111.06",
+        "from": "NY",
+        "to": "MOR",
+        "fromName": "Nyon",
+        "toName": "Morges"
+      },
+      {
+        "seg": "111.07",
+        "from": "LONA",
+        "to": "MOR",
+        "fromName": "Lonay A (bif)",
+        "toName": "Morges"
+      },
+      {
+        "seg": "111.07",
+        "from": "MOR",
+        "to": "LONA",
+        "fromName": "Morges",
+        "toName": "Lonay A (bif)"
+      },
+      {
+        "seg": "111.08",
+        "from": "LONA",
+        "to": "LTD",
+        "fromName": "Lonay A (bif)",
+        "toName": "Lausanne-Triage D"
+      },
+      {
+        "seg": "111.08",
+        "from": "LTD",
+        "to": "LONA",
+        "fromName": "Lausanne-Triage D",
+        "toName": "Lonay A (bif)"
+      },
+      {
+        "seg": "111.09",
+        "from": "LTD",
+        "to": "LTN",
+        "fromName": "Lausanne-Triage D",
+        "toName": "Lausanne-Triage Nord"
+      },
+      {
+        "seg": "111.09",
+        "from": "LTN",
+        "to": "LTD",
+        "fromName": "Lausanne-Triage Nord",
+        "toName": "Lausanne-Triage D"
+      },
+      {
+        "seg": "111.11",
+        "from": "ARCA",
+        "to": "RENO",
+        "fromName": "Archy A (bif)",
+        "toName": "Renens VD Ouest (bif)"
+      },
+      {
+        "seg": "111.11",
+        "from": "RENO",
+        "to": "ARCA",
+        "fromName": "Renens VD Ouest (bif)",
+        "toName": "Archy A (bif)"
+      },
+      {
+        "seg": "111.19",
+        "from": "LS",
+        "to": "LSPA",
+        "fromName": "Lausanne",
+        "toName": "Lausanne Paleyres"
+      }
+    ],
+    "121": [
+      {
+        "seg": "121.01",
+        "from": "LS",
+        "to": "PUI",
+        "fromName": "Lausanne",
+        "toName": "Puidoux"
+      },
+      {
+        "seg": "121.01",
+        "from": "PUI",
+        "to": "LS",
+        "fromName": "Puidoux",
+        "toName": "Lausanne"
+      },
+      {
+        "seg": "121.02",
+        "from": "PAL",
+        "to": "PUI",
+        "fromName": "Palézieux",
+        "toName": "Puidoux"
+      },
+      {
+        "seg": "121.02",
+        "from": "PUI",
+        "to": "PAL",
+        "fromName": "Puidoux",
+        "toName": "Palézieux"
+      },
+      {
+        "seg": "121.03",
+        "from": "PAL",
+        "to": "ROM",
+        "fromName": "Palézieux",
+        "toName": "Romont FR"
+      },
+      {
+        "seg": "121.03",
+        "from": "ROM",
+        "to": "PAL",
+        "fromName": "Romont FR",
+        "toName": "Palézieux"
+      },
+      {
+        "seg": "121.04",
+        "from": "FRI",
+        "to": "ROM",
+        "fromName": "Fribourg/Freiburg",
+        "toName": "Romont FR"
+      },
+      {
+        "seg": "121.04",
+        "from": "ROM",
+        "to": "FRI",
+        "fromName": "Romont FR",
+        "toName": "Fribourg/Freiburg"
+      },
+      {
+        "seg": "121.05",
+        "from": "FLM",
+        "to": "FRI",
+        "fromName": "Flamatt",
+        "toName": "Fribourg/Freiburg"
+      },
+      {
+        "seg": "121.05",
+        "from": "FRI",
+        "to": "FLM",
+        "fromName": "Fribourg/Freiburg",
+        "toName": "Flamatt"
+      },
+      {
+        "seg": "121.06",
+        "from": "FLM",
+        "to": "LPN",
+        "fromName": "Flamatt",
+        "toName": "Laupen BE"
+      },
+      {
+        "seg": "121.06",
+        "from": "LPN",
+        "to": "FLM",
+        "fromName": "Laupen BE",
+        "toName": "Flamatt"
+      },
+      {
+        "seg": "121.07",
+        "from": "BNSH",
+        "to": "FLM",
+        "fromName": "Bern Steigerhubel (Abzw)",
+        "toName": "Flamatt"
+      },
+      {
+        "seg": "121.07",
+        "from": "FLM",
+        "to": "BNSH",
+        "fromName": "Flamatt",
+        "toName": "Bern Steigerhubel (Abzw)"
+      },
+      {
+        "seg": "121.08",
+        "from": "BN",
+        "to": "BNSH",
+        "fromName": "Bern",
+        "toName": "Bern Steigerhubel (Abzw)"
+      },
+      {
+        "seg": "121.08",
+        "from": "BNSH",
+        "to": "BN",
+        "fromName": "Bern Steigerhubel (Abzw)",
+        "toName": "Bern"
+      },
+      {
+        "seg": "121.98",
+        "from": "ALT",
+        "to": "GÜMMEN",
+        "fromName": "Laupen BE",
+        "toName": "Laupen Ost (Ausw)"
+      }
+    ],
+    "141": [
+      {
+        "seg": "141.01",
+        "from": "BN",
+        "to": "BNWD",
+        "fromName": "Bern",
+        "toName": "Bern Wankdorf"
+      },
+      {
+        "seg": "141.01",
+        "from": "BNWD",
+        "to": "BN",
+        "fromName": "Bern Wankdorf",
+        "toName": "Bern"
+      },
+      {
+        "seg": "141.01",
+        "from": "RTR",
+        "to": "ABOW",
+        "fromName": "Rothrist",
+        "toName": "Aarburg-Oftringen West (Abzw)"
+      },
+      {
+        "seg": "141.01",
+        "from": "ABOW",
+        "to": "RTR",
+        "fromName": "Aarburg-Oftringen West (Abzw)",
+        "toName": "Rothrist"
+      },
+      {
+        "seg": "141.02",
+        "from": "BNWD",
+        "to": "LGUS",
+        "fromName": "Bern Wankdorf",
+        "toName": "Löchligut Süd (Abzw)"
+      },
+      {
+        "seg": "141.02",
+        "from": "LGUS",
+        "to": "BNWD",
+        "fromName": "Löchligut Süd (Abzw)",
+        "toName": "Bern Wankdorf"
+      },
+      {
+        "seg": "141.03",
+        "from": "LGUS",
+        "to": "LGUT",
+        "fromName": "Löchligut Süd (Abzw)",
+        "toName": "Löchligut (Abzw)"
+      },
+      {
+        "seg": "141.03",
+        "from": "LGUT",
+        "to": "LGUS",
+        "fromName": "Löchligut (Abzw)",
+        "toName": "Löchligut Süd (Abzw)"
+      },
+      {
+        "seg": "141.04",
+        "from": "LGUT",
+        "to": "ZOL",
+        "fromName": "Löchligut (Abzw)",
+        "toName": "Zollikofen"
+      },
+      {
+        "seg": "141.04",
+        "from": "ZOL",
+        "to": "LGUT",
+        "fromName": "Zollikofen",
+        "toName": "Löchligut (Abzw)"
+      },
+      {
+        "seg": "141.05",
+        "from": "MATA",
+        "to": "ZOL",
+        "fromName": "Mattstetten (Abzw)",
+        "toName": "Zollikofen"
+      },
+      {
+        "seg": "141.05",
+        "from": "ZOL",
+        "to": "MATA",
+        "fromName": "Zollikofen",
+        "toName": "Mattstetten (Abzw)"
+      },
+      {
+        "seg": "141.06",
+        "from": "BDF",
+        "to": "MATA",
+        "fromName": "Burgdorf",
+        "toName": "Mattstetten (Abzw)"
+      },
+      {
+        "seg": "141.06",
+        "from": "MATA",
+        "to": "BDF",
+        "fromName": "Mattstetten (Abzw)",
+        "toName": "Burgdorf"
+      },
+      {
+        "seg": "141.07",
+        "from": "BDF",
+        "to": "HB",
+        "fromName": "Burgdorf",
+        "toName": "Herzogenbuchsee"
+      },
+      {
+        "seg": "141.07",
+        "from": "HB",
+        "to": "BDF",
+        "fromName": "Herzogenbuchsee",
+        "toName": "Burgdorf"
+      },
+      {
+        "seg": "141.08",
+        "from": "HB",
+        "to": "LTH",
+        "fromName": "Herzogenbuchsee",
+        "toName": "Langenthal"
+      },
+      {
+        "seg": "141.08",
+        "from": "LTH",
+        "to": "HB",
+        "fromName": "Langenthal",
+        "toName": "Herzogenbuchsee"
+      },
+      {
+        "seg": "141.09",
+        "from": "LTH",
+        "to": "RTR",
+        "fromName": "Langenthal",
+        "toName": "Rothrist"
+      },
+      {
+        "seg": "141.09",
+        "from": "RTR",
+        "to": "LTH",
+        "fromName": "Rothrist",
+        "toName": "Langenthal"
+      },
+      {
+        "seg": "141.11",
+        "from": "ABO",
+        "to": "ABOW",
+        "fromName": "Aarburg-Oftringen",
+        "toName": "Aarburg-Oftringen West (Abzw)"
+      },
+      {
+        "seg": "141.11",
+        "from": "ABOW",
+        "to": "ABO",
+        "fromName": "Aarburg-Oftringen West (Abzw)",
+        "toName": "Aarburg-Oftringen"
+      },
+      {
+        "seg": "141.12",
+        "from": "ABO",
+        "to": "OL",
+        "fromName": "Aarburg-Oftringen",
+        "toName": "Olten"
+      },
+      {
+        "seg": "141.12",
+        "from": "OL",
+        "to": "ABO",
+        "fromName": "Olten",
+        "toName": "Aarburg-Oftringen"
+      }
+    ],
+    "142": [
+      {
+        "seg": "142.01",
+        "from": "AESP",
+        "to": "LGUT",
+        "fromName": "Aespli",
+        "toName": "Löchligut (Abzw)"
+      },
+      {
+        "seg": "142.01",
+        "from": "LGUT",
+        "to": "AESP",
+        "fromName": "Löchligut (Abzw)",
+        "toName": "Aespli"
+      },
+      {
+        "seg": "142.01",
+        "from": "SO",
+        "to": "WANZ",
+        "fromName": "Solothurn",
+        "toName": "Wanzwil (Abzw)"
+      },
+      {
+        "seg": "142.01",
+        "from": "WANZ",
+        "to": "SO",
+        "fromName": "Wanzwil (Abzw)",
+        "toName": "Solothurn"
+      },
+      {
+        "seg": "142.02",
+        "from": "AESP",
+        "to": "MATA",
+        "fromName": "Aespli",
+        "toName": "Mattstetten (Abzw)"
+      },
+      {
+        "seg": "142.02",
+        "from": "MATA",
+        "to": "AESP",
+        "fromName": "Mattstetten (Abzw)",
+        "toName": "Aespli"
+      },
+      {
+        "seg": "142.03",
+        "from": "AESP",
+        "to": "WANZ",
+        "fromName": "Aespli",
+        "toName": "Wanzwil (Abzw)"
+      },
+      {
+        "seg": "142.03",
+        "from": "WANZ",
+        "to": "AESP",
+        "fromName": "Wanzwil (Abzw)",
+        "toName": "Aespli"
+      },
+      {
+        "seg": "142.04",
+        "from": "RTR",
+        "to": "WANZ",
+        "fromName": "Rothrist",
+        "toName": "Wanzwil (Abzw)"
+      },
+      {
+        "seg": "142.04",
+        "from": "WANZ",
+        "to": "RTR",
+        "fromName": "Wanzwil (Abzw)",
+        "toName": "Rothrist"
+      },
+      {
+        "seg": "142.05",
+        "from": "O",
+        "to": "RTR",
+        "fromName": "Olten",
+        "toName": "Rothrist"
+      },
+      {
+        "seg": "142.05",
+        "from": "RTR",
+        "to": "OL",
+        "fromName": "Rothrist",
+        "toName": "Olten"
+      }
+    ],
+    "151": [
+      {
+        "seg": "151.01",
+        "from": "OLNO",
+        "to": "OLO",
+        "fromName": "Olten Nord-Ost (Abzw)",
+        "toName": "Olten Ost (Abzw)"
+      },
+      {
+        "seg": "151.01",
+        "from": "OLO",
+        "to": "OLNO",
+        "fromName": "Olten Ost (Abzw)",
+        "toName": "Olten Nord-Ost (Abzw)"
+      },
+      {
+        "seg": "151.01",
+        "from": "GMT",
+        "to": "OTH",
+        "fromName": "Gruemet (Abzw)",
+        "toName": "Othmarsingen"
+      },
+      {
+        "seg": "151.01",
+        "from": "KLW",
+        "to": "GMT",
+        "fromName": "Killwangen-Spreitenbach",
+        "toName": "Gruemet (Abzw)"
+      },
+      {
+        "seg": "151.01",
+        "from": "OTH",
+        "to": "GMT",
+        "fromName": "Othmarsingen",
+        "toName": "Gruemet (Abzw)"
+      },
+      {
+        "seg": "151.02",
+        "from": "DK",
+        "to": "OLO",
+        "fromName": "Däniken SO",
+        "toName": "Olten Ost (Abzw)"
+      },
+      {
+        "seg": "151.02",
+        "from": "OLO",
+        "to": "DK",
+        "fromName": "Olten Ost (Abzw)",
+        "toName": "Däniken SO"
+      },
+      {
+        "seg": "151.02",
+        "from": "BG",
+        "to": "RU",
+        "fromName": "Brugg AG",
+        "toName": "Rupperswil"
+      },
+      {
+        "seg": "151.02",
+        "from": "RU",
+        "to": "BG",
+        "fromName": "Rupperswil",
+        "toName": "Brugg AG"
+      },
+      {
+        "seg": "151.03",
+        "from": "DK",
+        "to": "WOES",
+        "fromName": "Däniken SO",
+        "toName": "Wöschnau SBB"
+      },
+      {
+        "seg": "151.03",
+        "from": "WOES",
+        "to": "DK",
+        "fromName": "Wöschnau SBB",
+        "toName": "Däniken SO"
+      },
+      {
+        "seg": "151.04",
+        "from": "DK",
+        "to": "SCOE",
+        "fromName": "Däniken SO",
+        "toName": "Wöschnau SBB"
+      },
+      {
+        "seg": "151.04",
+        "from": "WOES",
+        "to": "SCOE",
+        "fromName": "Wöschnau SBB",
+        "toName": "Däniken SO"
+      },
+      {
+        "seg": "151.05",
+        "from": "AA",
+        "to": "WOES",
+        "fromName": "Aarau",
+        "toName": "Wöschnau SBB"
+      },
+      {
+        "seg": "151.05",
+        "from": "WOES",
+        "to": "AA",
+        "fromName": "Wöschnau SBB",
+        "toName": "Aarau"
+      },
+      {
+        "seg": "151.06",
+        "from": "AA",
+        "to": "RU",
+        "fromName": "Aarau",
+        "toName": "Rupperswil"
+      },
+      {
+        "seg": "151.06",
+        "from": "RU",
+        "to": "AA",
+        "fromName": "Rupperswil",
+        "toName": "Aarau"
+      },
+      {
+        "seg": "151.07",
+        "from": "LB",
+        "to": "RU",
+        "fromName": "Lenzburg",
+        "toName": "Rupperswil"
+      },
+      {
+        "seg": "151.07",
+        "from": "RU",
+        "to": "LB",
+        "fromName": "Rupperswil",
+        "toName": "Lenzburg"
+      },
+      {
+        "seg": "151.08",
+        "from": "GEXI",
+        "to": "LB",
+        "fromName": "Gexi",
+        "toName": "Lenzburg"
+      },
+      {
+        "seg": "151.08",
+        "from": "LB",
+        "to": "GEXI",
+        "fromName": "Lenzburg",
+        "toName": "Gexi"
+      },
+      {
+        "seg": "151.09",
+        "from": "GEXI",
+        "to": "OTH",
+        "fromName": "Gexi",
+        "toName": "Othmarsingen"
+      },
+      {
+        "seg": "151.09",
+        "from": "OTH",
+        "to": "GEXI",
+        "fromName": "Othmarsingen",
+        "toName": "Gexi"
+      },
+      {
+        "seg": "151.11",
+        "from": "GMT",
+        "to": "KLW",
+        "fromName": "Gruemet (Abzw)",
+        "toName": "Killwangen-Spreitenbach"
+      }
+    ],
+    "161": [
+      {
+        "seg": "161.01",
+        "from": "BG",
+        "to": "TG",
+        "fromName": "Brugg AG",
+        "toName": "Turgi"
+      },
+      {
+        "seg": "161.01",
+        "from": "TG",
+        "to": "BG",
+        "fromName": "Turgi",
+        "toName": "Brugg AG"
+      },
+      {
+        "seg": "161.02",
+        "from": "TG",
+        "to": "WE",
+        "fromName": "Turgi",
+        "toName": "Wettingen"
+      },
+      {
+        "seg": "161.02",
+        "from": "WE",
+        "to": "TG",
+        "fromName": "Wettingen",
+        "toName": "Turgi"
+      },
+      {
+        "seg": "161.02",
+        "from": "ZAS",
+        "to": "ZHDB",
+        "fromName": "Zürich Altstetten",
+        "toName": "Zürich Hardbrücke"
+      },
+      {
+        "seg": "161.02",
+        "from": "ZHDB",
+        "to": "ZAS",
+        "fromName": "Zürich Hardbrücke",
+        "toName": "Zürich Altstetten"
+      },
+      {
+        "seg": "161.03",
+        "from": "KLW",
+        "to": "WE",
+        "fromName": "Killwangen-Spreitenbach",
+        "toName": "Wettingen"
+      },
+      {
+        "seg": "161.03",
+        "from": "WE",
+        "to": "KLW",
+        "fromName": "Wettingen",
+        "toName": "Killwangen-Spreitenbach"
+      },
+      {
+        "seg": "161.03",
+        "from": "ZAS",
+        "to": "ZHER",
+        "fromName": "Zürich Altstetten",
+        "toName": "Zürich Hardbrücke"
+      },
+      {
+        "seg": "161.03",
+        "from": "ZHDB",
+        "to": "ZER",
+        "fromName": "Zürich Hardbrücke",
+        "toName": "Zürich Altstetten"
+      },
+      {
+        "seg": "161.04",
+        "from": "KLW",
+        "to": "SILB",
+        "fromName": "Killwangen-Spreitenbach",
+        "toName": "Silberen (Abzw)"
+      },
+      {
+        "seg": "161.04",
+        "from": "SILB",
+        "to": "KLW",
+        "fromName": "Silberen (Abzw)",
+        "toName": "Killwangen-Spreitenbach"
+      },
+      {
+        "seg": "161.05",
+        "from": "DT",
+        "to": "SILB",
+        "fromName": "Dietikon",
+        "toName": "Silberen (Abzw)"
+      },
+      {
+        "seg": "161.05",
+        "from": "SILB",
+        "to": "DT",
+        "fromName": "Silberen (Abzw)",
+        "toName": "Dietikon"
+      },
+      {
+        "seg": "161.06",
+        "from": "DT",
+        "to": "ZAS",
+        "fromName": "Dietikon",
+        "toName": "Zürich Altstetten"
+      },
+      {
+        "seg": "161.06",
+        "from": "ZAS",
+        "to": "DT",
+        "fromName": "Zürich Altstetten",
+        "toName": "Dietikon"
+      },
+      {
+        "seg": "161.07",
+        "from": "ZAS",
+        "to": "ZVB",
+        "fromName": "Zürich Altstetten",
+        "toName": "Zürich Vorbahnhof"
+      },
+      {
+        "seg": "161.07",
+        "from": "ZVB",
+        "to": "ZAS",
+        "fromName": "Zürich Vorbahnhof",
+        "toName": "Zürich Altstetten"
+      },
+      {
+        "seg": "161.08",
+        "from": "ZLST",
+        "to": "ZVB",
+        "fromName": "Zürich Langstrasse",
+        "toName": "Zürich Vorbahnhof"
+      },
+      {
+        "seg": "161.08",
+        "from": "ZVB",
+        "to": "ZLST",
+        "fromName": "Zürich Vorbahnhof",
+        "toName": "Zürich Langstrasse"
+      },
+      {
+        "seg": "161.09",
+        "from": "ZLST",
+        "to": "ZUE",
+        "fromName": "Zürich Langstrasse",
+        "toName": "Zürich HB"
+      },
+      {
+        "seg": "161.09",
+        "from": "ZUE",
+        "to": "ZLST",
+        "fromName": "Zürich HB",
+        "toName": "Zürich Langstrasse"
+      }
+    ],
+    "171": [
+      {
+        "seg": "171.01",
+        "from": "WE",
+        "to": "WUER",
+        "fromName": "Wettingen",
+        "toName": "Würenlos"
+      },
+      {
+        "seg": "171.01",
+        "from": "WUER",
+        "to": "WE",
+        "fromName": "Würenlos",
+        "toName": "Wettingen"
+      },
+      {
+        "seg": "171.02",
+        "from": "KLW",
+        "to": "WUER",
+        "fromName": "Killwangen-Spreitenbach",
+        "toName": "Würenlos"
+      },
+      {
+        "seg": "171.02",
+        "from": "WUER",
+        "to": "KLW",
+        "fromName": "Würenlos",
+        "toName": "Killwangen-Spreitenbach"
+      },
+      {
+        "seg": "171.03",
+        "from": "WUER",
+        "to": "ZSEB",
+        "fromName": "Würenlos",
+        "toName": "Zürich Seebach"
+      },
+      {
+        "seg": "171.03",
+        "from": "ZSEB",
+        "to": "WUER",
+        "fromName": "Zürich Seebach",
+        "toName": "Würenlos"
+      },
+      {
+        "seg": "171.04",
+        "from": "ZOEN",
+        "to": "ZSEB",
+        "fromName": "Zürich Oerlikon Nord (Abzw)",
+        "toName": "Zürich Seebach"
+      },
+      {
+        "seg": "171.04",
+        "from": "ZSEB",
+        "to": "ZOEN",
+        "fromName": "Zürich Seebach",
+        "toName": "Zürich Oerlikon Nord (Abzw)"
+      },
+      {
+        "seg": "171.05",
+        "from": "OPS",
+        "to": "ZSEB",
+        "fromName": "Opfikon Süd",
+        "toName": "Zürich Seebach"
+      },
+      {
+        "seg": "171.05",
+        "from": "ZSEB",
+        "to": "OPS",
+        "fromName": "Zürich Seebach",
+        "toName": "Opfikon Süd"
+      },
+      {
+        "seg": "171.06",
+        "from": "GLB",
+        "to": "OPS",
+        "fromName": "Glattbrugg",
+        "toName": "Opfikon Süd"
+      },
+      {
+        "seg": "171.06",
+        "from": "OPS",
+        "to": "GLB",
+        "fromName": "Opfikon Süd",
+        "toName": "Glattbrugg"
+      }
+    ],
+    "201": [
+      {
+        "seg": "201.01",
+        "from": "VAL",
+        "to": "VLB",
+        "fromName": "Vallorbe",
+        "toName": "Vallorbe-Frontière"
+      },
+      {
+        "seg": "201.01",
+        "from": "VLB",
+        "to": "VAL",
+        "fromName": "Vallorbe-Frontière",
+        "toName": "Vallorbe"
+      },
+      {
+        "seg": "201.02",
+        "from": "DAY",
+        "to": "VAL",
+        "fromName": "Le Day",
+        "toName": "Vallorbe"
+      },
+      {
+        "seg": "201.02",
+        "from": "VAL",
+        "to": "DAY",
+        "fromName": "Vallorbe",
+        "toName": "Le Day"
+      },
+      {
+        "seg": "201.03",
+        "from": "DAIL",
+        "to": "DAY",
+        "fromName": "Daillens",
+        "toName": "Le Day"
+      },
+      {
+        "seg": "201.03",
+        "from": "DAY",
+        "to": "DAIL",
+        "fromName": "Le Day",
+        "toName": "Daillens"
+      },
+      {
+        "seg": "201.04",
+        "from": "BUY",
+        "to": "LTE",
+        "fromName": "Bussigny",
+        "toName": "Lausanne-Triage Est"
+      },
+      {
+        "seg": "201.04",
+        "from": "LTE",
+        "to": "BUY",
+        "fromName": "Lausanne-Triage Est",
+        "toName": "Bussigny"
+      }
+    ],
+    "202": [
+      {
+        "seg": "202.01",
+        "from": "BRA",
+        "to": "DAY",
+        "fromName": "81a5410a-0052-428f-b459-fa811404c0cb",
+        "toName": "Le Day"
+      },
+      {
+        "seg": "202.01",
+        "from": "DAY",
+        "to": "BRA",
+        "fromName": "Le Day",
+        "toName": "81a5410a-0052-428f-b459-fa811404c0cb"
+      }
+    ],
+    "203": [
+      {
+        "seg": "203.01",
+        "from": "CHV",
+        "to": "ORBE",
+        "fromName": "Chavornay",
+        "toName": "Orbe-Industrie (marchandises)"
+      }
+    ],
+    "211": [
+      {
+        "seg": "211.01",
+        "from": "LS",
+        "to": "VV",
+        "fromName": "Lausanne",
+        "toName": "Vevey"
+      },
+      {
+        "seg": "211.01",
+        "from": "VV",
+        "to": "LS",
+        "fromName": "Vevey",
+        "toName": "Lausanne"
+      },
+      {
+        "seg": "211.02",
+        "from": "AIG",
+        "to": "VV",
+        "fromName": "Aigle",
+        "toName": "Vevey"
+      },
+      {
+        "seg": "211.02",
+        "from": "VV",
+        "to": "AIG",
+        "fromName": "Vevey",
+        "toName": "Aigle"
+      },
+      {
+        "seg": "211.03",
+        "from": "AIG",
+        "to": "ST",
+        "fromName": "Aigle",
+        "toName": "St-Triphon"
+      },
+      {
+        "seg": "211.03",
+        "from": "ST",
+        "to": "AIG",
+        "fromName": "St-Triphon",
+        "toName": "Aigle"
+      },
+      {
+        "seg": "211.04",
+        "from": "PDS",
+        "to": "ST",
+        "fromName": "Les Paluds",
+        "toName": "St-Triphon"
+      },
+      {
+        "seg": "211.04",
+        "from": "ST",
+        "to": "PDS",
+        "fromName": "St-Triphon",
+        "toName": "Les Paluds"
+      },
+      {
+        "seg": "211.05",
+        "from": "MA",
+        "to": "PDS",
+        "fromName": "Martigny",
+        "toName": "Les Paluds"
+      },
+      {
+        "seg": "211.05",
+        "from": "PDS",
+        "to": "MA",
+        "fromName": "Les Paluds",
+        "toName": "Martigny"
+      },
+      {
+        "seg": "211.06",
+        "from": "MA",
+        "to": "SIO",
+        "fromName": "Martigny",
+        "toName": "Sion"
+      },
+      {
+        "seg": "211.06",
+        "from": "SIO",
+        "to": "MA",
+        "fromName": "Sion",
+        "toName": "Martigny"
+      }
+    ],
+    "221": [
+      {
+        "seg": "221.01",
+        "from": "SIE",
+        "to": "SIO",
+        "fromName": "Sierre/Siders",
+        "toName": "Sion"
+      },
+      {
+        "seg": "221.01",
+        "from": "SIO",
+        "to": "SIE",
+        "fromName": "Sion",
+        "toName": "Sierre/Siders"
+      },
+      {
+        "seg": "221.02",
+        "from": "GA",
+        "to": "SIE",
+        "fromName": "Gampel-Steg",
+        "toName": "Sierre/Siders"
+      },
+      {
+        "seg": "221.02",
+        "from": "SIE",
+        "to": "GA",
+        "fromName": "Sierre/Siders",
+        "toName": "Gampel-Steg"
+      },
+      {
+        "seg": "221.03",
+        "from": "GA",
+        "to": "STGE",
+        "fromName": "Gampel-Steg",
+        "toName": "St. German (Abzw)"
+      },
+      {
+        "seg": "221.03",
+        "from": "STGE",
+        "to": "GA",
+        "fromName": "St. German (Abzw)",
+        "toName": "Gampel-Steg"
+      },
+      {
+        "seg": "221.04",
+        "from": "STGE",
+        "to": "VI",
+        "fromName": "St. German (Abzw)",
+        "toName": "Visp"
+      },
+      {
+        "seg": "221.04",
+        "from": "VI",
+        "to": "STGE",
+        "fromName": "Visp",
+        "toName": "St. German (Abzw)"
+      },
+      {
+        "seg": "221.05",
+        "from": "BRLO",
+        "to": "VI",
+        "fromName": "Brig-Lötschberg (Abzw)",
+        "toName": "Visp"
+      },
+      {
+        "seg": "221.05",
+        "from": "VI",
+        "to": "BRLO",
+        "fromName": "Visp",
+        "toName": "Brig-Lötschberg (Abzw)"
+      },
+      {
+        "seg": "221.06",
+        "from": "BR",
+        "to": "BRLO",
+        "fromName": "Brig",
+        "toName": "Brig-Lötschberg (Abzw)"
+      },
+      {
+        "seg": "221.06",
+        "from": "BRLO",
+        "to": "BR",
+        "fromName": "Brig-Lötschberg (Abzw)",
+        "toName": "Brig"
+      },
+      {
+        "seg": "221.07",
+        "from": "BR",
+        "to": "IS",
+        "fromName": "Brig",
+        "toName": "Iselle di Trasquera"
+      },
+      {
+        "seg": "221.07",
+        "from": "IS",
+        "to": "BR",
+        "fromName": "Iselle di Trasquera",
+        "toName": "Brig"
+      },
+      {
+        "seg": "221.08",
+        "from": "DOBI",
+        "to": "IS",
+        "fromName": "Domodossola (bif)",
+        "toName": "Iselle di Trasquera"
+      },
+      {
+        "seg": "221.08",
+        "from": "IS",
+        "to": "DOBI",
+        "fromName": "Iselle di Trasquera",
+        "toName": "Domodossola (bif)"
+      },
+      {
+        "seg": "221.09",
+        "from": "DOBI",
+        "to": "DOFS",
+        "fromName": "Domodossola (bif)",
+        "toName": "Domodossola SBB (fiktiv)"
+      },
+      {
+        "seg": "221.09",
+        "from": "DOFS",
+        "to": "DOBI",
+        "fromName": "Domodossola SBB (fiktiv)",
+        "toName": "Domodossola (bif)"
+      }
+    ],
+    "222": [
+      {
+        "seg": "222.01",
+        "from": "DO2",
+        "to": "DOBI",
+        "fromName": "DOMO II SBB (fiktiv)",
+        "toName": "Domodossola (bif)"
+      },
+      {
+        "seg": "222.01",
+        "from": "DOBI",
+        "to": "DO2",
+        "fromName": "Domodossola (bif)",
+        "toName": "DOMO II SBB (fiktiv)"
+      }
+    ],
+    "231": [
+      {
+        "seg": "231.01",
+        "from": "PUI",
+        "to": "VV",
+        "fromName": "Puidoux",
+        "toName": "Vevey"
+      }
+    ],
+    "232": [
+      {
+        "seg": "232.01",
+        "from": "MTH",
+        "to": "STGI",
+        "fromName": "Monthey",
+        "toName": "St-Gingolph (Suisse)"
+      },
+      {
+        "seg": "232.01",
+        "from": "STGI",
+        "to": "MTH",
+        "fromName": "St-Gingolph (Suisse)",
+        "toName": "Monthey"
+      },
+      {
+        "seg": "232.02",
+        "from": "MTH",
+        "to": "PDS",
+        "fromName": "Monthey",
+        "toName": "Les Paluds"
+      },
+      {
+        "seg": "232.02",
+        "from": "PDS",
+        "to": "MTH",
+        "fromName": "Les Paluds",
+        "toName": "Monthey"
+      }
+    ],
+    "241": [
+      {
+        "seg": "241.01",
+        "from": "LSBI",
+        "to": "LSSB",
+        "fromName": "Lausanne (bif)",
+        "toName": "Renens VD Est (bif)"
+      },
+      {
+        "seg": "241.01",
+        "from": "RENB",
+        "to": "LSSB",
+        "fromName": "Renens VD Est (bif)",
+        "toName": "Lausanne (bif)"
+      }
+    ],
+    "252": [
+      {
+        "seg": "252.01",
+        "from": "AV",
+        "to": "PAY",
+        "fromName": "Avenches",
+        "toName": "Payerne"
+      },
+      {
+        "seg": "252.01",
+        "from": "PAY",
+        "to": "AV",
+        "fromName": "Payerne",
+        "toName": "Avenches"
+      },
+      {
+        "seg": "252.02",
+        "from": "AV",
+        "to": "MRT",
+        "fromName": "Avenches",
+        "toName": "Murten/Morat"
+      },
+      {
+        "seg": "252.03",
+        "from": "MRT",
+        "to": "MUN",
+        "fromName": "Murten/Morat",
+        "toName": "Muntelier"
+      },
+      {
+        "seg": "252.03",
+        "from": "MUN",
+        "to": "MRT",
+        "fromName": "Muntelier",
+        "toName": "Murten/Morat"
+      },
+      {
+        "seg": "252.04",
+        "from": "KZ",
+        "to": "MUN",
+        "fromName": "Kerzers",
+        "toName": "Muntelier"
+      },
+      {
+        "seg": "252.04",
+        "from": "MUN",
+        "to": "KZ",
+        "fromName": "Muntelier",
+        "toName": "Kerzers"
+      },
+      {
+        "seg": "252.05",
+        "from": "ABE",
+        "to": "KZ",
+        "fromName": "Aarberg",
+        "toName": "Kerzers"
+      },
+      {
+        "seg": "252.05",
+        "from": "KZ",
+        "to": "ABE",
+        "fromName": "Kerzers",
+        "toName": "Aarberg"
+      },
+      {
+        "seg": "252.06",
+        "from": "ABE",
+        "to": "LY",
+        "fromName": "Aarberg",
+        "toName": "Lyss"
+      },
+      {
+        "seg": "252.06",
+        "from": "LY",
+        "to": "ABE",
+        "fromName": "Lyss",
+        "toName": "Aarberg"
+      },
+      {
+        "seg": "252.07",
+        "from": "BUER",
+        "to": "BUS",
+        "fromName": "Büren an der Aare",
+        "toName": "Busswil BE"
+      },
+      {
+        "seg": "252.07",
+        "from": "BUS",
+        "to": "BUER",
+        "fromName": "Busswil BE",
+        "toName": "Büren an der Aare"
+      }
+    ],
+    "254": [
+      {
+        "seg": "254.01",
+        "from": "BUL",
+        "to": "ROM",
+        "fromName": "Bulle",
+        "toName": "Romont FR"
+      },
+      {
+        "seg": "254.01",
+        "from": "ROM",
+        "to": "BUL",
+        "fromName": "Romont FR",
+        "toName": "Bulle"
+      }
+    ],
+    "255": [
+      {
+        "seg": "255.01",
+        "from": "GIVO",
+        "to": "MRT",
+        "fromName": "Givisiez Ouest",
+        "toName": "Murten/Morat"
+      },
+      {
+        "seg": "255.01",
+        "from": "MRT",
+        "to": "GIVO",
+        "fromName": "Murten/Morat",
+        "toName": "Givisiez Ouest"
+      },
+      {
+        "seg": "255.02",
+        "from": "INS",
+        "to": "MUN",
+        "fromName": "Ins",
+        "toName": "Muntelier"
+      },
+      {
+        "seg": "255.02",
+        "from": "MUN",
+        "to": "INS",
+        "fromName": "Muntelier",
+        "toName": "Ins"
+      }
+    ],
+    "261": [
+      {
+        "seg": "261.01",
+        "from": "PAY",
+        "to": "YV",
+        "fromName": "Payerne",
+        "toName": "Yverdon-les-Bains"
+      },
+      {
+        "seg": "261.01",
+        "from": "YV",
+        "to": "PAY",
+        "fromName": "Yverdon-les-Bains",
+        "toName": "Payerne"
+      },
+      {
+        "seg": "261.01",
+        "from": "GIV",
+        "to": "GIVD",
+        "fromName": "Givisiez",
+        "toName": "Givisiez dépôt"
+      },
+      {
+        "seg": "261.02",
+        "from": "GIVO",
+        "to": "PAY",
+        "fromName": "Givisiez Ouest",
+        "toName": "Payerne"
+      },
+      {
+        "seg": "261.02",
+        "from": "PAY",
+        "to": "GIVO",
+        "fromName": "Payerne",
+        "toName": "Givisiez Ouest"
+      },
+      {
+        "seg": "261.03",
+        "from": "FRI",
+        "to": "GIVO",
+        "fromName": "Fribourg/Freiburg",
+        "toName": "Givisiez Ouest"
+      },
+      {
+        "seg": "261.03",
+        "from": "GIVO",
+        "to": "FRI",
+        "fromName": "Givisiez Ouest",
+        "toName": "Fribourg/Freiburg"
+      }
+    ],
+    "271": [
+      {
+        "seg": "271.01",
+        "from": "VER",
+        "to": "VERF",
+        "fromName": "Les Verrières",
+        "toName": "Les Verrières-Frontière"
+      },
+      {
+        "seg": "271.01",
+        "from": "VERF",
+        "to": "VER",
+        "fromName": "Les Verrières-Frontière",
+        "toName": "Les Verrières"
+      },
+      {
+        "seg": "271.02",
+        "from": "TR",
+        "to": "VER",
+        "fromName": "Travers",
+        "toName": "Les Verrières"
+      },
+      {
+        "seg": "271.02",
+        "from": "VER",
+        "to": "TR",
+        "fromName": "Les Verrières",
+        "toName": "Travers"
+      },
+      {
+        "seg": "271.03",
+        "from": "AUV",
+        "to": "TR",
+        "fromName": "Auvernier",
+        "toName": "Travers"
+      },
+      {
+        "seg": "271.03",
+        "from": "TR",
+        "to": "AUV",
+        "fromName": "Travers",
+        "toName": "Auvernier"
+      }
+    ],
+    "272": [
+      {
+        "seg": "272.01",
+        "from": "LOC",
+        "to": "LOCF",
+        "fromName": "Le Locle",
+        "toName": "Le Locle-Frontière"
+      },
+      {
+        "seg": "272.01",
+        "from": "LOCF",
+        "to": "LOC",
+        "fromName": "Le Locle-Frontière",
+        "toName": "Le Locle"
+      },
+      {
+        "seg": "272.02",
+        "from": "CF",
+        "to": "LOC",
+        "fromName": "La Chaux-de-Fonds",
+        "toName": "Le Locle"
+      },
+      {
+        "seg": "272.02",
+        "from": "LOC",
+        "to": "CF",
+        "fromName": "Le Locle",
+        "toName": "La Chaux-de-Fonds"
+      },
+      {
+        "seg": "272.03",
+        "from": "CF",
+        "to": "NEBI",
+        "fromName": "La Chaux-de-Fonds",
+        "toName": "Neuchâtel-Vauseyon (bif)"
+      },
+      {
+        "seg": "272.03",
+        "from": "NEBI",
+        "to": "CF",
+        "fromName": "Neuchâtel-Vauseyon (bif)",
+        "toName": "La Chaux-de-Fonds"
+      }
+    ],
+    "273": [
+      {
+        "seg": "273.01",
+        "from": "TR",
+        "to": "FLE",
+        "fromName": "Travers",
+        "toName": "Fleurier"
+      },
+      {
+        "seg": "273.01",
+        "from": "FLE",
+        "to": "SSP",
+        "fromName": "Fleurier",
+        "toName": "St-Sulpice NE"
+      },
+      {
+        "seg": "273.02",
+        "from": "FLE",
+        "to": "BT",
+        "fromName": "Fleurier",
+        "toName": "Buttes"
+      }
+    ],
+    "281": [
+      {
+        "seg": "281.01",
+        "from": "CF",
+        "to": "SCB",
+        "fromName": "La Chaux-de-Fonds",
+        "toName": "Sonceboz-Sombeval"
+      },
+      {
+        "seg": "281.01",
+        "from": "SCB",
+        "to": "CF",
+        "fromName": "Sonceboz-Sombeval",
+        "toName": "La Chaux-de-Fonds"
+      },
+      {
+        "seg": "281.02",
+        "from": "REU",
+        "to": "SCB",
+        "fromName": "Reuchenette-Péry",
+        "toName": "Sonceboz-Sombeval"
+      },
+      {
+        "seg": "281.02",
+        "from": "SCB",
+        "to": "REU",
+        "fromName": "Sonceboz-Sombeval",
+        "toName": "Reuchenette-Péry"
+      },
+      {
+        "seg": "281.03",
+        "from": "BI",
+        "to": "REU",
+        "fromName": "Biel/Bienne",
+        "toName": "Reuchenette-Péry"
+      },
+      {
+        "seg": "281.03",
+        "from": "REU",
+        "to": "BI",
+        "fromName": "Reuchenette-Péry",
+        "toName": "Biel/Bienne"
+      }
+    ],
+    "282": [
+      {
+        "seg": "282.01",
+        "from": "MOU",
+        "to": "TA",
+        "fromName": "Moutier",
+        "toName": "Tavannes"
+      },
+      {
+        "seg": "282.01",
+        "from": "TA",
+        "to": "MOU",
+        "fromName": "Tavannes",
+        "toName": "Moutier"
+      },
+      {
+        "seg": "282.02",
+        "from": "SCB",
+        "to": "TA",
+        "fromName": "Sonceboz-Sombeval",
+        "toName": "Tavannes"
+      },
+      {
+        "seg": "282.02",
+        "from": "TA",
+        "to": "SCB",
+        "fromName": "Tavannes",
+        "toName": "Sonceboz-Sombeval"
+      }
+    ],
+    "291": [
+      {
+        "seg": "291.01",
+        "from": "MOU",
+        "to": "DMT",
+        "fromName": "Moutier",
+        "toName": "Delémont"
+      },
+      {
+        "seg": "291.02",
+        "from": "LEN",
+        "to": "MOU",
+        "fromName": "Lengnau BE",
+        "toName": "Moutier"
+      },
+      {
+        "seg": "291.02",
+        "from": "MOU",
+        "to": "LEN",
+        "fromName": "Moutier",
+        "toName": "Lengnau BE"
+      }
+    ],
+    "292": [
+      {
+        "seg": "292.01",
+        "from": "CTM",
+        "to": "DLF",
+        "fromName": "Courtemaîche",
+        "toName": "Delle-Frontière"
+      },
+      {
+        "seg": "292.01",
+        "from": "DLF",
+        "to": "CTM",
+        "fromName": "Delle-Frontière",
+        "toName": "Courtemaîche"
+      },
+      {
+        "seg": "292.01",
+        "from": "BURE",
+        "to": "CTM",
+        "fromName": "Bure-Casernes",
+        "toName": "Courtemaîche"
+      },
+      {
+        "seg": "292.02",
+        "from": "CTM",
+        "to": "POR",
+        "fromName": "Courtemaîche",
+        "toName": "Porrentruy"
+      },
+      {
+        "seg": "292.02",
+        "from": "POR",
+        "to": "CTM",
+        "fromName": "Porrentruy",
+        "toName": "Courtemaîche"
+      },
+      {
+        "seg": "292.03",
+        "from": "CTM",
+        "to": "POR",
+        "fromName": "Glovelier",
+        "toName": "Porrentruy"
+      },
+      {
+        "seg": "292.03",
+        "from": "POR",
+        "to": "GLO",
+        "fromName": "Porrentruy",
+        "toName": "Glovelier"
+      },
+      {
+        "seg": "292.05",
+        "from": "DMT",
+        "to": "GLO",
+        "fromName": "Delémont",
+        "toName": "Glovelier"
+      },
+      {
+        "seg": "292.05",
+        "from": "GLO",
+        "to": "DMT",
+        "fromName": "Glovelier",
+        "toName": "Delémont"
+      }
+    ],
+    "301": [
+      {
+        "seg": "301.01",
+        "from": "LS",
+        "to": "LSBI",
+        "fromName": "Lausanne",
+        "toName": "Lausanne (bif)"
+      },
+      {
+        "seg": "301.01",
+        "from": "LSBI",
+        "to": "LS",
+        "fromName": "Lausanne (bif)",
+        "toName": "Lausanne"
+      },
+      {
+        "seg": "301.01",
+        "from": "NE",
+        "to": "NEBI",
+        "fromName": "Neuchâtel",
+        "toName": "Neuchâtel-Vauseyon (bif)"
+      },
+      {
+        "seg": "301.01",
+        "from": "NEBI",
+        "to": "NE",
+        "fromName": "Neuchâtel-Vauseyon (bif)",
+        "toName": "Neuchâtel"
+      },
+      {
+        "seg": "301.02",
+        "from": "LSBI",
+        "to": "RENB",
+        "fromName": "Lausanne (bif)",
+        "toName": "Renens VD Est (bif)"
+      },
+      {
+        "seg": "301.02",
+        "from": "RENB",
+        "to": "LSBI",
+        "fromName": "Renens VD Est (bif)",
+        "toName": "Lausanne (bif)"
+      },
+      {
+        "seg": "301.03",
+        "from": "RENB",
+        "to": "RENO",
+        "fromName": "Renens VD Est (bif)",
+        "toName": "Renens VD Ouest (bif)"
+      },
+      {
+        "seg": "301.03",
+        "from": "RENO",
+        "to": "RENB",
+        "fromName": "Renens VD Ouest (bif)",
+        "toName": "Renens VD Est (bif)"
+      },
+      {
+        "seg": "301.04",
+        "from": "RENO",
+        "to": "BY",
+        "fromName": "Renens VD Ouest (bif)",
+        "toName": "Bussigny"
+      },
+      {
+        "seg": "301.04",
+        "from": "RENO",
+        "to": "RENB",
+        "fromName": "Bussigny",
+        "toName": "Renens VD Ouest (bif)"
+      },
+      {
+        "seg": "301.05",
+        "from": "BY",
+        "to": "DAIL",
+        "fromName": "Bussigny",
+        "toName": "Daillens"
+      },
+      {
+        "seg": "301.05",
+        "from": "DAIL",
+        "to": "BY",
+        "fromName": "Daillens",
+        "toName": "Bussigny"
+      },
+      {
+        "seg": "301.06",
+        "from": "CHV",
+        "to": "DAIL",
+        "fromName": "Chavornay",
+        "toName": "Daillens"
+      },
+      {
+        "seg": "301.06",
+        "from": "DAIL",
+        "to": "CHV",
+        "fromName": "Daillens",
+        "toName": "Chavornay"
+      },
+      {
+        "seg": "301.07",
+        "from": "CHV",
+        "to": "YE",
+        "fromName": "Chavornay",
+        "toName": "Yverdon-les-Bains"
+      },
+      {
+        "seg": "301.07",
+        "from": "YE",
+        "to": "CHV",
+        "fromName": "Yverdon-les-Bains",
+        "toName": "Chavornay"
+      },
+      {
+        "seg": "301.08",
+        "from": "AUV",
+        "to": "YV",
+        "fromName": "Auvernier",
+        "toName": "Yverdon-les-Bains"
+      },
+      {
+        "seg": "301.09",
+        "from": "AUV",
+        "to": "NEBI",
+        "fromName": "Auvernier",
+        "toName": "Neuchâtel-Vauseyon (bif)"
+      },
+      {
+        "seg": "301.09",
+        "from": "NEB",
+        "to": "AUV",
+        "fromName": "Neuchâtel-Vauseyon (bif)",
+        "toName": "Auvernier"
+      },
+      {
+        "seg": "301.11",
+        "from": "NE",
+        "to": "NEMA",
+        "fromName": "Neuchâtel",
+        "toName": "Neuchâtel Est (bif)"
+      },
+      {
+        "seg": "301.11",
+        "from": "NEMA",
+        "to": "NE",
+        "fromName": "Neuchâtel Est (bif)",
+        "toName": "Neuchâtel"
+      },
+      {
+        "seg": "301.12",
+        "from": "CORN",
+        "to": "NEMA",
+        "fromName": "Cornaux NE",
+        "toName": "Neuchâtel Est (bif)"
+      },
+      {
+        "seg": "301.12",
+        "from": "NEMA",
+        "to": "CORN",
+        "fromName": "Neuchâtel Est (bif)",
+        "toName": "Cornaux NE"
+      },
+      {
+        "seg": "301.13",
+        "from": "BI",
+        "to": "CORN",
+        "fromName": "Biel/Bienne",
+        "toName": "Cornaux NE"
+      },
+      {
+        "seg": "301.13",
+        "from": "CORN",
+        "to": "BI",
+        "fromName": "Cornaux NE",
+        "toName": "Biel/Bienne"
+      }
+    ],
+    "311": [
+      {
+        "seg": "311.01",
+        "from": "BI",
+        "to": "BIMA",
+        "fromName": "Biel/Bienne",
+        "toName": "Biel Mett"
+      },
+      {
+        "seg": "311.01",
+        "from": "BIMA",
+        "to": "BI",
+        "fromName": "Biel Mett",
+        "toName": "Biel/Bienne"
+      },
+      {
+        "seg": "311.01",
+        "from": "BI",
+        "to": "BIPO",
+        "fromName": "Biel/Bienne",
+        "toName": "Biel Mett (Abzw)"
+      },
+      {
+        "seg": "311.02",
+        "from": "BIMA",
+        "to": "LEN",
+        "fromName": "Biel Mett (Abzw)",
+        "toName": "Lengnau BE"
+      },
+      {
+        "seg": "311.02",
+        "from": "LEN",
+        "to": "BIMA",
+        "fromName": "Lengnau BE",
+        "toName": "Biel Mett (Abzw)"
+      },
+      {
+        "seg": "311.03",
+        "from": "LEN",
+        "to": "SW",
+        "fromName": "Lengnau BE",
+        "toName": "Solothurn West"
+      },
+      {
+        "seg": "311.03",
+        "from": "SW",
+        "to": "LEN",
+        "fromName": "Solothurn West",
+        "toName": "Lengnau BE"
+      },
+      {
+        "seg": "311.04",
+        "from": "SO",
+        "to": "SW",
+        "fromName": "Solothurn",
+        "toName": "Solothurn West"
+      },
+      {
+        "seg": "311.04",
+        "from": "SW",
+        "to": "SO",
+        "fromName": "Solothurn West",
+        "toName": "Solothurn"
+      },
+      {
+        "seg": "311.05",
+        "from": "NB",
+        "to": "SO",
+        "fromName": "Niederbipp",
+        "toName": "Solothurn"
+      },
+      {
+        "seg": "311.05",
+        "from": "SO",
+        "to": "NB",
+        "fromName": "Solothurn",
+        "toName": "Niederbipp"
+      },
+      {
+        "seg": "311.06",
+        "from": "NB",
+        "to": "OEN",
+        "fromName": "Niederbipp",
+        "toName": "Oensingen"
+      },
+      {
+        "seg": "311.06",
+        "from": "OEN",
+        "to": "NB",
+        "fromName": "Oensingen",
+        "toName": "Niederbipp"
+      },
+      {
+        "seg": "311.07",
+        "from": "OEN",
+        "to": "OL",
+        "fromName": "Oensingen",
+        "toName": "Olten"
+      },
+      {
+        "seg": "311.07",
+        "from": "OL",
+        "to": "OEN",
+        "fromName": "Olten",
+        "toName": "Oensingen"
+      }
+    ],
+    "321": [
+      {
+        "seg": "321.01",
+        "from": "BI",
+        "to": "MAD",
+        "fromName": "Biel/Bienne",
+        "toName": "Madretsch"
+      },
+      {
+        "seg": "321.01",
+        "from": "MAD",
+        "to": "BI",
+        "fromName": "Madretsch",
+        "toName": "Biel/Bienne"
+      },
+      {
+        "seg": "321.01",
+        "from": "STU",
+        "to": "STUA",
+        "fromName": "Studen BE",
+        "toName": "Studen Auto"
+      },
+      {
+        "seg": "321.02",
+        "from": "BUS",
+        "to": "MAD",
+        "fromName": "Busswil BE",
+        "toName": "Madretsch"
+      },
+      {
+        "seg": "321.02",
+        "from": "MAD",
+        "to": "BUS",
+        "fromName": "Madretsch",
+        "toName": "Busswil BE"
+      },
+      {
+        "seg": "321.04",
+        "from": "BUS",
+        "to": "LY",
+        "fromName": "Busswil BE",
+        "toName": "Lyss"
+      },
+      {
+        "seg": "321.04",
+        "from": "LY",
+        "to": "BUS",
+        "fromName": "Lyss",
+        "toName": "Busswil BE"
+      },
+      {
+        "seg": "321.05",
+        "from": "LY",
+        "to": "ZOL",
+        "fromName": "Lyss",
+        "toName": "Zollikofen"
+      },
+      {
+        "seg": "321.05",
+        "from": "ZOL",
+        "to": "LY",
+        "fromName": "Zollikofen",
+        "toName": "Lyss"
+      }
+    ],
+    "322": [
+      {
+        "seg": "322.01",
+        "from": "LGUS",
+        "to": "WKD",
+        "fromName": "Löchligut Süd (Abzw)",
+        "toName": "Wankdorf (Abzw)"
+      },
+      {
+        "seg": "322.01",
+        "from": "WKD",
+        "to": "LGUS",
+        "fromName": "Wankdorf (Abzw)",
+        "toName": "Löchligut Süd (Abzw)"
+      },
+      {
+        "seg": "322.02",
+        "from": "BNWD",
+        "to": "WKD",
+        "fromName": "Bern Wankdorf",
+        "toName": "Wankdorf (Abzw)"
+      },
+      {
+        "seg": "322.02",
+        "from": "WKD",
+        "to": "BNWD",
+        "fromName": "Wankdorf (Abzw)",
+        "toName": "Bern Wankdorf"
+      },
+      {
+        "seg": "322.03",
+        "from": "WKD",
+        "to": "GUES",
+        "fromName": "Wankdorf (Abzw)",
+        "toName": "Gümligen Süd (Abzw)"
+      },
+      {
+        "seg": "322.03",
+        "from": "GUES",
+        "to": "WKD",
+        "fromName": "Gümligen Süd (Abzw)",
+        "toName": "Wankdorf (Abzw)"
+      },
+      {
+        "seg": "322.04",
+        "from": "GUES",
+        "to": "THAB",
+        "fromName": "Gümligen Süd (Abzw)",
+        "toName": "Thun (Abzw)"
+      },
+      {
+        "seg": "322.04",
+        "from": "THAB",
+        "to": "GUES",
+        "fromName": "Thun (Abzw)",
+        "toName": "Gümligen Süd (Abzw)"
+      },
+      {
+        "seg": "322.05",
+        "from": "TH",
+        "to": "THAB",
+        "fromName": "Thun",
+        "toName": "Thun (Abzw)"
+      },
+      {
+        "seg": "322.05",
+        "from": "THAB",
+        "to": "TH",
+        "fromName": "Thun (Abzw)",
+        "toName": "Thun"
+      },
+      {
+        "seg": "322.06",
+        "from": "SPAB",
+        "to": "TH",
+        "fromName": "Spiez (Abzw)",
+        "toName": "Thun"
+      },
+      {
+        "seg": "322.06",
+        "from": "TH",
+        "to": "SPAB",
+        "fromName": "Thun",
+        "toName": "Spiez (Abzw)"
+      },
+      {
+        "seg": "322.07",
+        "from": "SP",
+        "to": "SPAB",
+        "fromName": "Spiez",
+        "toName": "Spiez (Abzw)"
+      },
+      {
+        "seg": "322.07",
+        "from": "SPAB",
+        "to": "SP",
+        "fromName": "Spiez (Abzw)",
+        "toName": "Spiez"
+      },
+      {
+        "seg": "322.08",
+        "from": "REIK",
+        "to": "SP",
+        "fromName": "Reichenbach im Kandertal",
+        "toName": "Spiez"
+      },
+      {
+        "seg": "322.08",
+        "from": "SP",
+        "to": "REIK",
+        "fromName": "Spiez",
+        "toName": "Reichenbach im Kandertal"
+      }
+    ],
+    "331": [
+      {
+        "seg": "331.01",
+        "from": "GUES",
+        "to": "KF",
+        "fromName": "Gümligen Süd (Abzw)",
+        "toName": "Konolfingen"
+      },
+      {
+        "seg": "331.01",
+        "from": "KF",
+        "to": "GUES",
+        "fromName": "Konolfingen",
+        "toName": "Gümligen Süd (Abzw)"
+      },
+      {
+        "seg": "331.02",
+        "from": "KF",
+        "to": "OM",
+        "fromName": "Konolfingen",
+        "toName": "Obermatt"
+      },
+      {
+        "seg": "331.02",
+        "from": "OM",
+        "to": "KF",
+        "fromName": "Obermatt",
+        "toName": "Konolfingen"
+      },
+      {
+        "seg": "331.03",
+        "from": "LN",
+        "to": "OM",
+        "fromName": "Langnau i.E.",
+        "toName": "Obermatt"
+      },
+      {
+        "seg": "331.03",
+        "from": "OM",
+        "to": "LN",
+        "fromName": "Obermatt",
+        "toName": "Langnau i.E."
+      }
+    ],
+    "332": [
+      {
+        "seg": "332.01",
+        "from": "LN",
+        "to": "WH",
+        "fromName": "Langnau i.E.",
+        "toName": "Wolhusen"
+      },
+      {
+        "seg": "332.01",
+        "from": "WH",
+        "to": "LN",
+        "fromName": "Wolhusen",
+        "toName": "Langnau i.E."
+      },
+      {
+        "seg": "332.02",
+        "from": "FMUE",
+        "to": "WH",
+        "fromName": "Fluhmühle (Abzw)",
+        "toName": "Wolhusen"
+      },
+      {
+        "seg": "332.02",
+        "from": "WH",
+        "to": "FMUE",
+        "fromName": "Wolhusen",
+        "toName": "Fluhmühle (Abzw)"
+      }
+    ],
+    "341": [
+      {
+        "seg": "341.01",
+        "from": "BS",
+        "to": "RUC",
+        "fromName": "Basel SBB",
+        "toName": "Ruchfeld"
+      },
+      {
+        "seg": "341.01",
+        "from": "RUC",
+        "to": "BS",
+        "fromName": "Ruchfeld",
+        "toName": "Basel SBB"
+      },
+      {
+        "seg": "341.01",
+        "from": "RUC",
+        "to": "BSDS",
+        "fromName": "Ruchfeld",
+        "toName": "Basel SBB Dreispitz"
+      },
+      {
+        "seg": "341.02",
+        "from": "BSJA",
+        "to": "BSVL",
+        "fromName": "Basel St. Jakob",
+        "toName": "Basel SBB GB VL"
+      },
+      {
+        "seg": "341.02",
+        "from": "BSVL",
+        "to": "BSJA",
+        "fromName": "Basel SBB GB VL",
+        "toName": "Basel St. Jakob"
+      },
+      {
+        "seg": "341.03",
+        "from": "BSBG",
+        "to": "BSVL",
+        "fromName": "Basel SBB GB",
+        "toName": "Basel SBB GB VL"
+      },
+      {
+        "seg": "341.03",
+        "from": "BSVL",
+        "to": "BSBG",
+        "fromName": "Basel SBB GB VL",
+        "toName": "Basel SBB GB"
+      },
+      {
+        "seg": "341.04",
+        "from": "BSVL",
+        "to": "RUC",
+        "fromName": "Basel SBB GB VL",
+        "toName": "Ruchfeld"
+      },
+      {
+        "seg": "341.04",
+        "from": "RUC",
+        "to": "BSVL",
+        "fromName": "Ruchfeld",
+        "toName": "Basel SBB GB VL"
+      },
+      {
+        "seg": "341.05",
+        "from": "DMT",
+        "to": "RUC",
+        "fromName": "Delémont",
+        "toName": "Ruchfeld"
+      },
+      {
+        "seg": "341.05",
+        "from": "RUC",
+        "to": "DMT",
+        "fromName": "Ruchfeld",
+        "toName": "Delémont"
+      }
+    ],
+    "351": [
+      {
+        "seg": "351.01",
+        "from": "REIK",
+        "to": "WENE",
+        "fromName": "Reichenbach im Kandertal",
+        "toName": "Wengi-Ey (Abzw)"
+      },
+      {
+        "seg": "351.01",
+        "from": "GO",
+        "to": "GOAR",
+        "fromName": "Goppenstein",
+        "toName": "Goppenstein Autoverlad"
+      },
+      {
+        "seg": "351.02",
+        "from": "FR",
+        "to": "WENE",
+        "fromName": "Frutigen",
+        "toName": "Wengi-Ey (Abzw)"
+      },
+      {
+        "seg": "351.02",
+        "from": "WENE",
+        "to": "FR",
+        "fromName": "Wengi-Ey (Abzw)",
+        "toName": "Frutigen"
+      },
+      {
+        "seg": "351.03",
+        "from": "FR",
+        "to": "KA",
+        "fromName": "Frutigen",
+        "toName": "Kandersteg"
+      },
+      {
+        "seg": "351.03",
+        "from": "KA",
+        "to": "FR",
+        "fromName": "Kandersteg",
+        "toName": "Frutigen"
+      },
+      {
+        "seg": "351.04",
+        "from": "GO",
+        "to": "KA",
+        "fromName": "Goppenstein",
+        "toName": "Kandersteg"
+      },
+      {
+        "seg": "351.04",
+        "from": "KA",
+        "to": "GO",
+        "fromName": "Kandersteg",
+        "toName": "Goppenstein"
+      },
+      {
+        "seg": "351.05",
+        "from": "BRLO",
+        "to": "GO",
+        "fromName": "Brig-Lötschberg (Abzw)",
+        "toName": "Goppenstein"
+      },
+      {
+        "seg": "351.05",
+        "from": "GO",
+        "to": "BRLO",
+        "fromName": "Goppenstein",
+        "toName": "Brig-Lötschberg (Abzw)"
+      }
+    ],
+    "361": [
+      {
+        "seg": "361.01",
+        "from": "IO",
+        "to": "SP",
+        "fromName": "Interlaken Ost",
+        "toName": "Spiez"
+      },
+      {
+        "seg": "361.01",
+        "from": "SP",
+        "to": "IO",
+        "fromName": "Spiez",
+        "toName": "Interlaken Ost"
+      }
+    ],
+    "362": [
+      {
+        "seg": "362.01",
+        "from": "SPAB",
+        "to": "ZW",
+        "fromName": "Spiez (Abzw)",
+        "toName": "Zweisimmen"
+      },
+      {
+        "seg": "362.01",
+        "from": "ZW",
+        "to": "SPAB",
+        "fromName": "Zweisimmen",
+        "toName": "Spiez (Abzw)"
+      }
+    ],
+    "371": [
+      {
+        "seg": "371.01",
+        "from": "BN",
+        "to": "HOL",
+        "fromName": "Bern",
+        "toName": "Bern Holligen"
+      },
+      {
+        "seg": "371.01",
+        "from": "HOL",
+        "to": "BN",
+        "fromName": "Bern Holligen",
+        "toName": "Bern"
+      },
+      {
+        "seg": "371.02",
+        "from": "BNFI",
+        "to": "BNSH",
+        "fromName": "Bern Fischermätteli",
+        "toName": "Bern Steigerhubel (Abzw)"
+      },
+      {
+        "seg": "371.02",
+        "from": "BNSH",
+        "to": "BNFI",
+        "fromName": "Bern Steigerhubel (Abzw)",
+        "toName": "Bern Fischermätteli"
+      },
+      {
+        "seg": "371.03",
+        "from": "BNFI",
+        "to": "THAB",
+        "fromName": "Bern Fischermätteli",
+        "toName": "Thun (Abzw)"
+      },
+      {
+        "seg": "371.03",
+        "from": "THAB",
+        "to": "BNFI",
+        "fromName": "Thun (Abzw)",
+        "toName": "Bern Fischermätteli"
+      }
+    ],
+    "372": [
+      {
+        "seg": "372.01",
+        "from": "BNFI",
+        "to": "SCBG",
+        "fromName": "Bern Fischermätteli",
+        "toName": "Schwarzenburg"
+      },
+      {
+        "seg": "372.01",
+        "from": "SCHB",
+        "to": "BNFI",
+        "fromName": "Schwarzenburg",
+        "toName": "Bern Fischermätteli"
+      }
+    ],
+    "381": [
+      {
+        "seg": "381.01",
+        "from": "HOL",
+        "to": "KZ",
+        "fromName": "Bern Holligen",
+        "toName": "Kerzers"
+      },
+      {
+        "seg": "381.01",
+        "from": "KZ",
+        "to": "HOL",
+        "fromName": "Kerzers",
+        "toName": "Bern Holligen"
+      },
+      {
+        "seg": "381.02",
+        "from": "INS",
+        "to": "KZ",
+        "fromName": "Ins",
+        "toName": "Kerzers"
+      },
+      {
+        "seg": "381.02",
+        "from": "KZ",
+        "to": "INS",
+        "fromName": "Kerzers",
+        "toName": "Ins"
+      },
+      {
+        "seg": "381.03",
+        "from": "NEMA",
+        "to": "INS",
+        "fromName": "Neuchâtel Est (bif)",
+        "toName": "Ins"
+      }
+    ],
+    "391": [
+      {
+        "seg": "391.01",
+        "from": "FRNP",
+        "to": "WENE",
+        "fromName": "Frutigen Nordportal (Abzw)",
+        "toName": "Wengi-Ey (Abzw)"
+      },
+      {
+        "seg": "391.01",
+        "from": "WENE",
+        "to": "FRNP",
+        "fromName": "Wengi-Ey (Abzw)",
+        "toName": "Frutigen Nordportal (Abzw)"
+      },
+      {
+        "seg": "391.02",
+        "from": "FR",
+        "to": "FRNO",
+        "fromName": "Frutigen",
+        "toName": "Frutigen Nordportal (Abzw)"
+      },
+      {
+        "seg": "391.02",
+        "from": "FRNP",
+        "to": "FR",
+        "fromName": "Frutigen Nordportal (Abzw)",
+        "toName": "Frutigen"
+      },
+      {
+        "seg": "391.03",
+        "from": "FRNP",
+        "to": "STGE",
+        "fromName": "Frutigen Nordportal (Abzw)",
+        "toName": "St. German (Abzw)"
+      },
+      {
+        "seg": "391.03",
+        "from": "STGE",
+        "to": "FRNP",
+        "fromName": "St. German (Abzw)",
+        "toName": "Frutigen Nordportal (Abzw)"
+      }
+    ],
+    "411": [
+      {
+        "seg": "411.01",
+        "from": "BS",
+        "to": "BSNO",
+        "fromName": "Basel SBB",
+        "toName": "Basel SBB Nordost (Abzw)"
+      },
+      {
+        "seg": "411.01",
+        "from": "BSNO",
+        "to": "BS",
+        "fromName": "Basel SBB Nordost (Abzw)",
+        "toName": "Basel SBB"
+      },
+      {
+        "seg": "411.01",
+        "from": "OLN",
+        "to": "SIS",
+        "fromName": "Olten Nord (Abzw)",
+        "toName": "Sissach"
+      },
+      {
+        "seg": "411.01",
+        "from": "SIS",
+        "to": "OLN",
+        "fromName": "Sissach",
+        "toName": "Olten Nord (Abzw)"
+      },
+      {
+        "seg": "411.02",
+        "from": "BSNO",
+        "to": "MU",
+        "fromName": "Basel SBB Nordost (Abzw)",
+        "toName": "Muttenz"
+      },
+      {
+        "seg": "411.02",
+        "from": "MU",
+        "to": "BSNO",
+        "fromName": "Muttenz",
+        "toName": "Basel SBB Nordost (Abzw)"
+      },
+      {
+        "seg": "411.02",
+        "from": "OLN",
+        "to": "OLO",
+        "fromName": "Olten Nord (Abzw)",
+        "toName": "Olten Ost (Abzw)"
+      },
+      {
+        "seg": "411.02",
+        "from": "OLO",
+        "to": "OLN",
+        "fromName": "Olten Ost (Abzw)",
+        "toName": "Olten Nord (Abzw)"
+      },
+      {
+        "seg": "411.03",
+        "from": "MUOS",
+        "to": "MU",
+        "fromName": "Muttenz Ost (Abzw)",
+        "toName": "Muttenz"
+      },
+      {
+        "seg": "411.03",
+        "from": "MU",
+        "to": "MUOS",
+        "fromName": "Muttenz",
+        "toName": "Muttenz Ost (Abzw)"
+      },
+      {
+        "seg": "411.04",
+        "from": "LSTN",
+        "to": "MUOS",
+        "fromName": "Liestal Nord (Abzw)",
+        "toName": "Muttenz Ost (Abzw)"
+      },
+      {
+        "seg": "411.04",
+        "from": "MUOS",
+        "to": "LSTN",
+        "fromName": "Muttenz Ost (Abzw)",
+        "toName": "Liestal Nord (Abzw)"
+      },
+      {
+        "seg": "411.05",
+        "from": "MUOS",
+        "to": "PRUW",
+        "fromName": "Muttenz Ost (Abzw)",
+        "toName": "Pratteln Ueberwerfung"
+      },
+      {
+        "seg": "411.05",
+        "from": "PRUW",
+        "to": "MUOS",
+        "fromName": "Pratteln Ueberwerfung",
+        "toName": "Muttenz Ost (Abzw)"
+      },
+      {
+        "seg": "411.06",
+        "from": "PR",
+        "to": "PRUW",
+        "fromName": "Pratteln",
+        "toName": "Pratteln Ueberwerfung"
+      },
+      {
+        "seg": "411.06",
+        "from": "PRUW",
+        "to": "PR",
+        "fromName": "Pratteln Ueberwerfung",
+        "toName": "Pratteln"
+      },
+      {
+        "seg": "411.07",
+        "from": "FRE",
+        "to": "PR",
+        "fromName": "Frenkendorf-Füllinsdorf",
+        "toName": "Pratteln"
+      },
+      {
+        "seg": "411.07",
+        "from": "PR",
+        "to": "FRE",
+        "fromName": "Pratteln",
+        "toName": "Frenkendorf-Füllinsdorf"
+      },
+      {
+        "seg": "411.08",
+        "from": "FRE",
+        "to": "LSTN",
+        "fromName": "Frenkendorf-Füllinsdorf",
+        "toName": "Liestal Nord (Abzw)"
+      },
+      {
+        "seg": "411.08",
+        "from": "LITN",
+        "to": "FRE",
+        "fromName": "Liestal Nord (Abzw)",
+        "toName": "Frenkendorf-Füllinsdorf"
+      },
+      {
+        "seg": "411.09",
+        "from": "SIS",
+        "to": "LSTN",
+        "fromName": "Sissach",
+        "toName": "Liestal Nord (Abzw)"
+      },
+      {
+        "seg": "411.11",
+        "from": "OLN",
+        "to": "OLNO",
+        "fromName": "Olten Nord (Abzw)",
+        "toName": "Olten Nord-Ost (Abzw)"
+      },
+      {
+        "seg": "411.11",
+        "from": "OLNO",
+        "to": "OLN",
+        "fromName": "Olten Nord-Ost (Abzw)",
+        "toName": "Olten Nord (Abzw)"
+      },
+      {
+        "seg": "411.12",
+        "from": "OL",
+        "to": "OLNO",
+        "fromName": "Olten",
+        "toName": "Olten Nord-Ost (Abzw)"
+      },
+      {
+        "seg": "411.12",
+        "from": "OLNO",
+        "to": "OL",
+        "fromName": "Olten Nord-Ost (Abzw)",
+        "toName": "Olten"
+      }
+    ],
+    "421": [
+      {
+        "seg": "421.01",
+        "from": "OLN",
+        "to": "SIS",
+        "fromName": "Olten Nord (Abzw)",
+        "toName": "Sissach"
+      },
+      {
+        "seg": "421.01",
+        "from": "SIS",
+        "to": "OLN",
+        "fromName": "Sissach",
+        "toName": "Olten Nord (Abzw)"
+      }
+    ],
+    "422": [
+      {
+        "seg": "422.01",
+        "from": "ABO",
+        "to": "ABOS",
+        "fromName": "Aarburg-Oftringen",
+        "toName": "Aarburg-Oftringen Süd (Abzw)"
+      },
+      {
+        "seg": "422.01",
+        "from": "ABOS",
+        "to": "ABO",
+        "fromName": "Aarburg-Oftringen Süd (Abzw)",
+        "toName": "Aarburg-Oftringen"
+      },
+      {
+        "seg": "422.02",
+        "from": "ABOS",
+        "to": "ABOW",
+        "fromName": "Aarburg-Oftringen Süd (Abzw)",
+        "toName": "Aarburg-Oftringen West (Abzw)"
+      },
+      {
+        "seg": "422.02",
+        "from": "ABOW",
+        "to": "ABOS",
+        "fromName": "Aarburg-Oftringen West (Abzw)",
+        "toName": "Aarburg-Oftringen Süd (Abzw)"
+      },
+      {
+        "seg": "422.03",
+        "from": "ABOS",
+        "to": "ZF",
+        "fromName": "Aarburg-Oftringen Süd (Abzw)",
+        "toName": "Zofingen"
+      },
+      {
+        "seg": "422.03",
+        "from": "ZF",
+        "to": "ABOS",
+        "fromName": "Zofingen",
+        "toName": "Aarburg-Oftringen Süd (Abzw)"
+      },
+      {
+        "seg": "422.04",
+        "from": "SS",
+        "to": "ZF",
+        "fromName": "Sursee",
+        "toName": "Zofingen"
+      },
+      {
+        "seg": "422.04",
+        "from": "ZF",
+        "to": "SS",
+        "fromName": "Zofingen",
+        "toName": "Sursee"
+      },
+      {
+        "seg": "422.05",
+        "from": "RBG",
+        "to": "SS",
+        "fromName": "Rothenburg Station",
+        "toName": "Sursee"
+      },
+      {
+        "seg": "422.05",
+        "from": "SS",
+        "to": "RBG",
+        "fromName": "Sursee",
+        "toName": "Rothenburg Station"
+      },
+      {
+        "seg": "422.06",
+        "from": "HUEB",
+        "to": "RBG",
+        "fromName": "Hübeli LU",
+        "toName": "Rothenburg Station"
+      },
+      {
+        "seg": "422.06",
+        "from": "RBG",
+        "to": "HUEB",
+        "fromName": "Rothenburg Station",
+        "toName": "Hübeli LU"
+      },
+      {
+        "seg": "422.07",
+        "from": "FMUE",
+        "to": "HUEB",
+        "fromName": "Fluhmühle (Abzw)",
+        "toName": "Hübeli LU"
+      },
+      {
+        "seg": "422.07",
+        "from": "HUEB",
+        "to": "FMUE",
+        "fromName": "Hübeli LU",
+        "toName": "Fluhmühle (Abzw)"
+      },
+      {
+        "seg": "422.08",
+        "from": "FMUE",
+        "to": "GTS",
+        "fromName": "Fluhmühle (Abzw)",
+        "toName": "Gütsch (Abzw)"
+      },
+      {
+        "seg": "422.08",
+        "from": "GTS",
+        "to": "FUME",
+        "fromName": "Gütsch (Abzw)",
+        "toName": "Fluhmühle (Abzw)"
+      },
+      {
+        "seg": "422.09",
+        "from": "GTS",
+        "to": "LZ",
+        "fromName": "Gütsch (Abzw)",
+        "toName": "Luzern"
+      },
+      {
+        "seg": "422.09",
+        "from": "LZ",
+        "to": "GTS",
+        "fromName": "Luzern",
+        "toName": "Gütsch (Abzw)"
+      }
+    ],
+    "431": [
+      {
+        "seg": "431.01",
+        "from": "LB",
+        "to": "HUEB",
+        "fromName": "Lenzburg",
+        "toName": "Hübeli LU"
+      }
+    ],
+    "436": [
+      {
+        "seg": "436.01",
+        "from": "SUHR",
+        "to": "ZF",
+        "fromName": "Suhr",
+        "toName": "Zofingen"
+      },
+      {
+        "seg": "436.01",
+        "from": "ZF",
+        "to": "SUHR",
+        "fromName": "Zofingen",
+        "toName": "Suhr"
+      },
+      {
+        "seg": "436.02",
+        "from": "LB",
+        "to": "SUHR",
+        "fromName": "Lenzburg",
+        "toName": "Suhr"
+      },
+      {
+        "seg": "436.02",
+        "from": "SUHR",
+        "to": "LB",
+        "fromName": "Suhr",
+        "toName": "Lenzburg"
+      },
+      {
+        "seg": "436.03",
+        "from": "GMT",
+        "to": "WE",
+        "fromName": "Gruemet (Abzw)",
+        "toName": "Wettingen"
+      },
+      {
+        "seg": "436.03",
+        "from": "WE",
+        "to": "GMT",
+        "fromName": "Wettingen",
+        "toName": "Gruemet (Abzw)"
+      }
+    ],
+    "461": [
+      {
+        "seg": "461.01",
+        "from": "KOLM",
+        "to": "ZG",
+        "fromName": "Kollermühle (Abzw)",
+        "toName": "Zug"
+      },
+      {
+        "seg": "461.01",
+        "from": "ZG",
+        "to": "KOLM",
+        "fromName": "Zug",
+        "toName": "Kollermühle (Abzw)"
+      },
+      {
+        "seg": "461.02",
+        "from": "KOLM",
+        "to": "RK",
+        "fromName": "Kollermühle (Abzw)",
+        "toName": "Rotkreuz"
+      },
+      {
+        "seg": "461.02",
+        "from": "RK",
+        "to": "KOLM",
+        "fromName": "Rotkreuz",
+        "toName": "Kollermühle (Abzw)"
+      },
+      {
+        "seg": "461.03",
+        "from": "FMUE",
+        "to": "RK",
+        "fromName": "Fluhmühle (Abzw)",
+        "toName": "Rotkreuz"
+      },
+      {
+        "seg": "461.03",
+        "from": "RK",
+        "to": "FMUE",
+        "fromName": "Rotkreuz",
+        "toName": "Fluhmühle (Abzw)"
+      }
+    ],
+    "462": [
+      {
+        "seg": "462.01",
+        "from": "SBG",
+        "to": "TW",
+        "fromName": "Sihlbrugg",
+        "toName": "Thalwil"
+      },
+      {
+        "seg": "462.01",
+        "from": "TW",
+        "to": "SBG",
+        "fromName": "Thalwil",
+        "toName": "Sihlbrugg"
+      },
+      {
+        "seg": "462.02",
+        "from": "SBG",
+        "to": "ZG",
+        "fromName": "Sihlbrugg",
+        "toName": "Zug"
+      },
+      {
+        "seg": "462.02",
+        "from": "ZG",
+        "to": "SBG",
+        "fromName": "Zug",
+        "toName": "Sihlbrugg"
+      },
+      {
+        "seg": "462.03",
+        "from": "GD",
+        "to": "ZG",
+        "fromName": "Arth-Goldau",
+        "toName": "Zug"
+      },
+      {
+        "seg": "462.03",
+        "from": "ZG",
+        "to": "GD",
+        "fromName": "Zug",
+        "toName": "Arth-Goldau"
+      }
+    ],
+    "481": [
+      {
+        "seg": "481.01",
+        "from": "MOU",
+        "to": "SW",
+        "fromName": "Moutier",
+        "toName": "Solothurn West"
+      },
+      {
+        "seg": "481.01",
+        "from": "SW",
+        "to": "MOU",
+        "fromName": "Solothurn West",
+        "toName": "Moutier"
+      }
+    ],
+    "482": [
+      {
+        "seg": "482.01",
+        "from": "BIST",
+        "to": "SO",
+        "fromName": "Biberist Ost",
+        "toName": "Solothurn"
+      },
+      {
+        "seg": "482.01",
+        "from": "SO",
+        "to": "BIST",
+        "fromName": "Solothurn",
+        "toName": "Biberist Ost"
+      },
+      {
+        "seg": "482.02",
+        "from": "BIST",
+        "to": "GLF",
+        "fromName": "Biberist Ost",
+        "toName": "Gerlafingen"
+      },
+      {
+        "seg": "482.02",
+        "from": "GLF",
+        "to": "BIST",
+        "fromName": "Gerlafingen",
+        "toName": "Biberist Ost"
+      },
+      {
+        "seg": "482.03",
+        "from": "GLF",
+        "to": "WR",
+        "fromName": "Gerlafingen",
+        "toName": "Wiler"
+      },
+      {
+        "seg": "482.03",
+        "from": "WR",
+        "to": "GLF",
+        "fromName": "Wiler",
+        "toName": "Gerlafingen"
+      },
+      {
+        "seg": "482.04",
+        "from": "BDF",
+        "to": "WR",
+        "fromName": "Burgdorf",
+        "toName": "Wiler"
+      },
+      {
+        "seg": "482.04",
+        "from": "WR",
+        "to": "BDF",
+        "fromName": "Wiler",
+        "toName": "Burgdorf"
+      }
+    ],
+    "483": [
+      {
+        "seg": "483.01",
+        "from": "BDF",
+        "to": "OBB",
+        "fromName": "Burgdorf",
+        "toName": "Oberburg"
+      },
+      {
+        "seg": "483.01",
+        "from": "OBB",
+        "to": "BDF",
+        "fromName": "Oberburg",
+        "toName": "Burgdorf"
+      },
+      {
+        "seg": "483.02",
+        "from": "HA",
+        "to": "OBB",
+        "fromName": "Hasle-Rüegsau",
+        "toName": "Oberburg"
+      },
+      {
+        "seg": "483.02",
+        "from": "OBB",
+        "to": "HA",
+        "fromName": "Oberburg",
+        "toName": "Hasle-Rüegsau"
+      },
+      {
+        "seg": "483.03",
+        "from": "HA",
+        "to": "RAM",
+        "fromName": "Hasle-Rüegsau",
+        "toName": "Ramsei"
+      },
+      {
+        "seg": "483.03",
+        "from": "RAM",
+        "to": "HA",
+        "fromName": "Ramsei",
+        "toName": "Hasle-Rüegsau"
+      },
+      {
+        "seg": "483.04",
+        "from": "LN",
+        "to": "OM",
+        "fromName": "Obermatt",
+        "toName": "Ramsei"
+      },
+      {
+        "seg": "483.04",
+        "from": "OM",
+        "to": "LN",
+        "fromName": "Ramsei",
+        "toName": "Obermatt"
+      }
+    ],
+    "484": [
+      {
+        "seg": "484.01",
+        "from": "HA",
+        "to": "KF",
+        "fromName": "Hasle-Rüegsau",
+        "toName": "Konolfingen"
+      },
+      {
+        "seg": "484.01",
+        "from": "KF",
+        "to": "HA",
+        "fromName": "Konolfingen",
+        "toName": "Hasle-Rüegsau"
+      },
+      {
+        "seg": "484.02",
+        "from": "KF",
+        "to": "THAB",
+        "fromName": "Konolfingen",
+        "toName": "Thun (Abzw)"
+      },
+      {
+        "seg": "484.02",
+        "from": "THAB",
+        "to": "KF",
+        "fromName": "Thun (Abzw)",
+        "toName": "Konolfingen"
+      }
+    ],
+    "491": [
+      {
+        "seg": "491.01",
+        "from": "RAM",
+        "to": "SWG",
+        "fromName": "Ramsei",
+        "toName": "Sumiswald-Grünen"
+      },
+      {
+        "seg": "491.01",
+        "from": "SWG",
+        "to": "RAM",
+        "fromName": "Sumiswald-Grünen",
+        "toName": "Ramsei"
+      }
+    ],
+    "493": [
+      {
+        "seg": "493.01",
+        "from": "HWIL",
+        "to": "LTH",
+        "fromName": "Huttwil",
+        "toName": "Langenthal"
+      },
+      {
+        "seg": "493.01",
+        "from": "LTH",
+        "to": "HWIL",
+        "fromName": "Langenthal",
+        "toName": "Huttwil"
+      },
+      {
+        "seg": "493.02",
+        "from": "HWIL",
+        "to": "ZELL",
+        "fromName": "Huttwil",
+        "toName": "Zell LU"
+      },
+      {
+        "seg": "493.02",
+        "from": "ZELL",
+        "to": "HWIL",
+        "fromName": "Zell LU",
+        "toName": "Huttwil"
+      },
+      {
+        "seg": "493.03",
+        "from": "GET",
+        "to": "ZELL",
+        "fromName": "Gettnau",
+        "toName": "Zell LU"
+      },
+      {
+        "seg": "493.03",
+        "from": "ZELL",
+        "to": "GET",
+        "fromName": "Zell LU",
+        "toName": "Gettnau"
+      },
+      {
+        "seg": "493.04",
+        "from": "GET",
+        "to": "MAU",
+        "fromName": "Gettnau",
+        "toName": "Menznau"
+      },
+      {
+        "seg": "493.04",
+        "from": "MAU",
+        "to": "GET",
+        "fromName": "Menznau",
+        "toName": "Gettnau"
+      },
+      {
+        "seg": "493.05",
+        "from": "MAU",
+        "to": "WH",
+        "fromName": "Menznau",
+        "toName": "Wolhusen"
+      },
+      {
+        "seg": "493.05",
+        "from": "WH",
+        "to": "MAU",
+        "fromName": "Wolhusen",
+        "toName": "Menznau"
+      }
+    ],
+    "501": [
+      {
+        "seg": "501.01",
+        "from": "BSFR",
+        "to": "BSSJ",
+        "fromName": "Basel Grenze (FR)",
+        "toName": "Basel St. Johann"
+      },
+      {
+        "seg": "501.01",
+        "from": "BSSJ",
+        "to": "BSFR",
+        "fromName": "Basel St. Johann",
+        "toName": "Basel Grenze (FR)"
+      },
+      {
+        "seg": "501.01",
+        "from": "BASEL",
+        "to": "RB",
+        "fromName": "Basel SBB RB Nordkopf (Abzw)",
+        "toName": "Pratteln Ueberwerfung"
+      },
+      {
+        "seg": "501.02",
+        "from": "BS",
+        "to": "BSSJ",
+        "fromName": "Basel SBB",
+        "toName": "Basel St. Johann"
+      },
+      {
+        "seg": "501.02",
+        "from": "BSSJ",
+        "to": "BS",
+        "fromName": "Basel St. Johann",
+        "toName": "Basel SBB"
+      },
+      {
+        "seg": "501.03",
+        "from": "BS",
+        "to": "BSGB",
+        "fromName": "Basel SBB",
+        "toName": "Basel SBB GB"
+      },
+      {
+        "seg": "501.03",
+        "from": "BSGB",
+        "to": "BS",
+        "fromName": "Basel SBB GB",
+        "toName": "Basel SBB"
+      },
+      {
+        "seg": "501.04",
+        "from": "BSGB",
+        "to": "BSJA",
+        "fromName": "Basel SBB GB",
+        "toName": "Basel St. Jakob"
+      },
+      {
+        "seg": "501.04",
+        "from": "BSJA",
+        "to": "BSGB",
+        "fromName": "Basel St. Jakob",
+        "toName": "Basel SBB GB"
+      },
+      {
+        "seg": "501.05",
+        "from": "BSHA",
+        "to": "BSJA",
+        "fromName": "Hagnau (Abzw)",
+        "toName": "Basel St. Jakob"
+      },
+      {
+        "seg": "501.05",
+        "from": "BSJA",
+        "to": "BSHA",
+        "fromName": "Basel St. Jakob",
+        "toName": "Hagnau (Abzw)"
+      }
+    ],
+    "502": [
+      {
+        "seg": "502.01",
+        "from": "BSKH",
+        "to": "BADH",
+        "fromName": "Basel Kleinhüningen Hafen",
+        "toName": "Basel Bad Rbf KH (Abzw)"
+      },
+      {
+        "seg": "502.01",
+        "from": "BSNO",
+        "to": "GELL",
+        "fromName": "Basel SBB Nordost (Abzw)",
+        "toName": "Gellert"
+      },
+      {
+        "seg": "502.01",
+        "from": "GELL",
+        "to": "BSNO",
+        "fromName": "Gellert",
+        "toName": "Basel SBB Nordost (Abzw)"
+      },
+      {
+        "seg": "502.02",
+        "from": "BAD",
+        "to": "BADH",
+        "fromName": "Basel Bad Bf",
+        "toName": "Basel Bad Rbf KH (Abzw)"
+      },
+      {
+        "seg": "502.02",
+        "from": "BADH",
+        "to": "BAD",
+        "fromName": "Basel Bad Rbf KH (Abzw)",
+        "toName": "Basel Bad Bf"
+      },
+      {
+        "seg": "502.03",
+        "from": "BAD",
+        "to": "GELL",
+        "fromName": "Basel Bad Bf",
+        "toName": "Gellert"
+      },
+      {
+        "seg": "502.03",
+        "from": "GELL",
+        "to": "BAD",
+        "fromName": "Gellert",
+        "toName": "Basel Bad Bf"
+      },
+      {
+        "seg": "502.04",
+        "from": "BSHA",
+        "to": "GELL",
+        "fromName": "Hagnau (Abzw)",
+        "toName": "Gellert"
+      },
+      {
+        "seg": "502.04",
+        "from": "GELL",
+        "to": "BSHA",
+        "fromName": "Gellert",
+        "toName": "Hagnau (Abzw)"
+      },
+      {
+        "seg": "502.05",
+        "from": "BSHA",
+        "to": "BSNK",
+        "fromName": "Hagnau (Abzw)",
+        "toName": "Basel SBB RB Nordkopf (Abzw)"
+      },
+      {
+        "seg": "502.05",
+        "from": "BSNK",
+        "to": "BSHA",
+        "fromName": "Basel SBB RB Nordkopf (Abzw)",
+        "toName": "Hagnau (Abzw)"
+      },
+      {
+        "seg": "502.06",
+        "from": "BSBH",
+        "to": "BSNK",
+        "fromName": "Birsfelden Hafen",
+        "toName": "Basel SBB RB Nordkopf (Abzw)"
+      },
+      {
+        "seg": "502.06",
+        "from": "BSNK",
+        "to": "BSBH",
+        "fromName": "Basel SBB RB Nordkopf (Abzw)",
+        "toName": "Birsfelden Hafen"
+      },
+      {
+        "seg": "502.07",
+        "from": "BSBH",
+        "to": "SHAL",
+        "fromName": "Birsfelden Hafen",
+        "toName": "Schweizerhalle"
+      },
+      {
+        "seg": "502.07",
+        "from": "SHAL",
+        "to": "BSBH",
+        "fromName": "Schweizerhalle",
+        "toName": "Birsfelden Hafen"
+      },
+      {
+        "seg": "502.08",
+        "from": "BRBE",
+        "to": "SHAL",
+        "fromName": "Basel SBB RB Gr E",
+        "toName": "Schweizerhalle"
+      },
+      {
+        "seg": "502.08",
+        "from": "SHAL",
+        "to": "BRBE",
+        "fromName": "Schweizerhalle",
+        "toName": "Basel SBB RB Gr E"
+      }
+    ],
+    "511": [
+      {
+        "seg": "511.01",
+        "from": "PR",
+        "to": "STS",
+        "fromName": "Pratteln",
+        "toName": "Stein-Säckingen"
+      },
+      {
+        "seg": "511.01",
+        "from": "STS",
+        "to": "PR",
+        "fromName": "Stein-Säckingen",
+        "toName": "Pratteln"
+      },
+      {
+        "seg": "511.02",
+        "from": "BGN",
+        "to": "STS",
+        "fromName": "Brugg AG Nord (Abzw)",
+        "toName": "Stein-Säckingen"
+      },
+      {
+        "seg": "511.02",
+        "from": "STS",
+        "to": "BGN",
+        "fromName": "Stein-Säckingen",
+        "toName": "Brugg AG Nord (Abzw)"
+      },
+      {
+        "seg": "511.03",
+        "from": "BG",
+        "to": "BGN",
+        "fromName": "Brugg AG",
+        "toName": "Brugg AG Nord (Abzw)"
+      },
+      {
+        "seg": "511.03",
+        "from": "BGN",
+        "to": "BG",
+        "fromName": "Brugg AG Nord (Abzw)",
+        "toName": "Brugg AG"
+      }
+    ],
+    "521": [
+      {
+        "seg": "521.01",
+        "from": "BG",
+        "to": "BGS",
+        "fromName": "Brugg AG",
+        "toName": "Brugg AG Süd (Abzw)"
+      },
+      {
+        "seg": "521.01",
+        "from": "BGS",
+        "to": "BG",
+        "fromName": "Brugg AG Süd (Abzw)",
+        "toName": "Brugg AG"
+      },
+      {
+        "seg": "521.02",
+        "from": "BGN",
+        "to": "BGS",
+        "fromName": "Brugg AG Nord (Abzw)",
+        "toName": "Brugg AG Süd (Abzw)"
+      },
+      {
+        "seg": "521.02",
+        "from": "BGS",
+        "to": "BGN",
+        "fromName": "Brugg AG Süd (Abzw)",
+        "toName": "Brugg AG Nord (Abzw)"
+      },
+      {
+        "seg": "521.03",
+        "from": "BGS",
+        "to": "OTH",
+        "fromName": "Brugg AG Süd (Abzw)",
+        "toName": "Othmarsingen"
+      },
+      {
+        "seg": "521.03",
+        "from": "OTH",
+        "to": "BGS",
+        "fromName": "Othmarsingen",
+        "toName": "Brugg AG Süd (Abzw)"
+      },
+      {
+        "seg": "521.04",
+        "from": "HDK",
+        "to": "OTH",
+        "fromName": "Hendschiken",
+        "toName": "Othmarsingen"
+      },
+      {
+        "seg": "521.04",
+        "from": "OTH",
+        "to": "HDK",
+        "fromName": "Othmarsingen",
+        "toName": "Hendschiken"
+      },
+      {
+        "seg": "521.05",
+        "from": "GEXI",
+        "to": "HDK",
+        "fromName": "Gexi",
+        "toName": "Hendschiken"
+      },
+      {
+        "seg": "521.05",
+        "from": "HDK",
+        "to": "GEXI",
+        "fromName": "Hendschiken",
+        "toName": "Gexi"
+      },
+      {
+        "seg": "521.06",
+        "from": "HDK",
+        "to": "WO",
+        "fromName": "Hendschiken",
+        "toName": "Wohlen AG"
+      },
+      {
+        "seg": "521.06",
+        "from": "WO",
+        "to": "HDK",
+        "fromName": "Wohlen AG",
+        "toName": "Hendschiken"
+      },
+      {
+        "seg": "521.07",
+        "from": "RK",
+        "to": "WO",
+        "fromName": "Rotkreuz",
+        "toName": "Wohlen AG"
+      },
+      {
+        "seg": "521.07",
+        "from": "WO",
+        "to": "RK",
+        "fromName": "Wohlen AG",
+        "toName": "Rotkreuz"
+      }
+    ],
+    "531": [
+      {
+        "seg": "531.01",
+        "from": "IM",
+        "to": "RK",
+        "fromName": "Immensee",
+        "toName": "Rotkreuz"
+      },
+      {
+        "seg": "531.01",
+        "from": "RK",
+        "to": "IM",
+        "fromName": "Rotkreuz",
+        "toName": "Immensee"
+      },
+      {
+        "seg": "531.02",
+        "from": "GD",
+        "to": "IM",
+        "fromName": "Arth-Goldau",
+        "toName": "Immensee"
+      },
+      {
+        "seg": "531.02",
+        "from": "IM",
+        "to": "GD",
+        "fromName": "Immensee",
+        "toName": "Arth-Goldau"
+      },
+      {
+        "seg": "531.03",
+        "from": "GD",
+        "to": "RYAB",
+        "fromName": "Arth-Goldau",
+        "toName": "Rynächt (Abzw)"
+      },
+      {
+        "seg": "531.03",
+        "from": "RYAB",
+        "to": "GD",
+        "fromName": "Rynächt (Abzw)",
+        "toName": "Arth-Goldau"
+      },
+      {
+        "seg": "531.06",
+        "from": "ER",
+        "to": "RYAB",
+        "fromName": "Erstfeld",
+        "toName": "Rynächt (Abzw)"
+      },
+      {
+        "seg": "531.06",
+        "from": "RYAB",
+        "to": "ER",
+        "fromName": "Rynächt (Abzw)",
+        "toName": "Erstfeld"
+      },
+      {
+        "seg": "531.07",
+        "from": "ER",
+        "to": "GOE",
+        "fromName": "Erstfeld",
+        "toName": "Göschenen"
+      },
+      {
+        "seg": "531.07",
+        "from": "GOE",
+        "to": "ER",
+        "fromName": "Göschenen",
+        "toName": "Erstfeld"
+      }
+    ],
+    "532": [
+      {
+        "seg": "532.01",
+        "from": "GTS",
+        "to": "IM",
+        "fromName": "Gütsch (Abzw)",
+        "toName": "Immensee"
+      },
+      {
+        "seg": "532.01",
+        "from": "IM",
+        "to": "GTS",
+        "fromName": "Immensee",
+        "toName": "Gütsch (Abzw)"
+      }
+    ],
+    "533": [
+      {
+        "seg": "533.01",
+        "from": "POZZ",
+        "to": "RYN",
+        "fromName": "Pozzo Negro (dira)",
+        "toName": "Rynächt (Abzw)"
+      },
+      {
+        "seg": "533.01",
+        "from": "RYN",
+        "to": "POZZ",
+        "fromName": "Rynächt (Abzw)",
+        "toName": "Pozzo Negro (dira)"
+      },
+      {
+        "seg": "533.02",
+        "from": "GIDI",
+        "to": "POZZ",
+        "fromName": "Giustizia (dira)",
+        "toName": "Pozzo Negro (dira)"
+      },
+      {
+        "seg": "533.02",
+        "from": "POZZ",
+        "to": "GIDI",
+        "fromName": "Pozzo Negro (dira)",
+        "toName": "Giustizia (dira)"
+      },
+      {
+        "seg": "533.03",
+        "from": "GIDI",
+        "to": "POLN",
+        "fromName": "Giustizia (dira)",
+        "toName": "Pollegio Nord (dira)"
+      },
+      {
+        "seg": "533.03",
+        "from": "POLN",
+        "to": "GIDI",
+        "fromName": "Pollegio Nord (dira)",
+        "toName": "Giustizia (dira)"
+      },
+      {
+        "seg": "533.04",
+        "from": "GIDI",
+        "to": "SPAO",
+        "fromName": "Giustizia (dira)",
+        "toName": "Bellinzona S. Paolo"
+      },
+      {
+        "seg": "533.04",
+        "from": "SPAO",
+        "to": "GIDI",
+        "fromName": "Bellinzona S. Paolo",
+        "toName": "Giustizia (dira)"
+      },
+      {
+        "seg": "533.05",
+        "from": "BEL",
+        "to": "SPAO",
+        "fromName": "Bellinzona",
+        "toName": "Bellinzona S. Paolo"
+      },
+      {
+        "seg": "533.05",
+        "from": "SPAO",
+        "to": "BEL",
+        "fromName": "Bellinzona S. Paolo",
+        "toName": "Bellinzona"
+      }
+    ],
+    "541": [
+      {
+        "seg": "541.01",
+        "from": "AI",
+        "to": "GOE",
+        "fromName": "Airolo",
+        "toName": "Göschenen"
+      },
+      {
+        "seg": "541.01",
+        "from": "GOE",
+        "to": "AI",
+        "fromName": "Göschenen",
+        "toName": "Airolo"
+      },
+      {
+        "seg": "541.02",
+        "from": "AI",
+        "to": "BO",
+        "fromName": "Airolo",
+        "toName": "Bodio TI"
+      },
+      {
+        "seg": "541.02",
+        "from": "BO",
+        "to": "AI",
+        "fromName": "Bodio TI",
+        "toName": "Airolo"
+      },
+      {
+        "seg": "541.03",
+        "from": "BO",
+        "to": "POLN",
+        "fromName": "Bodio TI",
+        "toName": "Pollegio Nord (dira)"
+      },
+      {
+        "seg": "541.03",
+        "from": "POLN",
+        "to": "BO",
+        "fromName": "Pollegio Nord (dira)",
+        "toName": "Bodio TI"
+      }
+    ],
+    "542": [
+      {
+        "seg": "542.01",
+        "from": "BEL",
+        "to": "GIU",
+        "fromName": "Bellinzona",
+        "toName": "Giubiasco"
+      },
+      {
+        "seg": "542.01",
+        "from": "GIU",
+        "to": "BEL",
+        "fromName": "Giubiasco",
+        "toName": "Bellinzona"
+      },
+      {
+        "seg": "542.02",
+        "from": "GIU",
+        "to": "GIUO",
+        "fromName": "Giubiasco",
+        "toName": "Giubiasco Ovest"
+      },
+      {
+        "seg": "542.02",
+        "from": "GIUO",
+        "to": "GIU",
+        "fromName": "Giubiasco Ovest",
+        "toName": "Giubiasco"
+      },
+      {
+        "seg": "542.02",
+        "from": "GIU",
+        "to": "TAV",
+        "fromName": "Giubiasco",
+        "toName": "Taverne-Torricella"
+      },
+      {
+        "seg": "542.02",
+        "from": "TAV",
+        "to": "GIU",
+        "fromName": "Taverne-Torricella",
+        "toName": "Giubiasco"
+      },
+      {
+        "seg": "542.03",
+        "from": "CAMO",
+        "to": "GIUO/SAD",
+        "fromName": "Camorino (dira)",
+        "toName": "Giubiasco Ovest"
+      },
+      {
+        "seg": "542.03",
+        "from": "GIUO/SAD",
+        "to": "CAMO",
+        "fromName": "Giubiasco Ovest",
+        "toName": "Camorino (dira)"
+      },
+      {
+        "seg": "542.03",
+        "from": "MEN",
+        "to": "STAF",
+        "fromName": "Mendrisio",
+        "toName": "Stabio"
+      },
+      {
+        "seg": "542.03",
+        "from": "STAF",
+        "to": "MEN",
+        "fromName": "Stabio",
+        "toName": "Mendrisio"
+      },
+      {
+        "seg": "542.04",
+        "from": "CAMO",
+        "to": "VEZB",
+        "fromName": "Camorino (dira)",
+        "toName": "Vezia (bif)"
+      },
+      {
+        "seg": "542.04",
+        "from": "VEZB",
+        "to": "CAMO",
+        "fromName": "Vezia (bif)",
+        "toName": "Camorino (dira)"
+      },
+      {
+        "seg": "542.05",
+        "from": "LG",
+        "to": "VEZB",
+        "fromName": "Lugano",
+        "toName": "Vezia (bif)"
+      },
+      {
+        "seg": "542.05",
+        "from": "VEZB",
+        "to": "LG",
+        "fromName": "Vezia (bif)",
+        "toName": "Lugano"
+      },
+      {
+        "seg": "542.06",
+        "from": "LG",
+        "to": "MEN",
+        "fromName": "Lugano",
+        "toName": "Mendrisio"
+      },
+      {
+        "seg": "542.06",
+        "from": "MEN",
+        "to": "LG",
+        "fromName": "Mendrisio",
+        "toName": "Lugano"
+      },
+      {
+        "seg": "542.07",
+        "from": "BASM",
+        "to": "MEN",
+        "fromName": "Balerna per Smistamento (bif)",
+        "toName": "Mendrisio"
+      },
+      {
+        "seg": "542.07",
+        "from": "MEN",
+        "to": "BASM",
+        "fromName": "Mendrisio",
+        "toName": "Balerna per Smistamento (bif)"
+      },
+      {
+        "seg": "542.08",
+        "from": "BASM",
+        "to": "CHI",
+        "fromName": "Balerna per Smistamento (bif)",
+        "toName": "Chiasso"
+      },
+      {
+        "seg": "542.08",
+        "from": "CHI",
+        "to": "BASM",
+        "fromName": "Chiasso",
+        "toName": "Balerna per Smistamento (bif)"
+      },
+      {
+        "seg": "542.09",
+        "from": "BASM",
+        "to": "CHSU",
+        "fromName": "Balerna per Smistamento (bif)",
+        "toName": "Chiasso SM Fascio U"
+      },
+      {
+        "seg": "542.21",
+        "from": "TAV",
+        "to": "VEZB",
+        "fromName": "Taverne-Torricella",
+        "toName": "Vezia (bif)"
+      },
+      {
+        "seg": "542.21",
+        "from": "VEZB",
+        "to": "TAV",
+        "fromName": "Vezia (bif)",
+        "toName": "Taverne-Torricella"
+      },
+      {
+        "seg": "542.22",
+        "from": "TAV",
+        "to": "LGV",
+        "fromName": "Taverne-Torricella",
+        "toName": "Lugano Vedeggio"
+      },
+      {
+        "seg": "542.31",
+        "from": "GAGO",
+        "to": "STAF",
+        "fromName": "ce4123dc-1e05-4234-9a64-72d019bd2173",
+        "toName": "Stabio"
+      },
+      {
+        "seg": "542.31",
+        "from": "STAF",
+        "to": "GAGO",
+        "fromName": "Stabio",
+        "toName": "ce4123dc-1e05-4234-9a64-72d019bd2173"
+      }
+    ],
+    "551": [
+      {
+        "seg": "551.01",
+        "from": "CDO",
+        "to": "LO",
+        "fromName": "Cadenazzo Ovest (bif)",
+        "toName": "Locarno"
+      },
+      {
+        "seg": "551.01",
+        "from": "LO",
+        "to": "CDO",
+        "fromName": "Locarno",
+        "toName": "Cadenazzo Ovest (bif)"
+      }
+    ],
+    "552": [
+      {
+        "seg": "552.01",
+        "from": "GIUO",
+        "to": "SAD",
+        "fromName": "Giubiasco Ovest",
+        "toName": "S. Antonino (dira)"
+      },
+      {
+        "seg": "552.01",
+        "from": "SAD",
+        "to": "GIUO",
+        "fromName": "S. Antonino (dira)",
+        "toName": "Giubiasco Ovest"
+      },
+      {
+        "seg": "552.02",
+        "from": "CDO",
+        "to": "SAD",
+        "fromName": "Cadenazzo Ovest (bif)",
+        "toName": "S. Antonino (dira)"
+      },
+      {
+        "seg": "552.02",
+        "from": "SAD",
+        "to": "CDO",
+        "fromName": "S. Antonino (dira)",
+        "toName": "Cadenazzo Ovest (bif)"
+      },
+      {
+        "seg": "552.03",
+        "from": "CDO",
+        "to": "PINC",
+        "fromName": "Cadenazzo Ovest (bif)",
+        "toName": "Pino confine"
+      },
+      {
+        "seg": "552.03",
+        "from": "PINC",
+        "to": "CDO",
+        "fromName": "Pino confine",
+        "toName": "Cadenazzo Ovest (bif)"
+      },
+      {
+        "seg": "552.04",
+        "from": "PINC",
+        "to": "CMA",
+        "fromName": "Pino confine",
+        "toName": "Colmegna"
+      }
+    ],
+    "601": [
+      {
+        "seg": "601.01",
+        "from": "KB",
+        "to": "STS",
+        "fromName": "Koblenz",
+        "toName": "Stein-Säckingen"
+      },
+      {
+        "seg": "601.01",
+        "from": "STS",
+        "to": "KB",
+        "fromName": "Stein-Säckingen",
+        "toName": "Koblenz"
+      },
+      {
+        "seg": "601.02",
+        "from": "KB",
+        "to": "TG",
+        "fromName": "Koblenz",
+        "toName": "Turgi"
+      },
+      {
+        "seg": "601.02",
+        "from": "TG",
+        "to": "KB",
+        "fromName": "Turgi",
+        "toName": "Koblenz"
+      }
+    ],
+    "602": [
+      {
+        "seg": "602.01",
+        "from": "KB",
+        "to": "REK",
+        "fromName": "Koblenz",
+        "toName": "Rekingen AG"
+      },
+      {
+        "seg": "602.01",
+        "from": "REK",
+        "to": "RB",
+        "fromName": "Rekingen AG",
+        "toName": "Koblenz"
+      },
+      {
+        "seg": "602.02",
+        "from": "KAAG",
+        "to": "REK",
+        "fromName": "Kaiserstuhl AG",
+        "toName": "Rekingen AG"
+      },
+      {
+        "seg": "602.02",
+        "from": "REK",
+        "to": "KAAG",
+        "fromName": "Rekingen AG",
+        "toName": "Kaiserstuhl AG"
+      },
+      {
+        "seg": "602.03",
+        "from": "KAAG",
+        "to": "ZWD",
+        "fromName": "Kaiserstuhl AG",
+        "toName": "Zweidlen"
+      },
+      {
+        "seg": "602.03",
+        "from": "ZWD",
+        "to": "KAAG",
+        "fromName": "Zweidlen",
+        "toName": "Kaiserstuhl AG"
+      },
+      {
+        "seg": "602.04",
+        "from": "EGL",
+        "to": "ZWD",
+        "fromName": "Eglisau",
+        "toName": "Zweidlen"
+      },
+      {
+        "seg": "602.04",
+        "from": "ZWD",
+        "to": "EGL",
+        "fromName": "Zweidlen",
+        "toName": "Eglisau"
+      },
+      {
+        "seg": "602.05",
+        "from": "BUE",
+        "to": "WWE",
+        "fromName": "Bülach",
+        "toName": "Winterthur West (Abzw)"
+      },
+      {
+        "seg": "602.05",
+        "from": "WWE",
+        "to": "BUE",
+        "fromName": "Winterthur West (Abzw)",
+        "toName": "Bülach"
+      }
+    ],
+    "611": [
+      {
+        "seg": "611.01",
+        "from": "SH",
+        "to": "SHNO",
+        "fromName": "Schaffhausen",
+        "toName": "Schaffhausen Nord"
+      },
+      {
+        "seg": "611.01",
+        "from": "SHNO",
+        "to": "SH",
+        "fromName": "Schaffhausen Nord",
+        "toName": "Schaffhausen"
+      },
+      {
+        "seg": "611.02",
+        "from": "NE",
+        "to": "SH",
+        "fromName": "Neuhausen",
+        "toName": "Schaffhausen"
+      },
+      {
+        "seg": "611.02",
+        "from": "SH",
+        "to": "NE",
+        "fromName": "Schaffhausen",
+        "toName": "Neuhausen"
+      },
+      {
+        "seg": "611.03",
+        "from": "EGL",
+        "to": "NE",
+        "fromName": "Eglisau",
+        "toName": "Neuhausen"
+      },
+      {
+        "seg": "611.03",
+        "from": "NE",
+        "to": "EGL",
+        "fromName": "Neuhausen",
+        "toName": "Eglisau"
+      },
+      {
+        "seg": "611.04",
+        "from": "BUE",
+        "to": "EGL",
+        "fromName": "Bülach",
+        "toName": "Eglisau"
+      },
+      {
+        "seg": "611.04",
+        "from": "EGL",
+        "to": "BUE",
+        "fromName": "Eglisau",
+        "toName": "Bülach"
+      },
+      {
+        "seg": "611.05",
+        "from": "BUE",
+        "to": "OGL",
+        "fromName": "Bülach",
+        "toName": "Oberglatt ZH"
+      },
+      {
+        "seg": "611.05",
+        "from": "OGL",
+        "to": "BUE",
+        "fromName": "Oberglatt ZH",
+        "toName": "Bülach"
+      },
+      {
+        "seg": "611.06",
+        "from": "GLB",
+        "to": "OGL",
+        "fromName": "Glattbrugg",
+        "toName": "Oberglatt ZH"
+      },
+      {
+        "seg": "611.06",
+        "from": "OGL",
+        "to": "GLB",
+        "fromName": "Oberglatt ZH",
+        "toName": "Glattbrugg"
+      },
+      {
+        "seg": "611.07",
+        "from": "GLB",
+        "to": "ZOEN",
+        "fromName": "Glattbrugg",
+        "toName": "Zürich Oerlikon Nord (Abzw)"
+      },
+      {
+        "seg": "611.07",
+        "from": "ZOEN",
+        "to": "GLB",
+        "fromName": "Zürich Oerlikon Nord (Abzw)",
+        "toName": "Glattbrugg"
+      },
+      {
+        "seg": "611.08",
+        "from": "ZOEN",
+        "to": "ZOER",
+        "fromName": "Zürich Oerlikon Nord (Abzw)",
+        "toName": "Zürich Oerlikon"
+      },
+      {
+        "seg": "611.08",
+        "from": "ZOER",
+        "to": "ZOEN",
+        "fromName": "Zürich Oerlikon",
+        "toName": "Zürich Oerlikon Nord (Abzw)"
+      }
+    ],
+    "612": [
+      {
+        "seg": "612.01",
+        "from": "NW",
+        "to": "OGL",
+        "fromName": "Niederweningen",
+        "toName": "Oberglatt ZH"
+      },
+      {
+        "seg": "612.01",
+        "from": "OGL",
+        "to": "NW",
+        "fromName": "Oberglatt ZH",
+        "toName": "Niederweningen"
+      }
+    ],
+    "631": [
+      {
+        "seg": "631.01",
+        "from": "ZAU",
+        "to": "ZLST",
+        "fromName": "Zürich Aussersihl (Abzw)",
+        "toName": "Zürich Langstrasse"
+      },
+      {
+        "seg": "631.01",
+        "from": "ZLST",
+        "to": "ZAU",
+        "fromName": "Zürich Langstrasse",
+        "toName": "Zürich Aussersihl (Abzw)"
+      },
+      {
+        "seg": "631.02",
+        "from": "ZAU",
+        "to": "ZVB",
+        "fromName": "Zürich Aussersihl (Abzw)",
+        "toName": "Zürich Vorbahnhof"
+      },
+      {
+        "seg": "631.02",
+        "from": "ZVB",
+        "to": "ZAU",
+        "fromName": "Zürich Vorbahnhof",
+        "toName": "Zürich Aussersihl (Abzw)"
+      },
+      {
+        "seg": "631.03",
+        "from": "TWNO",
+        "to": "ZAU",
+        "fromName": "Thalwil Nord (Abzw)",
+        "toName": "Zürich Aussersihl (Abzw)"
+      },
+      {
+        "seg": "631.03",
+        "from": "ZAU",
+        "to": "TWNO",
+        "fromName": "Zürich Aussersihl (Abzw)",
+        "toName": "Thalwil Nord (Abzw)"
+      },
+      {
+        "seg": "631.04",
+        "from": "ZAU",
+        "to": "ZWIE",
+        "fromName": "Zürich Aussersihl (Abzw)",
+        "toName": "Zürich Wiedikon"
+      },
+      {
+        "seg": "631.04",
+        "from": "ZWIE",
+        "to": "ZAU",
+        "fromName": "Zürich Wiedikon",
+        "toName": "Zürich Aussersihl (Abzw)"
+      },
+      {
+        "seg": "631.05",
+        "from": "TWNO",
+        "to": "ZWIE",
+        "fromName": "Thalwil Nord (Abzw)",
+        "toName": "Zürich Wiedikon"
+      },
+      {
+        "seg": "631.05",
+        "from": "ZWIE",
+        "to": "TWNO",
+        "fromName": "Zürich Wiedikon",
+        "toName": "Thalwil Nord (Abzw)"
+      },
+      {
+        "seg": "631.06",
+        "from": "TW",
+        "to": "TWNO",
+        "fromName": "Thalwil",
+        "toName": "Thalwil Nord (Abzw)"
+      },
+      {
+        "seg": "631.06",
+        "from": "TWNO",
+        "to": "TW",
+        "fromName": "Thalwil Nord (Abzw)",
+        "toName": "Thalwil"
+      },
+      {
+        "seg": "631.07",
+        "from": "TW",
+        "to": "WAE",
+        "fromName": "Thalwil",
+        "toName": "Wädenswil"
+      },
+      {
+        "seg": "631.08",
+        "from": "PF",
+        "to": "WAE",
+        "fromName": "Pfäffikon SZ",
+        "toName": "Wädenswil"
+      },
+      {
+        "seg": "631.08",
+        "from": "WAE",
+        "to": "PF",
+        "fromName": "Wädenswil",
+        "toName": "Pfäffikon SZ"
+      }
+    ],
+    "632": [
+      {
+        "seg": "632.01",
+        "from": "AF",
+        "to": "KOLM",
+        "fromName": "Affoltern am Albis",
+        "toName": "Kollermühle (Abzw)"
+      },
+      {
+        "seg": "632.01",
+        "from": "KOLM",
+        "to": "AF",
+        "fromName": "Kollermühle (Abzw)",
+        "toName": "Affoltern am Albis"
+      },
+      {
+        "seg": "632.02",
+        "from": "AF",
+        "to": "ZAS",
+        "fromName": "Affoltern am Albis",
+        "toName": "Zürich Altstetten"
+      },
+      {
+        "seg": "632.02",
+        "from": "ZAS",
+        "to": "AF",
+        "fromName": "Zürich Altstetten",
+        "toName": "Affoltern am Albis"
+      }
+    ],
+    "641": [
+      {
+        "seg": "641.01",
+        "from": "PF",
+        "to": "ZB",
+        "fromName": "Pfäffikon SZ",
+        "toName": "Ziegelbrücke"
+      },
+      {
+        "seg": "641.01",
+        "from": "ZB",
+        "to": "PF",
+        "fromName": "Ziegelbrücke",
+        "toName": "Pfäffikon SZ"
+      },
+      {
+        "seg": "641.02",
+        "from": "SA",
+        "to": "ZB",
+        "fromName": "Sargans",
+        "toName": "Ziegelbrücke"
+      },
+      {
+        "seg": "641.02",
+        "from": "ZB",
+        "to": "SA",
+        "fromName": "Ziegelbrücke",
+        "toName": "Sargans"
+      }
+    ],
+    "642": [
+      {
+        "seg": "642.01",
+        "from": "TRUE",
+        "to": "BU",
+        "fromName": "Trübbach Süd",
+        "toName": "Buchs SG"
+      },
+      {
+        "seg": "642.02",
+        "from": "SA",
+        "to": "TRUE",
+        "fromName": "Sargans",
+        "toName": "Trübbach Süd"
+      },
+      {
+        "seg": "642.02",
+        "from": "TRUE",
+        "to": "SA",
+        "fromName": "Trübbach Süd",
+        "toName": "Sargans"
+      },
+      {
+        "seg": "642.03",
+        "from": "SA",
+        "to": "SASL",
+        "fromName": "Sargans",
+        "toName": "Trübbach Süd"
+      },
+      {
+        "seg": "642.03",
+        "from": "TRUE",
+        "to": "SASL",
+        "fromName": "Trübbach Süd",
+        "toName": "Sargans"
+      },
+      {
+        "seg": "642.04",
+        "from": "LQ",
+        "to": "SA",
+        "fromName": "Landquart",
+        "toName": "Sargans"
+      },
+      {
+        "seg": "642.04",
+        "from": "SA",
+        "to": "LQ",
+        "fromName": "Sargans",
+        "toName": "Landquart"
+      },
+      {
+        "seg": "642.05",
+        "from": "LQ",
+        "to": "ZIZS",
+        "fromName": "Landquart",
+        "toName": "Zizers"
+      },
+      {
+        "seg": "642.05",
+        "from": "ZIZS",
+        "to": "LQ",
+        "fromName": "Zizers",
+        "toName": "Landquart"
+      },
+      {
+        "seg": "642.06",
+        "from": "CH",
+        "to": "ZIZS",
+        "fromName": "Chur",
+        "toName": "Zizers"
+      },
+      {
+        "seg": "642.06",
+        "from": "ZIZS",
+        "to": "CH",
+        "fromName": "Zizers",
+        "toName": "Chur"
+      },
+      {
+        "seg": "642.07",
+        "from": "CH",
+        "to": "CHGB",
+        "fromName": "Chur",
+        "toName": "Chur GB"
+      },
+      {
+        "seg": "642.07",
+        "from": "CHGB",
+        "to": "CH",
+        "fromName": "Chur GB",
+        "toName": "Chur"
+      }
+    ],
+    "651": [
+      {
+        "seg": "651.01",
+        "from": "ZSTH",
+        "to": "ZUE",
+        "fromName": "Zürich Stadelhofen",
+        "toName": "Zürich HB"
+      },
+      {
+        "seg": "651.01",
+        "from": "ZUE",
+        "to": "ZSTH",
+        "fromName": "Zürich HB",
+        "toName": "Zürich Stadelhofen"
+      },
+      {
+        "seg": "651.02",
+        "from": "RW",
+        "to": "ZSTH",
+        "fromName": "Rapperswil SG",
+        "toName": "Zürich Stadelhofen"
+      },
+      {
+        "seg": "651.02",
+        "from": "ZSTH",
+        "to": "RW",
+        "fromName": "Zürich Stadelhofen",
+        "toName": "Rapperswil SG"
+      }
+    ],
+    "652": [
+      {
+        "seg": "652.01",
+        "from": "CHRI",
+        "to": "WS",
+        "fromName": "Chriesbach (Abzw)",
+        "toName": "Wallisellen"
+      },
+      {
+        "seg": "652.01",
+        "from": "WS",
+        "to": "CHRI",
+        "fromName": "Wallisellen",
+        "toName": "Chriesbach (Abzw)"
+      },
+      {
+        "seg": "652.02",
+        "from": "CHRI",
+        "to": "NGUT",
+        "fromName": "Chriesbach (Abzw)",
+        "toName": "Neugut (Abzw)"
+      },
+      {
+        "seg": "652.02",
+        "from": "NGUT",
+        "to": "CHRI",
+        "fromName": "Neugut (Abzw)",
+        "toName": "Chriesbach (Abzw)"
+      },
+      {
+        "seg": "652.03",
+        "from": "CHRI",
+        "to": "WZ",
+        "fromName": "Chriesbach (Abzw)",
+        "toName": "Wetzikon ZH"
+      },
+      {
+        "seg": "652.03",
+        "from": "WZ",
+        "to": "CHRI",
+        "fromName": "Wetzikon ZH",
+        "toName": "Chriesbach (Abzw)"
+      },
+      {
+        "seg": "652.04",
+        "from": "RUE",
+        "to": "WZ",
+        "fromName": "Rüti ZH",
+        "toName": "Wetzikon ZH"
+      },
+      {
+        "seg": "652.04",
+        "from": "WZ",
+        "to": "RUE",
+        "fromName": "Wetzikon ZH",
+        "toName": "Rüti ZH"
+      },
+      {
+        "seg": "652.05",
+        "from": "RUE",
+        "to": "RW",
+        "fromName": "Rüti ZH",
+        "toName": "Rapperswil SG"
+      },
+      {
+        "seg": "652.05",
+        "from": "RW",
+        "to": "RUE",
+        "fromName": "Rapperswil SG",
+        "toName": "Rüti ZH"
+      }
+    ],
+    "661": [
+      {
+        "seg": "661.01",
+        "from": "STET",
+        "to": "ZSTH",
+        "fromName": "Neugut (Abzw)",
+        "toName": "Zürich Stadelhofen"
+      },
+      {
+        "seg": "661.01",
+        "from": "ZSTH",
+        "to": "STET",
+        "fromName": "Zürich Stadelhofen",
+        "toName": "Neugut (Abzw)"
+      },
+      {
+        "seg": "661.02",
+        "from": "DTL",
+        "to": "NGUT",
+        "fromName": "Dietlikon",
+        "toName": "Neugut (Abzw)"
+      },
+      {
+        "seg": "661.02",
+        "from": "NGUT",
+        "to": "DTL",
+        "fromName": "Neugut (Abzw)",
+        "toName": "Dietlikon"
+      },
+      {
+        "seg": "661.04",
+        "from": "EF",
+        "to": "WZ",
+        "fromName": "Effretikon",
+        "toName": "Wetzikon ZH"
+      },
+      {
+        "seg": "661.04",
+        "from": "WZ",
+        "to": "EF",
+        "fromName": "Wetzikon ZH",
+        "toName": "Effretikon"
+      },
+      {
+        "seg": "661.05",
+        "from": "HI",
+        "to": "WZ",
+        "fromName": "Hinwil",
+        "toName": "Wetzikon ZH"
+      },
+      {
+        "seg": "661.05",
+        "from": "WZ",
+        "to": "HI",
+        "fromName": "Wetzikon ZH",
+        "toName": "Hinwil"
+      }
+    ],
+    "701": [
+      {
+        "seg": "701.01",
+        "from": "ZAS",
+        "to": "HRD",
+        "fromName": "Zürich Altstetten",
+        "toName": "Hard Käferberg (Abzw)"
+      },
+      {
+        "seg": "701.01",
+        "from": "ZLST",
+        "to": "ZHDB",
+        "fromName": "Zürich Langstrasse",
+        "toName": "Zürich Hardbrücke"
+      },
+      {
+        "seg": "701.02",
+        "from": "HRD",
+        "to": "ZBST",
+        "fromName": "Hard Käferberg (Abzw)",
+        "toName": "Zürich Birchsteg (Abzw)"
+      },
+      {
+        "seg": "701.02",
+        "from": "ZBST",
+        "to": "HRD",
+        "fromName": "Zürich Birchsteg (Abzw)",
+        "toName": "Hard Käferberg (Abzw)"
+      },
+      {
+        "seg": "701.02",
+        "from": "ZBST",
+        "to": "ZLST",
+        "fromName": "Zürich Birchsteg (Abzw)",
+        "toName": "Zürich Langstrasse"
+      },
+      {
+        "seg": "701.02",
+        "from": "ZLST",
+        "to": "ZBST",
+        "fromName": "Zürich Langstrasse",
+        "toName": "Zürich Birchsteg (Abzw)"
+      },
+      {
+        "seg": "701.03",
+        "from": "ZBST",
+        "to": "ZOER",
+        "fromName": "Zürich Birchsteg (Abzw)",
+        "toName": "Zürich Oerlikon"
+      },
+      {
+        "seg": "701.03",
+        "from": "ZOER",
+        "to": "ZBST",
+        "fromName": "Zürich Oerlikon",
+        "toName": "Zürich Birchsteg (Abzw)"
+      },
+      {
+        "seg": "701.03",
+        "from": "ZBST",
+        "to": "ZUE",
+        "fromName": "Zürich Birchsteg (Abzw)",
+        "toName": "Zürich HB"
+      },
+      {
+        "seg": "701.03",
+        "from": "ZUE",
+        "to": "ZBST",
+        "fromName": "Zürich HB",
+        "toName": "Zürich Birchsteg (Abzw)"
+      },
+      {
+        "seg": "701.11",
+        "from": "HRD",
+        "to": "ZHBD",
+        "fromName": "Hard Käferberg (Abzw)",
+        "toName": "Zürich Hardbrücke"
+      },
+      {
+        "seg": "701.11",
+        "from": "ZHDB",
+        "to": "HRD",
+        "fromName": "Zürich Hardbrücke",
+        "toName": "Hard Käferberg (Abzw)"
+      }
+    ],
+    "702": [
+      {
+        "seg": "702.01",
+        "from": "WS",
+        "to": "ZOER",
+        "fromName": "Wallisellen",
+        "toName": "Zürich Oerlikon"
+      },
+      {
+        "seg": "702.01",
+        "from": "ZOER",
+        "to": "WS",
+        "fromName": "Zürich Oerlikon",
+        "toName": "Wallisellen"
+      },
+      {
+        "seg": "702.01",
+        "from": "OPS",
+        "to": "ZOEN",
+        "fromName": "Opfikon Süd",
+        "toName": "Zürich Oerlikon Nord (Abzw)"
+      },
+      {
+        "seg": "702.01",
+        "from": "ZOEN",
+        "to": "OPS",
+        "fromName": "Zürich Oerlikon Nord (Abzw)",
+        "toName": "Opfikon Süd"
+      },
+      {
+        "seg": "702.02",
+        "from": "DTL",
+        "to": "WS",
+        "fromName": "Dietlikon",
+        "toName": "Wallisellen"
+      },
+      {
+        "seg": "702.02",
+        "from": "WS",
+        "to": "DTL",
+        "fromName": "Wallisellen",
+        "toName": "Dietlikon"
+      },
+      {
+        "seg": "702.02",
+        "from": "DORF",
+        "to": "OP",
+        "fromName": "Dorfnest (Abzw)",
+        "toName": "Opfikon"
+      },
+      {
+        "seg": "702.02",
+        "from": "OP",
+        "to": "DORF",
+        "fromName": "Opfikon",
+        "toName": "Dorfnest (Abzw)"
+      },
+      {
+        "seg": "702.03",
+        "from": "DTL",
+        "to": "HUER",
+        "fromName": "Dietlikon",
+        "toName": "Hürlistein (Abzw)"
+      },
+      {
+        "seg": "702.03",
+        "from": "HUER",
+        "to": "DTL",
+        "fromName": "Hürlistein (Abzw)",
+        "toName": "Dietlikon"
+      },
+      {
+        "seg": "702.04",
+        "from": "EF",
+        "to": "HUER",
+        "fromName": "Effretikon",
+        "toName": "Hürlistein (Abzw)"
+      },
+      {
+        "seg": "702.04",
+        "from": "HUER",
+        "to": "EF",
+        "fromName": "Hürlistein (Abzw)",
+        "toName": "Effretikon"
+      },
+      {
+        "seg": "702.05",
+        "from": "EF",
+        "to": "WWE",
+        "fromName": "Effretikon",
+        "toName": "Winterthur West (Abzw)"
+      },
+      {
+        "seg": "702.05",
+        "from": "WWE",
+        "to": "EF",
+        "fromName": "Winterthur West (Abzw)",
+        "toName": "Effretikon"
+      },
+      {
+        "seg": "702.06",
+        "from": "W",
+        "to": "WWE",
+        "fromName": "Winterthur",
+        "toName": "Winterthur West (Abzw)"
+      },
+      {
+        "seg": "702.06",
+        "from": "WWE",
+        "to": "W",
+        "fromName": "Winterthur West (Abzw)",
+        "toName": "Winterthur"
+      },
+      {
+        "seg": "702.11",
+        "from": "OP",
+        "to": "OPS",
+        "fromName": "Opfikon",
+        "toName": "Opfikon Süd"
+      },
+      {
+        "seg": "702.11",
+        "from": "OPS",
+        "to": "OP",
+        "fromName": "Opfikon Süd",
+        "toName": "Opfikon"
+      },
+      {
+        "seg": "702.12",
+        "from": "DORF",
+        "to": "OP",
+        "fromName": "Dorfnest (Abzw)",
+        "toName": "Opfikon"
+      },
+      {
+        "seg": "702.12",
+        "from": "OP",
+        "to": "DORF",
+        "fromName": "Opfikon",
+        "toName": "Dorfnest (Abzw)"
+      },
+      {
+        "seg": "702.13",
+        "from": "DORF",
+        "to": "HUER",
+        "fromName": "Dorfnest (Abzw)",
+        "toName": "Hürlistein (Abzw)"
+      },
+      {
+        "seg": "702.13",
+        "from": "HUER",
+        "to": "DORF",
+        "fromName": "Hürlistein (Abzw)",
+        "toName": "Dorfnest (Abzw)"
+      }
+    ],
+    "711": [
+      {
+        "seg": "711.01",
+        "from": "SCAL",
+        "to": "W",
+        "fromName": "Schwalmenacker (Spw)",
+        "toName": "Winterthur"
+      },
+      {
+        "seg": "711.01",
+        "from": "W",
+        "to": "SCAL",
+        "fromName": "Winterthur",
+        "toName": "Schwalmenacker (Spw)"
+      },
+      {
+        "seg": "711.02",
+        "from": "SCAL",
+        "to": "WGR",
+        "fromName": "Schwalmenacker (Spw)",
+        "toName": "Winterthur Grüze"
+      },
+      {
+        "seg": "711.02",
+        "from": "WGR",
+        "to": "SCAL",
+        "fromName": "Winterthur Grüze",
+        "toName": "Schwalmenacker (Spw)"
+      },
+      {
+        "seg": "711.03",
+        "from": "WGR",
+        "to": "WIL",
+        "fromName": "Winterthur Grüze",
+        "toName": "Wil SG"
+      },
+      {
+        "seg": "711.03",
+        "from": "WIL",
+        "to": "WGR",
+        "fromName": "Wil SG",
+        "toName": "Winterthur Grüze"
+      },
+      {
+        "seg": "711.04",
+        "from": "WIL",
+        "to": "WILM",
+        "fromName": "Wil SG",
+        "toName": "Wil Matt (Abzw)"
+      },
+      {
+        "seg": "711.04",
+        "from": "WILM",
+        "to": "WIL",
+        "fromName": "Wil Matt (Abzw)",
+        "toName": "Wil SG"
+      },
+      {
+        "seg": "711.05",
+        "from": "GSS",
+        "to": "WILM",
+        "fromName": "Gossau SG",
+        "toName": "Wil Matt (Abzw)"
+      },
+      {
+        "seg": "711.05",
+        "from": "WILM",
+        "to": "GSS",
+        "fromName": "Wil Matt (Abzw)",
+        "toName": "Gossau SG"
+      },
+      {
+        "seg": "711.06",
+        "from": "GSS",
+        "to": "SGW",
+        "fromName": "Gossau SG",
+        "toName": "St. Gallen West (Abzw)"
+      },
+      {
+        "seg": "711.06",
+        "from": "SGW",
+        "to": "GSS",
+        "fromName": "St. Gallen West (Abzw)",
+        "toName": "Gossau SG"
+      },
+      {
+        "seg": "711.07",
+        "from": "SG",
+        "to": "SGW",
+        "fromName": "St. Gallen",
+        "toName": "St. Gallen West (Abzw)"
+      },
+      {
+        "seg": "711.07",
+        "from": "SGW",
+        "to": "SG",
+        "fromName": "St. Gallen West (Abzw)",
+        "toName": "St. Gallen"
+      }
+    ],
+    "721": [
+      {
+        "seg": "721.01",
+        "from": "SG",
+        "to": "SGFN",
+        "fromName": "St. Gallen",
+        "toName": "St. Gallen St. Fiden Nord"
+      },
+      {
+        "seg": "721.01",
+        "from": "SGFN",
+        "to": "SG",
+        "fromName": "St. Gallen St. Fiden Nord",
+        "toName": "St. Gallen"
+      },
+      {
+        "seg": "721.02",
+        "from": "RH",
+        "to": "SGFN",
+        "fromName": "Rorschach",
+        "toName": "St. Gallen St. Fiden Nord"
+      },
+      {
+        "seg": "721.02",
+        "from": "SGFN",
+        "to": "RH",
+        "fromName": "St. Gallen St. Fiden Nord",
+        "toName": "Rorschach"
+      },
+      {
+        "seg": "721.03",
+        "from": "RH",
+        "to": "SMG",
+        "fromName": "Rorschach",
+        "toName": "St. Margrethen SG"
+      },
+      {
+        "seg": "721.03",
+        "from": "SMG",
+        "to": "RH",
+        "fromName": "St. Margrethen SG",
+        "toName": "Rorschach"
+      },
+      {
+        "seg": "721.04",
+        "from": "SAS",
+        "to": "SMG",
+        "fromName": "Salez-Sennwald",
+        "toName": "St. Margrethen SG"
+      },
+      {
+        "seg": "721.04",
+        "from": "SMG",
+        "to": "SAS",
+        "fromName": "St. Margrethen SG",
+        "toName": "Salez-Sennwald"
+      },
+      {
+        "seg": "721.05",
+        "from": "BU",
+        "to": "SAS",
+        "fromName": "Buchs SG",
+        "toName": "Salez-Sennwald"
+      },
+      {
+        "seg": "721.05",
+        "from": "SAS",
+        "to": "BU",
+        "fromName": "Salez-Sennwald",
+        "toName": "Buchs SG"
+      }
+    ],
+    "731": [
+      {
+        "seg": "731.01",
+        "from": "NH",
+        "to": "W",
+        "fromName": "Neuhausen",
+        "toName": "Winterthur"
+      },
+      {
+        "seg": "731.01",
+        "from": "W",
+        "to": "NH",
+        "fromName": "Winterthur",
+        "toName": "Neuhausen"
+      }
+    ],
+    "732": [
+      {
+        "seg": "732.01",
+        "from": "EW",
+        "to": "OWT",
+        "fromName": "Etzwilen",
+        "toName": "Oberwinterthur"
+      },
+      {
+        "seg": "732.01",
+        "from": "OWT",
+        "to": "EW",
+        "fromName": "Oberwinterthur",
+        "toName": "Etzwilen"
+      }
+    ],
+    "741": [
+      {
+        "seg": "741.01",
+        "from": "OWT",
+        "to": "SCAL",
+        "fromName": "Oberwinterthur",
+        "toName": "Schwalmenacker (Spw)"
+      },
+      {
+        "seg": "741.01",
+        "from": "SCAL",
+        "to": "OWT",
+        "fromName": "Schwalmenacker (Spw)",
+        "toName": "Oberwinterthur"
+      },
+      {
+        "seg": "741.01",
+        "from": "OWTO",
+        "to": "OWTP",
+        "fromName": "Oberwinterthur Ost",
+        "toName": "Oberwinterthur SA Pünten"
+      },
+      {
+        "seg": "741.02",
+        "from": "OWT",
+        "to": "OWTO",
+        "fromName": "Oberwinterthur",
+        "toName": "Oberwinterthur Ost"
+      },
+      {
+        "seg": "741.02",
+        "from": "OWTO",
+        "to": "OWT",
+        "fromName": "Oberwinterthur Ost",
+        "toName": "Oberwinterthur"
+      },
+      {
+        "seg": "741.02",
+        "from": "FF",
+        "to": "FFPP",
+        "fromName": "Frauenfeld",
+        "toName": "Frauenfeld Paketpost"
+      },
+      {
+        "seg": "741.03",
+        "from": "FF",
+        "to": "OWTO",
+        "fromName": "Frauenfeld",
+        "toName": "Oberwinterthur Ost"
+      },
+      {
+        "seg": "741.03",
+        "from": "OWTO",
+        "to": "FF",
+        "fromName": "Oberwinterthur Ost",
+        "toName": "Frauenfeld"
+      },
+      {
+        "seg": "741.04",
+        "from": "FF",
+        "to": "WF",
+        "fromName": "Frauenfeld",
+        "toName": "Weinfelden"
+      },
+      {
+        "seg": "741.04",
+        "from": "WF",
+        "to": "FF",
+        "fromName": "Weinfelden",
+        "toName": "Frauenfeld"
+      },
+      {
+        "seg": "741.05",
+        "from": "SLG",
+        "to": "WF",
+        "fromName": "Sulgen",
+        "toName": "Weinfelden"
+      },
+      {
+        "seg": "741.05",
+        "from": "WF",
+        "to": "SLG",
+        "fromName": "Weinfelden",
+        "toName": "Sulgen"
+      },
+      {
+        "seg": "741.06",
+        "from": "RHW",
+        "to": "SLG",
+        "fromName": "Romanshorn West (Abzw)",
+        "toName": "Sulgen"
+      },
+      {
+        "seg": "741.06",
+        "from": "SLG",
+        "to": "RHW",
+        "fromName": "Sulgen",
+        "toName": "Romanshorn West (Abzw)"
+      },
+      {
+        "seg": "741.07",
+        "from": "RH",
+        "to": "RHW",
+        "fromName": "Romanshorn",
+        "toName": "Romanshorn West (Abzw)"
+      },
+      {
+        "seg": "741.07",
+        "from": "RHW",
+        "to": "RH",
+        "fromName": "Romanshorn West (Abzw)",
+        "toName": "Romanshorn"
+      },
+      {
+        "seg": "741.08",
+        "from": "RHS",
+        "to": "RHW",
+        "fromName": "Romanshorn Süd (Abzw)",
+        "toName": "Romanshorn West (Abzw)"
+      },
+      {
+        "seg": "741.08",
+        "from": "RHW",
+        "to": "RHS",
+        "fromName": "Romanshorn West (Abzw)",
+        "toName": "Romanshorn Süd (Abzw)"
+      },
+      {
+        "seg": "741.11",
+        "from": "OWTO",
+        "to": "OWTU",
+        "fromName": "Oberwinterthur Ost",
+        "toName": "Oberwinterthur Unterhaltanlage"
+      }
+    ],
+    "742": [
+      {
+        "seg": "742.01",
+        "from": "SLG",
+        "to": "BZN",
+        "fromName": "Sulgen",
+        "toName": "Bischofszell Nord"
+      },
+      {
+        "seg": "742.02",
+        "from": "BZN",
+        "to": "GSS",
+        "fromName": "Bischofszell Nord",
+        "toName": "Gossau SG"
+      },
+      {
+        "seg": "742.02",
+        "from": "BZN",
+        "to": "SLG",
+        "fromName": "Bischofszell Nord",
+        "toName": "Sulgen"
+      },
+      {
+        "seg": "742.02",
+        "from": "GSS",
+        "to": "BZN",
+        "fromName": "Gossau SG",
+        "toName": "Bischofszell Nord"
+      }
+    ],
+    "751": [
+      {
+        "seg": "751.01",
+        "from": "UZ",
+        "to": "ZB",
+        "fromName": "Uznach",
+        "toName": "Ziegelbrücke"
+      },
+      {
+        "seg": "751.01",
+        "from": "ZB",
+        "to": "UZ",
+        "fromName": "Ziegelbrücke",
+        "toName": "Uznach"
+      },
+      {
+        "seg": "751.02",
+        "from": "LIN",
+        "to": "ZB",
+        "fromName": "Linthal",
+        "toName": "Ziegelbrücke"
+      },
+      {
+        "seg": "751.02",
+        "from": "ZB",
+        "to": "LIN",
+        "fromName": "Ziegelbrücke",
+        "toName": "Linthal"
+      }
+    ],
+    "752": [
+      {
+        "seg": "752.01",
+        "from": "PF",
+        "to": "RW",
+        "fromName": "Pfäffikon SZ",
+        "toName": "Rapperswil SG"
+      },
+      {
+        "seg": "752.01",
+        "from": "RW",
+        "to": "PF",
+        "fromName": "Rapperswil SG",
+        "toName": "Pfäffikon SZ"
+      },
+      {
+        "seg": "752.02",
+        "from": "RW",
+        "to": "UZ",
+        "fromName": "Rapperswil SG",
+        "toName": "Uznach"
+      },
+      {
+        "seg": "752.02",
+        "from": "UZ",
+        "to": "RW",
+        "fromName": "Uznach",
+        "toName": "Rapperswil SG"
+      },
+      {
+        "seg": "752.03",
+        "from": "UZ",
+        "to": "WA",
+        "fromName": "Uznach",
+        "toName": "Wattwil"
+      },
+      {
+        "seg": "752.03",
+        "from": "WA",
+        "to": "UZ",
+        "fromName": "Wattwil",
+        "toName": "Uznach"
+      }
+    ],
+    "753": [
+      {
+        "seg": "753.01",
+        "from": "NL",
+        "to": "WA",
+        "fromName": "Nesslau-Neu St. Joh. Gleisende",
+        "toName": "Wattwil"
+      },
+      {
+        "seg": "753.01",
+        "from": "WA",
+        "to": "NL",
+        "fromName": "Wattwil",
+        "toName": "Nesslau-Neu St. Joh. Gleisende"
+      },
+      {
+        "seg": "753.02",
+        "from": "LSG",
+        "to": "WA",
+        "fromName": "Lichtensteig",
+        "toName": "Wattwil"
+      },
+      {
+        "seg": "753.02",
+        "from": "WA",
+        "to": "LSG",
+        "fromName": "Wattwil",
+        "toName": "Lichtensteig"
+      },
+      {
+        "seg": "753.03",
+        "from": "LSG",
+        "to": "WILM",
+        "fromName": "Lichtensteig",
+        "toName": "Wil Matt (Abzw)"
+      },
+      {
+        "seg": "753.03",
+        "from": "WILM",
+        "to": "LSG",
+        "fromName": "Wil Matt (Abzw)",
+        "toName": "Lichtensteig"
+      }
+    ],
+    "754": [
+      {
+        "seg": "754.01",
+        "from": "BMA",
+        "to": "WGR",
+        "fromName": "Bauma",
+        "toName": "Winterthur Grüze"
+      },
+      {
+        "seg": "754.01",
+        "from": "WGR",
+        "to": "BMA",
+        "fromName": "Winterthur Grüze",
+        "toName": "Bauma"
+      },
+      {
+        "seg": "754.02",
+        "from": "BMA",
+        "to": "RUE",
+        "fromName": "Bauma",
+        "toName": "Rüti ZH"
+      },
+      {
+        "seg": "754.02",
+        "from": "RUE",
+        "to": "RMA",
+        "fromName": "Rüti ZH",
+        "toName": "Bauma"
+      }
+    ],
+    "761": [
+      {
+        "seg": "761.01",
+        "from": "KOGA",
+        "to": "KR",
+        "fromName": "Konstanz Grenze (Abzw)",
+        "toName": "Kreuzlingen"
+      },
+      {
+        "seg": "761.01",
+        "from": "KR",
+        "to": "KOGA",
+        "fromName": "Kreuzlingen",
+        "toName": "Konstanz Grenze (Abzw)"
+      },
+      {
+        "seg": "761.02",
+        "from": "KR",
+        "to": "TAMO",
+        "fromName": "Kreuzlingen",
+        "toName": "Tägermoos (Abzw)"
+      },
+      {
+        "seg": "761.02",
+        "from": "TAMO",
+        "to": "KR",
+        "fromName": "Tägermoos (Abzw)",
+        "toName": "Kreuzlingen"
+      },
+      {
+        "seg": "761.03",
+        "from": "TAMO",
+        "to": "WF",
+        "fromName": "Tägermoos (Abzw)",
+        "toName": "Weinfelden"
+      },
+      {
+        "seg": "761.03",
+        "from": "WF",
+        "to": "TAMO",
+        "fromName": "Weinfelden",
+        "toName": "Tägermoos (Abzw)"
+      },
+      {
+        "seg": "761.04",
+        "from": "BTW",
+        "to": "WF",
+        "fromName": "Bettwiesen",
+        "toName": "Weinfelden"
+      },
+      {
+        "seg": "761.04",
+        "from": "WF",
+        "to": "BTW",
+        "fromName": "Weinfelden",
+        "toName": "Bettwiesen"
+      },
+      {
+        "seg": "761.05",
+        "from": "BET",
+        "to": "WIL",
+        "fromName": "Bettwiesen",
+        "toName": "Wil SG"
+      },
+      {
+        "seg": "761.05",
+        "from": "WIL",
+        "to": "BET",
+        "fromName": "Wil SG",
+        "toName": "Bettwiesen"
+      }
+    ],
+    "771": [
+      {
+        "seg": "771.01",
+        "from": "EW",
+        "to": "SH",
+        "fromName": "Etzwilen",
+        "toName": "Schaffhausen"
+      },
+      {
+        "seg": "771.01",
+        "from": "SH",
+        "to": "EW",
+        "fromName": "Schaffhausen",
+        "toName": "Etzwilen"
+      },
+      {
+        "seg": "771.02",
+        "from": "EW",
+        "to": "TAMO",
+        "fromName": "Etzwilen",
+        "toName": "Tägermoos (Abzw)"
+      },
+      {
+        "seg": "771.02",
+        "from": "TAMO",
+        "to": "EW",
+        "fromName": "Tägermoos (Abzw)",
+        "toName": "Etzwilen"
+      }
+    ],
+    "772": [
+      {
+        "seg": "772.01",
+        "from": "KOGA",
+        "to": "KRH",
+        "fromName": "Konstanz Grenze (Abzw)",
+        "toName": "Kreuzlingen Hafen"
+      },
+      {
+        "seg": "772.01",
+        "from": "KRH",
+        "to": "KOGA",
+        "fromName": "Kreuzlingen Hafen",
+        "toName": "Konstanz Grenze (Abzw)"
+      },
+      {
+        "seg": "772.02",
+        "from": "KR",
+        "to": "KRH",
+        "fromName": "Kreuzlingen",
+        "toName": "Kreuzlingen Hafen"
+      },
+      {
+        "seg": "772.02",
+        "from": "KRH",
+        "to": "KR",
+        "fromName": "Kreuzlingen Hafen",
+        "toName": "Kreuzlingen"
+      },
+      {
+        "seg": "772.03",
+        "from": "KRH",
+        "to": "RH",
+        "fromName": "Kreuzlingen Hafen",
+        "toName": "Romanshorn"
+      },
+      {
+        "seg": "772.03",
+        "from": "RH",
+        "to": "KRH",
+        "fromName": "Romanshorn",
+        "toName": "Kreuzlingen Hafen"
+      },
+      {
+        "seg": "772.04",
+        "from": "RH",
+        "to": "RHS",
+        "fromName": "Romanshorn",
+        "toName": "Romanshorn Süd (Abzw)"
+      },
+      {
+        "seg": "772.04",
+        "from": "RHS",
+        "to": "RH",
+        "fromName": "Romanshorn Süd (Abzw)",
+        "toName": "Romanshorn"
+      },
+      {
+        "seg": "772.05",
+        "from": "RHS",
+        "to": "RHSE",
+        "fromName": "Romanshorn Süd (Abzw)",
+        "toName": "Romanshorn Seewiesen"
+      },
+      {
+        "seg": "772.05",
+        "from": "RHSE",
+        "to": "RHS",
+        "fromName": "Romanshorn Seewiesen",
+        "toName": "Romanshorn Süd (Abzw)"
+      },
+      {
+        "seg": "772.06",
+        "from": "RHSE",
+        "to": "RS",
+        "fromName": "Romanshorn Seewiesen",
+        "toName": "Rorschach"
+      },
+      {
+        "seg": "772.06",
+        "from": "RS",
+        "to": "RHSE",
+        "fromName": "Rorschach",
+        "toName": "Romanshorn Seewiesen"
+      }
+    ],
+    "781": [
+      {
+        "seg": "781.01",
+        "from": "PF",
+        "to": "SAM",
+        "fromName": "Pfäffikon SZ",
+        "toName": "Samstagern"
+      },
+      {
+        "seg": "781.01",
+        "from": "SAM",
+        "to": "PF",
+        "fromName": "Samstagern",
+        "toName": "Pfäffikon SZ"
+      },
+      {
+        "seg": "781.02",
+        "from": "BIB",
+        "to": "SAM",
+        "fromName": "Biberbrugg",
+        "toName": "Samstagern"
+      },
+      {
+        "seg": "781.02",
+        "from": "SAM",
+        "to": "BIB",
+        "fromName": "Samstagern",
+        "toName": "Biberbrugg"
+      },
+      {
+        "seg": "781.03",
+        "from": "BIB",
+        "to": "RTT",
+        "fromName": "Biberbrugg",
+        "toName": "Rothenthurm"
+      },
+      {
+        "seg": "781.03",
+        "from": "RTT",
+        "to": "BIB",
+        "fromName": "Rothenthurm",
+        "toName": "Biberbrugg"
+      },
+      {
+        "seg": "781.04",
+        "from": "GD",
+        "to": "RTT",
+        "fromName": "Arth-Goldau",
+        "toName": "Rothenthurm"
+      },
+      {
+        "seg": "781.04",
+        "from": "RTT",
+        "to": "GD",
+        "fromName": "Rothenthurm",
+        "toName": "Arth-Goldau"
+      }
+    ],
+    "782": [
+      {
+        "seg": "782.01",
+        "from": "SAM",
+        "to": "WA",
+        "fromName": "Samstagern",
+        "toName": "Wädenswil"
+      },
+      {
+        "seg": "782.01",
+        "from": "WA",
+        "to": "SAM",
+        "fromName": "Wädenswil",
+        "toName": "Samstagern"
+      },
+      {
+        "seg": "782.02",
+        "from": "EIS",
+        "to": "SAM",
+        "fromName": "Einsiedeln",
+        "toName": "Biberbrugg"
+      },
+      {
+        "seg": "782.02",
+        "from": "SAM",
+        "to": "EIS",
+        "fromName": "Biberbrugg",
+        "toName": "Einsiedeln"
+      }
+    ],
+    "791": [
+      {
+        "seg": "791.01",
+        "from": "HE",
+        "to": "LSG",
+        "fromName": "Herisau",
+        "toName": "Lichtensteig"
+      },
+      {
+        "seg": "791.01",
+        "from": "LSG",
+        "to": "HE",
+        "fromName": "Lichtensteig",
+        "toName": "Herisau"
+      },
+      {
+        "seg": "791.02",
+        "from": "HE",
+        "to": "SGW",
+        "fromName": "Herisau",
+        "toName": "St. Gallen West (Abzw)"
+      },
+      {
+        "seg": "791.02",
+        "from": "SGW",
+        "to": "HE",
+        "fromName": "St. Gallen West (Abzw)",
+        "toName": "Herisau"
+      },
+      {
+        "seg": "791.03",
+        "from": "RHSE",
+        "to": "SGFN",
+        "fromName": "Romanshorn Seewiesen",
+        "toName": "St. Gallen St. Fiden Nord"
+      },
+      {
+        "seg": "791.03",
+        "from": "SGFN",
+        "to": "RHSE",
+        "fromName": "St. Gallen St. Fiden Nord",
+        "toName": "Romanshorn Seewiesen"
+      }
+    ]
+  },
+  "source": {
+    "sheet1_column_E": "Beschreibung der Gruppe",
+    "tabelle1_columns": {
+      "B": "Unnamed: 1",
+      "D": "Unnamed: 3"
+    },
+    "generatedAt": "2026-03-12T09:22:31Z"
+  }
 }

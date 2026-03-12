@@ -1,17 +1,11 @@
 {
   "version": 1,
-  "updatedAt": "2026-03-12T08:10:33Z",
+  "updatedAt": "2026-03-12T09:22:31Z",
   "employees": [
     {
       "personalnummer": "",
-      "vorname": "Rico",
-      "nachname": "Erbe",
-      "aktiv": true
-    },
-    {
-      "personalnummer": "",
-      "vorname": "Erika",
-      "nachname": "Beispiel",
+      "vorname": "Max",
+      "nachname": "Muster",
       "aktiv": true
     }
   ]
