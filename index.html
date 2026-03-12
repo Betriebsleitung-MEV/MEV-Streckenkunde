@@ -133,7 +133,7 @@
 
       <div class="card" id="p2" style="display:none;">
         <div style="font-weight:850; margin-bottom:6px;">Linien</div>
-        <div class="hint">Linie in der Liste auswählen, dann Status setzen. Filter hilft beim schnellen Setzen.</div>
+        <div class="hint">Linie in der Liste auswählen oder per Filter: "Alle sichtbaren" auf einmal setzen.</div>
 
         <label>Suche / Filter</label>
         <input id="lineSearch" placeholder="z.B. 511 oder Basel" />
@@ -145,13 +145,21 @@
           <button class="fbtn" data-filter="unkundig">Unkundig</button>
         </div>
 
+        <div style="margin-top:10px;" class="hint">Bulk-Aktion (gilt für alle aktuell sichtbaren Linien in der Liste):</div>
+        <div class="statusBar">
+          <button class="sbtn blue" id="bulkK">Alle sichtbaren kundig</button>
+          <button class="sbtn red" id="bulkA">Alle sichtbaren auffrischung</button>
+          <button class="sbtn grey" id="bulkU">Alle sichtbaren unkundig</button>
+          <button class="btn" id="bulkClear">Status entfernen</button>
+        </div>
+
         <div style="margin-top:12px;"><b>Auswahl:</b> <span id="selLine" style="color:var(--muted);">—</span></div>
         <div class="hint" id="selDesc" style="margin-top:4px;"></div>
 
         <div class="statusBar">
-          <button class="sbtn blue" data-st="kundig">Kundig</button>
-          <button class="sbtn red" data-st="auffrischung">Auffrischung</button>
-          <button class="sbtn grey" data-st="unkundig">Unkundig</button>
+          <button class="sbtn blue" data-st="kundig">Kundig (nur Auswahl)</button>
+          <button class="sbtn red" data-st="auffrischung">Auffrischung (nur Auswahl)</button>
+          <button class="sbtn grey" data-st="unkundig">Unkundig (nur Auswahl)</button>
         </div>
 
         <div class="segWrap">
@@ -725,7 +733,15 @@
   $('export').addEventListener('click',exportJson);
 
   // Variant-specific hooks
-// Variante A: keine Bulk-Aktionen
+// Variante B: Bulk-Aktionen
+  const bk = document.getElementById('bulkK');
+  const ba = document.getElementById('bulkA');
+  const bu = document.getElementById('bulkU');
+  const bc = document.getElementById('bulkClear');
+  if(bk) bk.addEventListener('click', ()=> bulkSet('kundig'));
+  if(ba) ba.addEventListener('click', ()=> bulkSet('auffrischung'));
+  if(bu) bu.addEventListener('click', ()=> bulkSet('unkundig'));
+  if(bc) bc.addEventListener('click', ()=> bulkClear());
 
 
 })();
