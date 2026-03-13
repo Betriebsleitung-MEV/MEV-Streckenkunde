@@ -53,7 +53,7 @@
     .btn:disabled{opacity:.55; cursor:not-allowed;}
 
     .list{display:grid; gap:8px; margin-top:10px;}
-    .item{display:flex; gap:10px; padding:10px; border-radius:14px; border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04); cursor:pointer; align-items:flex-start; touch-action:manipulation;}
+    .item{display:flex; gap:10px; padding:10px; border-radius:14px; border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04); cursor:pointer; align-items:flex-start;}
     .no{width:70px; font-weight:900;}
     .desc{flex:1 1 auto;}
     .badge{font-size:12px; font-weight:900; padding:4px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.14); white-space:nowrap;}
@@ -101,10 +101,12 @@
 .groupMeta{font-size:12px; color:var(--muted);}
 .miniBtn{height:34px; padding:0 10px; border-radius:999px; border:1px solid rgba(255,255,255,.16); background: rgba(255,255,255,.06); color:var(--text); font-weight:900; cursor:pointer; font-size:12px;}
 #errBar{position:fixed; left:10px; right:10px; top:118px; z-index:60; display:none; padding:10px; border-radius:12px; border:1px solid rgba(255,0,0,.35); background: rgba(255,0,0,.10); color:var(--text); font-size:12px;}
+
+#empHits .item{touch-action: manipulation;}
 </style>
 </head>
 <body>
-  <div class="topbar"><div class="brand">MEV Streckenkunde</div><div class="build">Build: 2026-03-13 08:45 MitarbeiterSelectFix</div></div>
+  <div class="topbar"><div class="brand">MEV Streckenkunde</div><div class="build">Build: 2026-03-13 09:25 MitarbeiterDelegation+Toast</div></div>
 
   <!-- Step 4: Map view -->
   <div class="mapWrap hidden" id="viewMap">
@@ -142,7 +144,7 @@
         <div style="font-weight:850; margin-bottom:6px;">Personendaten</div>
         <div class="hint">Mitarbeiter auswählen. Danach Routen setzen.</div>
         <label>Suche Mitarbeiter</label>
-        <input id="empSearch" placeholder="Name, Vorname oder Nummer" />
+        <input id="empSearch" placeholder="Vorname oder Name" />
         <div id="empHits" class="list" style="max-height:180px; overflow:auto;"></div>
         <div style="height:1px; background: rgba(255,255,255,.08); margin:12px 0;"></div>
         <div class="row3">
@@ -242,6 +244,7 @@
   const st = {
     person: {vorname:'', nachname:'', datum:'', personalnummer:''},
     employees: [],
+  empHitsCache: [],
     routes: {},
     routeSegmentsOrdered: {},
     idx: null,
@@ -491,49 +494,35 @@ function findTapTarget(startEl){
   }
 
   function renderEmpHits(q){
-    const host=$('empHits'); host.innerHTML='';
+    const host=$('empHits');
+    host.innerHTML='';
     const qq=String(q||'').toLowerCase().trim();
-    const hits=st.employees.filter(e=>e.aktiv!==false).filter(e=>{
+    const src=(st.employees||[]).filter(e=>e && e.aktiv!==false);
+    const hits=src.filter(e=>{
       if(!qq) return true;
-      const s=(String(e.nachname||'')+' '+String(e.vorname||'')+' '+String(e.personalnummer||'')).toLowerCase();
-      return s.includes(qq);
+      const nach = String(e.nachname || e.name || '').trim();
+      const vor  = String(e.vorname || '').trim();
+      return (nach+' '+vor).toLowerCase().includes(qq);
     }).slice(0,40);
-    if(!hits.length){ host.innerHTML='<div class="hint">Keine Treffer.</div>'; return; }
-    hits.forEach(e=>{
-      const div=document.createElement('div'); div.className='item';
-      div.innerHTML=`<div class="no">${String(e.personalnummer||'').trim()||'—'}</div><div class="desc"><b>${e.nachname} ${e.vorname}</b><div class="hint">Tippen zum übernehmen</div></div>`;
-      function pick(){
-$('vorname').value=e.vorname||'';
-        $('nachname').value=e.nachname||'';
-        $('pnr').value=String(e.personalnummer||'');
-        syncPerson();
-        toast('Mitarbeiter übernommen.');
-}
-      // iOS: tap nur wenn kaum Bewegung
-      let t0=null;
-      div.addEventListener('touchstart',(ev)=>{
-        const t = ev.touches && ev.touches[0];
-        if(!t) return;
-        t0 = {x:t.clientX, y:t.clientY, t:performance.now()};
-      }, {passive:true});
-      div.addEventListener('touchend',(ev)=>{
-        const t = ev.changedTouches && ev.changedTouches[0];
-        if(!t || !t0) return;
-        const dt = performance.now()-t0.t;
-        const dx = t.clientX-t0.x;
-        const dy = t.clientY-t0.y;
-        const dist = Math.hypot(dx,dy);
-        if(dt<=650 && dist<=12){
-          ev.preventDefault();
-          pick();
-        }
-        t0=null;
-      }, {passive:false});
-      // Desktop/Android Fallback
-      div.addEventListener('click',(ev)=>{ ev.preventDefault(); pick(); });
+
+    st.empHitsCache = hits;
+
+    if(!hits.length){
+      host.innerHTML='<div class="hint">Keine Treffer.</div>';
+      return;
+    }
+
+    hits.forEach((e,idx)=>{
+      const nach = String(e.nachname || e.name || '').trim();
+      const vor  = String(e.vorname || '').trim();
+      const div=document.createElement('div');
+      div.className='item';
+      div.dataset.i = String(idx);
+      div.innerHTML=`<div class="no">—</div><div class="desc"><b>${vor} ${nach}</b><div class="hint">Tippen zum übernehmen</div></div>`;
       host.appendChild(div);
     });
   }
+
 
   // Routes
   const badge = (status)=>{
@@ -1169,7 +1158,9 @@ function renderOrts(){
     // employees
     try{
       const emp=await loadJson(abs('assets/mitarbeiter.json'));
-      st.employees=Array.isArray(emp.employees)?emp.employees:[];
+      const arr = Array.isArray(emp) ? emp : (emp && Array.isArray(emp.employees) ? emp.employees : []);
+      st.employees = arr;
+
     }catch(e){ st.employees=[]; }
     renderEmpHits('');
 
