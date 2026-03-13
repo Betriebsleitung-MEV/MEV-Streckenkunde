@@ -109,6 +109,9 @@
 #accessGate .row{display:flex; gap:10px; align-items:center; margin-top:10px;}
 #accessGate .row input{flex:1 1 auto;}
 #accessGate .err{margin-top:8px; color: rgba(255,90,90,.95); font-size:12px; display:none;}
+
+#empHits{pointer-events:auto;}
+#empHits .item{touch-action: manipulation;}
 </style>
 </head>
 <body>
@@ -122,7 +125,7 @@
   </div>
   <div class="err" id="accessErr">Falscher Code.</div>
 </div></div>
-<div class="build">Build: 2026-03-13 10:25 RootAssets+Code</div></div>
+<div class="build">Build: 2026-03-13 10:55 MitarbeiterPickHardFix</div></div>
 
   <!-- Step 4: Map view -->
   <div class="mapWrap hidden" id="viewMap">
@@ -260,6 +263,7 @@
   const st = {
     person: {vorname:'', nachname:'', datum:'', personalnummer:''},
     employees: [],
+  empHitsCache: [],
     routes: {},
     routeSegmentsOrdered: {},
     idx: null,
@@ -545,28 +549,35 @@ function findTapTarget(startEl){
   }
 
   function renderEmpHits(q){
-    const host=$('empHits'); host.innerHTML='';
+    const host=$('empHits');
+    host.innerHTML='';
     const qq=String(q||'').toLowerCase().trim();
-    const hits=st.employees.filter(e=>e.aktiv!==false).filter(e=>{
+    const src=(st.employees||[]).filter(e=>e && e.aktiv!==false);
+    const hits=src.filter(e=>{
       if(!qq) return true;
-      const s=(String(e.nachname||'')+' '+String(e.vorname||'')+' '+String(e.personalnummer||'')).toLowerCase();
-      return s.includes(qq);
-    }).slice(0,40);
-    if(!hits.length){ host.innerHTML='<div class="hint">Keine Treffer.</div>'; return; }
-    hits.forEach(e=>{
-      const div=document.createElement('div'); div.className='item';
-      div.innerHTML=`<div class="no">${String(e.personalnummer||'').trim()||'—'}</div><div class="desc"><b>${e.nachname} ${e.vorname}</b><div class="hint">Tippen zum übernehmen</div></div>`;
-      div.addEventListener('click',()=>{
-$('vorname').value=e.vorname||'';
-        $('nachname').value=e.nachname||'';
-        $('pnr').value=String(e.personalnummer||'');
-        syncPerson();
-        toast('Mitarbeiter übernommen.');
-      });
-      div.addEventListener('touchend',(ev)=>{ ev.preventDefault(); $('vorname').value=e.vorname||''; $('nachname').value=e.nachname||''; $('pnr').value=String(e.personalnummer||''); syncPerson(); toast('Mitarbeiter übernommen.'); }, {passive:false});
+      const nach=String(e.nachname||e.name||'').trim();
+      const vor=String(e.vorname||'').trim();
+      return (nach+' '+vor).toLowerCase().includes(qq);
+    }).slice(0,60);
+
+    st.empHitsCache = hits;
+
+    if(!hits.length){
+      host.innerHTML='<div class="hint">Keine Treffer.</div>';
+      return;
+    }
+
+    hits.forEach((e,idx)=>{
+      const nach=String(e.nachname||e.name||'').trim();
+      const vor=String(e.vorname||'').trim();
+      const div=document.createElement('div');
+      div.className='item';
+      div.dataset.i=String(idx);
+      div.innerHTML=`<div class="no">—</div><div class="desc"><b>${vor} ${nach}</b><div class="hint">Tippen zum übernehmen</div></div>`;
       host.appendChild(div);
     });
   }
+
 
   // Routes
   const badge = (status)=>{
@@ -1208,6 +1219,56 @@ function renderOrts(){
 
     }catch(e){ st.employees=[]; }
     renderEmpHits('');
+
+  // EMP_PICK_DELEGATION (iOS-stabil, capture)
+  (function(){
+    const host=$('empHits');
+    if(!host) return;
+    function pickFromTarget(t){
+      const item = t && t.closest ? t.closest('.item') : null;
+      if(!item) return false;
+      const i = Number(item.dataset.i);
+      const e = (st.empHitsCache && st.empHitsCache[i]) ? st.empHitsCache[i] : null;
+      if(!e) return false;
+      const nach = String(e.nachname || e.name || '').trim();
+      const vor  = String(e.vorname || '').trim();
+      $('vorname').value = vor;
+      $('nachname').value = nach;
+      if($('pnr')) $('pnr').value = '';
+      syncPerson();
+      toast('Mitarbeiter: '+vor+' '+nach);
+      return true;
+    }
+
+    let down=null;
+    host.addEventListener('pointerdown', (ev)=>{
+      if(ev.pointerType==='mouse' && ev.button!=null && ev.button!==0) return;
+      down = {x:ev.clientX, y:ev.clientY, t:performance.now(), target: ev.target};
+    }, {capture:true, passive:true});
+
+    host.addEventListener('pointerup', (ev)=>{
+      if(!down) return;
+      const dt=performance.now()-down.t;
+      const dx=ev.clientX-down.x;
+      const dy=ev.clientY-down.y;
+      const dist=Math.hypot(dx,dy);
+      if(dt<=800 && dist<=14){
+        // capture stage -> prevent scrolling click-through
+        ev.preventDefault();
+        ev.stopPropagation();
+        pickFromTarget(down.target);
+      }
+      down=null;
+    }, {capture:true, passive:false});
+
+    host.addEventListener('click', (ev)=>{
+      // fallback
+      ev.preventDefault();
+      pickFromTarget(ev.target);
+    }, {capture:true});
+
+  })();
+
 
     // wiring
     $('empSearch').addEventListener('input',()=>renderEmpHits($('empSearch').value));
