@@ -53,7 +53,7 @@
     .btn:disabled{opacity:.55; cursor:not-allowed;}
 
     .list{display:grid; gap:8px; margin-top:10px;}
-    .item{display:flex; gap:10px; padding:10px; border-radius:14px; border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04); cursor:pointer; align-items:flex-start;}
+    .item{display:flex; gap:10px; padding:10px; border-radius:14px; border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04); cursor:pointer; align-items:flex-start; touch-action:manipulation;}
     .no{width:70px; font-weight:900;}
     .desc{flex:1 1 auto;}
     .badge{font-size:12px; font-weight:900; padding:4px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.14); white-space:nowrap;}
@@ -101,12 +101,10 @@
 .groupMeta{font-size:12px; color:var(--muted);}
 .miniBtn{height:34px; padding:0 10px; border-radius:999px; border:1px solid rgba(255,255,255,.16); background: rgba(255,255,255,.06); color:var(--text); font-weight:900; cursor:pointer; font-size:12px;}
 #errBar{position:fixed; left:10px; right:10px; top:118px; z-index:60; display:none; padding:10px; border-radius:12px; border:1px solid rgba(255,0,0,.35); background: rgba(255,0,0,.10); color:var(--text); font-size:12px;}
-
-#empHits{pointer-events:auto;}
 </style>
 </head>
 <body>
-  <div class="topbar"><div class="brand">MEV Streckenkunde</div><div class="build">Build: 2026-03-13 08:25 MitarbeiterTapFix</div></div>
+  <div class="topbar"><div class="brand">MEV Streckenkunde</div><div class="build">Build: 2026-03-13 08:45 MitarbeiterSelectFix</div></div>
 
   <!-- Step 4: Map view -->
   <div class="mapWrap hidden" id="viewMap">
@@ -511,11 +509,28 @@ $('vorname').value=e.vorname||'';
         syncPerson();
         toast('Mitarbeiter übernommen.');
 }
-      let down=null;
-      div.addEventListener('pointerdown',(ev)=>{ if(ev.button!=null && ev.button!==0) return; down={x:ev.clientX,y:ev.clientY,t:performance.now()}; }, {passive:true});
-      div.addEventListener('pointerup',(ev)=>{ if(!down) return; const dt=performance.now()-down.t; const dx=ev.clientX-down.x; const dy=ev.clientY-down.y; const dist=Math.hypot(dx,dy); if(dt<=550 && dist<=10){ pick(); } down=null; }, {passive:true});
-      div.addEventListener('pointercancel',()=>{ down=null; }, {passive:true});
-      div.addEventListener('touchend',(e)=>{ e.preventDefault(); pick(); }, {passive:false});
+      // iOS: tap nur wenn kaum Bewegung
+      let t0=null;
+      div.addEventListener('touchstart',(ev)=>{
+        const t = ev.touches && ev.touches[0];
+        if(!t) return;
+        t0 = {x:t.clientX, y:t.clientY, t:performance.now()};
+      }, {passive:true});
+      div.addEventListener('touchend',(ev)=>{
+        const t = ev.changedTouches && ev.changedTouches[0];
+        if(!t || !t0) return;
+        const dt = performance.now()-t0.t;
+        const dx = t.clientX-t0.x;
+        const dy = t.clientY-t0.y;
+        const dist = Math.hypot(dx,dy);
+        if(dt<=650 && dist<=12){
+          ev.preventDefault();
+          pick();
+        }
+        t0=null;
+      }, {passive:false});
+      // Desktop/Android Fallback
+      div.addEventListener('click',(ev)=>{ ev.preventDefault(); pick(); });
       host.appendChild(div);
     });
   }
