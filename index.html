@@ -53,7 +53,7 @@
     .btn:disabled{opacity:.55; cursor:not-allowed;}
 
     .list{display:grid; gap:8px; margin-top:10px;}
-    .item{display:flex; gap:10px; padding:10px; border-radius:14px; border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04); cursor:pointer; align-items:flex-start;}
+    .item{display:flex; gap:10px; padding:10px; border-radius:14px; border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04); cursor:pointer; align-items:flex-start; touch-action:manipulation;}
     .no{width:70px; font-weight:900;}
     .desc{flex:1 1 auto;}
     .badge{font-size:12px; font-weight:900; padding:4px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.14); white-space:nowrap;}
@@ -102,11 +102,27 @@
 .miniBtn{height:34px; padding:0 10px; border-radius:999px; border:1px solid rgba(255,255,255,.16); background: rgba(255,255,255,.06); color:var(--text); font-weight:900; cursor:pointer; font-size:12px;}
 #errBar{position:fixed; left:10px; right:10px; top:118px; z-index:60; display:none; padding:10px; border-radius:12px; border:1px solid rgba(255,0,0,.35); background: rgba(255,0,0,.10); color:var(--text); font-size:12px;}
 
-#empHits .item{touch-action: manipulation;}
+/* Zugangscode */
+#accessGate{position:fixed; inset:0; z-index:999; display:none; align-items:center; justify-content:center; background: rgba(11,18,32,.92);}
+#accessGate .box{width:min(520px, 92vw); border:1px solid rgba(255,255,255,.14); background: rgba(18,26,43,.96); border-radius:16px; padding:14px; box-shadow: var(--shadow);}
+#accessGate .title{font-weight:850; margin-bottom:6px;}
+#accessGate .row{display:flex; gap:10px; align-items:center; margin-top:10px;}
+#accessGate .row input{flex:1 1 auto;}
+#accessGate .err{margin-top:8px; color: rgba(255,90,90,.95); font-size:12px; display:none;}
 </style>
 </head>
 <body>
-  <div class="topbar"><div class="brand">MEV Streckenkunde</div><div class="build">Build: 2026-03-13 09:25 MitarbeiterDelegation+Toast</div></div>
+  <div class="topbar"><div class="brand">MEV Streckenkunde</div>
+<div id="accessGate"><div class="box">
+  <div class="title">Zugangscode erforderlich</div>
+  <div class="hint">Bitte Code eingeben, um die Anwendung zu öffnen.</div>
+  <div class="row">
+    <input id="accessCode" inputmode="numeric" pattern="[0-9]*" placeholder="Code" />
+    <button class="btn primary" id="accessBtn" type="button">Öffnen</button>
+  </div>
+  <div class="err" id="accessErr">Falscher Code.</div>
+</div></div>
+<div class="build">Build: 2026-03-13 10:00 GoldBasis19-05 + MitarbeiterTap + Code + BLSCollapse</div></div>
 
   <!-- Step 4: Map view -->
   <div class="mapWrap hidden" id="viewMap">
@@ -145,7 +161,7 @@
         <div class="hint">Mitarbeiter auswählen. Danach Routen setzen.</div>
         <label>Suche Mitarbeiter</label>
         <input id="empSearch" placeholder="Vorname oder Name" />
-        <div id="empHits" class="list" style="max-height:180px; overflow:auto;"></div>
+        <div id="empHits" class="list" style="max-height:180px; overflow:auto; -webkit-overflow-scrolling:touch;"></div>
         <div style="height:1px; background: rgba(255,255,255,.08); margin:12px 0;"></div>
         <div class="row3">
           <div><label>Vorname</label><input id="vorname" placeholder="Vorname" /></div>
@@ -244,7 +260,6 @@
   const st = {
     person: {vorname:'', nachname:'', datum:'', personalnummer:''},
     employees: [],
-  empHitsCache: [],
     routes: {},
     routeSegmentsOrdered: {},
     idx: null,
@@ -480,6 +495,42 @@ function findTapTarget(startEl){
     return await r.text();
   }
 
+  async function requireAccess(){
+    try{ if(sessionStorage.getItem('mev_access_ok')==='1') return true; }catch(e){}
+    let cfg=null;
+    try{ cfg = await loadJson(abs('assets/access.json')); }catch(e){ return true; }
+    const code = String((cfg && cfg.code) ? cfg.code : '').trim();
+    if(!code) return true;
+    const gate=$('accessGate');
+    const inp=$('accessCode');
+    const btn=$('accessBtn');
+    const err=$('accessErr');
+    if(!gate || !inp || !btn) return true;
+    gate.style.display='flex';
+    inp.value='';
+    if(err) err.style.display='none';
+    setTimeout(()=>{ try{ inp.focus(); }catch(e){} }, 50);
+    return await new Promise(resolve=>{
+      function check(){
+        const v=String(inp.value||'').trim();
+        if(v===code){
+          try{ sessionStorage.setItem('mev_access_ok','1'); }catch(e){}
+          gate.style.display='none';
+          cleanup();
+          resolve(true);
+        } else {
+          if(err) err.style.display='block';
+          try{ inp.select(); }catch(e){}
+        }
+      }
+      function onKey(ev){ if(ev.key==='Enter'){ ev.preventDefault(); check(); } }
+      function cleanup(){ btn.removeEventListener('click', check); inp.removeEventListener('keydown', onKey); }
+      btn.addEventListener('click', check);
+      inp.addEventListener('keydown', onKey);
+    });
+  }
+
+
   // Person
   function syncPerson(){
     st.person.vorname = String($('vorname').value||'').trim();
@@ -494,35 +545,29 @@ function findTapTarget(startEl){
   }
 
   function renderEmpHits(q){
-    const host=$('empHits');
-    host.innerHTML='';
+    const host=$('empHits'); host.innerHTML='';
     const qq=String(q||'').toLowerCase().trim();
-    const src=(st.employees||[]).filter(e=>e && e.aktiv!==false);
-    const hits=src.filter(e=>{
+    const hits=st.employees.filter(e=>e.aktiv!==false).filter(e=>{
       if(!qq) return true;
-      const nach = String(e.nachname || e.name || '').trim();
-      const vor  = String(e.vorname || '').trim();
-      return (nach+' '+vor).toLowerCase().includes(qq);
+      const s=(String(e.nachname||'')+' '+String(e.vorname||'')+' '+String(e.personalnummer||'')).toLowerCase();
+      return s.includes(qq);
     }).slice(0,40);
-
-    st.empHitsCache = hits;
-
-    if(!hits.length){
-      host.innerHTML='<div class="hint">Keine Treffer.</div>';
-      return;
-    }
-
-    hits.forEach((e,idx)=>{
-      const nach = String(e.nachname || e.name || '').trim();
-      const vor  = String(e.vorname || '').trim();
-      const div=document.createElement('div');
-      div.className='item';
-      div.dataset.i = String(idx);
-      div.innerHTML=`<div class="no">—</div><div class="desc"><b>${vor} ${nach}</b><div class="hint">Tippen zum übernehmen</div></div>`;
+    if(!hits.length){ host.innerHTML='<div class="hint">Keine Treffer.</div>'; return; }
+    hits.forEach(e=>{
+      const div=document.createElement('div'); div.className='item';
+      div.innerHTML=`<div class="no">${String(e.personalnummer||'').trim()||'—'}</div><div class="desc"><b>${e.vorname} ${e.nachname}</b><div class="hint">Tippen zum übernehmen</div></div>`;
+      div.addEventListener('click',()=>{
+$('vorname').value=e.vorname||'';
+        $('nachname').value=e.nachname||'';
+        $('pnr').value=String(e.personalnummer||'');
+        syncPerson();
+        toast('Mitarbeiter übernommen.');
+      });
+      div.addEventListener('touchend',(ev)=>{ ev.preventDefault(); $('vorname').value=e.vorname||'';         $('nachname').value=e.nachname||'';         $('pnr').value=String(e.personalnummer||'');         syncPerson();         toast('Mitarbeiter übernommen.'); }, {passive:false});
+      div.addEventListener('touchend',(e)=>{ e.preventDefault(); $('vorname').value=e.vorname||''; $('nachname').value=e.nachname||''; $('pnr').value=''; syncPerson(); toast('Mitarbeiter übernommen.'); }, {passive:false});
       host.appendChild(div);
     });
   }
-
 
   // Routes
   const badge = (status)=>{
@@ -613,6 +658,7 @@ function findTapTarget(startEl){
 
 function renderSegList(){
   const host = $('blsList');
+ if(!st.blsCollapsed) st.blsCollapsed={};
   if(!host) return;
   host.innerHTML='';
 
@@ -1153,13 +1199,14 @@ function renderOrts(){
     $('datum').value=(new Date()).toISOString().slice(0,10);
     syncPerson();
     showStep(1);
+ await requireAccess();
   try{ if(localStorage.getItem('mev_streckenkunde_state_v4_2')) $('loadHint').innerHTML='Gespeicherte Daten gefunden. <b>Vom Gerät laden</b> antippen.'; }catch(e){}
 
     // employees
     try{
       const emp=await loadJson(abs('assets/mitarbeiter.json'));
       const arr = Array.isArray(emp) ? emp : (emp && Array.isArray(emp.employees) ? emp.employees : []);
-      st.employees = arr;
+ st.employees = arr;
 
     }catch(e){ st.employees=[]; }
     renderEmpHits('');
