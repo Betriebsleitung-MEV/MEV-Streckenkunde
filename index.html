@@ -90,42 +90,18 @@
       max-width: min(860px, 92vw); display:none; z-index:50;}
     .toast.show{display:block;}
   
-.item.suggest{outline:2px solid rgba(0, 200, 120, .55);}
-.badge.sug{color: rgba(0,200,120,.95); border-color: rgba(0,200,120,.55); background: rgba(0,200,120,.12);}
-.item.ortOn{background: rgba(0,200,120,.10);}
-.badge.rel{color: rgba(0,160,255,.95); border-color: rgba(0,160,255,.55); background: rgba(0,160,255,.12);}
-.badge.manOn{color: rgba(0,200,120,.95); border-color: rgba(0,200,120,.55); background: rgba(0,200,120,.12);}
-.badge.manOff{color: rgba(255,90,90,.95); border-color: rgba(255,90,90,.55); background: rgba(255,90,90,.12);}
+ .item.suggest{outline:2px solid rgba(0, 200, 120, .55);}
+ .badge.sug{color: rgba(0,200,120,.95); border-color: rgba(0,200,120,.55); background: rgba(0,200,120,.12);}
+ .item.ortOn{background: rgba(0,200,120,.10);}
+
 .groupHead{display:flex; gap:10px; align-items:center; padding:10px; border-radius:12px; border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.03);}
 .groupTitle{font-weight:900;}
 .groupMeta{font-size:12px; color:var(--muted);}
 .miniBtn{height:34px; padding:0 10px; border-radius:999px; border:1px solid rgba(255,255,255,.16); background: rgba(255,255,255,.06); color:var(--text); font-weight:900; cursor:pointer; font-size:12px;}
-#errBar{position:fixed; left:10px; right:10px; top:118px; z-index:60; display:none; padding:10px; border-radius:12px; border:1px solid rgba(255,0,0,.35); background: rgba(255,0,0,.10); color:var(--text); font-size:12px;}
-
-/* Zugangscode */
-#accessGate{position:fixed; inset:0; z-index:999; display:none; align-items:center; justify-content:center; background: rgba(11,18,32,.92);}
-#accessGate .box{width:min(520px, 92vw); border:1px solid rgba(255,255,255,.14); background: rgba(18,26,43,.96); border-radius:16px; padding:14px; box-shadow: var(--shadow);}
-#accessGate .title{font-weight:850; margin-bottom:6px;}
-#accessGate .row{display:flex; gap:10px; align-items:center; margin-top:10px;}
-#accessGate .row input{flex:1 1 auto;}
-#accessGate .err{margin-top:8px; color: rgba(255,90,90,.95); font-size:12px; display:none;}
-
-#empHits{pointer-events:auto;}
-#empHits .item{touch-action: manipulation;}
 </style>
 </head>
 <body>
-  <div class="topbar"><div class="brand">MEV Streckenkunde</div>
-<div id="accessGate"><div class="box">
-  <div class="title">Zugangscode erforderlich</div>
-  <div class="hint">Bitte Code eingeben, um die Anwendung zu öffnen.</div>
-  <div class="row">
-    <input id="accessCode" inputmode="numeric" pattern="[0-9]*" placeholder="Code" />
-    <button class="btn primary" id="accessBtn" type="button">Öffnen</button>
-  </div>
-  <div class="err" id="accessErr">Falscher Code.</div>
-</div></div>
-<div class="build">Build: 2026-03-13 10:55 MitarbeiterPickHardFix</div></div>
+  <div class="topbar"><div class="brand">MEV Streckenkunde</div><div class="build">Build: 2026-03-12 19:05 BLS-ohne-Suchfeld-gruppiert</div></div>
 
   <!-- Step 4: Map view -->
   <div class="mapWrap hidden" id="viewMap">
@@ -163,7 +139,7 @@
         <div style="font-weight:850; margin-bottom:6px;">Personendaten</div>
         <div class="hint">Mitarbeiter auswählen. Danach Routen setzen.</div>
         <label>Suche Mitarbeiter</label>
-        <input id="empSearch" placeholder="Vorname oder Name" />
+        <input id="empSearch" placeholder="Name, Vorname oder Nummer" />
         <div id="empHits" class="list" style="max-height:180px; overflow:auto;"></div>
         <div style="height:1px; background: rgba(255,255,255,.08); margin:12px 0;"></div>
         <div class="row3">
@@ -176,10 +152,10 @@
         <div class="toggleRow" style="margin-top:12px;">
           <button class="btn primary" id="toRoutes" type="button" disabled>Weiter zu Routen</button>
           <button class="btn" id="resetPerson" type="button">Zurücksetzen</button>
-<button class="btn" id="loadLocalTop" type="button">Vom Gerät laden</button>
+ <button class="btn" id="loadLocalTop" type="button">Vom Gerät laden</button>
         </div>
         <div class="hint" id="auto" style="margin-top:8px;"><b>Status:</b> warte …</div>
-<div class="hint" id="loadHint" style="margin-top:6px;"></div>
+ <div class="hint" id="loadHint" style="margin-top:6px;"></div>
       </div>
 
       <!-- Step 2 -->
@@ -203,14 +179,13 @@
       <!-- Step 3 -->
       <div class="card hidden" id="p3">
         <div style="font-weight:850; margin-bottom:6px;">BLS Daten</div>
-        <div class="hint">Route wählen und Teilstrecken wegklicken, die nicht kundig sind (false). Standard = false.</div>
-        <div class="hint" style="margin-top:6px;">Tippen: Teilstrecke toggelt kundig/unkundig (Standard = unkundig).</div>
-<div class="toggleRow" style="margin-top:10px;">
-  <button class="toggle active" id="blsFilterAll" type="button">Alle</button>
-  <button class="toggle" id="blsFilterUnkundig" type="button">Nur unkundig</button>
-  <span style="flex:1 1 auto"></span>
-  <span class="hint" id="blsStats" style="margin:0;"></span>
-</div>
+        <div class="hint">BLS Daten (nur gewählte RADN-Routen). Tippen toggelt kundig/unkundig (Standard = unkundig).</div>
+      <div class="toggleRow" style="margin-top:10px;">
+        <button class="toggle active" id="blsFilterAll" type="button">Alle</button>
+        <button class="toggle" id="blsFilterUnkundig" type="button">Nur unkundig</button>
+        <span style="flex:1 1 auto"></span>
+        <span class="hint" id="blsStats" style="margin:0;"></span>
+      </div>
 
         <div class="cardTop">
           <div class="toggleRow">
@@ -227,15 +202,13 @@
       <!-- Step 5 -->
       <div class="card hidden" id="p5">
         <div style="font-weight:850; margin-bottom:6px;">Ortskunde (Anschlussgleise und Tanklager)</div>
-        <div class="hint">Die Ortskunde kommt aus "Tanklager"-Einträgen (z.B. "Tanklager: Swissterminal"). Standard ist kundig. Tippen = false. Nochmal tippen = true.</div>
+        
 
         <div class="cardTop">
           <div class="toggleRow">
             <span class="hint" style="margin:0;">Prüfen und bestätigen</span>
-<button class="toggle active" id="ortFilterSug" type="button">Auswahl</button>
-<button class="toggle" id="ortFilterAll" type="button">Alle</button>
-<span style="flex:1 1 auto"></span>
-<span class="hint" id="ortStats" style="margin:0;"></span>
+      <button class="toggle active" id="ortFilterSug" type="button">Auswahl</button>
+      <button class="toggle" id="ortFilterAll" type="button">Alle</button>
             <span style="flex:1 1 auto"></span>
             <button class="btn" id="backToMap" type="button">Zurück zur Karte</button>
             <button class="btn" id="saveLocal" type="button">Auf Gerät speichern</button>
@@ -252,7 +225,6 @@
   </div>
 
   <div class="toast" id="toast"></div>
-<div id="errBar"></div>
 
 <script>
 (() => {
@@ -263,7 +235,6 @@
   const st = {
     person: {vorname:'', nachname:'', datum:'', personalnummer:''},
     employees: [],
-  empHitsCache: [],
     routes: {},
     routeSegmentsOrdered: {},
     idx: null,
@@ -282,12 +253,18 @@
     tap: {key:null, t:0, c:0},
     mode: 'pan',
     pick: 'kundig',
-    blsMode: false
+    blsMode: false,
+  blsAllFalsePending: false,
+  // Ortskunde
+  suggestedOrts: new Set(),
+  ortFilter: 'suggested',
+  ortsManual: {},
+  idxTankByLine: {}
   };
 
   // ===== Tap-Anzeige im Header (nur bei Antippen, nie bei Wischen) =====
   const buildEl = document.querySelector('.topbar .build');
-  const originalBuildText = buildEl ? buildEl.textContent : 'Build: 2026-03-12 18:05 Ortskunde-AuswahlAlle-UX + BLS-gruppiert';
+  const originalBuildText = buildEl ? buildEl.textContent : '';
   let buildTimer = null;
   let wiredSvgForHeaderTap = null;
 
@@ -334,6 +311,7 @@ function collectDataLines(el){
       if(v) out.push(v);
     }
   }catch(e){}
+  // unique
   var seen = {};
   var res=[];
   for(var j=0;j<out.length;j++){ if(!seen[out[j]]){ seen[out[j]]=1; res.push(out[j]); } }
@@ -342,6 +320,7 @@ function collectDataLines(el){
 }
 
 function buildIdxTankByLine(){
+  // aus assets/stations_by_line.json: alle Einträge mit tanklager != null
   var out = {};
   try{
     var idx = st.idx || {};
@@ -352,6 +331,7 @@ function buildIdxTankByLine(){
         var it = arr[i] || {};
         if(!it.tanklager) continue;
         var line = String(it.line || lineKey || '').replace(/\D+/g,'');
+        // Sonderfall: unknown-Liste mit code = Liniennummer (z.B. "411")
         if(!line){
           var c = String(it.code || '').replace(/\D+/g,'');
           if(c) line = c;
@@ -369,7 +349,8 @@ function buildIdxTankByLine(){
 
 function buildTankIndexFromSvg(){
   var byLine = {};
-  if(!st.svgRoot) return {byLine:byLine};
+  var byCode = {};
+  if(!st.svgRoot) return {byLine:byLine, byCode:byCode};
   var nodes = st.svgRoot.querySelectorAll('[Tanklager], [tanklager]');
   nodes.forEach(function(el){
     var label = labelNurInkscape(el);
@@ -380,20 +361,27 @@ function buildTankIndexFromSvg(){
       if(!byLine[l]) byLine[l] = new Set();
       byLine[l].add(label);
     }
+    var code = String(el.getAttribute('data-code') || '').trim();
+    if(code){
+      if(!byCode[code]) byCode[code] = new Set();
+      byCode[code].add(label);
+    }
   });
-  return {byLine:byLine};
+  return {byLine:byLine, byCode:byCode};
 }
 
 function updateOrtskundeSuggestions(){
   var sug = new Set();
   var activeLines = new Set();
 
+  // A) RADN: nur kundig
   Object.keys(st.routeStatus||{}).forEach(function(r){
     if(st.routeStatus[r] !== 'kundig') return;
     var rr = String(r).replace(/\D+/g,'');
     if(rr) activeLines.add(rr);
   });
 
+  // B) Karte: markierte Punkte (Overrides != unkundig) -> data-line*
   if(st.svgRoot){
     Object.keys(st.overrides||{}).forEach(function(id){
       var v = st.overrides[id];
@@ -405,12 +393,14 @@ function updateOrtskundeSuggestions(){
     });
   }
 
+  // C1) Vorschläge via stations_by_line.json (tanklager pro Linie)
   var idxMap = st.idxTankByLine || {};
   activeLines.forEach(function(l){
     var set = idxMap[l];
     if(set) set.forEach(function(lbl){ sug.add(lbl); });
   });
 
+  // C2) Fallback: falls Tanklager-Elemente in SVG data-line haben
   var svgByLine = (st.tankIndex && st.tankIndex.byLine) ? st.tankIndex.byLine : {};
   activeLines.forEach(function(l){
     var set2 = svgByLine[l];
@@ -499,42 +489,6 @@ function findTapTarget(startEl){
     return await r.text();
   }
 
-  async function requireAccess(){
-    try{ if(sessionStorage.getItem('mev_access_ok')==='1') return true; }catch(e){}
-    let cfg=null;
-    try{ cfg = await loadJson(abs('/assets/access.json')); }catch(e){ return true; }
-    const code = String((cfg && cfg.code) ? cfg.code : '').trim();
-    if(!code) return true;
-    const gate=$('accessGate');
-    const inp=$('accessCode');
-    const btn=$('accessBtn');
-    const err=$('accessErr');
-    if(!gate || !inp || !btn) return true;
-    gate.style.display='flex';
-    inp.value='';
-    if(err) err.style.display='none';
-    setTimeout(()=>{ try{ inp.focus(); }catch(e){} }, 50);
-    return await new Promise(resolve=>{
-      function check(){
-        const v=String(inp.value||'').trim();
-        if(v===code){
-          try{ sessionStorage.setItem('mev_access_ok','1'); }catch(e){}
-          gate.style.display='none';
-          cleanup();
-          resolve(true);
-        } else {
-          if(err) err.style.display='block';
-          try{ inp.select(); }catch(e){}
-        }
-      }
-      function onKey(ev){ if(ev.key==='Enter'){ ev.preventDefault(); check(); } }
-      function cleanup(){ btn.removeEventListener('click', check); inp.removeEventListener('keydown', onKey); }
-      btn.addEventListener('click', check);
-      inp.addEventListener('keydown', onKey);
-    });
-  }
-
-
   // Person
   function syncPerson(){
     st.person.vorname = String($('vorname').value||'').trim();
@@ -549,35 +503,27 @@ function findTapTarget(startEl){
   }
 
   function renderEmpHits(q){
-    const host=$('empHits');
-    host.innerHTML='';
+    const host=$('empHits'); host.innerHTML='';
     const qq=String(q||'').toLowerCase().trim();
-    const src=(st.employees||[]).filter(e=>e && e.aktiv!==false);
-    const hits=src.filter(e=>{
+    const hits=st.employees.filter(e=>e.aktiv!==false).filter(e=>{
       if(!qq) return true;
-      const nach=String(e.nachname||e.name||'').trim();
-      const vor=String(e.vorname||'').trim();
-      return (nach+' '+vor).toLowerCase().includes(qq);
-    }).slice(0,60);
-
-    st.empHitsCache = hits;
-
-    if(!hits.length){
-      host.innerHTML='<div class="hint">Keine Treffer.</div>';
-      return;
-    }
-
-    hits.forEach((e,idx)=>{
-      const nach=String(e.nachname||e.name||'').trim();
-      const vor=String(e.vorname||'').trim();
-      const div=document.createElement('div');
-      div.className='item';
-      div.dataset.i=String(idx);
-      div.innerHTML=`<div class="no">—</div><div class="desc"><b>${vor} ${nach}</b><div class="hint">Tippen zum übernehmen</div></div>`;
+      const s=(String(e.nachname||'')+' '+String(e.vorname||'')+' '+String(e.personalnummer||'')).toLowerCase();
+      return s.includes(qq);
+    }).slice(0,40);
+    if(!hits.length){ host.innerHTML='<div class="hint">Keine Treffer.</div>'; return; }
+    hits.forEach(e=>{
+      const div=document.createElement('div'); div.className='item';
+      div.innerHTML=`<div class="no">${String(e.personalnummer||'').trim()||'—'}</div><div class="desc"><b>${e.nachname} ${e.vorname}</b><div class="hint">Tippen zum übernehmen</div></div>`;
+      div.addEventListener('click',()=>{
+        $('vorname').value=e.vorname||'';
+        $('nachname').value=e.nachname||'';
+        $('pnr').value=String(e.personalnummer||'');
+        syncPerson();
+        toast('Mitarbeiter übernommen.');
+      });
       host.appendChild(div);
     });
   }
-
 
   // Routes
   const badge = (status)=>{
@@ -640,6 +586,19 @@ function findTapTarget(startEl){
     });
   }
 
+function resetAllTeilstreckenFalse(){
+  try{
+    if(!st.routeSegmentsOrdered || !Object.keys(st.routeSegmentsOrdered).length){ st.teilstrecken = {}; st.blsAllFalsePending = true; return; }
+    Object.keys(st.routeSegmentsOrdered).forEach(function(r){
+      initTeilstreckenForRoute(r);
+      var mm = st.teilstrecken[r] || {};
+      Object.keys(mm).forEach(function(k){ mm[k]=false; });
+      st.teilstrecken[r]=mm;
+    });
+    st.blsAllFalsePending = false;
+  }catch(e){ st.blsAllFalsePending = true; }
+}
+
   function renderRoutePick(){
     const sel=$('routePick'); sel.innerHTML='';
     const rs=selectedRoutes();
@@ -667,6 +626,7 @@ function findTapTarget(startEl){
 }
 
 function renderSegList(){
+  // BLS Daten: gruppiert nach gewählten RADN-Routen (kein Suchfeld)
   const host = $('blsList');
   if(!host) return;
   host.innerHTML='';
@@ -686,6 +646,7 @@ function renderSegList(){
     const segs = st.routeSegmentsOrdered[r] || [];
     if(!segs.length) return;
 
+    // counts
     var total = segs.length;
     var trueCnt = 0;
     for(var i=0;i<segs.length;i++){
@@ -795,12 +756,13 @@ function renderSegList(){
   // Assets
   async function ensureAssetsLoaded(){
     if(st.idx && st.svgText && Object.keys(st.routes).length) return;
-    const idx=await loadJson(abs('/assets/index.json'));
+    const idx=await loadJson(abs('assets/index.json'));
     st.routes = idx.routes || {};
     st.routeSegmentsOrdered = idx.routeSegmentsOrdered || {};
-    st.idx = await loadJson(abs('/assets/stations_by_line.json'));
+    if(!st.blsMode && st.blsAllFalsePending){ resetAllTeilstreckenFalse(); }
+    st.idx = await loadJson(abs('assets/stations_by_line.json'));
     buildIdxTankByLine();
-    st.svgText = await loadText(abs('/assets/map.svg'));
+    st.svgText = await loadText(abs('assets/map.svg'));
   }
 
   // SVG embed + pan/zoom
@@ -1021,40 +983,14 @@ function renderSegList(){
   st.orts = out;
 }
 
-function updateOrtsStats(currentKeys){
-  try{
-    var allKeys = Object.keys(st.orts||{});
-    var sugSet = st.suggestedOrts || new Set();
-    var selCount = allKeys.filter(function(k){
-      if(sugSet.has(k)) return true;
-      if(st.ortsManual && Object.prototype.hasOwnProperty.call(st.ortsManual,k) && st.ortsManual[k]===true) return true;
-      return false;
-    }).length;
-    var allCount = allKeys.length;
-    var on=0, off=0;
-    (currentKeys||[]).forEach(function(ort){
-      var manual = (st.ortsManual && Object.prototype.hasOwnProperty.call(st.ortsManual, ort)) ? st.ortsManual[ort] : null;
-      var relevant = (sugSet && sugSet.has(ort));
-      var isOn = (manual===true) ? true : (manual===false) ? false : (relevant ? true : false);
-      if(isOn) on++; else off++;
-    });
-    var mode = (st.ortFilter==='all') ? 'Alle' : 'Auswahl';
-    var txt = 'Anzeige: Auswahl ' + selCount + ' / Alle ' + allCount + ' | ' + mode + ': kundig ' + on + ' / unkundig ' + off;
-    if($('ortStats')) $('ortStats').textContent = txt;
-  }catch(e){}
-}
-
 function renderOrts(){
     const host=$('ortList'); host.innerHTML='';
     const keys=Object.keys(st.orts||{}).sort((a,b)=>a.localeCompare(b,'de-CH'));
-    updateOrtsStats(keys);
-
     if(!keys.length){ host.innerHTML='<div class="hint">Keine Ortskunde aus kundigen Routen.</div>'; return; }
     keys.forEach(ort=>{
       const it=st.orts[ort];
-      const manual = (st.ortsManual && Object.prototype.hasOwnProperty.call(st.ortsManual, ort)) ? st.ortsManual[ort] : null;
-    const relevant = (st.suggestedOrts && st.suggestedOrts.has(ort));
-    const on = (manual===true) ? true : (manual===false) ? false : (relevant ? true : false);
+      const manual = (st.ortsManual && st.ortsManual.hasOwnProperty(ort)) ? st.ortsManual[ort] : null;
+    const on = (manual===true) ? true : (manual===false) ? false : (st.suggestedOrts && st.suggestedOrts.has(ort)) ? true : false;
       const div=document.createElement('div');
       div.className='item'+(on?'':'');
       div.innerHTML=`<div class="no">${on?'✅':'✕'}</div><div class="desc"><b style="text-decoration:${on?'none':'line-through'};">${ort}</b><div class="hint">Linien: ${(it.linien||[]).slice().sort((a,b)=>Number(a)-Number(b)).join(', ')}</div></div>`;
@@ -1135,11 +1071,12 @@ function renderOrts(){
         });
       }
       st.orts={};
-      if(p.ortskunde){ Object.keys(p.ortskunde).forEach(o=>{ st.orts[o]={kundig:!!p.ortskunde[o].kundig, linien:(p.ortskunde[o].linien||[])}; }); }
+      if(p.ortskunde){ Object.keys(p.ortskunde).forEach(o=>{ st.orts[o]={linien:(p.ortskunde[o].linien||[])}; st.ortsManual[o]=!!p.ortskunde[o].kundig; }); }
       st.overrides=p.overrides||{};
 
       syncPerson();
-      renderRouteList();      renderSegList();
+      renderRouteList();
+renderSegList();
       if(st.svgRoot) applySelectionToSvg();
       rebuildOrts(); renderOrts(); renderSummary();
       setDirty(false);
@@ -1199,76 +1136,24 @@ function renderOrts(){
   }
 
   function setBls(v){
-    st.blsMode=!!v;
-    $('blsYes').classList.toggle('active', st.blsMode);
-    $('blsNo').classList.toggle('active', !st.blsMode);
-  }
+  st.blsMode=!!v;
+  $('blsYes').classList.toggle('active', st.blsMode);
+  $('blsNo').classList.toggle('active', !st.blsMode);
+  if(!st.blsMode){ st.blsAllFalsePending = true; resetAllTeilstreckenFalse(); }
+}
 
   async function init(){
     $('datum').value=(new Date()).toISOString().slice(0,10);
     syncPerson();
     showStep(1);
- await requireAccess();
   try{ if(localStorage.getItem('mev_streckenkunde_state_v4_2')) $('loadHint').innerHTML='Gespeicherte Daten gefunden. <b>Vom Gerät laden</b> antippen.'; }catch(e){}
 
     // employees
     try{
-      const emp=await loadJson(abs('/assets/mitarbeiter.json'));
-      const arr = Array.isArray(emp) ? emp : (emp && Array.isArray(emp.employees) ? emp.employees : []);
- st.employees = arr;
-
+      const emp=await loadJson(abs('assets/mitarbeiter.json'));
+      st.employees=Array.isArray(emp.employees)?emp.employees:[];
     }catch(e){ st.employees=[]; }
     renderEmpHits('');
-
-  // EMP_PICK_DELEGATION (iOS-stabil, capture)
-  (function(){
-    const host=$('empHits');
-    if(!host) return;
-    function pickFromTarget(t){
-      const item = t && t.closest ? t.closest('.item') : null;
-      if(!item) return false;
-      const i = Number(item.dataset.i);
-      const e = (st.empHitsCache && st.empHitsCache[i]) ? st.empHitsCache[i] : null;
-      if(!e) return false;
-      const nach = String(e.nachname || e.name || '').trim();
-      const vor  = String(e.vorname || '').trim();
-      $('vorname').value = vor;
-      $('nachname').value = nach;
-      if($('pnr')) $('pnr').value = '';
-      syncPerson();
-      toast('Mitarbeiter: '+vor+' '+nach);
-      return true;
-    }
-
-    let down=null;
-    host.addEventListener('pointerdown', (ev)=>{
-      if(ev.pointerType==='mouse' && ev.button!=null && ev.button!==0) return;
-      down = {x:ev.clientX, y:ev.clientY, t:performance.now(), target: ev.target};
-    }, {capture:true, passive:true});
-
-    host.addEventListener('pointerup', (ev)=>{
-      if(!down) return;
-      const dt=performance.now()-down.t;
-      const dx=ev.clientX-down.x;
-      const dy=ev.clientY-down.y;
-      const dist=Math.hypot(dx,dy);
-      if(dt<=800 && dist<=14){
-        // capture stage -> prevent scrolling click-through
-        ev.preventDefault();
-        ev.stopPropagation();
-        pickFromTarget(down.target);
-      }
-      down=null;
-    }, {capture:true, passive:false});
-
-    host.addEventListener('click', (ev)=>{
-      // fallback
-      ev.preventDefault();
-      pickFromTarget(ev.target);
-    }, {capture:true});
-
-  })();
-
 
     // wiring
     $('empSearch').addEventListener('input',()=>renderEmpHits($('empSearch').value));
@@ -1285,6 +1170,7 @@ function renderOrts(){
       try{ await ensureAssetsLoaded(); renderRouteList(); showStep(2); }
       catch(e){ console.error(e); toast('Fehler beim Laden der Assets.'); }
     });
+
     $('blsYes').addEventListener('click',()=>setBls(true));
     $('blsNo').addEventListener('click',()=>setBls(false));
     setBls(false);
@@ -1292,34 +1178,15 @@ function renderOrts(){
     $('backToPerson').addEventListener('click',()=>showStep(1));
 
     $('nextFromRoutes').addEventListener('click', async()=>{
-    try{
-      if(st.blsMode){
-        renderSegList();
-        showStep(3);
-      } else {
-        await goMap();
-      }
-    }catch(e){
-      console.error(e);
-      toast('Fehler beim Weiter.');
-      try{ const eb=$('errBar'); if(eb){ eb.style.display='block'; eb.textContent='Fehler: '+String(e && e.message ? e.message : e); } }catch(_){}
+    if(st.blsMode){
+      renderSegList();
+      showStep(3);
+    } else {
+      try{ await goMap(); } catch(e){ console.error(e); toast('Karte konnte nicht geladen werden.'); }
     }
   });
 
     $('backToRoutes').addEventListener('click',()=>showStep(2));
-
-  $('blsFilterAll').addEventListener('click', ()=>{
-    st.blsFilter='all';
-    $('blsFilterAll').classList.add('active');
-    $('blsFilterUnkundig').classList.remove('active');
-    renderSegList();
-  });
-  $('blsFilterUnkundig').addEventListener('click', ()=>{
-    st.blsFilter='false';
-    $('blsFilterUnkundig').classList.add('active');
-    $('blsFilterAll').classList.remove('active');
-    renderSegList();
-  });
     $('toMap').addEventListener('click', async()=>{
       try{ await goMap(); } catch(e){ console.error(e); toast('Karte konnte nicht geladen werden.'); }
     });
@@ -1335,16 +1202,21 @@ function renderOrts(){
     // Ortskunde nav
     $('backToMap').addEventListener('click',()=>{
     showStep(4);
+
+  $('ortFilterSug').addEventListener('click', ()=>{
+    st.ortFilter='suggested';
+    $('ortFilterSug').classList.add('active');
+    $('ortFilterAll').classList.remove('active');
+    renderOrts();
   });
   $('ortFilterAll').addEventListener('click', ()=>{
     st.ortFilter='all';
     $('ortFilterAll').classList.add('active');
     $('ortFilterSug').classList.remove('active');
-    toast('Alle Tanklager anzeigen');
     renderOrts();
   });
 
-    });
+  });
 
     $('modePan').addEventListener('click',()=>setMode('pan'));
     $('modeEdit').addEventListener('click',()=>setMode('edit'));
@@ -1357,14 +1229,7 @@ function renderOrts(){
     $('export').addEventListener('click',exportJson);
   }
 
-  window.addEventListener('error', (ev)=>{
-  try{ const eb=$('errBar'); if(eb){ eb.style.display='block'; eb.textContent='JS-Fehler: '+(ev.message||ev.type); } }catch(e){}
-});
-window.addEventListener('unhandledrejection', (ev)=>{
-  try{ const eb=$('errBar'); if(eb){ eb.style.display='block'; eb.textContent='Promise-Fehler: '+String(ev.reason||ev); } }catch(e){}
-});
-
-init();
+  init();
 })();
 </script>
 </body>
