@@ -53,7 +53,7 @@
     .btn:disabled{opacity:.55; cursor:not-allowed;}
 
     .list{display:grid; gap:8px; margin-top:10px;}
-    .item{display:flex; gap:10px; padding:10px; border-radius:14px; border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04); cursor:pointer; align-items:flex-start; touch-action:manipulation;}
+    .item{display:flex; gap:10px; padding:10px; border-radius:14px; border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04); cursor:pointer; align-items:flex-start;}
     .no{width:70px; font-weight:900;}
     .desc{flex:1 1 auto;}
     .badge{font-size:12px; font-weight:900; padding:4px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.14); white-space:nowrap;}
@@ -122,7 +122,7 @@
   </div>
   <div class="err" id="accessErr">Falscher Code.</div>
 </div></div>
-<div class="build">Build: 2026-03-13 10:00 GoldBasis19-05 + MitarbeiterTap + Code + BLSCollapse</div></div>
+<div class="build">Build: 2026-03-13 10:25 RootAssets+Code</div></div>
 
   <!-- Step 4: Map view -->
   <div class="mapWrap hidden" id="viewMap">
@@ -161,7 +161,7 @@
         <div class="hint">Mitarbeiter auswählen. Danach Routen setzen.</div>
         <label>Suche Mitarbeiter</label>
         <input id="empSearch" placeholder="Vorname oder Name" />
-        <div id="empHits" class="list" style="max-height:180px; overflow:auto; -webkit-overflow-scrolling:touch;"></div>
+        <div id="empHits" class="list" style="max-height:180px; overflow:auto;"></div>
         <div style="height:1px; background: rgba(255,255,255,.08); margin:12px 0;"></div>
         <div class="row3">
           <div><label>Vorname</label><input id="vorname" placeholder="Vorname" /></div>
@@ -498,7 +498,7 @@ function findTapTarget(startEl){
   async function requireAccess(){
     try{ if(sessionStorage.getItem('mev_access_ok')==='1') return true; }catch(e){}
     let cfg=null;
-    try{ cfg = await loadJson(abs('assets/access.json')); }catch(e){ return true; }
+    try{ cfg = await loadJson(abs('/assets/access.json')); }catch(e){ return true; }
     const code = String((cfg && cfg.code) ? cfg.code : '').trim();
     if(!code) return true;
     const gate=$('accessGate');
@@ -555,7 +555,7 @@ function findTapTarget(startEl){
     if(!hits.length){ host.innerHTML='<div class="hint">Keine Treffer.</div>'; return; }
     hits.forEach(e=>{
       const div=document.createElement('div'); div.className='item';
-      div.innerHTML=`<div class="no">${String(e.personalnummer||'').trim()||'—'}</div><div class="desc"><b>${e.vorname} ${e.nachname}</b><div class="hint">Tippen zum übernehmen</div></div>`;
+      div.innerHTML=`<div class="no">${String(e.personalnummer||'').trim()||'—'}</div><div class="desc"><b>${e.nachname} ${e.vorname}</b><div class="hint">Tippen zum übernehmen</div></div>`;
       div.addEventListener('click',()=>{
 $('vorname').value=e.vorname||'';
         $('nachname').value=e.nachname||'';
@@ -563,8 +563,7 @@ $('vorname').value=e.vorname||'';
         syncPerson();
         toast('Mitarbeiter übernommen.');
       });
-      div.addEventListener('touchend',(ev)=>{ ev.preventDefault(); $('vorname').value=e.vorname||'';         $('nachname').value=e.nachname||'';         $('pnr').value=String(e.personalnummer||'');         syncPerson();         toast('Mitarbeiter übernommen.'); }, {passive:false});
-      div.addEventListener('touchend',(e)=>{ e.preventDefault(); $('vorname').value=e.vorname||''; $('nachname').value=e.nachname||''; $('pnr').value=''; syncPerson(); toast('Mitarbeiter übernommen.'); }, {passive:false});
+      div.addEventListener('touchend',(ev)=>{ ev.preventDefault(); $('vorname').value=e.vorname||''; $('nachname').value=e.nachname||''; $('pnr').value=String(e.personalnummer||''); syncPerson(); toast('Mitarbeiter übernommen.'); }, {passive:false});
       host.appendChild(div);
     });
   }
@@ -658,7 +657,6 @@ $('vorname').value=e.vorname||'';
 
 function renderSegList(){
   const host = $('blsList');
- if(!st.blsCollapsed) st.blsCollapsed={};
   if(!host) return;
   host.innerHTML='';
 
@@ -786,12 +784,12 @@ function renderSegList(){
   // Assets
   async function ensureAssetsLoaded(){
     if(st.idx && st.svgText && Object.keys(st.routes).length) return;
-    const idx=await loadJson(abs('assets/index.json'));
+    const idx=await loadJson(abs('/assets/index.json'));
     st.routes = idx.routes || {};
     st.routeSegmentsOrdered = idx.routeSegmentsOrdered || {};
-    st.idx = await loadJson(abs('assets/stations_by_line.json'));
+    st.idx = await loadJson(abs('/assets/stations_by_line.json'));
     buildIdxTankByLine();
-    st.svgText = await loadText(abs('assets/map.svg'));
+    st.svgText = await loadText(abs('/assets/map.svg'));
   }
 
   // SVG embed + pan/zoom
@@ -1204,7 +1202,7 @@ function renderOrts(){
 
     // employees
     try{
-      const emp=await loadJson(abs('assets/mitarbeiter.json'));
+      const emp=await loadJson(abs('/assets/mitarbeiter.json'));
       const arr = Array.isArray(emp) ? emp : (emp && Array.isArray(emp.employees) ? emp.employees : []);
  st.employees = arr;
 
