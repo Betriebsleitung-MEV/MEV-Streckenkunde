@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+<title>MEV Streckenkunde</title>
+<style>
+:root{--bg:#0b1220;--panel:#121a2b;--panel2:#0f1730;--text:#e8eefc;--muted:#9fb0d0;--blue:#0070ff;--red:#ff2a2a;}
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);} 
+.card{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);border-radius:14px;padding:12px;margin:12px;}
+label{display:block;font-size:12px;color:var(--muted);margin:10px 0 6px;}
+input{width:100%;height:40px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:var(--panel2);color:var(--text);padding:0 12px;}
+.row3{display:grid;grid-template-columns:1fr 1fr 140px;gap:10px;}
+.btn{height:42px;padding:0 12px;border-radius:12px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.06);color:var(--text);font-weight:700;}
+.btn.primary{border-color:rgba(0,112,255,.65);background:rgba(0,112,255,.16);} 
+.hint{font-size:12px;color:var(--muted);} 
+.topbar{display:flex;gap:10px;align-items:center;padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.08);} 
+.build{margin-left:auto;font-size:12px;color:var(--muted);} 
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="brand">MEV Streckenkunde</div>
+  <div class="build">Build: 2026-03-13 V1</div>
+</div>
+<div class="card" id="p1">
+  <div style="font-weight:850; margin-bottom:6px;">Personendaten</div>
+  <div class="hint">MEV‑Code eingeben, danach Mitarbeiter auswählen.</div>
+  <label>MEV‑Code</label>
+  <input id="pnr" placeholder="MEV‑Code" />
+  <div class="hint" id="accessStatus" style="margin-top:6px;"><b>Status:</b> Zugriff gesperrt</div>
+  <div style="height:1px;background:rgba(255,255,255,.08);margin:12px 0;"></div>
+  <label>Suche Mitarbeiter</label>
+  <input id="empSearch" placeholder="Name oder Vorname" disabled />
+  <div class="row3" style="margin-top:10px;">
+    <div><label>Vorname</label><input id="vorname" disabled /></div>
+    <div><label>Name</label><input id="nachname" disabled /></div>
+    <div><label>Datum</label><input id="datum" type="date" disabled /></div>
+  </div>
+  <div style="margin-top:12px;"><button class="btn primary" id="toRoutes" disabled>Weiter zu Routen</button></div>
+</div>
+<script>
+(()=>{
+ const $=id=>document.getElementById(id);
+ async function checkAccess(code){
+  try{
+   const r=await fetch('assets/access.json',{cache:'no-store'});
+   const j=await r.json();
+   if(j.code && String(j.code)===code) return true;
+   if(Array.isArray(j.codes) && j.codes.includes(code)) return true;
+  }catch(e){console.error(e);}return false;
+ }
+ function setAccess(ok){
+  $('accessStatus').innerHTML='<b>Status:</b> '+(ok?'Zugriff erlaubt':'Zugriff gesperrt');
+  ['empSearch','vorname','nachname','datum','toRoutes'].forEach(id=>{const el=$(id);if(el) el.disabled=!ok;});
+ }
+ $('datum').value=new Date().toISOString().slice(0,10);
+ $('pnr').addEventListener('input',async()=>{
+  const c=$('pnr').value.trim();
+  if(!c){setAccess(false);return;}
+  setAccess(await checkAccess(c));
+ });
+})();
+</script>
+</body>
+</html>
