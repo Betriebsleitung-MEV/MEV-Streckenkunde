@@ -101,10 +101,12 @@
 .groupMeta{font-size:12px; color:var(--muted);}
 .miniBtn{height:34px; padding:0 10px; border-radius:999px; border:1px solid rgba(255,255,255,.16); background: rgba(255,255,255,.06); color:var(--text); font-weight:900; cursor:pointer; font-size:12px;}
 #errBar{position:fixed; left:10px; right:10px; top:118px; z-index:60; display:none; padding:10px; border-radius:12px; border:1px solid rgba(255,0,0,.35); background: rgba(255,0,0,.10); color:var(--text); font-size:12px;}
+
+#empHits{pointer-events:auto;}
 </style>
 </head>
 <body>
-  <div class="topbar"><div class="brand">MEV Streckenkunde</div><div class="build">Build: 2026-03-13 08:10 MitarbeiterFix+Debug</div></div>
+  <div class="topbar"><div class="brand">MEV Streckenkunde</div><div class="build">Build: 2026-03-13 08:25 MitarbeiterTapFix</div></div>
 
   <!-- Step 4: Map view -->
   <div class="mapWrap hidden" id="viewMap">
@@ -158,7 +160,6 @@
 <button class="btn" id="loadLocalTop" type="button">Vom Gerät laden</button>
         </div>
         <div class="hint" id="auto" style="margin-top:8px;"><b>Status:</b> warte …</div>
-<div class="hint" id="empCount" style="margin-top:6px;"></div>
 <div class="hint" id="loadHint" style="margin-top:6px;"></div>
       </div>
 
@@ -494,7 +495,7 @@ function findTapTarget(startEl){
   function renderEmpHits(q){
     const host=$('empHits'); host.innerHTML='';
     const qq=String(q||'').toLowerCase().trim();
-    const hits=(st.employees||[]).filter(e=>e && e.aktiv!==false).filter(e=>{
+    const hits=st.employees.filter(e=>e.aktiv!==false).filter(e=>{
       if(!qq) return true;
       const s=(String(e.nachname||'')+' '+String(e.vorname||'')+' '+String(e.personalnummer||'')).toLowerCase();
       return s.includes(qq);
@@ -503,13 +504,18 @@ function findTapTarget(startEl){
     hits.forEach(e=>{
       const div=document.createElement('div'); div.className='item';
       div.innerHTML=`<div class="no">${String(e.personalnummer||'').trim()||'—'}</div><div class="desc"><b>${e.nachname} ${e.vorname}</b><div class="hint">Tippen zum übernehmen</div></div>`;
-      div.addEventListener('click',()=>{
-        $('vorname').value=e.vorname||'';
+      function pick(){
+$('vorname').value=e.vorname||'';
         $('nachname').value=e.nachname||'';
         $('pnr').value=String(e.personalnummer||'');
         syncPerson();
         toast('Mitarbeiter übernommen.');
-      });
+}
+      let down=null;
+      div.addEventListener('pointerdown',(ev)=>{ if(ev.button!=null && ev.button!==0) return; down={x:ev.clientX,y:ev.clientY,t:performance.now()}; }, {passive:true});
+      div.addEventListener('pointerup',(ev)=>{ if(!down) return; const dt=performance.now()-down.t; const dx=ev.clientX-down.x; const dy=ev.clientY-down.y; const dist=Math.hypot(dx,dy); if(dt<=550 && dist<=10){ pick(); } down=null; }, {passive:true});
+      div.addEventListener('pointercancel',()=>{ down=null; }, {passive:true});
+      div.addEventListener('touchend',(e)=>{ e.preventDefault(); pick(); }, {passive:false});
       host.appendChild(div);
     });
   }
@@ -1148,8 +1154,7 @@ function renderOrts(){
     // employees
     try{
       const emp=await loadJson(abs('assets/mitarbeiter.json'));
-      const arr = Array.isArray(emp) ? emp : (emp && Array.isArray(emp.employees) ? emp.employees : []);
-      st.employees = arr;
+      st.employees=Array.isArray(emp.employees)?emp.employees:[];
     }catch(e){ st.employees=[]; }
     renderEmpHits('');
 
