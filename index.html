@@ -153,7 +153,10 @@
           <button class="btn primary" id="toRoutes" type="button" disabled>Weiter zu Routen</button>
           <button class="btn" id="resetPerson" type="button">Zurücksetzen</button>
  <button class="btn" id="loadLocalTop" type="button">Vom Gerät laden</button>
-        </div>
+        
+ <button class=\"btn\" id=\"importJsonTop\" type=\"button\">Aus JSON laden</button>
+ <input id=\"importFile\" class=\"hidden\" type=\"file\" accept=\"application/json,.json\" />
+</div>
         <div class="hint" id="auto" style="margin-top:8px;"><b>Status:</b> warte …</div>
  <div class="hint" id="loadHint" style="margin-top:6px;"></div>
       </div>
@@ -1107,7 +1110,84 @@ renderSegList();
     }catch(e){ console.error(e); toast('Laden fehlgeschlagen.'); }
   }
 
-  async function exportJson(){
+ // ===== Import aus Datei (JSON) =====
+ function importJsonFile(file){
+   return new Promise((resolve, reject)=>{
+     const fr = new FileReader();
+     fr.onload = ()=>{
+       try{ resolve(JSON.parse(String(fr.result||''))); }
+       catch(e){ reject(e); }
+     };
+     fr.onerror = reject;
+     fr.readAsText(file);
+   });
+ }
+
+ async function applyPayload(p){
+   // Assets nötig für RADN/BLS/Segmente
+   try{ await ensureAssetsLoaded(); }catch(e){ /* darf bei reinem Profil trotzdem nicht crashen */ }
+
+   if(p && p.person){
+     st.person = {...st.person, ...p.person};
+     $('vorname').value = st.person.vorname || '';
+     $('nachname').value = st.person.nachname || '';
+     $('datum').value = st.person.datum || '';
+     $('pnr').value = st.person.personalnummer || '';
+   }
+
+   // BLS Modus
+   if(typeof p.bls !== 'undefined'){
+     st.blsMode = !!p.bls;
+     $('blsYes').classList.toggle('active', st.blsMode);
+     $('blsNo').classList.toggle('active', !st.blsMode);
+     if(!st.blsMode){ st.blsAllFalsePending = true; resetAllTeilstreckenFalse(); }
+   }
+
+   // Linienstatus
+   st.routeStatus = {};
+   if(p && p.linien){
+     Object.keys(p.linien).forEach(r=>{
+       const it = p.linien[r] || {};
+       st.routeStatus[r] = it.status || (it.kundig ? 'kundig' : (it.auffrischung ? 'auffrischung' : 'unkundig'));
+     });
+   }
+
+   // Teilstrecken
+   st.teilstrecken = {};
+   if(p && p.teilstrecken){
+     Object.keys(p.teilstrecken).forEach(r=>{
+       st.teilstrecken[r] = {};
+       (p.teilstrecken[r] || []).forEach(it=>{
+         st.teilstrecken[r][`${it.seg}
+${it.from}>${it.to}`] = !!it.kundig;
+       });
+     });
+   }
+
+   // Ortskunde (manuell)
+   st.ortsManual = st.ortsManual || {};
+   st.orts = {};
+   if(p && p.ortskunde){
+     Object.keys(p.ortskunde).forEach(o=>{
+       st.orts[o] = { linien: (p.ortskunde[o].linien || []) };
+       st.ortsManual[o] = !!p.ortskunde[o].kundig;
+     });
+   }
+
+   st.overrides = (p && p.overrides) ? p.overrides : {};
+
+   syncPerson();
+   try{ renderRouteList(); }catch(e){}
+   try{ renderSegList(); }catch(e){}
+   if(st.svgRoot) try{ applySelectionToSvg(); }catch(e){}
+   try{ rebuildOrts(); updateOrtskundeSuggestions(); renderOrts(); }catch(e){}
+   try{ renderSummary(); }catch(e){}
+
+   setDirty(false);
+ }
+
+
+ async function exportJson(){
     const p=payload();
     if(!p.person.vorname||!p.person.nachname||!p.person.datum){ toast('Personendaten fehlen.'); return; }
     const safe=(s)=>String(s||'').replace(/[^a-zA-Z0-9\-_. ]/g,'').trim().replace(/\s+/g,'_');
@@ -1181,6 +1261,17 @@ renderSegList();
     // wiring
     $('empSearch').addEventListener('input',()=>renderEmpHits($('empSearch').value));
   $('loadLocalTop').addEventListener('click', loadLocal);
+  // Import aus JSON-Datei
+  $('importJsonTop').addEventListener('click', ()=>{ $('importFile').value=''; $('importFile').click(); });
+  $('importFile').addEventListener('change', async()=>{
+    const f = $('importFile').files && $('importFile').files[0];
+    if(!f) return;
+    try{
+      const p = await importJsonFile(f);
+      await applyPayload(p);
+      toast('JSON importiert.');
+    }catch(e){ console.error(e); toast('JSON Import fehlgeschlagen.'); }
+  });
     ['vorname','nachname','datum','pnr'].forEach(id=>$(id).addEventListener('input',syncPerson));
 
     $('resetPerson').addEventListener('click',()=>{
