@@ -24,6 +24,7 @@
     .build{margin-left:auto; font-size:12px; color:var(--muted);}
 
     .hidden{display:none !important;}
+ .filePick{position:absolute; left:-9999px; width:1px; height:1px; opacity:0; pointer-events:none;}
 
     /* Bottom sheet */
     .sheet{position:fixed; left:0; right:0; bottom:0; z-index:20; background:rgba(18,26,43,.96);
@@ -155,7 +156,7 @@
  <button class="btn" id="loadLocalTop" type="button">Vom Gerät laden</button>
         
  <button class=\"btn\" id=\"importJsonTop\" type=\"button\">Aus JSON laden</button>
- <input id=\"importFile\" class=\"hidden\" type=\"file\" accept=\"application/json,.json\" />
+ <input id=\"importFile\" class=\"filePick\" type=\"file\" accept=\"application/json,.json\" />
 </div>
         <div class="hint" id="auto" style="margin-top:8px;"><b>Status:</b> warte …</div>
  <div class="hint" id="loadHint" style="margin-top:6px;"></div>
@@ -529,7 +530,8 @@ function findTapTarget(startEl){
         $('vorname').value=e.vorname||'';
         $('nachname').value=e.nachname||'';
         $('pnr').value=String(e.personalnummer||'');
-        syncPerson();
+  if(!$('datum').value) $('datum').value=(new Date()).toISOString().slice(0,10);
+  syncPerson();
         toast('Mitarbeiter übernommen.');
       });
       host.appendChild(div);
@@ -1125,18 +1127,18 @@ renderSegList();
 
  async function applyPayload(p){
    // Assets nötig für RADN/BLS/Segmente
-   try{ await ensureAssetsLoaded(); }catch(e){ /* darf bei reinem Profil trotzdem nicht crashen */ }
+   try{ await ensureAssetsLoaded(); }catch(e){}
 
    if(p && p.person){
      st.person = {...st.person, ...p.person};
      $('vorname').value = st.person.vorname || '';
      $('nachname').value = st.person.nachname || '';
-     $('datum').value = st.person.datum || '';
+     $('datum').value = st.person.datum || $('datum').value || (new Date()).toISOString().slice(0,10);
      $('pnr').value = st.person.personalnummer || '';
    }
 
    // BLS Modus
-   if(typeof p.bls !== 'undefined'){
+   if(typeof p?.bls !== 'undefined'){
      st.blsMode = !!p.bls;
      $('blsYes').classList.toggle('active', st.blsMode);
      $('blsNo').classList.toggle('active', !st.blsMode);
@@ -1180,8 +1182,7 @@ ${it.from}>${it.to}`] = !!it.kundig;
    try{ renderRouteList(); }catch(e){}
    try{ renderSegList(); }catch(e){}
    if(st.svgRoot) try{ applySelectionToSvg(); }catch(e){}
-   try{ rebuildOrts(); updateOrtskundeSuggestions(); renderOrts(); }catch(e){}
-   try{ renderSummary(); }catch(e){}
+   try{ rebuildOrts(); renderOrts(); renderSummary(); }catch(e){}
 
    setDirty(false);
  }
@@ -1261,10 +1262,11 @@ ${it.from}>${it.to}`] = !!it.kundig;
     // wiring
     $('empSearch').addEventListener('input',()=>renderEmpHits($('empSearch').value));
   $('loadLocalTop').addEventListener('click', loadLocal);
-  // Import aus JSON-Datei
-  $('importJsonTop').addEventListener('click', ()=>{ $('importFile').value=''; $('importFile').click(); });
+  // Import aus JSON-Datei (Schritt 1)
+  $('importJsonTop').addEventListener('click', ()=>{ const inp=$('importFile'); if(!inp) return; inp.value=''; inp.click(); });
   $('importFile').addEventListener('change', async()=>{
-    const f = $('importFile').files && $('importFile').files[0];
+    const inp=$('importFile');
+    const f = inp && inp.files && inp.files[0];
     if(!f) return;
     try{
       const p = await importJsonFile(f);
