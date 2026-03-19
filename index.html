@@ -24,7 +24,7 @@
     .build{margin-left:auto; font-size:12px; color:var(--muted);}
 
     .hidden{display:none !important;}
- .filePick{position:absolute; left:-9999px; width:1px; height:1px; opacity:0; pointer-events:none;}
+.filePick{position:fixed; left:-10000px; top:0; width:1px; height:1px; opacity:0;}
 
     /* Bottom sheet */
     .sheet{position:fixed; left:0; right:0; bottom:0; z-index:20; background:rgba(18,26,43,.96);
@@ -155,7 +155,7 @@
           <button class="btn" id="resetPerson" type="button">Zurücksetzen</button>
  <button class="btn" id="loadLocalTop" type="button">Vom Gerät laden</button>
         
- <button class=\"btn\" id=\"importJsonTop\" type=\"button\">Aus JSON laden</button>
+ <button class=\"btn\" id=\"loadFileTop\" type=\"button\">Aus Datei laden</button>
  <input id=\"importFile\" class=\"filePick\" type=\"file\" accept=\"application/json,.json\" />
 </div>
         <div class="hint" id="auto" style="margin-top:8px;"><b>Status:</b> warte …</div>
@@ -1112,83 +1112,80 @@ renderSegList();
     }catch(e){ console.error(e); toast('Laden fehlgeschlagen.'); }
   }
 
- // ===== Import aus Datei (JSON) =====
- function importJsonFile(file){
-   return new Promise((resolve, reject)=>{
-     const fr = new FileReader();
-     fr.onload = ()=>{
-       try{ resolve(JSON.parse(String(fr.result||''))); }
-       catch(e){ reject(e); }
-     };
-     fr.onerror = reject;
-     fr.readAsText(file);
-   });
- }
+// ===== Import aus Datei (JSON) =====
+function importJsonFile(file){
+  return new Promise((resolve, reject)=>{
+    const fr = new FileReader();
+    fr.onload = ()=>{
+      try{ resolve(JSON.parse(String(fr.result||''))); }
+      catch(e){ reject(e); }
+    };
+    fr.onerror = reject;
+    fr.readAsText(file);
+  });
+}
 
- async function applyPayload(p){
-   // Assets nötig für RADN/BLS/Segmente
-   try{ await ensureAssetsLoaded(); }catch(e){}
+async function applyPayload(p){
+  if(!p || typeof p !== 'object') throw new Error('Ungültige JSON');
 
-   if(p && p.person){
-     st.person = {...st.person, ...p.person};
-     $('vorname').value = st.person.vorname || '';
-     $('nachname').value = st.person.nachname || '';
-     $('datum').value = st.person.datum || $('datum').value || (new Date()).toISOString().slice(0,10);
-     $('pnr').value = st.person.personalnummer || '';
-   }
+  try{ await ensureAssetsLoaded(); }catch(e){}
 
-   // BLS Modus
-   if(typeof p?.bls !== 'undefined'){
-     st.blsMode = !!p.bls;
-     $('blsYes').classList.toggle('active', st.blsMode);
-     $('blsNo').classList.toggle('active', !st.blsMode);
-     if(!st.blsMode){ st.blsAllFalsePending = true; resetAllTeilstreckenFalse(); }
-   }
+  if(p.person){
+    st.person = {...st.person, ...p.person};
+    $('vorname').value = st.person.vorname || '';
+    $('nachname').value = st.person.nachname || '';
+    $('datum').value = st.person.datum || $('datum').value || (new Date()).toISOString().slice(0,10);
+    $('pnr').value = st.person.personalnummer || '';
+  }
 
-   // Linienstatus
-   st.routeStatus = {};
-   if(p && p.linien){
-     Object.keys(p.linien).forEach(r=>{
-       const it = p.linien[r] || {};
-       st.routeStatus[r] = it.status || (it.kundig ? 'kundig' : (it.auffrischung ? 'auffrischung' : 'unkundig'));
-     });
-   }
+  if('bls' in p){
+    st.blsMode = !!p.bls;
+    $('blsYes').classList.toggle('active', st.blsMode);
+    $('blsNo').classList.toggle('active', !st.blsMode);
+    if(!st.blsMode){ st.blsAllFalsePending = true; resetAllTeilstreckenFalse(); }
+  }
 
-   // Teilstrecken
-   st.teilstrecken = {};
-   if(p && p.teilstrecken){
-     Object.keys(p.teilstrecken).forEach(r=>{
-       st.teilstrecken[r] = {};
-       (p.teilstrecken[r] || []).forEach(it=>{
-         st.teilstrecken[r][`${it.seg}
+  st.routeStatus = {};
+  if(p.linien){
+    Object.keys(p.linien).forEach(r=>{
+      const it = p.linien[r] || {};
+      st.routeStatus[r] = it.status || (it.kundig ? 'kundig' : (it.auffrischung ? 'auffrischung' : 'unkundig'));
+    });
+  }
+
+  st.teilstrecken = {};
+  if(p.teilstrecken){
+    Object.keys(p.teilstrecken).forEach(r=>{
+      st.teilstrecken[r] = {};
+      (p.teilstrecken[r] || []).forEach(it=>{
+        st.teilstrecken[r][`${it.seg}
 ${it.from}>${it.to}`] = !!it.kundig;
-       });
-     });
-   }
+      });
+    });
+  }
 
-   // Ortskunde (manuell)
-   st.ortsManual = st.ortsManual || {};
-   st.orts = {};
-   if(p && p.ortskunde){
-     Object.keys(p.ortskunde).forEach(o=>{
-       st.orts[o] = { linien: (p.ortskunde[o].linien || []) };
-       st.ortsManual[o] = !!p.ortskunde[o].kundig;
-     });
-   }
+  st.ortsManual = st.ortsManual || {};
+  st.orts = {};
+  if(p.ortskunde){
+    Object.keys(p.ortskunde).forEach(o=>{
+      st.orts[o] = { linien: (p.ortskunde[o].linien || []) };
+      st.ortsManual[o] = !!p.ortskunde[o].kundig;
+    });
+  }
 
-   st.overrides = (p && p.overrides) ? p.overrides : {};
+  st.overrides = p.overrides || {};
 
-   syncPerson();
-   try{ renderRouteList(); }catch(e){}
-   try{ renderSegList(); }catch(e){}
-   if(st.svgRoot) try{ applySelectionToSvg(); }catch(e){}
-   try{ rebuildOrts(); renderOrts(); renderSummary(); }catch(e){}
+  syncPerson();
+  try{ renderRouteList(); }catch(e){}
+  try{ renderSegList(); }catch(e){}
+  if(st.svgRoot) try{ applySelectionToSvg(); }catch(e){}
+  try{ rebuildOrts(); renderOrts(); renderSummary(); }catch(e){}
 
-   setDirty(false);
- }
+  setDirty(false);
+}
 
 
- async function exportJson(){
+async function exportJson(){
     const p=payload();
     if(!p.person.vorname||!p.person.nachname||!p.person.datum){ toast('Personendaten fehlen.'); return; }
     const safe=(s)=>String(s||'').replace(/[^a-zA-Z0-9\-_. ]/g,'').trim().replace(/\s+/g,'_');
@@ -1262,17 +1259,25 @@ ${it.from}>${it.to}`] = !!it.kundig;
     // wiring
     $('empSearch').addEventListener('input',()=>renderEmpHits($('empSearch').value));
   $('loadLocalTop').addEventListener('click', loadLocal);
-  // Import aus JSON-Datei (Schritt 1)
-  $('importJsonTop').addEventListener('click', ()=>{ const inp=$('importFile'); if(!inp) return; inp.value=''; inp.click(); });
+  // Aus Datei laden (JSON)
+  $('loadFileTop').addEventListener('click', ()=>{
+    const inp = $('importFile');
+    if(!inp) return;
+    inp.value = '';
+    inp.click();
+  });
   $('importFile').addEventListener('change', async()=>{
-    const inp=$('importFile');
+    const inp = $('importFile');
     const f = inp && inp.files && inp.files[0];
     if(!f) return;
     try{
       const p = await importJsonFile(f);
       await applyPayload(p);
-      toast('JSON importiert.');
-    }catch(e){ console.error(e); toast('JSON Import fehlgeschlagen.'); }
+      toast('Aus Datei geladen.');
+    }catch(e){
+      console.error(e);
+      toast('Datei konnte nicht geladen werden.');
+    }
   });
     ['vorname','nachname','datum','pnr'].forEach(id=>$(id).addEventListener('input',syncPerson));
 
