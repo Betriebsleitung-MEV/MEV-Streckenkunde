@@ -102,7 +102,7 @@
 </style>
 </head>
 <body>
-  <div class="topbar"><div class="brand">MEV Streckenkunde</div><div class="build">Build: 2026-03-19 V1.4</div></div>
+  <div class="topbar"><div class="brand">MEV Streckenkunde</div><div id="bootMark" style="font-size:12px; color:rgba(255,255,255,.55); margin-left:10px;">(JS lädt …)</div><div class="build">Build: 2026-03-19 V1.6</div></div>
 
   <!-- Step 4: Map view -->
   <div class="mapWrap hidden" id="viewMap">
@@ -526,13 +526,30 @@ function findTapTarget(startEl){
     hits.forEach(e=>{
       const div=document.createElement('div'); div.className='item';
       div.innerHTML=`<div class="no">${String(e.personalnummer||'').trim()||'—'}</div><div class="desc"><b>${e.nachname} ${e.vorname}</b><div class="hint">Tippen zum übernehmen</div></div>`;
-      div.addEventListener('click',()=>{
-        $('vorname').value=e.vorname||'';
-        $('nachname').value=e.nachname||'';
-        $('pnr').value=String(e.personalnummer||'');
-        syncPerson();
-        toast('Mitarbeiter übernommen.');
-      });
+      const applyEmp = ()=>{
+  $('vorname').value = e.vorname || '';
+  $('nachname').value = e.nachname || '';
+  $('pnr').value = String(e.personalnummer || '');
+  $('datum').value = $('datum').value || (new Date()).toISOString().slice(0,10);
+  syncPerson();
+  toast('Mitarbeiter übernommen.');
+};
+let downEmp = null;
+div.addEventListener('pointerdown', (ev)=>{
+  if(ev.button != null && ev.button !== 0) return;
+  downEmp = {x: ev.clientX, y: ev.clientY, t: performance.now()};
+}, {passive:true});
+div.addEventListener('pointerup', (ev)=>{
+  if(!downEmp) return;
+  const dt = performance.now() - downEmp.t;
+  const dx = ev.clientX - downEmp.x;
+  const dy = ev.clientY - downEmp.y;
+  const dist = Math.hypot(dx, dy);
+  if(dt <= 550 && dist <= 8) applyEmp();
+  downEmp = null;
+}, {passive:true});
+div.addEventListener('pointercancel', ()=>{ downEmp = null; }, {passive:true});
+div.addEventListener('click', applyEmp);
       host.appendChild(div);
     });
   }
@@ -1126,8 +1143,6 @@ function importJsonFile(file){
 
 async function applyPayload(p){
   if(!p || typeof p !== 'object') throw new Error('Ungültige Datei');
-
-  // Assets laden, damit routes/segments vorhanden sind
   try{ await ensureAssetsLoaded(); }catch(e){}
 
   if(p.person){
@@ -1138,7 +1153,6 @@ async function applyPayload(p){
     $('pnr').value = st.person.personalnummer || '';
   }
 
-  // BLS-Modus
   if('bls' in p){
     st.blsMode = !!p.bls;
     $('blsYes').classList.toggle('active', st.blsMode);
@@ -1146,7 +1160,6 @@ async function applyPayload(p){
     if(!st.blsMode){ st.blsAllFalsePending = true; resetAllTeilstreckenFalse(); }
   }
 
-  // Routenstatus
   st.routeStatus = {};
   if(p.linien){
     Object.keys(p.linien).forEach(r=>{
@@ -1155,7 +1168,6 @@ async function applyPayload(p){
     });
   }
 
-  // Teilstrecken
   st.teilstrecken = {};
   if(p.teilstrecken){
     Object.keys(p.teilstrecken).forEach(r=>{
@@ -1167,7 +1179,6 @@ ${it.from}>${it.to}`] = !!it.kundig;
     });
   }
 
-  // Ortskunde manuell
   st.orts = {};
   st.ortsManual = st.ortsManual || {};
   if(p.ortskunde){
@@ -1179,7 +1190,6 @@ ${it.from}>${it.to}`] = !!it.kundig;
 
   st.overrides = p.overrides || {};
 
-  // UI aktualisieren
   syncPerson();
   try{ renderRouteList(); }catch(e){}
   try{ renderSegList(); }catch(e){}
@@ -1265,25 +1275,28 @@ async function exportJson(){
     $('empSearch').addEventListener('input',()=>renderEmpHits($('empSearch').value));
   $('loadLocalTop').addEventListener('click', loadLocal);
   // Aus Datei laden (JSON)
-  $('loadFileTop').addEventListener('click', ()=>{
-    const inp = $('importFileTop');
-    if(!inp) return;
-    inp.value='';
-    inp.click();
-  });
-  $('importFileTop').addEventListener('change', async()=>{
-    const inp = $('importFileTop');
-    const f = inp && inp.files && inp.files[0];
-    if(!f) return;
-    try{
-      const p = await importJsonFile(f);
-      await applyPayload(p);
-      toast('Aus Datei geladen.');
-    }catch(e){
-      console.error(e);
-      toast('Datei konnte nicht geladen werden.');
-    }
-  });
+  if($('loadFileTop') && $('importFileTop')){
+    $('loadFileTop').addEventListener('click', ()=>{
+      const inp = $('importFileTop');
+      inp.value='';
+      inp.click();
+    });
+    $('importFileTop').addEventListener('change', async()=>{
+      const inp = $('importFileTop');
+      const f = inp.files && inp.files[0];
+      if(!f) return;
+      try{
+        const p = await importJsonFile(f);
+        await applyPayload(p);
+        toast('Aus Datei geladen.');
+      }catch(e){
+        console.error(e);
+        toast('Datei konnte nicht geladen werden.');
+      }
+    });
+  }
+  // Boot-Markierung
+  try{ var bm=$('bootMark'); if(bm) bm.textContent='(JS aktiv)'; }catch(e){}
     ['vorname','nachname','datum','pnr'].forEach(id=>$(id).addEventListener('input',syncPerson));
 
     $('resetPerson').addEventListener('click',()=>{
