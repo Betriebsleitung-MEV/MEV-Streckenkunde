@@ -102,7 +102,7 @@
 </style>
 </head>
 <body>
-  <div class="topbar"><div class="brand">MEV Streckenkunde</div><div id="bootMark" style="font-size:12px; color:rgba(255,255,255,.55); margin-left:10px;">(JS lädt …)</div><div class="build">Build: 2026-03-23 V1.9.3</div></div>
+  <div class="topbar"><div class="brand">MEV Streckenkunde</div><div id="bootMark" style="font-size:12px; color:rgba(255,255,255,.55); margin-left:10px;">(JS lädt …)</div><div class="build">Build: 2026-03-23 V1.9.4</div></div>
 
   <!-- Step 4: Map view -->
   <div class="mapWrap hidden" id="viewMap">
@@ -529,7 +529,7 @@ function findTapTarget(startEl){
   $('vorname').value = e.vorname || '';
   $('nachname').value = e.nachname || '';
   $('pnr').value = String(e.personalnummer || '');
-  $('datum').value = st.person.datum || (new Date()).toISOString().slice(0,10);
+  $('datum').value = $('datum').value || (new Date()).toISOString().slice(0,10);
   syncPerson();
   toast('Mitarbeiter übernommen.');
 };
@@ -1076,9 +1076,12 @@ function renderOrts(){
       });
     });
     const ortskunde={};
-    Object.keys(st.orts).sort((a,b)=>a.localeCompare(b,'de-CH')).forEach(o=>{
-      ortskunde[o]={kundig:!!st.orts[o].kundig, linien:(st.orts[o].linien||[]).slice()};
-    });
+Object.keys(st.orts).sort((a,b)=>a.localeCompare(b,'de-CH')).forEach(o=>{
+  const manual = st.ortsManual && Object.prototype.hasOwnProperty.call(st.ortsManual, o) ? st.ortsManual[o] : null;
+  const suggested = !!(st.suggestedOrts && st.suggestedOrts.has(o));
+  const kundig = (manual===true) ? true : (manual===false ? false : suggested);
+  ortskunde[o] = { kundig: kundig, linien: (st.orts[o].linien||[]).slice() };
+});
     return {erzeugtAm:new Date().toISOString(), person:{...st.person}, bls:st.blsMode, linien, teilstrecken, ortskunde, overrides:st.overrides||{}};
   }
 
@@ -1121,7 +1124,7 @@ function renderOrts(){
       renderRouteList();
 renderSegList();
       if(st.svgRoot) applySelectionToSvg();
-      rebuildOrts(); renderOrts(); renderSummary();
+      renderOrts(); renderSummary();
       setDirty(false);
       toast('Vom Gerät geladen.');
     }catch(e){ console.error(e); toast('Laden fehlgeschlagen.'); }
@@ -1193,7 +1196,7 @@ ${it.from}>${it.to}`] = !!it.kundig;
   try{ renderRouteList(); }catch(e){}
   try{ renderSegList(); }catch(e){}
   if(st.svgRoot) try{ applySelectionToSvg(); }catch(e){}
-  try{ rebuildOrts(); renderOrts(); renderSummary(); }catch(e){}
+  try{ renderOrts(); renderSummary(); }catch(e){}
 
   setDirty(false);
 }
@@ -1244,9 +1247,7 @@ async function exportJson(){
 
   async function goOrtskunde(){
     // Ortskunde neu aufbauen und anzeigen
-    rebuildOrts();
-    renderOrts();
-    renderSummary();
+    renderOrts(); renderSummary();
     showStep(5);
   }
 
