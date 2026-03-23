@@ -52,6 +52,7 @@
       color:var(--text); font-weight:700; cursor:pointer;}
     .btn.primary{border-color: rgba(0,112,255,.65); background: rgba(0,112,255,.16);}
     .btn:disabled{opacity:.55; cursor:not-allowed;}
+ .btn.danger{border-color: rgba(255,77,77,.8); background: rgba(255,0,0,.12); color:#ffb3b3;}
  .btn.success{border-color: rgba(0,200,120,.65); background: rgba(0,200,120,.12);}
 
     .list{display:grid; gap:8px; margin-top:10px;}
@@ -215,7 +216,8 @@
         <div class="cardTop">
           <div class="toggleRow">
             <span class="hint" style="margin:0;">Prüfen und bestätigen</span>
-      <button class="btn success" id="ortAllTrue" type="button">Alle auswählen</button><button class="btn" style="border-color:#ff4d4d;background:rgba(255,0,0,.12);color:#ffb3b3;" id="ortAllFalse" type="button">Alle abwählen</button>
+      <button class="btn success" id="ortAllTrue" type="button">Alle auswählen</button>
+<button class="btn danger" id="ortAllFalse" type="button">Alle abwählen</button>
             <span style="flex:1 1 auto"></span>
             <button class="btn" id="backToMap" type="button">Zurück zur Karte</button>
             <button class="btn" id="saveLocal" type="button">Auf Gerät speichern</button>
