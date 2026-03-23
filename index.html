@@ -104,7 +104,7 @@
 </style>
 </head>
 <body>
-  <div class="topbar"><div class="brand">MEV Streckenkunde</div><div id="bootMark" style="font-size:12px; color:rgba(255,255,255,.55); margin-left:10px;">(JS lädt …)</div><div class="build">Build: 2026-03-23 V1.9.10</div></div>
+  <div class="topbar"><div class="brand">MEV Streckenkunde</div><div id="bootMark" style="font-size:12px; color:rgba(255,255,255,.55); margin-left:10px;">(JS lädt …)</div><div class="build">Build: 2026-03-23 V1.9.11</div></div>
 
   <!-- Step 4: Map view -->
   <div class="mapWrap hidden" id="viewMap">
@@ -216,8 +216,8 @@
         <div class="cardTop">
           <div class="toggleRow">
             <span class="hint" style="margin:0;">Prüfen und bestätigen</span>
-      <button class="btn success" id="ortAllTrue" type="button">Alle auswählen</button>
-<button class="btn danger" id="ortAllFalse" type="button">Alle abwählen</button>
+      <button class="toggle active" id="ortFilterSug" type="button">Auswahl</button>
+      <button class="toggle" id="ortFilterAll" type="button">Alle</button>
             <span style="flex:1 1 auto"></span>
             <button class="btn" id="backToMap" type="button">Zurück zur Karte</button>
             <button class="btn" id="saveLocal" type="button">Auf Gerät speichern</button>
@@ -1029,20 +1029,14 @@ function renderSegList(){
   st.orts = out;
 }
 
-// ---- ALLE ORTSKUNDE SETZEN / LÖSCHEN ----
-function setAllOrts(v){
-  const keys = Object.keys(st.orts||{});
-  keys.forEach(o => { st.ortsManual[o] = !!v; });
-  setDirty(true);
-  renderOrts();
-  renderSummary();
-}
-
+function setAllOrts(v){const keys=Object.keys(st.orts||{});keys.forEach(o=>st.ortsManual[o]=!!v);setDirty(true);renderOrts();renderSummary();}
 function renderOrts(){
     const host=$('ortList'); host.innerHTML='';
     const keys=Object.keys(st.orts||{}).sort((a,b)=>a.localeCompare(b,'de-CH'));
     if(!keys.length){ host.innerHTML='<div class="hint">Keine Ortskunde aus kundigen Routen.</div>'; return; }
     keys.forEach(ort=>{
+    const isSuggested = !!(st.suggestedOrts && st.suggestedOrts.has(ort));
+    if(st.ortFilter === 'suggested' && !isSuggested) return;
       const it=st.orts[ort];
       const manual = (st.ortsManual && st.ortsManual.hasOwnProperty(ort)) ? st.ortsManual[ort] : null;
     const on = (manual===true) ? true : (manual===false) ? false : (st.suggestedOrts && st.suggestedOrts.has(ort)) ? true : false;
