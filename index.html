@@ -520,7 +520,7 @@ function findTapTarget(startEl){
     const host=$('empHits'); host.innerHTML='';
     const qq=String(q||'').toLowerCase().trim();
     const hits=st.employees.filter(e=>e.aktiv!==false).filter(e=>{
-      if(!qq) return true;
+      if(!qq) return true; renderEmpHits('');
       const s=(String(e.nachname||'')+' '+String(e.vorname||'')+' '+String(e.personalnummer||'')).toLowerCase();
       return s.includes(qq);
     }).slice(0,40);
@@ -1282,9 +1282,9 @@ async function exportJson(){
     // employees
     try{
       const emp=await loadJson(abs('assets/mitarbeiter.json'));
-      st.employees = Array.isArray(emp.employees) ? emp.employees : (Array.isArray(emp) ? emp : []);
-    }catch(e){ st.employees=[]; }
-    renderEmpHits('');
+      st.employees = Array.isArray(emp.employees) ? emp.employees : (Array.isArray(emp) ? emp : []); renderEmpHits('');
+    }catch(e){ st.employees=[]; renderEmpHits(''); }
+    
 
     // wiring
     $('empSearch').addEventListener('input',()=>renderEmpHits($('empSearch').value));
