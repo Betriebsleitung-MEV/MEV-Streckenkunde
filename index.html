@@ -48,7 +48,7 @@
     .row3{display:grid; grid-template-columns: minmax(30ch, 45ch) minmax(30ch, 45ch) 140px; gap:10px;}
     @media (max-width: 520px){ .row3{grid-template-columns:1fr;} }
 
-    .btn{height:46px; padding:0 12px; border-radius:12px; border:1px solid rgba(255,255,255,.16); background: rgba(255,255,255,.06);
+    .btn{height:42px; padding:0 12px; border-radius:12px; border:1px solid rgba(255,255,255,.16); background: rgba(255,255,255,.06);
       color:var(--text); font-weight:700; cursor:pointer;}
     .btn.primary{border-color: rgba(0,112,255,.65); background: rgba(0,112,255,.16);}
     .btn:disabled{opacity:.55; cursor:not-allowed;}
@@ -81,7 +81,7 @@
     .mapBar{position:fixed; left:10px; right:10px; top:64px; z-index:40; display:flex; gap:10px; flex-wrap:wrap;
       padding:10px; border-radius:14px; border:1px solid rgba(255,255,255,.16); background: rgba(18,26,43,.92); backdrop-filter: blur(8px);
     }
-    .pillBtn{height:44px; padding:0 12px; border-radius:999px; border:1px solid rgba(255,255,255,.16); background: rgba(255,255,255,.06);
+    .pillBtn{height:40px; padding:0 12px; border-radius:999px; border:1px solid rgba(255,255,255,.16); background: rgba(255,255,255,.06);
       color:var(--text); font-weight:900; cursor:pointer; font-size:12px;}
     .pillBtn.active{outline:2px solid rgba(0,112,255,.55);}
 
@@ -102,7 +102,7 @@
 </style>
 </head>
 <body>
-  <div class="topbar"><div class="brand">MEV Streckenkunde</div><div id="bootMark" style="font-size:12px; color:rgba(255,255,255,.55); margin-left:10px;">(JS lädt …)</div><div class="build">Build: 2026-03-23 V1.9.5</div></div>
+  <div class="topbar"><div class="brand">MEV Streckenkunde</div><div id="bootMark" style="font-size:12px; color:rgba(255,255,255,.55); margin-left:10px;">(JS lädt …)</div><div class="build">Build: 2026-03-23 V1.9.6</div></div>
 
   <!-- Step 4: Map view -->
   <div class="mapWrap hidden" id="viewMap">
@@ -235,7 +235,6 @@
 
 <script>
 (() => {
-  function debounce(fn, ms){ let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn.apply(null,a), ms); }; }
  window.addEventListener('error', function(ev){ try{ var m = (ev && ev.message) ? ev.message : 'JS-Fehler'; var t=document.getElementById('toast'); if(t){ t.textContent=m; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 3500);} }catch(e){} });
   const $ = (id) => document.getElementById(id);
   const toast = (m) => { const t=$('toast'); t.textContent=m; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 2200); };
@@ -284,8 +283,7 @@
     buildEl.textContent = text;
     clearTimeout(buildTimer);
     if(ms > 0 && originalBuildText){
-      buildTimer = setTimeout(() => {
-  function debounce(fn, ms){ let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn.apply(null,a), ms); }; } buildEl.textContent = originalBuildText; }, ms);
+      buildTimer = setTimeout(() => { buildEl.textContent = originalBuildText; }, ms);
     }
   }
 
@@ -488,7 +486,10 @@ function findTapTarget(startEl){
     $('sheet').classList.toggle('hidden', step===4);
   }
 
-  function abs(rel){ return rel; }
+  function abs(rel){
+    const base = window.location.href.split('#')[0];
+    return new URL(rel, base).toString();
+  }
   async function loadJson(url){
     const r = await fetch(url, {cache:'no-store'});
     if(!r.ok) throw new Error(url+' HTTP '+r.status);
@@ -576,7 +577,6 @@ div.addEventListener('click', applyEmp);
     st.tap.t=now;
     const status = (st.tap.c===1) ? 'kundig' : (st.tap.c===2) ? 'auffrischung' : 'unkundig';
     st.routeStatus[r]=status;
-  try{ updateOrtskundeSuggestions(); if(st.currentStep===5){ rebuildOrts(); renderOrts(); renderSummary(); } }catch(e){}
     if(status!=='unkundig') initTeilstreckenForRoute(r);
     renderRouteList();
     setDirty(true);
@@ -1057,7 +1057,7 @@ function renderOrts(){
     let segTotal=0, segFalse=0;
     segRoutes.forEach(r=>{ const m=st.teilstrecken[r]||{}; Object.keys(m).forEach(k=>{ segTotal++; if(m[k]===false) segFalse++; }); });
     const orts=Object.keys(st.orts||{});
-    const ortTrue = orts.filter(o => ((st.ortsManual && Object.prototype.hasOwnProperty.call(st.ortsManual, o)) ? st.ortsManual[o] : !!(st.suggestedOrts && st.suggestedOrts.has(o)))).length;
+    const ortTrue=orts.filter(o=>st.orts[o].kundig).length;
     $('summary').innerHTML = `Routen: <b>${k}</b> kundig, <b>${a}</b> auffrischung, <b>${u}</b> unkundig. · BLS Teilstrecken: <b>${segTotal-segFalse}</b> true, <b>${segFalse}</b> false. · Ortskunde: <b>${ortTrue}</b> true, <b>${orts.length-ortTrue}</b> false.`;
   }
 
@@ -1077,12 +1077,9 @@ function renderOrts(){
       });
     });
     const ortskunde={};
-Object.keys(st.orts).sort((a,b)=>a.localeCompare(b,'de-CH')).forEach(o=>{
-  const manual = (st.ortsManual && Object.prototype.hasOwnProperty.call(st.ortsManual, o)) ? st.ortsManual[o] : null;
-  const suggested = !!(st.suggestedOrts && st.suggestedOrts.has(o));
-  const kundig = (manual===true) ? true : (manual===false ? false : suggested);
-  ortskunde[o] = { kundig: kundig, linien:(st.orts[o].linien||[]).slice() };
-});
+    Object.keys(st.orts).sort((a,b)=>a.localeCompare(b,'de-CH')).forEach(o=>{
+      ortskunde[o]={kundig:!!st.orts[o].kundig, linien:(st.orts[o].linien||[]).slice()};
+    });
     return {erzeugtAm:new Date().toISOString(), person:{...st.person}, bls:st.blsMode, linien, teilstrecken, ortskunde, overrides:st.overrides||{}};
   }
 
@@ -1125,7 +1122,7 @@ Object.keys(st.orts).sort((a,b)=>a.localeCompare(b,'de-CH')).forEach(o=>{
       renderRouteList();
 renderSegList();
       if(st.svgRoot) applySelectionToSvg();
-      renderOrts(); renderSummary();
+      rebuildOrts(); renderOrts(); renderSummary();
       setDirty(false);
       toast('Vom Gerät geladen.');
     }catch(e){ console.error(e); toast('Laden fehlgeschlagen.'); }
@@ -1197,9 +1194,9 @@ ${it.from}>${it.to}`] = !!it.kundig;
   try{ renderRouteList(); }catch(e){}
   try{ renderSegList(); }catch(e){}
   if(st.svgRoot) try{ applySelectionToSvg(); }catch(e){}
-  try{ renderOrts(); renderSummary(); }catch(e){}
+  try{ rebuildOrts(); renderOrts(); renderSummary(); }catch(e){}
 
-  setDirty(false);
+  $('vorname').dispatchEvent(new Event('input'));$('nachname').dispatchEvent(new Event('input'));$('datum').dispatchEvent(new Event('input'));setDirty(false);
 }
 
 
@@ -1247,16 +1244,12 @@ async function exportJson(){
   }
 
   async function goOrtskunde(){
-  try{
-    await ensureAssetsLoaded();
-    if(!st.svgRoot) embedSvg();
-    updateOrtskundeSuggestions();
+    // Ortskunde neu aufbauen und anzeigen
     rebuildOrts();
     renderOrts();
     renderSummary();
     showStep(5);
-  }catch(e){ console.error(e); toast('Ortskunde konnte nicht aufgebaut werden.'); }
-}
+  }
 
   function setBls(v){
   st.blsMode=!!v;
@@ -1279,7 +1272,7 @@ async function exportJson(){
     renderEmpHits('');
 
     // wiring
-    $('empSearch').addEventListener('input', debounce(() => renderEmpHits($('empSearch').value), 180));
+    $('empSearch').addEventListener('input',()=>renderEmpHits($('empSearch').value));
   $('loadLocalTop').addEventListener('click', loadLocal);
   // Aus Datei laden (JSON)
   if($('loadFileTop') && $('importFileTop')){
