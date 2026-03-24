@@ -104,7 +104,7 @@
 </style>
 </head>
 <body>
-  <div class="topbar"><div class="brand">MEV Streckenkunde</div><div id="bootMark" style="font-size:12px; color:rgba(255,255,255,.55); margin-left:10px;">(JS lädt …)</div><div class="build">Build: 2026-03-24 V1.9.20</div></div>
+  <div class="topbar"><div class="brand">MEV Streckenkunde</div><div id="bootMark" style="font-size:12px; color:rgba(255,255,255,.55); margin-left:10px;">(JS lädt …)</div><div class="build">Build: 2026-03-24 V1.9.21</div></div>
 
   <!-- Step 4: Map view -->
   <div class="mapWrap hidden" id="viewMap">
@@ -216,8 +216,8 @@
         <div class="cardTop">
           <div class="toggleRow">
             <span class="hint" style="margin:0;">Prüfen und bestätigen</span>
-      
-      
+      <button class="toggle active" id="ortFilterSug" type="button">Auswahl</button>
+      <button class="toggle" id="ortFilterAll" type="button">Alle</button>
             <span style="flex:1 1 auto"></span>
             <button class="btn" id="backToMap" type="button">Zurück zur Karte</button>
             <button class="btn" id="saveLocal" type="button">Auf Gerät speichern</button>
@@ -1030,19 +1030,36 @@ function renderSegList(){
 }
 
 function setAllOrts(v){const keys=Object.keys(st.orts||{});keys.forEach(o=>st.ortsManual[o]=!!v);setDirty(true);renderOrts();renderSummary();}
+
 function renderOrts(){
- const host=$('ortList'); host.innerHTML='';
- const keysAll=Object.keys(st.orts||{}).sort((a,b)=>a.localeCompare(b,'de-CH'));
- if(!keysAll.length){ host.innerHTML='<div class="hint">Keine Ortskunde aus kundigen Routen.</div>'; return; }
- const isSuggested=o=>!!(st.suggestedOrts && st.suggestedOrts.has(o));
- const isOn=o=>{const m=(st.ortsManual&&st.ortsManual.hasOwnProperty(o))?st.ortsManual[o]:null;return (m===true)?true:(m===false)?false:isSuggested(o);} 
- const sug=keysAll.filter(isSuggested);
- const other=keysAll.filter(o=>!isSuggested(o));
- function addItem(o){const it=st.orts[o]||{}; const on=isOn(o); const d=document.createElement('div'); d.className='item'+(on?' ortOn':''); d.innerHTML='<div class="no">'+(on?'✅':'✕')+'</div><div class="desc"><b style="text-decoration:'+(on?'none':'line-through')+';">'+o+'</b><div class="hint">Linien: '+((it.linien||[]).sort((a,b)=>a-b).join(', '))+'</div></div>'; d.onclick=()=>{st.ortsManual[o]=!on; renderOrts(); renderSummary();}; host.appendChild(d);} 
- sug.forEach(addItem);
- if(other.length){const sep=document.createElement('div'); sep.className='hint'; sep.style.cssText='margin:12px 0 4px; border-top:1px solid rgba(255,255,255,.12); padding-top:8px; opacity:.85;'; sep.textContent='Weitere Orte'; host.appendChild(sep); other.forEach(addItem);} }
-).sort((a,b)=>a.localeCompare(b,'de-CH'));
-    if(!keys.length){ host.innerHTML='<div class="hint">Keine Ortskunde aus kundigen Routen.</div>'; return; }
+  const host=$('ortList'); host.innerHTML='';
+  const keysAll = Object.keys(st.orts||{}).sort((a,b)=>a.localeCompare(b,'de-CH'));
+  if(!keysAll.length){ host.innerHTML='<div class="hint">Keine Ortskunde aus kundigen Routen.</div>'; return; }
+  const isSuggested=(o)=>!!(st.suggestedOrts && st.suggestedOrts.has(o));
+  const isOn=(o)=>{ const m=(st.ortsManual&&st.ortsManual.hasOwnProperty(o))?st.ortsManual[o]:null; return (m===true)?true:(m===false)?false:isSuggested(o); };
+  const sug = keysAll.filter(isSuggested);
+  const other = keysAll.filter(o=>!isSuggested(o));
+  function addItem(ort){
+    const it=st.orts[ort]||{};
+    const on=isOn(ort);
+    const div=document.createElement('div');
+    div.className='item'+(on?' ortOn':'');
+    div.innerHTML='<div class="no">'+(on?'✅':'✕')+'</div>'+
+                  '<div class="desc"><b style="text-decoration:'+(on?'none':'line-through')+';">'+ort+'</b>'+
+                  '<div class="hint">Linien: '+((it.linien||[]).slice().sort((a,b)=>Number(a)-Number(b)).join(', '))+'</div></div>';
+    div.addEventListener('click',()=>{ st.ortsManual[ort]=!on; setDirty(true); renderOrts(); renderSummary(); });
+    host.appendChild(div);
+  }
+  sug.forEach(addItem);
+  if(other.length){
+    const sep=document.createElement('div');
+    sep.className='hint';
+    sep.style.cssText='margin:12px 0 4px; border-top:1px solid rgba(255,255,255,.12); padding-top:8px; opacity:.85;';
+    sep.textContent='Weitere Orte';
+    host.appendChild(sep);
+    other.forEach(addItem);
+  }
+}
     keys.forEach(ort=>{
     const isSuggested = !!(st.suggestedOrts && st.suggestedOrts.has(ort));
     if(st.ortFilter === 'suggested' && !isSuggested) return;
@@ -1063,40 +1080,39 @@ function renderOrts(){
     });
   }
 
-  function renderSummary(){
-    const keys=Object.keys(st.routeStatus||{});
-    let k=0,a=0,u=0;
-    keys.forEach(r=>{ const s=st.routeStatus[r]; if(s==='kundig') k++; else if(s==='auffrischung') a++; else u++; });
-    const segRoutes=Object.keys(st.teilstrecken||{});
-    let segTotal=0, segFalse=0;
-    segRoutes.forEach(r=>{ const m=st.teilstrecken[r]||{}; Object.keys(m).forEach(k=>{ segTotal++; if(m[k]===false) segFalse++; }); });
-    const orts=Object.keys(st.orts||{});
-    const ortTrue=orts.filter(o=>st.orts[o].kundig).length;
-    $('summary').innerHTML = `Routen: <b>${k}</b> kundig, <b>${a}</b> auffrischung, <b>${u}</b> unkundig. · BLS Teilstrecken: <b>${segTotal-segFalse}</b> true, <b>${segFalse}</b> false. · Ortskunde: <b>${ortTrue}</b> true, <b>${orts.length-ortTrue}</b> false.`;
-  }
-
-  function payload(){
-    const linien={};
-    Object.keys(st.routeStatus).sort((a,b)=>Number(a)-Number(b)).forEach(r=>{
-      const s=st.routeStatus[r];
-      linien[r]={status:s, kundig:(s==='kundig'), auffrischung:(s==='auffrischung'), unkundig:(s!=='kundig')};
+  
+function renderSummary(){
+  const keys=Object.keys(st.routeStatus||{});
+  let k=0,a=0,u=0; keys.forEach(r=>{ const s=st.routeStatus[r]; if(s==='kundig') k++; else if(s==='auffrischung') a++; else u++; });
+  const segRoutes=Object.keys(st.teilstrecken||{}); let segTotal=0, segFalse=0;
+  segRoutes.forEach(r=>{ const m=st.teilstrecken[r]||{}; Object.keys(m).forEach(tk=>{ segTotal++; if(m[tk]===false) segFalse++; }); });
+  const ortsKeys=Object.keys(st.orts||{});
+  const isSuggested=(o)=>!!(st.suggestedOrts && st.suggestedOrts.has(o));
+  const isOn=(o)=>{ const m=(st.ortsManual&&st.ortsManual.hasOwnProperty(o))?st.ortsManual[o]:null; return (m===true)?true:(m===false)?false:isSuggested(o); };
+  let ortTrue=0; ortsKeys.forEach(o=>{ if(isOn(o)) ortTrue++; });
+  $('summary').innerHTML = 'Routen: <b>'+k+'</b> kundig, <b>'+a+'</b> auffrischung, <b>'+u+'</b> unkundig. · BLS Teilstrecken: <b>'+(segTotal-segFalse)+'</b> true, <b>'+segFalse+'</b> false. · Ortskunde: <b>'+ortTrue+'</b> true, <b>'+(ortsKeys.length-ortTrue)+'</b> false.';
+}
+  
+function payload(){
+  const linien={};
+  Object.keys(st.routeStatus).sort((a,b)=>Number(a)-Number(b)).forEach(r=>{
+    const s=st.routeStatus[r]; linien[r]={status:s, kundig:(s==='kundig'), auffrischung:(s==='auffrischung'), unkundig:(s!=='kundig')};
+  });
+  const teilstrecken={};
+  Object.keys(st.teilstrecken).sort((a,b)=>Number(a)-Number(b)).forEach(r=>{
+    teilstrecken[r]=[];
+    (st.routeSegmentsOrdered[r]||[]).forEach(it=>{
+      const k=`${it.seg}
+${it.from}>${it.to}`; const val=st.teilstrecken[r] && st.teilstrecken[r][k];
+      teilstrecken[r].push({seg:it.seg, from:it.from, to:it.to, fromName:it.fromName||'', toName:it.toName||'', kundig:(val===true)});
     });
-    const teilstrecken={};
-    Object.keys(st.teilstrecken).sort((a,b)=>Number(a)-Number(b)).forEach(r=>{
-      teilstrecken[r]=[];
-      (st.routeSegmentsOrdered[r]||[]).forEach(it=>{
-        const k=segKey(it);
-        const val = st.teilstrecken[r] && st.teilstrecken[r][k];
-        teilstrecken[r].push({seg:it.seg, from:it.from, to:it.to, fromName:it.fromName||'', toName:it.toName||'', kundig:(val===true)});
-      });
-    });
-    const ortskunde={};
-    Object.keys(st.orts).sort((a,b)=>a.localeCompare(b,'de-CH')).forEach(o=>{
-      ortskunde[o]={kundig:!!st.orts[o].kundig, linien:(st.orts[o].linien||[]).slice()};
-    });
-    return {erzeugtAm:new Date().toISOString(), person:{...st.person}, bls:st.blsMode, linien, teilstrecken, ortskunde, overrides:st.overrides||{}};
-  }
-
+  });
+  const isSuggested=(o)=>!!(st.suggestedOrts && st.suggestedOrts.has(o));
+  const isOn=(o)=>{ const m=(st.ortsManual&&st.ortsManual.hasOwnProperty(o))?st.ortsManual[o]:null; return (m===true)?true:(m===false)?false:isSuggested(o); };
+  const ortskunde={};
+  Object.keys(st.orts).sort((a,b)=>a.localeCompare(b,'de-CH')).forEach(o=>{ ortskunde[o]={kundig:!!isOn(o), linien:(st.orts[o].linien||[]).slice()}; });
+  return {erzeugtAm:new Date().toISOString(), person:{...st.person}, bls:st.blsMode, linien, teilstrecken, ortskunde, overrides:st.overrides||{}};
+}
   function saveLocal(){
     localStorage.setItem('mev_streckenkunde_state_v4_2', JSON.stringify(payload()));
     setDirty(false);
@@ -1258,12 +1274,12 @@ async function exportJson(){
   }
 
   async function goOrtskunde(){
-    // Ortskunde neu aufbauen und anzeigen
-    rebuildOrts();
-    renderOrts();
-    renderSummary();
-    showStep(5);
-  }
+  try{ updateOrtskundeSuggestions(); }catch(e){}
+  rebuildOrts();
+  renderOrts();
+  renderSummary();
+  showStep(5);
+}
 
   function setBls(v){
   st.blsMode=!!v;
@@ -1366,20 +1382,11 @@ async function exportJson(){
     });
 
     // Ortskunde nav
-    $('backToMap').addEventListener('click',()=>{
-    showStep(4);
+    $('backToMap').addEventListener('click',()=>{ showStep(4); });
 
-  $('ortFilterSug').addEventListener('click', ()=>{
-    st.ortFilter='suggested';
-    $('ortFilterSug').classList.add('active');
-    $('ortFilterAll').classList.remove('active');
-    renderOrts();
+  renderOrts();
   });
-  $('ortFilterAll').addEventListener('click', ()=>{
-    st.ortFilter='all';
-    $('ortFilterAll').classList.add('active');
-    $('ortFilterSug').classList.remove('active');
-    renderOrts();
+  renderOrts();
   });
 
   });
