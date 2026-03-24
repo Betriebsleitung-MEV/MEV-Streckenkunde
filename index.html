@@ -38,7 +38,7 @@
   </style>
 </head>
 <body>
-  <div class="topbar"><div class="brand">MEV Streckenkunde</div><div id="bootMark" style="font-size:12px; color:rgba(255,255,255,.55); margin-left:10px;">(JS lädt …)</div><div class="build">Build: 2026-03-24 V2.0.9</div></div>
+  <div class="topbar"><div class="brand">MEV Streckenkunde</div><div id="bootMark" style="font-size:12px; color:rgba(255,255,255,.55); margin-left:10px;">(JS lädt …)</div><div class="build">Build: 2026-03-24 V2.1.1</div></div>
 
   <div class="mapWrap hidden" id="viewMap"><div id="mapHost"><div style="padding:12px; color:#111;"><b>SVG noch nicht geladen.</b></div></div></div>
   <div class="mapBar hidden" id="mapBar">
@@ -71,7 +71,7 @@
         <div style="font-weight:850; margin-bottom:6px;">Personendaten</div>
         <div class="hint">Mitarbeiter auswählen. Danach Routen setzen.</div>
         <label>Suche Mitarbeiter</label>
-        <input id="empSearch" placeholder="Name, Vorname oder Nummer" />
+        <input id="empSearch" placeholder="Name oder Vorname" />
         <div id="empHits" class="list" style="max-height:180px; overflow:auto;"></div>
 
         <!-- Fehlerbox für Mitarbeiterliste -->
@@ -179,10 +179,19 @@
   // ===== Mitarbeiterliste: Auto-Laden + Fallback =====
   function showEmpErrorUI(show){ const box = $('empErrorBox'); if(!box) return; box.classList.toggle('hidden', !show); }
   async function loadEmployeesAuto(){
-    try{ const emp = await loadJson(abs('assets/mitarbeiter.json')); st.employees = Array.isArray(emp.employees) ? emp.employees : (Array.isArray(emp) ? emp : []); showEmpErrorUI(false); renderEmpHits(''); }
-    catch(e){ st.employees = []; showEmpErrorUI(true); renderEmpHits(''); }
+  try{
+    const emp = await loadJson(abs('assets/mitarbeiter.json'));
+    st.employees = Array.isArray(emp.employees) ? emp.employees : (Array.isArray(emp) ? emp : []);
+    showEmpErrorUI(false);
+    renderEmpHits('');
+  }catch(e){
+    st.employees = [];
+    showEmpErrorUI(true);
+    renderEmpHits('');
   }
-  function wireEmployeeFallback(){
+}
+
+function wireEmployeeFallback(){
     if($('empRetryAuto')) $('empRetryAuto').addEventListener('click', async()=>{ await loadEmployeesAuto(); if($('empErrorBox') && !$('empErrorBox').classList.contains('hidden')) toast('Fehler bleibt bestehen.'); else toast('Mitarbeiterliste geladen.'); });
     if($('empLoadManual') && $('empFilePick')){
       $('empLoadManual').addEventListener('click', ()=>{ const inp=$('empFilePick'); inp.value=''; inp.click(); });
@@ -192,13 +201,13 @@
 
   // Person
   function syncPerson(){ st.person.vorname=String($('vorname').value||'').trim(); st.person.nachname=String($('nachname').value||'').trim(); st.person.datum=String($('datum').value||'').trim(); const ok=!!(st.person.vorname&&st.person.nachname&&st.person.datum); $('toRoutes').disabled=!ok; $('auto').innerHTML='<b>Status:</b> '+(ok?'bereit':'warte …'); setDirty(true);}   
-  function renderEmpHits(q){ const host=$('empHits'); host.innerHTML=''; const qq=String(q||'').toLowerCase().trim(); const hits=(st.employees||[]).filter(e=>e&&e.aktiv!==false).filter(e=>{ if(!qq) return true; const s=(String(e.nachname||'')+' '+String(e.vorname||'')+' ').toLowerCase(); return s.includes(qq);}).slice(0,40); if(!hits.length){ host.innerHTML='<div class="hint">Keine Treffer.</div>'; return;} hits.forEach(e=>{ const div=document.createElement('div'); div.className='item'; div.innerHTML=`<div class="no">${String(e.personalnummer||'').trim()||'—'}</div><div class="desc"><b>${e.nachname} ${e.vorname}</b><div class="hint">Tippen zum übernehmen</div></div>`; const applyEmp=()=>{ $('vorname').value=e.vorname||''; $('nachname').value=e.nachname||'';  $('datum').value=$('datum').value||(new Date()).toISOString().slice(0,10); syncPerson(); toast('Mitarbeiter übernommen.');}; let down=null; div.addEventListener('pointerdown',(ev)=>{ if(ev.button!=null&&ev.button!==0) return; down={x:ev.clientX,y:ev.clientY,t:performance.now()}; }, {passive:true}); div.addEventListener('pointerup',(ev)=>{ if(!down) return; const dt=performance.now()-down.t; const dx=ev.clientX-down.x; const dy=ev.clientY-down.y; if(dt<=550&&Math.hypot(dx,dy)<=8) applyEmp(); down=null; }, {passive:true}); div.addEventListener('pointercancel',()=>{ down=null; }, {passive:true}); host.appendChild(div); }); }
+  function renderEmpHits(q){ const host=$('empHits'); host.innerHTML=''; const qq=String(q||'').toLowerCase().trim(); const hits=(st.employees||[]).filter(e=>e&&e.aktiv!==false).filter(e=>{ if(!qq) return true; const s=(String(e.nachname||'')+' '+String(e.vorname||'')+' ').toLowerCase(); return s.includes(qq);}).slice(0,40); if(!hits.length){ host.innerHTML='<div class="hint">Keine Treffer.</div>'; return;} hits.forEach(e=>{ const div=document.createElement('div'); div.className='item'; div.innerHTML=`<div class="desc"><b>${e.nachname} ${e.vorname}</b><div class="hint">Tippen zum übernehmen</div></div>`; const applyEmp=()=>{ $('vorname').value=e.vorname||''; $('nachname').value=e.nachname||'';  $('datum').value=$('datum').value||(new Date()).toISOString().slice(0,10); syncPerson(); toast('Mitarbeiter übernommen.');}; let down=null; div.addEventListener('pointerdown',(ev)=>{ if(ev.button!=null&&ev.button!==0) return; down={x:ev.clientX,y:ev.clientY,t:performance.now()}; }, {passive:true}); div.addEventListener('pointerup',(ev)=>{ if(!down) return; const dt=performance.now()-down.t; const dx=ev.clientX-down.x; const dy=ev.clientY-down.y; if(dt<=550&&Math.hypot(dx,dy)<=8) applyEmp(); down=null; }, {passive:true}); div.addEventListener('pointercancel',()=>{ down=null; }, {passive:true}); host.appendChild(div); }); }
 
   const badge=(status)=> status==='kundig' ? '<span class="badge k">kundig</span>' : status==='auffrischung' ? '<span class="badge a">auffrischung</span>' : '<span class="badge n">unkundig</span>';
   function allRoutes(){ return Object.keys(st.routes||{}).filter(k=>/^\d{3}$/.test(k)).filter(k=>{ const n=Number(k); return n>=101&&n<=791; }).sort((a,b)=>Number(a)-Number(b)); }
   function prettyRouteText(r, raw){ let t=String(raw||'').trim(); if(!r) return t; for(let i=0;i<2;i++){ if(t.startsWith(r)) t=t.slice(r.length).trim(); } t=t.replace(/^[-–—:\s]+/,'').trim(); return t; }
   function tapRoute(r){ const now=Date.now(); if(st.tap.key===r && (now-st.tap.t)<450) st.tap.c+=1; else { st.tap.key=r; st.tap.c=1; } st.tap.t=now; const status = st.tap.c===1 ? 'kundig' : st.tap.c===2 ? 'auffrischung' : 'unkundig'; st.routeStatus[r]=status; if(status!=='unkundig') initTeilstreckenForRoute(r); renderRouteList(); setDirty(true); toast(`Route ${r}: ${status}`); }
-  function renderRouteList(){ const host=$('routeList'); host.innerHTML=''; const routes=allRoutes(); if(!routes.length){ host.innerHTML='<div class="hint">Keine Treffer.</div>'; return;} routes.forEach(r=>{ const div=document.createElement('div'); div.className='item'; const status=st.routeStatus[r]||'unkundig'; const desc=prettyRouteText(r, st.routes[r]||''); div.innerHTML=`<div class="no">${r}</div><div class="desc"><b>${desc}</b></div>${badge(status)}`; let down=null; div.addEventListener('pointerdown',(ev)=>{ if(st.radnMode!=='mark') return; if(ev.button!=null&&ev.button!==0) return; down={x:ev.clientX,y:ev.clientY,t:performance.now()}; }, {passive:true}); div.addEventListener('pointerup',(ev)=>{ if(st.radnMode!=='mark') return; if(!down) return; const dt=performance.now()-down.t; const dx=ev.clientX-down.x; const dy=ev.clientY-down.y; if(dt<=550 && Math.hypot(dx,dy)<=8) tapRoute(r); down=null; }, {passive:true}); host.appendChild(div); }); }
+  function renderRouteList(){ const host=$('routeList'); host.innerHTML=''; const routes=allRoutes(); if(!routes.length){ host.innerHTML='<div class="hint">Keine Treffer.</div>'; return;} routes.forEach(r=>{ const div=document.createElement('div'); div.className='item'; const status=st.routeStatus[r]||'unkundig'; const desc=prettyRouteText(r, st.routes[r]||''); div.innerHTML=`<div class="no">${r}<div class="desc"><b>${desc}</b></div>${badge(status)}`; let down=null; div.addEventListener('pointerdown',(ev)=>{ if(st.radnMode!=='mark') return; if(ev.button!=null&&ev.button!==0) return; down={x:ev.clientX,y:ev.clientY,t:performance.now()}; }, {passive:true}); div.addEventListener('pointerup',(ev)=>{ if(st.radnMode!=='mark') return; if(!down) return; const dt=performance.now()-down.t; const dx=ev.clientX-down.x; const dy=ev.clientY-down.y; if(dt<=550 && Math.hypot(dx,dy)<=8) tapRoute(r); down=null; }, {passive:true}); host.appendChild(div); }); }
 
   const segKey=(it)=> `${it.seg}\n${it.from}>${it.to}`;
   function initTeilstreckenForRoute(r){ const arr=st.routeSegmentsOrdered[r]; if(!arr) return; st.teilstrecken[r]=st.teilstrecken[r]||{}; arr.forEach(it=>{ const k=segKey(it); if(st.teilstrecken[r][k]===undefined) st.teilstrecken[r][k]=false; }); }
