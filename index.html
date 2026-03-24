@@ -1380,16 +1380,10 @@ async function exportJson(){
     // Ortskunde nav
     $('backToMap').addEventListener('click',()=>{ showStep(4); });
 
-  $('ortFilterSug').addEventListener('click', ()=>{
-    st.ortFilter='suggested';
-    $('ortFilterSug').classList.add('active');
-    $('ortFilterAll').classList.remove('active');
+  $('ortFilterAll').classList.remove('active');
     renderOrts();
   });
-  $('ortFilterAll').addEventListener('click', ()=>{
-    st.ortFilter='all';
-    $('ortFilterAll').classList.add('active');
-    $('ortFilterSug').classList.remove('active');
+  $('ortFilterSug').classList.remove('active');
     renderOrts();
   });
 
