@@ -104,7 +104,7 @@
 </style>
 </head>
 <body>
-  <div class="topbar"><div class="brand">MEV Streckenkunde</div><div id="bootMark" style="font-size:12px; color:rgba(255,255,255,.55); margin-left:10px;">(JS lädt …)</div><div class="build">Build: 2026-03-24 V2.0.6</div></div>
+  <div class="topbar"><div class="brand">MEV Streckenkunde</div><div id="bootMark" style="font-size:12px; color:rgba(255,255,255,.55); margin-left:10px;">(JS lädt …)</div><div class="build">Build: 2026-03-24 V2.0.7</div></div>
 
   <!-- Step 4: Map view -->
   <div class="mapWrap hidden" id="viewMap">
@@ -216,8 +216,8 @@
         <div class="cardTop">
           <div class="toggleRow">
             <span class="hint" style="margin:0;">Prüfen und bestätigen</span>
-      <button class="toggle active" id="ortFilterSug" type="button">Auswahl</button>
-      <button class="toggle" id="ortFilterAll" type="button">Alle</button>
+      <button class="toggle" id="ortFilterSug" type="button">Auswahl</button>
+      <button class="toggle active" id="ortFilterAll" type="button">Alle</button>
             <span style="flex:1 1 auto"></span>
             <button class="btn" id="backToMap" type="button">Zurück zur Karte</button>
             <button class="btn" id="saveLocal" type="button">Auf Gerät speichern</button>
@@ -267,7 +267,7 @@
   blsAllFalsePending: false,
   // Ortskunde
   suggestedOrts: new Set(),
-  ortFilter: 'suggested',
+  ortFilter: 'all',
   ortsManual: {},
   idxTankByLine: {},
   radnMode: 'scroll',
@@ -383,11 +383,13 @@ function buildTankIndexFromSvg(){
 }
 
 function updateOrtskundeSuggestions(){
-  var sug = new Set();
-  var activeLines = new Set();
-
-  // A) RADN: nur kundig
-  Object.keys(st.routeStatus||{}).forEach(function(r){
+  const sug = new Set();
+  const activeLines = new Set();
+  Object.keys(st.routeStatus||{}).forEach(r=>{ if(st.routeStatus[r]==='kundig'){ const rr=String(r).replace(/\D+/g,''); if(rr) activeLines.add(rr); } });
+  const idxMap = st.idxTankByLine || {};
+  activeLines.forEach(l=>{ const set = idxMap[l]; if(set) set.forEach(lbl=>sug.add(lbl)); });
+  st.suggestedOrts = sug;
+}).forEach(function(r){
     if(st.routeStatus[r] !== 'kundig') return;
     var rr = String(r).replace(/\D+/g,'');
     if(rr) activeLines.add(rr);
@@ -1030,31 +1032,23 @@ function renderSegList(){
 }
 
 function setAllOrts(v){const keys=Object.keys(st.orts||{});keys.forEach(o=>st.ortsManual[o]=!!v);setDirty(true);renderOrts();renderSummary();}
-function renderOrts(){
-    const host=$('ortList'); host.innerHTML='';
-    const keys=Object.keys(st.orts||{}).sort((a,b)=>a.localeCompare(b,'de-CH'));
-    if(!keys.length){ host.innerHTML='<div class="hint">Keine Ortskunde aus kundigen Routen.</div>'; return; }
-    keys.forEach(ort=>{
-    const isSuggested = !!(st.suggestedOrts && st.suggestedOrts.has(ort));
-    if(st.ortFilter === 'suggested' && !isSuggested) return;
-      const it=st.orts[ort];
-      const manual = (st.ortsManual && st.ortsManual.hasOwnProperty(ort)) ? st.ortsManual[ort] : null;
-    const on = (manual===true) ? true : (manual===false) ? false : (st.suggestedOrts && st.suggestedOrts.has(ort)) ? true : false;
-      const div=document.createElement('div');
-      div.className='item'+(on?'':'');
-      div.innerHTML=`<div class="no">${on?'✅':'✕'}</div><div class="desc"><b style="text-decoration:${on?'none':'line-through'};">${ort}</b><div class="hint">Linien: ${(it.linien||[]).slice().sort((a,b)=>Number(a)-Number(b)).join(', ')}</div></div>`;
-      div.addEventListener('click',()=>{
-        var nv = !on;
-      st.ortsManual[ort] = nv;
-        setDirty(true);
-        renderOrts();
-        renderSummary();
-      });
-      host.appendChild(div);
-    });
-  }
 
-  function renderSummary(){
+function _isSuggested(ort){ return !!(st.suggestedOrts && st.suggestedOrts.has(ort)); }
+function _isOn(ort){ const m=(st.ortsManual&&Object.prototype.hasOwnProperty.call(st.ortsManual,ort))?st.ortsManual[ort]:null; return (m===true)?true:(m===false)?false:_isSuggested(ort); }
+
+function renderOrts(){
+ const host=$('ortList'); host.innerHTML='';
+ const keysAll=Object.keys(st.orts||{}).sort((a,b)=>a.localeCompare(b,'de-CH'));
+ if(!keysAll.length){ host.innerHTML='<div class="hint">Keine Ortskunde aus kundigen Routen.</div>'; return; }
+ const list=(st.ortFilter==='suggested')?keysAll.filter(_isSuggested):keysAll;
+ list.forEach(ort=>{ const it=st.orts[ort]||{}; const on=_isOn(ort); const div=document.createElement('div');
+   div.className='item'+(on?' ortOn':'');
+   div.innerHTML='<div class="no">'+(on?'✅':'✕')+'</div>' + '<div class="desc"><b style="text-decoration:'+(on?'none':'line-through')+';">'+ort+'</b>' + '<div class="hint">Linien: '+((it.linien||[]).slice().sort((a,b)=>Number(a)-Number(b)).join(', '))+'</div></div>';
+   div.addEventListener('click',()=>{ st.ortsManual[ort]=!on; setDirty(true); renderOrts(); renderSummary(); });
+   host.appendChild(div); });
+ }
+
+function renderSummary({
     const keys=Object.keys(st.routeStatus||{});
     let k=0,a=0,u=0;
     keys.forEach(r=>{ const s=st.routeStatus[r]; if(s==='kundig') k++; else if(s==='auffrischung') a++; else u++; });
@@ -1081,11 +1075,8 @@ function renderOrts(){
         teilstrecken[r].push({seg:it.seg, from:it.from, to:it.to, fromName:it.fromName||'', toName:it.toName||'', kundig:(val===true)});
       });
     });
-    const ortskunde={};
-    Object.keys(st.orts).sort((a,b)=>a.localeCompare(b,'de-CH')).forEach(o=>{
-      ortskunde[o]={kundig:!!st.orts[o].kundig, linien:(st.orts[o].linien||[]).slice()};
-    });
-    return {erzeugtAm:new Date().toISOString(), person:{...st.person}, bls:st.blsMode, linien, teilstrecken, ortskunde, overrides:st.overrides||{}};
+    const ortskunde={}; Object.keys(st.orts).sort((a,b)=>a.localeCompare(b,'de-CH')).forEach(o=>{ ortskunde[o]={kundig:!!_isOn(o), linien:(st.orts[o].linien||[]).slice()}; });
+ return {erzeugtAm:new Date().toISOString(), person:{...st.person}, bls:st.blsMode, linien, teilstrecken, ortskunde, overrides:st.overrides||{}};
   }
 
   function saveLocal(){
