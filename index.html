@@ -90,7 +90,7 @@
   </style>
 </head>
 <body>
-  <div class="topbar"><div class="brand">MEV Streckenkunde</div><div id="bootMark" style="font-size:12px; color:rgba(255,255,255,.55); margin-left:10px;">(JS lädt …)</div><div class="build">Build: 2026-03-24 V2.0.2</div></div>
+  <div class="topbar"><div class="brand">MEV Streckenkunde</div><div id="bootMark" style="font-size:12px; color:rgba(255,255,255,.55); margin-left:10px;">(JS lädt …)</div><div class="build">Build: 2026-03-24 V2.0.3</div></div>
 
   <!-- Step 4: Map view -->
   <div class="mapWrap hidden" id="viewMap">
@@ -441,14 +441,15 @@
   function allRoutes(){ return Object.keys(st.routes||{}).filter(k=>/^\d{3}$/.test(k)).filter(k=>{ const n=Number(k); return n>=101 && n<=791; }).sort((a,b)=>Number(a)-Number(b)); }
   function routeMatchesSearch(route){ return true; }
 
-  // RADN-Darstellung ohne Doppelcode
+  // RADN-Darstellung ohne Doppelcode (robust, ohne komplexe RegEx)
   function prettyRouteText(r, raw){
     let t = String(raw||'').trim();
     if(!r) return t;
-    const rEsc = r.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
-    t = t.replace(new RegExp('^\n?\s*(' + rEsc + '\\s*){1,2}'), '');
-    t = t.replace(/^[-–—:\s]+/, '');
-    return t.trim();
+    for(let i=0;i<2;i++){
+      if(t.startsWith(r)) t = t.slice(r.length).trim();
+    }
+    t = t.replace(/^[-–—:\s]+/, '').trim();
+    return t;
   }
 
   function tapRoute(r){
@@ -650,10 +651,8 @@
     wireEmployeeFallback();
 
     try{ if(localStorage.getItem('mev_streckenkunde_state_v4_2')) $('loadHint').innerHTML='Gespeicherte Daten gefunden. <b>Vom Gerät laden</b> antippen.'; }catch(e){}
-    // employees Treffer anzeigen (ggf. leer)
     renderEmpHits('');
 
-    // assets für RADN/SVG erst beim Wechsel laden
     $('empSearch').addEventListener('input',()=>renderEmpHits($('empSearch').value));
     $('loadLocalTop').addEventListener('click', loadLocal);
 
