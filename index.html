@@ -104,7 +104,7 @@
 </style>
 </head>
 <body>
-  <div class="topbar"><div class="brand">MEV Streckenkunde</div><div id="bootMark" style="font-size:12px; color:rgba(255,255,255,.55); margin-left:10px;">(JS lädt …)</div><div class="build">Build: 2026-03-23 V1.9.15</div></div>
+  <div class="topbar"><div class="brand">MEV Streckenkunde</div><div id="bootMark" style="font-size:12px; color:rgba(255,255,255,.55); margin-left:10px;">(JS lädt …)</div><div class="build">Build: 2026-03-23 V1.9.13</div></div>
 
   <!-- Step 4: Map view -->
   <div class="mapWrap hidden" id="viewMap">
@@ -1282,9 +1282,9 @@ async function exportJson(){
     // employees
     try{
       const emp=await loadJson(abs('assets/mitarbeiter.json'));
-      st.employees = Array.isArray(emp.employees) ? emp.employees : (Array.isArray(emp) ? emp : []); renderEmpHits('');
-    }catch(e){ st.employees=[]; renderEmpHits(''); }
-    
+      st.employees = Array.isArray(emp.employees) ? emp.employees : (Array.isArray(emp) ? emp : []);
+    }catch(e){ st.employees=[]; }
+    renderEmpHits('');
 
     // wiring
     $('empSearch').addEventListener('input',()=>renderEmpHits($('empSearch').value));
