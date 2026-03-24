@@ -107,7 +107,7 @@
 </style>
 </head>
 <body>
-  <div class="topbar"><div class="brand">MEV Streckenkunde</div><div id="bootMark" style="font-size:12px; color:rgba(255,255,255,.55); margin-left:10px;">(JS lädt …)</div><div class="build">Build: 2026-03-24 V3.5</div></div>
+  <div class="topbar"><div class="brand">MEV Streckenkunde</div><div id="bootMark" style="font-size:12px; color:rgba(255,255,255,.55); margin-left:10px;">(JS lädt …)</div><div class="build">Build: 2026-03-24 V3.6</div></div>
 
   <!-- Step 4: Map view -->
   <div class="mapWrap hidden" id="viewMap">
@@ -238,6 +238,7 @@
 (() => {
  window.addEventListener('error', function(ev){ try{ var m = (ev && ev.message) ? ev.message : 'JS-Fehler'; var t=document.getElementById('toast'); if(t){ t.textContent=m; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 3500);} }catch(e){} });
   const $ = (id) => document.getElementById(id);
+ const on = (id, ev, fn) => { const el = $(id); if (el) el.addEventListener(ev, fn); };
   const toast = (m) => { const t=$('toast'); t.textContent=m; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 2200); };
   const setDirty = (v) => $('dirty').textContent = v ? 'nicht gespeichert' : '';
 
@@ -1276,16 +1277,16 @@ async function exportJson(){
     renderEmpHits('');
 
     // wiring
-    $('empSearch').addEventListener('input',()=>renderEmpHits($('empSearch').value));
-  $('loadLocalTop').addEventListener('click', loadLocal);
+    on('empSearch','input', ()=>renderEmpHits($('empSearch').value));
+  on('loadLocalTop','click', loadLocal);
   // Aus Datei laden (JSON)
   if($('loadFileTop') && $('importFileTop')){
-    $('loadFileTop').addEventListener('click', ()=>{
+    on('loadFileTop','click', ()=>{
       const inp = $('importFileTop');
       inp.value='';
       inp.click();
     });
-    $('importFileTop').addEventListener('change', async()=>{
+    on('importFileTop','change', async()=>{
       const inp = $('importFileTop');
       const f = inp.files && inp.files[0];
       if(!f) return;
@@ -1303,19 +1304,19 @@ async function exportJson(){
   try{ var bm=$('bootMark'); if(bm) bm.textContent='(JS aktiv)'; }catch(e){}
     ['vorname','nachname','datum','pnr'].forEach(id=>$(id).addEventListener('input',syncPerson));
 
-    $('resetPerson').addEventListener('click',()=>{
+    on('resetPerson','click', ()=>{
       $('vorname').value=''; $('nachname').value=''; $('pnr').value=''; $('datum').value=(new Date()).toISOString().slice(0,10);
       syncPerson();
       toast('Zurückgesetzt.');
     });
 
-    $('toRoutes').addEventListener('click', async()=>{
+    on('toRoutes','click', async()=>{
       try{ await ensureAssetsLoaded(); renderRouteList(); showStep(2); }
       catch(e){ console.error(e); toast('Fehler beim Laden der Assets.'); }
     });
 
-    $('blsYes').addEventListener('click',()=>setBls(true));
-    $('blsNo').addEventListener('click',()=>setBls(false));
+    on('blsYes','click', ()=>setBls(true));
+    on('blsNo','click', ()=>setBls(false));
     setBls(false);
   // RADN Modus: Scrollen / Markieren (sicher)
   function setRadnMode(m){
@@ -1326,14 +1327,14 @@ async function exportJson(){
     if(b) b.classList.toggle('active', m==='mark');
   }
   st.setRadnMode = setRadnMode;
-  if($('radnScroll')) $('radnScroll').addEventListener('click', ()=>setRadnMode('scroll'));
-  if($('radnMark')) $('radnMark').addEventListener('click', ()=>setRadnMode('mark'));
+  if($('radnScroll')) on('radnScroll','click', ()=>setRadnMode('scroll'));
+  if($('radnMark')) on('radnMark','click', ()=>setRadnMode('mark'));
   setRadnMode('scroll');
 
 
-    $('backToPerson').addEventListener('click',()=>showStep(1));
+    on('backToPerson','click', ()=>showStep(1));
 
-    $('nextFromRoutes').addEventListener('click', async()=>{
+    on('nextFromRoutes','click', async()=>{
     if(st.blsMode){
       renderSegList();
       showStep(3);
@@ -1342,30 +1343,30 @@ async function exportJson(){
     }
   });
 
-    $('backToRoutes').addEventListener('click',()=>showStep(2));
-    $('toMap').addEventListener('click', async()=>{
+    on('backToRoutes','click', ()=>showStep(2));
+    on('toMap','click', async()=>{
       try{ await goMap(); } catch(e){ console.error(e); toast('Karte konnte nicht geladen werden.'); }
     });
 
     // Map bar navigation
-    $('backFromMap').addEventListener('click',()=>{
+    on('backFromMap','click', ()=>{
       if(st.blsMode) showStep(3); else showStep(2);
     });
-    $('toOrtskunde').addEventListener('click',()=>{
+    on('toOrtskunde','click', ()=>{
       goOrtskunde();
     });
 
     // Ortskunde nav
-    $('backToMap').addEventListener('click',()=>{
+    on('backToMap','click', ()=>{
     showStep(4);
 
-  $('ortFilterSug').addEventListener('click', ()=>{
+  on('ortFilterSug','click', ()=>{
     st.ortFilter='all';
     $('ortFilterSug').classList.add('active');
     $('ortFilterAll').classList.remove('active');
     renderOrts();
   });
-  $('ortFilterAll').addEventListener('click', ()=>{
+  on('ortFilterAll','click', ()=>{
     st.ortFilter='all';
     $('ortFilterAll').classList.add('active');
     $('ortFilterSug').classList.remove('active');
@@ -1374,15 +1375,15 @@ async function exportJson(){
 
   });
 
-    $('modePan').addEventListener('click',()=>setMode('pan'));
-    $('modeEdit').addEventListener('click',()=>setMode('edit'));
-    $('pickK').addEventListener('click',()=>setPick('kundig'));
-    $('pickA').addEventListener('click',()=>setPick('auffrischung'));
-    $('pickN').addEventListener('click',()=>setPick('unkundig'));
+    on('modePan','click', ()=>setMode('pan'));
+    on('modeEdit','click', ()=>setMode('edit'));
+    on('pickK','click', ()=>setPick('kundig'));
+    on('pickA','click', ()=>setPick('auffrischung'));
+    on('pickN','click', ()=>setPick('unkundig'));
 
-    $('saveLocal').addEventListener('click',saveLocal);
-    if ($('loadLocal')) $('loadLocal').addEventListener('click', loadLocal);
-    $('export').addEventListener('click',exportJson);
+    on('saveLocal','click', saveLocal);
+    if ($('loadLocal')) on('loadLocal','click', loadLocal);
+    on('export','click', exportJson);
   }
 
   init();
@@ -1396,13 +1397,7 @@ async function sendToFlow() {
     if (ok) toast('Übermittelt: Datei wird in SharePoint abgelegt.'); else toast('Senden fehlgeschlagen.');
   } catch(e) { console.error(e); toast('Fehler beim Senden.'); }
 }
-document.addEventListener('DOMContentLoaded',()=>{ const b=document.getElementById('sendFlow'); if(b) b.addEventListener('click',sendToFlow); });
-// Safety wiring for all Step 5 buttons
-document.addEventListener('DOMContentLoaded',()=>{
-  const m=document.getElementById('backToMap'); if(m) m.addEventListener('click', ()=> showStep(4));
-  const s=document.getElementById('saveLocal'); if(s) s.addEventListener('click', saveLocal);
-  const e=document.getElementById('export'); if(e) e.addEventListener('click', exportJson);
-});
+document.addEventListener('DOMContentLoaded',()=>{ on('sendFlow','click', sendToFlow); });
 
 })();
 </script>
