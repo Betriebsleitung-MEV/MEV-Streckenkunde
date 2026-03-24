@@ -1,3 +1,240 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <title>MEV Streckenkunde</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="theme-color" content="#0b1220" />
+  <style>
+    :root{
+      --bg:#0b1220; --panel:#121a2b; --panel2:#0f1730; --text:#e8eefc; --muted:#9fb0d0;
+      --blue:#0070ff; --red:#ff2a2a;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box;}
+    html,body{height:100%;}
+    body{margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background:var(--bg); color:var(--text); overflow:hidden;}
+
+    .topbar{position:fixed; left:0; right:0; top:0; z-index:30; height:54px; display:flex; align-items:center; gap:10px;
+      padding:10px 12px; border-bottom:1px solid rgba(255,255,255,.08); background: rgba(11,18,32,.85); backdrop-filter: blur(8px);
+    }
+    .brand{font-weight:750;}
+    .build{margin-left:auto; font-size:12px; color:var(--muted);}
+
+    .hidden{display:none !important;}
+.filePick{position:fixed; left:-10000px; top:0; width:1px; height:1px; opacity:0;}
+
+    /* Bottom sheet */
+    .sheet{position:fixed; left:0; right:0; bottom:0; z-index:20; background:rgba(18,26,43,.96);
+      border-top:1px solid rgba(255,255,255,.10); border-radius: 18px 18px 0 0; box-shadow: var(--shadow);
+      height: min(74vh, 680px); display:flex; flex-direction:column;
+    }
+    .grab{width:48px; height:5px; border-radius:999px; background: rgba(255,255,255,.18); margin: 6px auto 0;}
+    .sheetHeader{padding:10px 12px 8px; display:flex; align-items:center; gap:10px;}
+    .steps{display:flex; gap:8px; flex-wrap:wrap;}
+    .step{font-size:12px; padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.14); color:var(--muted);}
+    .step.active{color:var(--text); border-color: rgba(0,112,255,.55); background: rgba(0,112,255,.12);}
+    .dirty{margin-left:auto; font-size:12px; color:var(--muted);}
+    .sheetBody{padding:10px 12px 12px; overflow:auto; flex:1 1 auto;}
+
+    .card{border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04); border-radius:14px; padding:12px;}
+    .hint{font-size:12px; color:var(--muted); line-height:1.35;}
+    label{display:block; font-size:12px; color:var(--muted); margin:10px 0 6px;}
+    input, select{width:100%; height:40px; border-radius:12px; border:1px solid rgba(255,255,255,.14); background:var(--panel2); color:var(--text); padding:0 12px; outline:none;}
+    input::placeholder{color: rgba(159,176,208,.7);}
+
+    .row3{display:grid; grid-template-columns: minmax(30ch, 45ch) minmax(30ch, 45ch) 140px; gap:10px;}
+    @media (max-width: 520px){ .row3{grid-template-columns:1fr;} }
+
+    .btn{height:42px; padding:0 12px; border-radius:12px; border:1px solid rgba(255,255,255,.16); background: rgba(255,255,255,.06);
+      color:var(--text); font-weight:700; cursor:pointer;}
+    .btn.primary{border-color: rgba(0,112,255,.65); background: rgba(0,112,255,.16);}
+    .btn:disabled{opacity:.55; cursor:not-allowed;}
+ .btn.danger{border-color: rgba(255,77,77,.8); background: rgba(255,0,0,.12); color:#ffb3b3;}
+ .btn.success{border-color: rgba(0,200,120,.65); background: rgba(0,200,120,.12);}
+
+    .list{display:grid; gap:8px; margin-top:10px;}
+    .item{display:flex; gap:10px; padding:10px; border-radius:14px; border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04); cursor:pointer; align-items:flex-start;}
+    .no{width:70px; font-weight:900;}
+    .desc{flex:1 1 auto;}
+    .badge{font-size:12px; font-weight:900; padding:4px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.14); white-space:nowrap;}
+    .badge.k{color: var(--blue); border-color: rgba(0,112,255,.45); background: rgba(0,112,255,.10);}
+    .badge.a{color: var(--red); border-color: rgba(255,42,42,.45); background: rgba(255,42,42,.10);}
+    .badge.n{color: rgba(255,255,255,.65); border-color: rgba(255,255,255,.14); background: rgba(255,255,255,.04);}
+
+    .segItem{display:flex; gap:10px; align-items:flex-start; padding:10px; border-radius:12px; border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04); margin-top:8px;}
+    .segItem.off{opacity:.55;}
+
+    /* Sticky top row inside scroll area */
+    .cardTop{position:sticky; top:0; z-index:6; padding:10px 0 8px;
+      background: linear-gradient(to bottom, rgba(18,26,43,.96) 70%, rgba(18,26,43,0));
+    }
+    .toggleRow{display:flex; gap:10px; flex-wrap:wrap; align-items:center;}
+    .toggle{height:38px; padding:0 12px; border-radius:999px; border:1px solid rgba(255,255,255,.16); background: rgba(255,255,255,.06); color:var(--text); font-weight:900; cursor:pointer; font-size:12px;}
+    .toggle.active{outline:2px solid rgba(0,112,255,.55);}
+
+    /* Map */
+    .mapWrap{position:fixed; inset:54px 0 0 0; background:#fff;}
+    #mapHost{position:absolute; inset:0; overflow:hidden;}
+    #mapHost svg{width:100%; height:100%; display:block; touch-action:none;}
+
+    .mapBar{position:fixed; left:10px; right:10px; top:64px; z-index:40; display:flex; gap:10px; flex-wrap:wrap;
+      padding:10px; border-radius:14px; border:1px solid rgba(255,255,255,.16); background: rgba(18,26,43,.92); backdrop-filter: blur(8px);
+    }
+    .pillBtn{height:40px; padding:0 12px; border-radius:999px; border:1px solid rgba(255,255,255,.16); background: rgba(255,255,255,.06);
+      color:var(--text); font-weight:900; cursor:pointer; font-size:12px;}
+    .pillBtn.active{outline:2px solid rgba(0,112,255,.55);}
+
+    .toast{position:fixed; left:50%; bottom: calc(min(74vh,680px) + 10px); transform:translateX(-50%);
+      background: rgba(18,26,43,.98); border: 1px solid rgba(255,255,255,.16);
+      padding: 10px 12px; border-radius: 12px; font-size: 13px; color: var(--text);
+      max-width: min(860px, 92vw); display:none; z-index:50;}
+    .toast.show{display:block;}
+  
+ .item.suggest{outline:2px solid rgba(0, 200, 120, .55);}
+ .badge.sug{color: rgba(0,200,120,.95); border-color: rgba(0,200,120,.55); background: rgba(0,200,120,.12);}
+ .item.ortOn{background: rgba(0,200,120,.10);}
+
+.groupHead{display:flex; gap:10px; align-items:center; padding:10px; border-radius:12px; border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.03);}
+.groupTitle{font-weight:900;}
+.groupMeta{font-size:12px; color:var(--muted);}
+.miniBtn{height:34px; padding:0 10px; border-radius:999px; border:1px solid rgba(255,255,255,.16); background: rgba(255,255,255,.06); color:var(--text); font-weight:900; cursor:pointer; font-size:12px;}
+</style>
+</head>
+<body>
+  <div class="topbar"><div class="brand">MEV Streckenkunde</div><div id="bootMark" style="font-size:12px; color:rgba(255,255,255,.55); margin-left:10px;">(JS lädt …)</div><div class="build">Build: 2026-03-23 V1.9.11</div></div>
+
+  <!-- Step 4: Map view -->
+  <div class="mapWrap hidden" id="viewMap">
+    <div id="mapHost"><div style="padding:12px; color:#111;"><b>SVG noch nicht geladen.</b></div></div>
+  </div>
+
+  <div class="mapBar hidden" id="mapBar">
+    <button class="pillBtn active" id="modePan" type="button">Verschieben/Zoomen</button>
+    <button class="pillBtn" id="modeEdit" type="button">Punkte bearbeiten</button>
+    <span style="flex:1 1 auto"></span>
+    <button class="pillBtn active" data-pick="kundig" id="pickK" type="button">Kundig (blau)</button>
+    <button class="pillBtn" data-pick="auffrischung" id="pickA" type="button">Auffrischung (rot)</button>
+    <button class="pillBtn" data-pick="unkundig" id="pickN" type="button">Unkundig (Original)</button>
+    <button class="pillBtn" id="toOrtskunde" type="button">Weiter: Ortskunde</button>
+    <button class="pillBtn" id="backFromMap" type="button">Zurück</button>
+  </div>
+
+  <!-- Sheet -->
+  <div class="sheet" id="sheet">
+    <div class="grab"></div>
+    <div class="sheetHeader">
+      <div class="steps">
+        <span class="step active" id="s1">1 Profil</span>
+        <span class="step" id="s2">2 RADN</span>
+        <span class="step" id="s3">3 BLS Daten</span>
+        <span class="step" id="s4">4 Karte</span>
+        <span class="step" id="s5">5 Ortskunde</span>
+      </div>
+      <div class="dirty" id="dirty"></div>
+    </div>
+
+    <div class="sheetBody">
+      <!-- Step 1 -->
+      <div class="card" id="p1">
+        <div style="font-weight:850; margin-bottom:6px;">Personendaten</div>
+        <div class="hint">Mitarbeiter auswählen. Danach Routen setzen.</div>
+        <label>Suche Mitarbeiter</label>
+        <input id="empSearch" placeholder="Name, Vorname oder Nummer" />
+        <div id="empHits" class="list" style="max-height:180px; overflow:auto;"></div>
+        <div style="height:1px; background: rgba(255,255,255,.08); margin:12px 0;"></div>
+        <div class="row3">
+          <div><label>Vorname</label><input id="vorname" placeholder="Vorname" /></div>
+          <div><label>Name</label><input id="nachname" placeholder="Name" /></div>
+          <div><label>Datum</label><input id="datum" type="date" /></div>
+        </div>
+        <label>Personalnummer (optional)</label>
+        <input id="pnr" inputmode="numeric" pattern="[0-9]*" placeholder="z.B. 123456" />
+        <div class="toggleRow" style="margin-top:12px;">
+          <button class="btn primary" id="toRoutes" type="button" disabled>Weiter zu Routen</button>
+          <button class="btn" id="resetPerson" type="button">Zurücksetzen</button>
+ <button class="btn" id="loadLocalTop" type="button">Vom Gerät laden</button>
+        
+ <button class="btn success" id="loadFileTop" type=\"button\">Aus Datei laden</button>
+ <input id="importFileTop" type="file" accept="application/json,.json" style="position:absolute;top:-9999px;left:-9999px;width:0;height:0;opacity:0;overflow:hidden;border:none;">
+</div>
+        <div class="hint" id="auto" style="margin-top:8px;"><b>Status:</b> warte …</div>
+ <div class="hint" id="loadHint" style="margin-top:6px;"></div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="card hidden" id="p2">
+        <div style="font-weight:850; margin-bottom:6px;">RADN-Strecken (101–791)</div>
+        <div class="hint">Tippen: 1× kundig · 2× auffrischung · 3× unkundig</div>
+        <div class="cardTop">
+          <div class="toggleRow">
+            <span class="hint" style="margin:0;">BLS Teilstrecken bearbeiten?</span>
+            <button class="toggle active" id="blsNo" type="button">Nein</button>
+            <button class="toggle" id="blsYes" type="button">Ja</button>
+  <span class="hint" style="margin:0;">RADN</span>
+  <button class="toggle active" id="radnScroll" type="button">Scrollen</button>
+  <button class="toggle" id="radnMark" type="button">Markieren</button>
+<span style="flex:1 1 auto"></span>
+            <button class="btn" id="backToPerson" type="button">Zurück</button>
+            <button class="btn primary" id="nextFromRoutes" type="button">Weiter</button>
+          </div>
+        </div>
+
+        <div id="routeList" class="list" style="max-height:360px; overflow:auto;"></div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="card hidden" id="p3">
+        <div style="font-weight:850; margin-bottom:6px;">BLS Daten</div>
+        <div class="hint">BLS Daten (nur gewählte RADN-Routen). Tippen toggelt kundig/unkundig (Standard = unkundig).</div>
+      <div class="toggleRow" style="margin-top:10px;">
+        <button class="toggle active" id="blsFilterAll" type="button">Alle</button>
+        <button class="toggle" id="blsFilterUnkundig" type="button">Nur unkundig</button>
+        <span style="flex:1 1 auto"></span>
+        <span class="hint" id="blsStats" style="margin:0;"></span>
+      </div>
+
+        <div class="cardTop">
+          <div class="toggleRow">
+            <span class="hint" style="margin:0;">Tippen auf Teilstrecke = false</span>
+            <span style="flex:1 1 auto"></span>
+            <button class="btn" id="backToRoutes" type="button">Zurück</button>
+            <button class="btn primary" id="toMap" type="button">Weiter zur Karte</button>
+          </div>
+        </div>
+
+        <div id="blsList"></div>
+      </div>
+
+      <!-- Step 5 -->
+      <div class="card hidden" id="p5">
+        <div style="font-weight:850; margin-bottom:6px;">Ortskunde (Anschlussgleise und Tanklager)</div>
+        
+
+        <div class="cardTop">
+          <div class="toggleRow">
+            <span class="hint" style="margin:0;">Prüfen und bestätigen</span>
+      <button class="toggle active" id="ortFilterSug" type="button">Auswahl</button>
+      <button class="toggle" id="ortFilterAll" type="button">Alle</button>
+            <span style="flex:1 1 auto"></span>
+            <button class="btn" id="backToMap" type="button">Zurück zur Karte</button>
+            <button class="btn" id="saveLocal" type="button">Auf Gerät speichern</button>
+            <button class="btn" id="loadLocal" type="button">Vom Gerät laden</button>
+            <button class="btn primary" id="export" type="button">Export (JSON)</button>
+          </div>
+        </div>
+
+        <div id="ortList"></div>
+        <div class="hint" id="summary" style="margin-top:10px;"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
 <script>
 (() => {
  window.addEventListener('error', function(ev){ try{ var m = (ev && ev.message) ? ev.message : 'JS-Fehler'; var t=document.getElementById('toast'); if(t){ t.textContent=m; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 3500);} }catch(e){} });
@@ -793,35 +1030,10 @@ function renderSegList(){
 }
 
 function setAllOrts(v){const keys=Object.keys(st.orts||{});keys.forEach(o=>st.ortsManual[o]=!!v);setDirty(true);renderOrts();renderSummary();}
-
 function renderOrts(){
-  const host=$('ortList'); host.innerHTML='';
-  const keysAll = Object.keys(st.orts||{}).sort((a,b)=>a.localeCompare(b,'de-CH'));
-  if(!keysAll.length){ host.innerHTML='<div class="hint">Keine Ortskunde aus kundigen Routen.</div>'; return; }
-  const isSuggested=(o)=>!!(st.suggestedOrts && st.suggestedOrts.has(o));
-  const isOn=(o)=>{ const m=(st.ortsManual&&st.ortsManual.hasOwnProperty(o))?st.ortsManual[o]:null; return (m===true)?true:(m===false)?false:isSuggested(o); };
-  const sug = keysAll.filter(isSuggested);
-  const other = keysAll.filter(o=>!isSuggested(o));
-  function addItem(ort){
-    const it=st.orts[ort]||{}; const on=isOn(ort);
-    const div=document.createElement('div');
-    div.className='item'+(on?' ortOn':'');
-    div.innerHTML='<div class="no">'+(on?'✅':'✕')+'</div>'+
-                  '<div class="desc"><b style="text-decoration:'+(on?'none':'line-through')+';">'+ort+'</b>'+
-                  '<div class="hint">Linien: '+((it.linien||[]).slice().sort((a,b)=>Number(a)-Number(b)).join(', '))+'</div></div>';
-    div.addEventListener('click',()=>{ st.ortsManual[ort]=!on; setDirty(true); renderOrts(); renderSummary(); });
-    host.appendChild(div);
-  }
-  sug.forEach(addItem);
-  if(other.length){
-    const sep=document.createElement('div');
-    sep.className='hint';
-    sep.style.cssText='margin:12px 0 4px; border-top:1px solid rgba(255,255,255,.12); padding-top:8px; opacity:.85;';
-    sep.textContent='Weitere Orte'; host.appendChild(sep);
-    other.forEach(addItem);
-  }
-}
-
+    const host=$('ortList'); host.innerHTML='';
+    const keys=Object.keys(st.orts||{}).sort((a,b)=>a.localeCompare(b,'de-CH'));
+    if(!keys.length){ host.innerHTML='<div class="hint">Keine Ortskunde aus kundigen Routen.</div>'; return; }
     keys.forEach(ort=>{
     const isSuggested = !!(st.suggestedOrts && st.suggestedOrts.has(ort));
     if(st.ortFilter === 'suggested' && !isSuggested) return;
@@ -1037,12 +1249,12 @@ async function exportJson(){
   }
 
   async function goOrtskunde(){
-  try{ updateOrtskundeSuggestions(); }catch(e){}
-  rebuildOrts();
-  renderOrts();
-  renderSummary();
-  showStep(5);
-}
+    // Ortskunde neu aufbauen und anzeigen
+    rebuildOrts();
+    renderOrts();
+    renderSummary();
+    showStep(5);
+  }
 
   function setBls(v){
   st.blsMode=!!v;
@@ -1148,12 +1360,16 @@ async function exportJson(){
     $('backToMap').addEventListener('click',()=>{
     showStep(4);
 
-  
-    
+  $('ortFilterSug').addEventListener('click', ()=>{
+    st.ortFilter='suggested';
+    $('ortFilterSug').classList.add('active');
+    $('ortFilterAll').classList.remove('active');
     renderOrts();
   });
-  
-    
+  $('ortFilterAll').addEventListener('click', ()=>{
+    st.ortFilter='all';
+    $('ortFilterAll').classList.add('active');
+    $('ortFilterSug').classList.remove('active');
     renderOrts();
   });
 
@@ -1173,3 +1389,5 @@ async function exportJson(){
   init();
 })();
 </script>
+</body>
+</html>
