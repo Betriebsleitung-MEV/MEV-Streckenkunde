@@ -803,8 +803,7 @@ function renderOrts(){
   const sug = keysAll.filter(isSuggested);
   const other = keysAll.filter(o=>!isSuggested(o));
   function addItem(ort){
-    const it=st.orts[ort]||{};
-    const on=isOn(ort);
+    const it=st.orts[ort]||{}; const on=isOn(ort);
     const div=document.createElement('div');
     div.className='item'+(on?' ortOn':'');
     div.innerHTML='<div class="no">'+(on?'✅':'✕')+'</div>'+
@@ -818,8 +817,7 @@ function renderOrts(){
     const sep=document.createElement('div');
     sep.className='hint';
     sep.style.cssText='margin:12px 0 4px; border-top:1px solid rgba(255,255,255,.12); padding-top:8px; opacity:.85;';
-    sep.textContent='Weitere Orte';
-    host.appendChild(sep);
+    sep.textContent='Weitere Orte'; host.appendChild(sep);
     other.forEach(addItem);
   }
 }
@@ -844,40 +842,39 @@ function renderOrts(){
     });
   }
 
-  
-function renderSummary(){
-  const keys=Object.keys(st.routeStatus||{});
-  let k=0,a=0,u=0; keys.forEach(r=>{ const s=st.routeStatus[r]; if(s==='kundig') k++; else if(s==='auffrischung') a++; else u++; });
-  const segRoutes=Object.keys(st.teilstrecken||{}); let segTotal=0, segFalse=0;
-  segRoutes.forEach(r=>{ const m=st.teilstrecken[r]||{}; Object.keys(m).forEach(tk=>{ segTotal++; if(m[tk]===false) segFalse++; }); });
-  const ortsKeys=Object.keys(st.orts||{});
-  const isSuggested=(o)=>!!(st.suggestedOrts && st.suggestedOrts.has(o));
-  const isOn=(o)=>{ const m=(st.ortsManual&&st.ortsManual.hasOwnProperty(o))?st.ortsManual[o]:null; return (m===true)?true:(m===false)?false:isSuggested(o); };
-  let ortTrue=0; ortsKeys.forEach(o=>{ if(isOn(o)) ortTrue++; });
-  $('summary').innerHTML = 'Routen: <b>'+k+'</b> kundig, <b>'+a+'</b> auffrischung, <b>'+u+'</b> unkundig. · BLS Teilstrecken: <b>'+(segTotal-segFalse)+'</b> true, <b>'+segFalse+'</b> false. · Ortskunde: <b>'+ortTrue+'</b> true, <b>'+(ortsKeys.length-ortTrue)+'</b> false.';
-}
+  function renderSummary(){
+    const keys=Object.keys(st.routeStatus||{});
+    let k=0,a=0,u=0;
+    keys.forEach(r=>{ const s=st.routeStatus[r]; if(s==='kundig') k++; else if(s==='auffrischung') a++; else u++; });
+    const segRoutes=Object.keys(st.teilstrecken||{});
+    let segTotal=0, segFalse=0;
+    segRoutes.forEach(r=>{ const m=st.teilstrecken[r]||{}; Object.keys(m).forEach(k=>{ segTotal++; if(m[k]===false) segFalse++; }); });
+    const orts=Object.keys(st.orts||{});
+    const ortTrue=orts.filter(o=>st.orts[o].kundig).length;
+    $('summary').innerHTML = `Routen: <b>${k}</b> kundig, <b>${a}</b> auffrischung, <b>${u}</b> unkundig. · BLS Teilstrecken: <b>${segTotal-segFalse}</b> true, <b>${segFalse}</b> false. · Ortskunde: <b>${ortTrue}</b> true, <b>${orts.length-ortTrue}</b> false.`;
+  }
 
-  
-function payload(){
-  const linien={};
-  Object.keys(st.routeStatus).sort((a,b)=>Number(a)-Number(b)).forEach(r=>{
-    const s=st.routeStatus[r]; linien[r]={status:s, kundig:(s==='kundig'), auffrischung:(s==='auffrischung'), unkundig:(s!=='kundig')};
-  });
-  const teilstrecken={};
-  Object.keys(st.teilstrecken).sort((a,b)=>Number(a)-Number(b)).forEach(r=>{
-    teilstrecken[r]=[];
-    (st.routeSegmentsOrdered[r]||[]).forEach(it=>{
-      const k=`${it.seg}
-${it.from}>${it.to}`; const val=st.teilstrecken[r] && st.teilstrecken[r][k];
-      teilstrecken[r].push({seg:it.seg, from:it.from, to:it.to, fromName:it.fromName||'', toName:it.toName||'', kundig:(val===true)});
+  function payload(){
+    const linien={};
+    Object.keys(st.routeStatus).sort((a,b)=>Number(a)-Number(b)).forEach(r=>{
+      const s=st.routeStatus[r];
+      linien[r]={status:s, kundig:(s==='kundig'), auffrischung:(s==='auffrischung'), unkundig:(s!=='kundig')};
     });
-  });
-  const isSuggested=(o)=>!!(st.suggestedOrts && st.suggestedOrts.has(o));
-  const isOn=(o)=>{ const m=(st.ortsManual&&st.ortsManual.hasOwnProperty(o))?st.ortsManual[o]:null; return (m===true)?true:(m===false)?false:isSuggested(o); };
-  const ortskunde={};
-  Object.keys(st.orts).sort((a,b)=>a.localeCompare(b,'de-CH')).forEach(o=>{ ortskunde[o]={kundig:!!isOn(o), linien:(st.orts[o].linien||[]).slice()}; });
-  return {erzeugtAm:new Date().toISOString(), person:{...st.person}, bls:st.blsMode, linien, teilstrecken, ortskunde, overrides:st.overrides||{}};
-}
+    const teilstrecken={};
+    Object.keys(st.teilstrecken).sort((a,b)=>Number(a)-Number(b)).forEach(r=>{
+      teilstrecken[r]=[];
+      (st.routeSegmentsOrdered[r]||[]).forEach(it=>{
+        const k=segKey(it);
+        const val = st.teilstrecken[r] && st.teilstrecken[r][k];
+        teilstrecken[r].push({seg:it.seg, from:it.from, to:it.to, fromName:it.fromName||'', toName:it.toName||'', kundig:(val===true)});
+      });
+    });
+    const ortskunde={};
+    Object.keys(st.orts).sort((a,b)=>a.localeCompare(b,'de-CH')).forEach(o=>{
+      ortskunde[o]={kundig:!!st.orts[o].kundig, linien:(st.orts[o].linien||[]).slice()};
+    });
+    return {erzeugtAm:new Date().toISOString(), person:{...st.person}, bls:st.blsMode, linien, teilstrecken, ortskunde, overrides:st.overrides||{}};
+  }
 
   function saveLocal(){
     localStorage.setItem('mev_streckenkunde_state_v4_2', JSON.stringify(payload()));
@@ -1148,8 +1145,21 @@ async function exportJson(){
     });
 
     // Ortskunde nav
-    $('backToMap').addEventListener('click',()=>{ showStep(4); });
-$('modePan').addEventListener('click',()=>setMode('pan'));
+    $('backToMap').addEventListener('click',()=>{
+    showStep(4);
+
+  
+    
+    renderOrts();
+  });
+  
+    
+    renderOrts();
+  });
+
+  });
+
+    $('modePan').addEventListener('click',()=>setMode('pan'));
     $('modeEdit').addEventListener('click',()=>setMode('edit'));
     $('pickK').addEventListener('click',()=>setPick('kundig'));
     $('pickA').addEventListener('click',()=>setPick('auffrischung'));
