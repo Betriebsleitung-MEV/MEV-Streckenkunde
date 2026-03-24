@@ -1283,11 +1283,14 @@ async function exportJson(){
     try{
       const emp=await loadJson(abs('assets/mitarbeiter.json'));
       st.employees = Array.isArray(emp.employees) ? emp.employees : (Array.isArray(emp) ? emp : []); renderEmpHits('');
-    }catch(e){ st.employees=[]; renderEmpHits(''); }
     
+}catch(e){
+  st.employees=[];
+}
+renderEmpHits('');   <-- DAS MUSS RAUS AUS DEM CATCH UND DIREKT DANACH HIN
+// wiring
+$('empSearch').addEventListener('input',()=>renderEmpHits($('empSearch').value));
 
-    // wiring
-    $('empSearch').addEventListener('input',()=>renderEmpHits($('empSearch').value));
   $('loadLocalTop').addEventListener('click', loadLocal);
   // Aus Datei laden (JSON)
   if($('loadFileTop') && $('importFileTop')){
