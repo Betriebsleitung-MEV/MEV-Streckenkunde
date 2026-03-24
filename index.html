@@ -104,7 +104,7 @@
 </style>
 </head>
 <body>
-  <div class="topbar"><div class="brand">MEV Streckenkunde</div><div id="bootMark" style="font-size:12px; color:rgba(255,255,255,.55); margin-left:10px;">(JS lädt …)</div><div class="build">Build: 2026-03-23 V1.9.15</div></div>
+  <div class="topbar"><div class="brand">MEV Streckenkunde</div><div id="bootMark" style="font-size:12px; color:rgba(255,255,255,.55); margin-left:10px;">(JS lädt …)</div><div class="build">Build: 2026-03-23 V1.9.11</div></div>
 
   <!-- Step 4: Map view -->
   <div class="mapWrap hidden" id="viewMap">
@@ -216,8 +216,8 @@
         <div class="cardTop">
           <div class="toggleRow">
             <span class="hint" style="margin:0;">Prüfen und bestätigen</span>
-      <button class="toggle active" id="ortFilterSug" type="button">Auswahl (RADN + Karte) <span id="countSug"></span></button>
-      <button class="toggle" id="ortFilterAll" type="button">Alle anzeigen <span id="countAll"></span></button>
+      <button class="toggle active" id="ortFilterSug" type="button">Auswahl</button>
+      <button class="toggle" id="ortFilterAll" type="button">Alle</button>
             <span style="flex:1 1 auto"></span>
             <button class="btn" id="backToMap" type="button">Zurück zur Karte</button>
             <button class="btn" id="saveLocal" type="button">Auf Gerät speichern</button>
@@ -527,7 +527,7 @@ function findTapTarget(startEl){
     if(!hits.length){ host.innerHTML='<div class="hint">Keine Treffer.</div>'; return; }
     hits.forEach(e=>{
       const div=document.createElement('div'); div.className='item';
-      div.innerHTML = `<div class="no">${e.personalnummer ? String(e.personalnummer).trim() : '—'}</div><div class="desc"><b>${e.nachname} ${e.vorname}</b><div class="hint">Tippen zum übernehmen</div></div>`;
+      div.innerHTML=`<div class="no">${String(e.personalnummer||'').trim()||'—'}</div><div class="desc"><b>${e.nachname} ${e.vorname}</b><div class="hint">Tippen zum übernehmen</div></div>`;
       const applyEmp = ()=>{
   $('vorname').value = e.vorname || '';
   $('nachname').value = e.nachname || '';
@@ -1030,18 +1030,8 @@ function renderSegList(){
 }
 
 function setAllOrts(v){const keys=Object.keys(st.orts||{});keys.forEach(o=>st.ortsManual[o]=!!v);setDirty(true);renderOrts();renderSummary();}
-function updateOrtsFilterCounts() {
-    const total = Object.keys(st.orts || {}).length;
-    const sug = st.suggestedOrts ? st.suggestedOrts.size : 0;
-    const elSug = $('countSug');
-    const elAll = $('countAll');
-    if(elSug) elSug.textContent = `(${sug})`;
-    if(elAll) elAll.textContent = `(${total})`;
-}
-
 function renderOrts(){
     const host=$('ortList'); host.innerHTML='';
-    updateOrtsFilterCounts();
     const keys=Object.keys(st.orts||{}).sort((a,b)=>a.localeCompare(b,'de-CH'));
     if(!keys.length){ host.innerHTML='<div class="hint">Keine Ortskunde aus kundigen Routen.</div>'; return; }
     keys.forEach(ort=>{
@@ -1052,7 +1042,7 @@ function renderOrts(){
     const on = (manual===true) ? true : (manual===false) ? false : (st.suggestedOrts && st.suggestedOrts.has(ort)) ? true : false;
       const div=document.createElement('div');
       div.className='item'+(on?'':'');
-      div.innerHTML=`<div class="no" style="color:${on?'':'#ff4d4d'}">${on?'✅':'✕'}</div><div class="desc"><b style="text-decoration:${on?'none':'line-through'};">${ort}</b><div class="hint">Linien: ${(it.linien||[]).slice().sort((a,b)=>Number(a)-Number(b)).join(', ')}</div></div>`;
+      div.innerHTML=`<div class="no">${on?'✅':'✕'}</div><div class="desc"><b style="text-decoration:${on?'none':'line-through'};">${ort}</b><div class="hint">Linien: ${(it.linien||[]).slice().sort((a,b)=>Number(a)-Number(b)).join(', ')}</div></div>`;
       div.addEventListener('click',()=>{
         var nv = !on;
       st.ortsManual[ort] = nv;
@@ -1273,125 +1263,148 @@ async function exportJson(){
   if(!st.blsMode){ st.blsAllFalsePending = true; resetAllTeilstreckenFalse(); }
 }
 
-  async function init(){
+
+async function init(){
     $('datum').value=(new Date()).toISOString().slice(0,10);
     syncPerson();
     showStep(1);
-  try{ if(localStorage.getItem('mev_streckenkunde_state_v4_2')) $('loadHint').innerHTML='Gespeicherte Daten gefunden. <b>Vom Gerät laden</b> antippen.'; }catch(e){}
 
-    // employees
     try{
-      const emp=await loadJson(abs('assets/mitarbeiter.json'));
-      st.employees = Array.isArray(emp.employees) ? emp.employees : (Array.isArray(emp) ? emp : []); renderEmpHits('');
-    
-}catch(e){
-  st.employees=[];
-}
-renderEmpHits('');   <-- DAS MUSS RAUS AUS DEM CATCH UND DIREKT DANACH HIN
-// wiring
-$('empSearch').addEventListener('input',()=>renderEmpHits($('empSearch').value));
+        if(localStorage.getItem('mev_streckenkunde_state_v4_2'))
+            $('loadHint').innerHTML='Gespeicherte Daten gefunden. <b>Vom Gerät laden</b> antippen.';
+    }catch(e){}
 
-  $('loadLocalTop').addEventListener('click', loadLocal);
-  // Aus Datei laden (JSON)
-  if($('loadFileTop') && $('importFileTop')){
-    $('loadFileTop').addEventListener('click', ()=>{
-      const inp = $('importFileTop');
-      inp.value='';
-      inp.click();
-    });
-    $('importFileTop').addEventListener('change', async()=>{
-      const inp = $('importFileTop');
-      const f = inp.files && inp.files[0];
-      if(!f) return;
-      try{
-        const p = await importJsonFile(f);
-        await applyPayload(p);
-        toast('Aus Datei geladen.');
-      }catch(e){
-        console.error(e);
-        toast('Datei konnte nicht geladen werden.');
-      }
-    });
-  }
-  // Boot-Markierung
-  try{ var bm=$('bootMark'); if(bm) bm.textContent='(JS aktiv)'; }catch(e){}
+    // employees (KORREKT WIE 1.9.11 + Patch)
+    try{
+        const emp = await loadJson(abs('assets/mitarbeiter.json'));
+        st.employees = Array.isArray(emp.employees)
+                      ? emp.employees
+                      : (Array.isArray(emp) ? emp : []);
+    }catch(e){
+        st.employees = [];
+    }
+    // WICHTIG: renderEmpHits MUSS hier hin (nicht im catch!)
+    renderEmpHits('');
+
+    // wiring
+    $('empSearch').addEventListener('input',()=>renderEmpHits($('empSearch').value));
+    $('loadLocalTop').addEventListener('click', loadLocal);
+
+    if($('loadFileTop') && $('importFileTop')){
+        $('loadFileTop').addEventListener('click', ()=>{
+            const inp = $('importFileTop');
+            inp.value='';
+            inp.click();
+        });
+        $('importFileTop').addEventListener('change', async()=>{
+            const inp = $('importFileTop');
+            const f = inp.files && inp.files[0];
+            if(!f) return;
+            try{
+                const p = await importJsonFile(f);
+                await applyPayload(p);
+                toast('Aus Datei geladen.');
+            }catch(e){
+                console.error(e);
+                toast('Datei konnte nicht geladen werden.');
+            }
+        });
+    }
+
+    // Boot-Markierung
+    try{
+        var bm=$('bootMark');
+        if(bm) bm.textContent='(JS aktiv)';
+    }catch(e){}
+
     ['vorname','nachname','datum','pnr'].forEach(id=>$(id).addEventListener('input',syncPerson));
 
     $('resetPerson').addEventListener('click',()=>{
-      $('vorname').value=''; $('nachname').value=''; $('pnr').value=''; $('datum').value=(new Date()).toISOString().slice(0,10);
-      syncPerson();
-      toast('Zurückgesetzt.');
+        $('vorname').value='';
+        $('nachname').value='';
+        $('pnr').value='';
+        $('datum').value=(new Date()).toISOString().slice(0,10);
+        syncPerson();
+        toast('Zurückgesetzt.');
     });
 
     $('toRoutes').addEventListener('click', async()=>{
-      try{ await ensureAssetsLoaded(); renderRouteList(); showStep(2); }
-      catch(e){ console.error(e); toast('Fehler beim Laden der Assets.'); }
+        try{
+            await ensureAssetsLoaded();
+            renderRouteList();
+            showStep(2);
+        }catch(e){
+            console.error(e);
+            toast('Fehler beim Laden der Assets.');
+        }
     });
 
     $('blsYes').addEventListener('click',()=>setBls(true));
     $('blsNo').addEventListener('click',()=>setBls(false));
     setBls(false);
-  // RADN Modus: Scrollen / Markieren (sicher)
-  function setRadnMode(m){
-    st.radnMode = m;
-    var a = $('radnScroll');
-    var b = $('radnMark');
-    if(a) a.classList.toggle('active', m==='scroll');
-    if(b) b.classList.toggle('active', m==='mark');
-  }
-  st.setRadnMode = setRadnMode;
-  if($('radnScroll')) $('radnScroll').addEventListener('click', ()=>setRadnMode('scroll'));
-  if($('radnMark')) $('radnMark').addEventListener('click', ()=>setRadnMode('mark'));
-  setRadnMode('scroll');
 
-
-    $('backToPerson').addEventListener('click',()=>showStep(1));
-
-    $('nextFromRoutes').addEventListener('click', async()=>{
-    if(st.blsMode){
-      renderSegList();
-      showStep(3);
-    } else {
-      try{ await goMap(); } catch(e){ console.error(e); toast('Karte konnte nicht geladen werden.'); }
+    function setRadnMode(m){
+        st.radnMode = m;
+        var a = $('radnScroll');
+        var b = $('radnMark');
+        if(a) a.classList.toggle('active', m==='scroll');
+        if(b) b.classList.toggle('active', m==='mark');
     }
-  });
+    st.setRadnMode = setRadnMode;
 
-    $('backToRoutes').addEventListener('click',()=>showStep(2));
+    if($('radnScroll')) $('radnScroll').addEventListener('click', ()=>setRadnMode('scroll'));
+    if($('radnMark')) $('radnMark').addEventListener('click', ()=>setRadnMode('mark'));
+    setRadnMode('scroll');
+
+    $('backToPerson').addEventListener('click', ()=>showStep(1));
+    $('nextFromRoutes').addEventListener('click', async()=>{
+        if(st.blsMode){
+            renderSegList();
+            showStep(3);
+        } else {
+            try{ await goMap(); }
+            catch(e){ console.error(e); toast('Karte konnte nicht geladen werden.'); }
+        }
+    });
+
+    $('backToRoutes').addEventListener('click', ()=>showStep(2));
     $('toMap').addEventListener('click', async()=>{
-      try{ await goMap(); } catch(e){ console.error(e); toast('Karte konnte nicht geladen werden.'); }
+        try{ await goMap(); }
+        catch(e){ console.error(e); toast('Karte konnte nicht geladen werden.'); }
     });
 
-    // Map bar navigation
     $('backFromMap').addEventListener('click',()=>{
-      if(st.blsMode) showStep(3); else showStep(2);
+        if(st.blsMode) showStep(3);
+        else showStep(2);
     });
+
     $('toOrtskunde').addEventListener('click',()=>{
-      goOrtskunde();
+        goOrtskunde();
     });
 
-    // Ortskunde nav
     $('backToMap').addEventListener('click',()=>{
-  showStep(4);
-});
-  $('ortFilterAll').addEventListener('click', ()=>{
-    st.ortFilter='all';
-    $('ortFilterAll').classList.add('active');
-    $('ortFilterSug').classList.remove('active');
-    renderOrts();
-  });
+        showStep(4);
+    });
 
-  });
+    $('ortFilterAll').addEventListener('click', ()=>{
+        st.ortFilter='all';
+        $('ortFilterAll').classList.add('active');
+        $('ortFilterSug').classList.remove('active');
+        renderOrts();
+    });
 
     $('modePan').addEventListener('click',()=>setMode('pan'));
     $('modeEdit').addEventListener('click',()=>setMode('edit'));
+
     $('pickK').addEventListener('click',()=>setPick('kundig'));
     $('pickA').addEventListener('click',()=>setPick('auffrischung'));
     $('pickN').addEventListener('click',()=>setPick('unkundig'));
 
-    $('saveLocal').addEventListener('click',saveLocal);
-    $('loadLocal').addEventListener('click',loadLocal);
-    $('export').addEventListener('click',exportJson);
-  }
+    $('saveLocal').addEventListener('click', saveLocal);
+    $('loadLocal').addEventListener('click', loadLocal);
+    $('export').addEventListener('click', exportJson);
+}
+`
 
   init();
 })();
