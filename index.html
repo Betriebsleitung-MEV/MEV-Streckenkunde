@@ -219,6 +219,7 @@
             <button class="btn" id="saveLocal" type="button">Speichern</button>
             
             <button class="btn primary" id="export" type="button">Export (JSON)</button>
+ <button class=\"btn primary\" id=\"sendFlow\" type=\"button\">Senden</button>
           </div>
         </div>
 
@@ -1383,6 +1384,18 @@ async function exportJson(){
   }
 
   init();
+// ===== Daten an Power Automate senden =====
+async function sendToFlow() {
+  try {
+    const FLOW_URL = 'https://defaulte3d2e8defe3548eaa78972c4a2acf9.8e.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/47611a2942c04a43bfc0843c6f71584d/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=R9jZNm-Xxor8yV21begNng4NCh_QDtrGO84BwWV_Oxw';
+    const data = payload();
+    data.secret = 'MEV-ABSENDEN-2026';
+    const ok = navigator.sendBeacon(FLOW_URL, new Blob([JSON.stringify(data)], { type: 'text/plain' }));
+    if (ok) toast('Daten gesendet.'); else toast('Senden fehlgeschlagen.');
+  } catch(e) { console.error(e); toast('Fehler beim Senden.'); }
+}
+document.addEventListener('DOMContentLoaded',()=>{ const b=document.getElementById('sendFlow'); if(b) b.addEventListener('click',sendToFlow); });
+
 })();
 </script>
 </body>
