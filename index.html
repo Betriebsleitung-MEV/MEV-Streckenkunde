@@ -101,13 +101,10 @@
 .groupTitle{font-weight:900;}
 .groupMeta{font-size:12px; color:var(--muted);}
 .miniBtn{height:34px; padding:0 10px; border-radius:999px; border:1px solid rgba(255,255,255,.16); background: rgba(255,255,255,.06); color:var(--text); font-weight:900; cursor:pointer; font-size:12px;}
-
-  .btn.send{border-color:rgba(0,200,120,.65); background:rgba(255,255,255,.06); color:var(--text); font-weight:700;}
-  .btn.send:hover{outline:2px solid rgba(0,200,120,.55);}
 </style>
 </head>
 <body>
-  <div class="topbar"><div class="brand">MEV Streckenkunde</div><div id="bootMark" style="font-size:12px; color:rgba(255,255,255,.55); margin-left:10px;">(JS lädt …)</div><div class="build">Build: 2026-03-24 V3.6</div></div>
+  <div class="topbar"><div class="brand">MEV Streckenkunde</div><div id="bootMark" style="font-size:12px; color:rgba(255,255,255,.55); margin-left:10px;">(JS lädt …)</div><div class="build">Build: 2026-03-23 V1.9.11</div></div>
 
   <!-- Step 4: Map view -->
   <div class="mapWrap hidden" id="viewMap">
@@ -218,10 +215,10 @@
 
         <div class="cardTop">
           <div class="toggleRow">
-            <span style="margin:0; font-weight:900; font-size:16px;">Prüfen und bestätigen</span><span style="flex:1 1 auto;"></span><button class=\"btn success\" id=\"backToMap\" type=\"button\">Zurück zur Karte</button>
-<button class=\"btn success\" id=\"saveLocal\" type=\"button\">Speichern</button>
-<button class=\"btn success\" id=\"sendFlow\" type=\"button\">Senden</button>
-<button class=\"btn success\" id=\"export\" type=\"button\">Export (JSON)</button>
+<button class='btn' id='backToMap' type='button'>Zurück zur Karte</button>
+<button class='btn' id='saveLocal' type='button'>Speichern</button>
+<button class='btn success' id='sendFlow' type='button'>Senden</button>
+<button class='btn success' id='export' type='button'>Export (JSON)</button>
 </div>
         </div>
 
@@ -238,7 +235,6 @@
 (() => {
  window.addEventListener('error', function(ev){ try{ var m = (ev && ev.message) ? ev.message : 'JS-Fehler'; var t=document.getElementById('toast'); if(t){ t.textContent=m; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 3500);} }catch(e){} });
   const $ = (id) => document.getElementById(id);
- const on = (id, ev, fn) => { const el = $(id); if (el) el.addEventListener(ev, fn); };
   const toast = (m) => { const t=$('toast'); t.textContent=m; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 2200); };
   const setDirty = (v) => $('dirty').textContent = v ? 'nicht gespeichert' : '';
 
@@ -1277,16 +1273,16 @@ async function exportJson(){
     renderEmpHits('');
 
     // wiring
-    on('empSearch','input', ()=>renderEmpHits($('empSearch').value));
-  on('loadLocalTop','click', loadLocal);
+    $('empSearch').addEventListener('input',()=>renderEmpHits($('empSearch').value));
+  $('loadLocalTop').addEventListener('click', loadLocal);
   // Aus Datei laden (JSON)
   if($('loadFileTop') && $('importFileTop')){
-    on('loadFileTop','click', ()=>{
+    $('loadFileTop').addEventListener('click', ()=>{
       const inp = $('importFileTop');
       inp.value='';
       inp.click();
     });
-    on('importFileTop','change', async()=>{
+    $('importFileTop').addEventListener('change', async()=>{
       const inp = $('importFileTop');
       const f = inp.files && inp.files[0];
       if(!f) return;
@@ -1304,19 +1300,19 @@ async function exportJson(){
   try{ var bm=$('bootMark'); if(bm) bm.textContent='(JS aktiv)'; }catch(e){}
     ['vorname','nachname','datum','pnr'].forEach(id=>$(id).addEventListener('input',syncPerson));
 
-    on('resetPerson','click', ()=>{
+    $('resetPerson').addEventListener('click',()=>{
       $('vorname').value=''; $('nachname').value=''; $('pnr').value=''; $('datum').value=(new Date()).toISOString().slice(0,10);
       syncPerson();
       toast('Zurückgesetzt.');
     });
 
-    on('toRoutes','click', async()=>{
+    $('toRoutes').addEventListener('click', async()=>{
       try{ await ensureAssetsLoaded(); renderRouteList(); showStep(2); }
       catch(e){ console.error(e); toast('Fehler beim Laden der Assets.'); }
     });
 
-    on('blsYes','click', ()=>setBls(true));
-    on('blsNo','click', ()=>setBls(false));
+    $('blsYes').addEventListener('click',()=>setBls(true));
+    $('blsNo').addEventListener('click',()=>setBls(false));
     setBls(false);
   // RADN Modus: Scrollen / Markieren (sicher)
   function setRadnMode(m){
@@ -1327,14 +1323,14 @@ async function exportJson(){
     if(b) b.classList.toggle('active', m==='mark');
   }
   st.setRadnMode = setRadnMode;
-  if($('radnScroll')) on('radnScroll','click', ()=>setRadnMode('scroll'));
-  if($('radnMark')) on('radnMark','click', ()=>setRadnMode('mark'));
+  if($('radnScroll')) $('radnScroll').addEventListener('click', ()=>setRadnMode('scroll'));
+  if($('radnMark')) $('radnMark').addEventListener('click', ()=>setRadnMode('mark'));
   setRadnMode('scroll');
 
 
-    on('backToPerson','click', ()=>showStep(1));
+    $('backToPerson').addEventListener('click',()=>showStep(1));
 
-    on('nextFromRoutes','click', async()=>{
+    $('nextFromRoutes').addEventListener('click', async()=>{
     if(st.blsMode){
       renderSegList();
       showStep(3);
@@ -1343,30 +1339,30 @@ async function exportJson(){
     }
   });
 
-    on('backToRoutes','click', ()=>showStep(2));
-    on('toMap','click', async()=>{
+    $('backToRoutes').addEventListener('click',()=>showStep(2));
+    $('toMap').addEventListener('click', async()=>{
       try{ await goMap(); } catch(e){ console.error(e); toast('Karte konnte nicht geladen werden.'); }
     });
 
     // Map bar navigation
-    on('backFromMap','click', ()=>{
+    $('backFromMap').addEventListener('click',()=>{
       if(st.blsMode) showStep(3); else showStep(2);
     });
-    on('toOrtskunde','click', ()=>{
+    $('toOrtskunde').addEventListener('click',()=>{
       goOrtskunde();
     });
 
     // Ortskunde nav
-    on('backToMap','click', ()=>{
+    $('backToMap').addEventListener('click',()=>{
     showStep(4);
 
-  on('ortFilterSug','click', ()=>{
+  $('ortFilterSug').addEventListener('click', ()=>{
     st.ortFilter='all';
     $('ortFilterSug').classList.add('active');
     $('ortFilterAll').classList.remove('active');
     renderOrts();
   });
-  on('ortFilterAll','click', ()=>{
+  $('ortFilterAll').addEventListener('click', ()=>{
     st.ortFilter='all';
     $('ortFilterAll').classList.add('active');
     $('ortFilterSug').classList.remove('active');
@@ -1375,29 +1371,29 @@ async function exportJson(){
 
   });
 
-    on('modePan','click', ()=>setMode('pan'));
-    on('modeEdit','click', ()=>setMode('edit'));
-    on('pickK','click', ()=>setPick('kundig'));
-    on('pickA','click', ()=>setPick('auffrischung'));
-    on('pickN','click', ()=>setPick('unkundig'));
+    $('modePan').addEventListener('click',()=>setMode('pan'));
+    $('modeEdit').addEventListener('click',()=>setMode('edit'));
+    $('pickK').addEventListener('click',()=>setPick('kundig'));
+    $('pickA').addEventListener('click',()=>setPick('auffrischung'));
+    $('pickN').addEventListener('click',()=>setPick('unkundig'));
 
-    on('saveLocal','click', saveLocal);
-    if ($('loadLocal')) on('loadLocal','click', loadLocal);
-    on('export','click', exportJson);
+    $('saveLocal').addEventListener('click',saveLocal);
+    $('loadLocal').addEventListener('click',loadLocal);
+    $('export').addEventListener('click',exportJson);
   }
 
   init();
 // ===== Daten an Power Automate senden =====
 async function sendToFlow() {
   try {
-    const FLOW_URL = 'https://defaulte3d2e8defe3548eaa78972c4a2acf9.8e.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/cfc078797575424d80a0c73c2fe86617/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=zYbIzZKBN5Ffd5yOemncHdy0k8l0PVOvnbtBsJFoo6U';
+    const FLOW_URL = 'https://defaulte3d2e8defe3548eaa78972c4a2acf9.8e.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/47611a2942c04a43bfc0843c6f71584d/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=R9jZNm-Xxor8yV21begNng4NCh_QDtrGO84BwWV_Oxw';
     const data = payload();
     data.secret = 'MEV-ABSENDEN-2026';
     const ok = navigator.sendBeacon(FLOW_URL, new Blob([JSON.stringify(data)], { type: 'text/plain' }));
-    if (ok) toast('Übermittelt: Datei wird in SharePoint abgelegt.'); else toast('Senden fehlgeschlagen.');
+    if (ok) toast('Daten gesendet.'); else toast('Senden fehlgeschlagen.');
   } catch(e) { console.error(e); toast('Fehler beim Senden.'); }
 }
-document.addEventListener('DOMContentLoaded',()=>{ on('sendFlow','click', sendToFlow); });
+document.addEventListener('DOMContentLoaded',()=>{ const b=document.getElementById('sendFlow'); if(b) b.addEventListener('click',sendToFlow); });
 
 })();
 </script>
