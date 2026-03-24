@@ -104,7 +104,7 @@
 </style>
 </head>
 <body>
-  <div class="topbar"><div class="brand">MEV Streckenkunde</div><div id="bootMark" style="font-size:12px; color:rgba(255,255,255,.55); margin-left:10px;">(JS lädt …)</div><div class="build">Build: 2026-03-24 V3.8</div></div>
+  <div class="topbar"><div class="brand">MEV Streckenkunde</div><div id="bootMark" style="font-size:12px; color:rgba(255,255,255,.55); margin-left:10px;">(JS lädt …)</div><div class="build">Build: 2026-03-24 V3.9</div></div>
 
   <!-- Step 4: Map view -->
   <div class="mapWrap hidden" id="viewMap">
@@ -240,6 +240,7 @@
   const setDirty = (v) => $('dirty').textContent = v ? 'nicht gespeichert' : '';
 
   const st = {
+ blsCollapsed: {},
     person: {vorname:'', nachname:'', datum:'', personalnummer:''},
     employees: [],
     routes: {},
@@ -1389,12 +1390,25 @@ async function exportJson(){
 // ===== Daten an Power Automate senden =====
 async function sendToFlow() {
   try {
-    const FLOW_URL = 'https://defaulte3d2e8defe3548eaa78972c4a2acf9.8e.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/47611a2942c04a43bfc0843c6f71584d/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=R9jZNm-Xxor8yV21begNng4NCh_QDtrGO84BwWV_Oxw';
+    const FLOW_URL = 'https://defaulte3d2e8defe3548eaa78972c4a2acf9.8e.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/cfc078797575424d80a0c73c2fe86617/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=zYbIzZKBN5Ffd5yOemncHdy0k8l0PVOvnbtBsJFoo6U';
     const data = payload();
     data.secret = 'MEV-ABSENDEN-2026';
-    const ok = navigator.sendBeacon(FLOW_URL, new Blob([JSON.stringify(data)], { type: 'text/plain' }));
-    if (ok) toast('Daten gesendet.'); else toast('Senden fehlgeschlagen.');
+    const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
+    const beaconOk = navigator.sendBeacon(FLOW_URL, blob);
+    if (!beaconOk) {
+      try {
+        const r = await fetch(FLOW_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        toast('Übermittelt: Datei wird in SharePoint abgelegt.');
+      } catch(e2) {
+        console.error(e2);
+        toast('Senden fehlgeschlagen.');
+      }
+    } else {
+      toast('Übermittelt: Datei wird in SharePoint abgelegt.');
+    }
   } catch(e) { console.error(e); toast('Fehler beim Senden.'); }
+}
 }
 document.addEventListener('DOMContentLoaded',()=>{ const b=document.getElementById('sendFlow'); if(b) b.addEventListener('click',sendToFlow); });
 
