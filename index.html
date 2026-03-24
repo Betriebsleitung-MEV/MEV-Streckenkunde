@@ -101,10 +101,13 @@
 .groupTitle{font-weight:900;}
 .groupMeta{font-size:12px; color:var(--muted);}
 .miniBtn{height:34px; padding:0 10px; border-radius:999px; border:1px solid rgba(255,255,255,.16); background: rgba(255,255,255,.06); color:var(--text); font-weight:900; cursor:pointer; font-size:12px;}
+
+  .btn.send{border-color:rgba(0,200,120,.65); background:rgba(0,200,120,.12); color:var(--text); font-weight:700;}
+  .btn.send:hover{outline:2px solid rgba(0,200,120,.55);}
 </style>
 </head>
 <body>
-  <div class="topbar"><div class="brand">MEV Streckenkunde</div><div id="bootMark" style="font-size:12px; color:rgba(255,255,255,.55); margin-left:10px;">(JS lädt …)</div><div class="build">Build: 2026-03-23 V1.9.11</div></div>
+  <div class="topbar"><div class="brand">MEV Streckenkunde</div><div id="bootMark" style="font-size:12px; color:rgba(255,255,255,.55); margin-left:10px;">(JS lädt …)</div><div class="build">Build: 2026-03-24 V3.0</div></div>
 
   <!-- Step 4: Map view -->
   <div class="mapWrap hidden" id="viewMap">
@@ -215,12 +218,11 @@
 
         <div class="cardTop">
           <div class="toggleRow">
-            <span style="margin:0; font-weight:900; font-size:16px;">Prüfen und bestätigen</span><span style="flex:1 1 auto;"></span><button class="btn" id="backToMap" type="button">Zurück zur Karte</button>
-            <button class="btn" id="saveLocal" type="button">Speichern</button>
-            
-            <button class="btn primary" id="export" type="button">Export (JSON)</button>
- <button class=\"btn primary\" id=\"sendFlow\" type=\"button\">Senden</button>
-          </div>
+            <span style="margin:0; font-weight:900; font-size:16px;">Prüfen und bestätigen</span><span style="flex:1 1 auto;"></span><button class=\"btn\" id=\"backToMap\" type=\"button\">Zurück zur Karte</button>
+<button class=\"btn\" id=\"saveLocal\" type=\"button\">Speichern</button>
+<button class=\"btn send\" id=\"sendFlow\" type=\"button\">Senden</button>
+<button class=\"btn primary\" id=\"export\" type=\"button\">Export (JSON)</button>
+</div>
         </div>
 
         <div id="ortList"></div>
@@ -1387,11 +1389,11 @@ async function exportJson(){
 // ===== Daten an Power Automate senden =====
 async function sendToFlow() {
   try {
-    const FLOW_URL = 'https://defaulte3d2e8defe3548eaa78972c4a2acf9.8e.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/47611a2942c04a43bfc0843c6f71584d/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=R9jZNm-Xxor8yV21begNng4NCh_QDtrGO84BwWV_Oxw';
+    const FLOW_URL = 'https://defaulte3d2e8defe3548eaa78972c4a2acf9.8e.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/cfc078797575424d80a0c73c2fe86617/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=zYbIzZKBN5Ffd5yOemncHdy0k8l0PVOvnbtBsJFoo6U';
     const data = payload();
     data.secret = 'MEV-ABSENDEN-2026';
     const ok = navigator.sendBeacon(FLOW_URL, new Blob([JSON.stringify(data)], { type: 'text/plain' }));
-    if (ok) toast('Daten gesendet.'); else toast('Senden fehlgeschlagen.');
+    if (ok) toast('Übermittelt: Datei wird in SharePoint abgelegt.'); else toast('Senden fehlgeschlagen.');
   } catch(e) { console.error(e); toast('Fehler beim Senden.'); }
 }
 document.addEventListener('DOMContentLoaded',()=>{ const b=document.getElementById('sendFlow'); if(b) b.addEventListener('click',sendToFlow); });
