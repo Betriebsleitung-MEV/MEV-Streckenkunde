@@ -276,7 +276,7 @@ input::placeholder{color: rgba(159,176,208,.7);}
 ``
 </style></head>
 <body>
-<div class="topbar"><div class="brand">MEV Streckenkunde</div><div id="bootMark" style="font-size:12px; color:rgba(255,255,255,.55); margin-left:10px;">(JS aktiv)</div><div class="build">Version 2.0</div></div>
+<div class="topbar"><div class="brand">MEV Streckenkunde</div><div id="bootMark" style="font-size:12px; color:rgba(255,255,255,.55); margin-left:10px;">(JS aktiv)</div><div class="build">Version 2.1</div></div>
 <!-- Step 4: Map view -->
 <div class="mapWrap hidden" id="viewMap">
 <div id="mapHost"><div style="padding:12px; color:#111;"><b>SVG noch nicht geladen.</b></div></div>
@@ -505,21 +505,7 @@ input::placeholder{color: rgba(159,176,208,.7);}
     return res;
   }
 
-  function buildIdxTankByLine(){
-    var out = {};
-    try{
-      var idx = st.idx || {};
-      Object.keys(idx).forEach(function(lineKey){
-        var arr = idx[lineKey];
-        if(!Array.isArray(arr)) return;
-        for(var i=0;i<arr.length;i++){
-          var it = arr[i] || {};
-          if(!it.tanklager) continue;
-          var line = String(it.line || lineKey || '').replace(/\D+/g,'');
-          if(!line){
-            var c = String(it.code || '').replace(/\D+/g,'');
-            if(c) line = c;
-          }
+  
           if(!line) continue;
           var label = String(it.label || it.tanklager || '').trim();
           if(!label) continue;
@@ -528,7 +514,7 @@ input::placeholder{color: rgba(159,176,208,.7);}
         }
       });
     }catch(e){}
-    st.idxTankByLine = out;
+    
   }
 ``
 function buildTankIndexFromSvg(){
@@ -554,28 +540,38 @@ function buildTankIndexFromSvg(){
     return {byLine:byLine, byCode:byCode};
   }
 
-  function updateOrtskundeSuggestions(){
-    var sug = new Set();
-    var activeLines = new Set();
-
-    // A) RADN: nur kundig
-    Object.keys(st.routeStatus || {}).forEach(function(r){
-      if(st.routeStatus[r] !== 'kundig') return;
-      var rr = String(r).replace(/\D+/g,'');
-      if(rr) activeLines.add(rr);
+  
+function updateOrtskundeSuggestions(){
+  var sug = new Set();
+  var activeLines = new Set();
+  Object.keys(st.routeStatus || {}).forEach(function(r){
+    var s = st.routeStatus[r];
+    if(s !== 'kundig' && s !== 'auffrischung') return;
+    var rr = String(r).replace(/\D+/g,'');
+    if(rr) activeLines.add(rr);
+  });
+  if(st.svgRoot){
+    Object.keys(st.overrides || {}).forEach(function(id){
+      var v = st.overrides[id];
+      if(v === 'unkundig') return;
+      var el = st.svgRoot.getElementById ? st.svgRoot.getElementById(id) : null;
+      if(!el) return;
+      var lbl = labelNurInkscape(el);
+      if(lbl) sug.add(lbl);
     });
-
-    // B) Karte: markierte Punkte (Overrides != unkundig) -> data-line*
-    if(st.svgRoot){
-      Object.keys(st.overrides || {}).forEach(function(id){
-        var v = st.overrides[id];
-        if(v === 'unkundig') return;
-        var el = st.svgRoot.getElementById ? st.svgRoot.getElementById(id) : null;
-        if(!el) return;
-        var ls = collectDataLines(el);
-        for(var i=0;i<ls.length;i++) activeLines.add(ls[i]);
-      });
+  }
+  var allOrte = st.orts || {};
+  Object.keys(allOrte).forEach(function(ort){
+    var ls = (allOrte[ort].linien || []);
+    for(var i=0;i<ls.length;i++){
+      if(activeLines.has(String(ls[i]).replace(/\D+/g,''))){
+        sug.add(ort);
+        break;
+      }
     }
+  });
+  st.suggestedOrts = sug;
+}
 
     // C1) Vorschläge via stations_by_line.json (tanklager pro Linie)
     var idxMap = st.idxTankByLine || {};
@@ -1005,21 +1001,18 @@ function updateBlsStats(){
   }
 
   // Assets laden
-  async function ensureAssetsLoaded(){
-    if(st.idx && st.svgText && Object.keys(st.routes).length) return;
+  
+async function ensureAssetsLoaded(){
+  if (st.svgText && Object.keys(st.routes).length) return;
+  const idx = await loadJson(abs('assets/index.json'));
+  st.routes = idx.routes || {};
+  st.routeSegmentsOrdered = idx.routeSegmentsOrdered || {};
+  if(!st.blsMode && st.blsAllFalsePending){ resetAllTeilstreckenFalse(); }
+  st.svgText = await loadText(abs('assets/map.svg'));
+}
 
-    const idx = await loadJson(abs('assets/index.json'));
-    st.routes = idx.routes || {};
-    st.routeSegmentsOrdered = idx.routeSegmentsOrdered || {};
-
-    if(!st.blsMode && st.blsAllFalsePending){
-      resetAllTeilstreckenFalse();
-    }
-
-    st.idx = await loadJson(abs('assets/stations_by_line.json'));
-    buildIdxTankByLine();
-
-    st.svgText = await loadText(abs('assets/map.svg'));
+    
+st.svgText = await loadText(abs('assets/map.svg'));
   }
 
   // SVG handling
@@ -1072,8 +1065,7 @@ function updateBlsStats(){
     wireHeaderTapToSvg();
 
     st.tankIndex = buildTankIndexFromSvg();
-    buildIdxTankByLine();
-    updateOrtskundeSuggestions();
+updateOrtskundeSuggestions();
   }
 ``
 function enableTouchPanZoom(){
@@ -1311,19 +1303,43 @@ function enableTouchPanZoom(){
   }
 
   // Ortskunde (Original aus index.json/stations_by_line.json)
-  function rebuildOrts(){
-    var out = {};
-    if(st.svgRoot){
-      var nodes = st.svgRoot.querySelectorAll('[Tanklager], [tanklager]');
-      nodes.forEach(function(el){
+  
+function rebuildOrts(){
+  var out = {};
+  if(st.svgRoot){
+    var nodes = st.svgRoot.querySelectorAll('[Tanklager], [tanklager]');
+    nodes.forEach(function(el){
+      var ort = labelNurInkscape(el);
+      if(!ort || ort === '(ohne Label)') return;
+      if(!out[ort]) out[ort] = { linien: [] };
+      var lines = collectDataLines(el);
+      for(var i=0;i<lines.length;i++){
+        if(out[ort].linien.indexOf(lines[i])===-1) out[ort].linien.push(lines[i]);
+      }
+    });
+  }
+  try{
+    if(st.svgRoot && st.overrides){
+      Object.keys(st.overrides).forEach(function(id){
+        var v = st.overrides[id];
+        if(v === 'unkundig') return;
+        var el = st.svgRoot.getElementById ? st.svgRoot.getElementById(id) : null;
+        if(!el) return;
         var ort = labelNurInkscape(el);
         if(!ort || ort === '(ohne Label)') return;
         if(!out[ort]) out[ort] = { linien: [] };
         var lines = collectDataLines(el);
         for(var i=0;i<lines.length;i++){
-          if(out[ort].linien.indexOf(lines[i])===-1)
-            out[ort].linien.push(lines[i]);
+          if(out[ort].linien.indexOf(lines[i])===-1) out[ort].linien.push(lines[i]);
         }
+      });
+    }
+  }catch(e){}
+  Object.keys(out).forEach(function(ort){
+    out[ort].linien.sort(function(a,b){ return Number(a)-Number(b); });
+  });
+  st.orts = out;
+}
       });
     }
 
