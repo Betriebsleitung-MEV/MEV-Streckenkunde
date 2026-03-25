@@ -92,7 +92,7 @@
   </style>
 </head>
 <body>
-  <div class="topbar"><div class="brand">MEV Streckenkunde</div><div id="bootMark" style="font-size:12px; color:rgba(255,255,255,.55); margin-left:10px;">(JS aktiv)</div><div class="build">Build: 2026-03-25 V1.9.12</div></div>
+  <div class="topbar"><div class="brand">MEV Streckenkunde</div><div id="bootMark" style="font-size:12px; color:rgba(255,255,255,.55); margin-left:10px;">(JS aktiv)</div><div class="build">Build: 2026-03-25 V1.9.13</div></div>
   <!-- Step 4: Map view -->
   <div class="mapWrap hidden" id="viewMap">
     <div id="mapHost"><div style="padding:12px; color:#111;"><b>SVG noch nicht geladen.</b></div></div>
@@ -363,8 +363,7 @@
         for(var i=0;i<ls.length;i++) activeLines.add(ls[i]);
       });
     }
-    // C1) Vorschläge via stations_by_line.json (tanklager pro Linie)
-    var idxMap = st.idxTankByLine || {};
+    
     activeLines.forEach(function(l){
       var set = idxMap[l];
       if(set) set.forEach(function(lbl){ sug.add(lbl); });
