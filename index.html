@@ -89,10 +89,18 @@
     .groupTitle{font-weight:900;} 
     .groupMeta{font-size:12px; color:var(--muted);} 
     .miniBtn{height:34px; padding:0 10px; border-radius:999px; border:1px solid rgba(255,255,255,.16); background: rgba(255,255,255,.06); color:var(--text); font-weight:900; cursor:pointer; font-size:12px;} 
-  </style>
+  
+    /* Debug & Audit */
+    .linkbtn{ font-size:12px; color: var(--muted); text-decoration: underline; cursor: pointer; }
+    .dbg{ display:none; margin-top:6px; padding-top:6px; border-top:1px dashed rgba(255,255,255,.18); font-size:12px; color:var(--muted); line-height:1.35; }
+    .dbg.show{ display:block; }
+    .kv{ display:grid; grid-template-columns: 140px 1fr; gap:4px 10px; }
+    .kv b{ color: #cfe0ff; }
+
+</style>
 </head>
 <body>
-  <div class="topbar"><div class="brand">MEV Streckenkunde</div><div id="bootMark" style="font-size:12px; color:rgba(255,255,255,.55); margin-left:10px;">(JS aktiv)</div><div class="build">Build: 2026-03-25 V1.9.15</div></div>
+  <div class="topbar"><div class="brand">MEV Streckenkunde</div><div id="bootMark" style="font-size:12px; color:rgba(255,255,255,.55); margin-left:10px;">(JS aktiv)</div><div class="build">Build: 2026-03-25 V1.9.16</div></div>
   <!-- Step 4: Map view -->
   <div class="mapWrap hidden" id="viewMap">
     <div id="mapHost"><div style="padding:12px; color:#111;"><b>SVG noch nicht geladen.</b></div></div>
@@ -193,6 +201,7 @@
             <span class="hint" style="margin:0;">Prüfen und bestätigen</span>
             <button class="toggle active" id="ortFilterSug" type="button">Auswahl</button>
             <button class="toggle" id="ortFilterAll" type="button">Alle</button>
+            <button class="toggle" id="auditToggle" type="button">Audit: Alle anzeigen</button>
             <span style="flex:1 1 auto"></span>
             <button class="btn" id="backToMap" type="button">Zurück zur Karte</button>
             <button class="btn" id="saveLocal" type="button">Speichern</button>
@@ -214,6 +223,33 @@
   const $ = (id) => document.getElementById(id);
   const toast = (m) => { const t=$('toast'); t.textContent=m; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 2200); };
   const setDirty = (v) => $('dirty').textContent = v ? 'nicht gespeichert' : '';
+// ===== Mitarbeiter Normalisierung & Suche =====
+function _val(obj, keys){ for(let i=0;i<keys.length;i++){ const k=keys[i]; if(obj && obj[k]!==undefined && obj[k]!==null) return obj[k]; } return ''; }
+
+function normalizeEmployees(arr){
+  const out=[];
+  (arr||[]).forEach(e=>{
+    const vorname = String(_val(e,['vorname','Vorname','firstName','firstname','FirstName'])).trim();
+    const nachname = String(_val(e,['nachname','Nachname','name','Name','lastName','lastname','LastName'])).trim();
+    const pnrRaw = String(_val(e,['personalnummer','Personalnummer','PNR','pnr','persnr','PersNr','PersonalNummer','personalNummer','num']));
+    const personalnummer = pnrRaw.replace(/[^0-9]/g,''); // nur Ziffern
+    const aktivRaw = _val(e,['aktiv','Aktiv','active','Active','isActive']);
+    const aktiv = (aktivRaw === '' || aktivRaw === undefined)
+      ? true
+      : !(String(aktivRaw).toLowerCase()==='false' || aktivRaw===false || aktivRaw===0 || String(aktivRaw).toLowerCase()==='nein');
+    out.push({vorname, nachname, personalnummer, aktiv});
+  });
+  // Sortierung: Nachname > Vorname > PNR
+  out.sort((a,b)=>{
+    const an=(a.nachname||'').localeCompare(b.nachname||'', 'de-CH'); if(an!==0) return an;
+    const av=(a.vorname||'').localeCompare(b.vorname||'', 'de-CH'); if(av!==0) return av;
+    return (a.personalnummer||'').localeCompare(b.personalnummer||'', 'de-CH');
+  });
+  return out;
+}
+
+function norm(s){ return String(s||'').toLowerCase(); }
+``
   const st = {
     person: {vorname:'', nachname:'', datum:'', personalnummer:''},
     employees: [],
@@ -239,6 +275,7 @@
     // Ortskunde
     suggestedOrts: new Set(),
     ortFilter: 'suggested',
+    audit: false,
     ortsManual: {},
     idxTankByLine: {},
     radnMode: 'scroll',
@@ -346,59 +383,14 @@
   function updateOrtskundeSuggestions(){
   var sug = new Set();
   var activeLines = new Set();
-  // A) RADN: kundig oder auffrischung
-  Object.keys(st.routeStatus||{}).forEach(function(r){
-    var v = st.routeStatus[r];
-    if(v==='kundig' || v==='auffrischung'){
-      var rr = String(r).replace(/\D+/g,'');
-      if(rr) activeLines.add(rr);
-    }
-  });
-  // B) Karte: markierte Punkte (Overrides != unkundig) -> data-line*
-  if(st.svgRoot){
-    Object.keys(st.overrides||{}).forEach(function(id){
-      var v = st.overrides[id];
-      if(v==='unkundig') return;
-      var el = st.svgRoot.getElementById ? st.svgRoot.getElementById(id) : null;
-      if(!el) return;
-      var ls = collectDataLines(el);
-      for(var i=0;i<ls.length;i++) activeLines.add(ls[i]);
-    });
-  }
-  // C) Nur SVG (Tanklager/Anschlussgleise) per data-line*
+  Object.keys(st.routeStatus||{}).forEach(function(r){ var v = st.routeStatus[r]; if(v==='kundig' || v==='auffrischung'){ var rr = String(r).replace(/\D+/g,''); if(rr) activeLines.add(rr); } });
+  if(st.svgRoot){ Object.keys(st.overrides||{}).forEach(function(id){ var v = st.overrides[id]; if(v==='unkundig') return; var el = st.svgRoot.getElementById?st.svgRoot.getElementById(id):null; if(!el) return; var ls = collectDataLines(el); for(var i=0;i<ls.length;i++) activeLines.add(ls[i]); }); }
   var svgByLine = (st.tankIndex && st.tankIndex.byLine) ? st.tankIndex.byLine : {};
-  activeLines.forEach(function(l){
-    var set = svgByLine[l];
-    if(set) set.forEach(function(lbl){ sug.add(lbl); });
-  });
+  activeLines.forEach(function(l){ var set = svgByLine[l]; if(set) set.forEach(function(lbl){ sug.add(lbl); }); });
+  st._activeLines = Array.from(activeLines);
   st.suggestedOrts = sug;
 }
-    // C1) Vorschläge via stations_by_line.json (tanklager pro Linie)
-    var idxMap = st.idxTankByLine || {};
-    activeLines.forEach(function(l){
-      var set = idxMap[l];
-      if(set) set.forEach(function(lbl){ sug.add(lbl); });
-    });
-    // C2) Fallback: falls Tanklager-Elemente in SVG data-line haben
-    var svgByLine = (st.tankIndex && st.tankIndex.byLine) ? st.tankIndex.byLine : {};
-    activeLines.forEach(function(l){
-      var set2 = svgByLine[l];
-      if(set2) set2.forEach(function(lbl){ sug.add(lbl); });
-    });
-    st.suggestedOrts = sug;
-  }
-  function findTapTarget(startEl){
-    let el = startEl;
-    for(let i=0;i<12 && el;i++){
-      if(isStationEl(el) || isTanklagerEl(el)) return el;
-      el = el.parentElement || el.parentNode;
-    }
-    return null;
-  }
-  function wireHeaderTapToSvg(){
-    if(!st.svgRoot || !buildEl) return;
-    const svgRoot = st.svgRoot;
-    if(wiredSvgForHeaderTap === svgRoot) return;
+t) return;
     let down = null;
     svgRoot.addEventListener('pointerdown', (ev) => {
       if(ev.button != null && ev.button !== 0) return;
@@ -465,34 +457,7 @@
     $('auto').innerHTML = '<b>Status:</b> ' + (ok ? 'bereit' : 'warte …');
     setDirty(true);
   }
-  function renderEmpHits(q){
-    const host=$('empHits'); host.innerHTML='';
-    const qq=String(q||'').toLowerCase().trim();
-    const hits=st.employees.filter(e=>e.aktiv!==false).filter(e=>{
-      if(!qq) return true;
-      const s=(String(e.nachname||'')+' '+String(e.vorname||'')+' '+String(e.personalnummer||'')).toLowerCase();
-      return s.includes(qq);
-    }).slice(0,40);
-    if(!hits.length){ host.innerHTML='<div class="hint">Keine Treffer.</div>'; return; }
-    hits.forEach(e=>{
-      const div=document.createElement('div'); div.className='item';
-      div.innerHTML=`<div class="no">${String(e.personalnummer||'').trim()||'—'}</div><div class="desc"><b>${e.nachname} ${e.vorname}</b><div class="hint">Tippen zum übernehmen</div></div>`;
-      const applyEmp = ()=>{
-        $('vorname').value = e.vorname || '';
-        $('nachname').value = e.nachname || '';
-        $('pnr').value = String(e.personalnummer || '');
-        $('datum').value = $('datum').value || (new Date()).toISOString().slice(0,10);
-        syncPerson();
-        toast('Mitarbeiter übernommen.');
-      };
-      let downEmp = null;
-      div.addEventListener('pointerdown', (ev)=>{ if(ev.button != null && ev.button !== 0) return; downEmp = {x: ev.clientX, y: ev.clientY, t: performance.now()}; }, {passive:true});
-      div.addEventListener('pointerup', (ev)=>{ if(!downEmp) return; const dt = performance.now() - downEmp.t; const dx = ev.clientX - downEmp.x; const dy = ev.clientY - downEmp.y; const dist = Math.hypot(dx, dy); if(dt <= 550 && dist <= 8) applyEmp(); downEmp = null; }, {passive:true});
-      div.addEventListener('pointercancel', ()=>{ downEmp = null; }, {passive:true});
-      div.addEventListener('click', applyEmp);
-      host.appendChild(div);
-    });
-  }
+function renderEmpHits(q
   // Routes
   const badge = (status)=>{
     if(status==='kundig') return '<span class="badge k">kundig</span>';
@@ -660,7 +625,7 @@
     const imported=document.importNode(svg,true); imported.style.width='100%'; imported.style.height='100%'; imported.style.display='block'; host.appendChild(imported);
     st.svgRoot=imported; st.viewBase=getInitialViewBox(st.svgRoot); setViewBox({...st.viewBase});
     enableTouchPanZoom(); enablePointEditing(); wireHeaderTapToSvg();
-    st.tankIndex = buildTankIndexFromSvg(); buildIdxTankByLine(); updateOrtskundeSuggestions();
+    st.tankIndex = buildTankIndexFromSvg(); updateOrtskundeSuggestions();
   }
   function enableTouchPanZoom(){
     if(!st.svgRoot) return; let mode='none', pan=null, pinch=null; const dist=(a,b)=>Math.hypot(a.clientX-b.clientX, a.clientY-b.clientY);
@@ -698,7 +663,16 @@
     st.orts = out;
   }
   function setAllOrts(v){const keys=Object.keys(st.orts||{});keys.forEach(o=>st.ortsManual[o]=!!v);setDirty(true);renderOrts();renderSummary();}
-  function renderOrts(){
+    function activeLinesNow(){
+    if(Array.isArray(st._activeLines)) return st._activeLines.slice();
+    var tmp=new Set();
+    Object.keys(st.routeStatus||{}).forEach(function(r){ var v=st.routeStatus[r]; if(v==='kundig'||v==='auffrischung'){ var rr=String(r).replace(/\D+/g,''); if(rr) tmp.add(rr); } });
+    if(st.svgRoot){ Object.keys(st.overrides||{}).forEach(function(id){ var v=st.overrides[id]; if(v==='unkundig') return; var el=st.svgRoot.getElementById?st.svgRoot.getElementById(id):null; if(!el) return; collectDataLines(el).forEach(function(l){ tmp.add(l); }); }); }
+    return Array.from(tmp);
+  }
+  function getSvgInfoForOrt(ort){ var info={ids:[], lines:[]}; if(!st.svgRoot) return info; var nodes = st.svgRoot.querySelectorAll('[Tanklager], [tanklager]'); var lineSet=new Set(); nodes.forEach(function(el){ var label = labelNurInkscape(el); if(label===ort){ info.ids.push(el.id||'(ohne id)'); collectDataLines(el).forEach(function(l){ lineSet.add(l); }); } }); info.lines = Array.from(lineSet).sort(function(a,b){return Number(a)-Number(b)}); return info; }
+  function buildDebugHTML(ort){ var svg=getSvgInfoForOrt(ort); var act=activeLinesNow(); var inter=svg.lines.filter(function(x){return act.indexOf(x)>=0;}); var hasOverride=false; var ovIds=[]; if(st.svgRoot){ Object.keys(st.overrides||{}).forEach(function(id){ var v=st.overrides[id]; if(v==='unkundig') return; var el=st.svgRoot.getElementById?st.svgRoot.getElementById(id):null; if(!el) return; var lab=labelNurInkscape(el); if(lab===ort){ hasOverride=true; ovIds.push(id); } }); } var isSug=!!(st.suggestedOrts && st.suggestedOrts.has(ort)); var html=''; html+='<div class="kv">'; html+='<b>Vorgeschlagen</b><div>'+(isSug?'ja':'nein')+'</div>'; html+='<b>Aktive Linien</b><div>'+(act.length?act.join(', '):'—')+'</div>'; html+='<b>SVG Linien</b><div>'+(svg.lines.length?svg.lines.join(', '):'—')+'</div>'; html+='<b>Treffer</b><div>'+(inter.length?inter.join(', '):'—')+'</div>'; html+='<b>Overrides</b><div>'+(hasOverride?ovIds.join(', '):'—')+'</div>'; html+='<b>SVG-IDs</b><div>'+(svg.ids.length?svg.ids.join(', '):'—')+'</div>'; html+='</div>'; return html; }
+function renderOrts(){
     const host=$('ortList'); host.innerHTML='';
     const keys=Object.keys(st.orts||{}).sort((a,b)=>a.localeCompare(b,'de-CH'));
     if(!keys.length){ host.innerHTML='<div class="hint">Keine Ortskunde aus kundigen Routen.</div>'; return; }
@@ -762,7 +736,11 @@
     $('datum').value=(new Date()).toISOString().slice(0,10); syncPerson(); showStep(1);
     try{ if(localStorage.getItem('mev_streckenkunde_state_v4_2')) $('loadHint').innerHTML='Gespeicherte Daten gefunden. <b>Vom Gerät laden</b> antippen.'; }catch(e){}
     // employees
-    try{ const emp=await loadJson(abs('assets/mitarbeiter.json')); st.employees = Array.isArray(emp.employees) ? emp.employees : (Array.isArray(emp) ? emp : []); }catch(e){ st.employees=[]; }
+    try{
+  const emp = await loadJson(abs('assets/mitarbeiter.json'));
+  const raw = Array.isArray(emp && emp.employees) ? emp.employees : (Array.isArray(emp) ? emp : []);
+  st.employees = normalizeEmployees(raw);
+}catch(e){ st.employees = []; }
     renderEmpHits('');
     // wiring
     $('empSearch').addEventListener('input',()=>renderEmpHits($('empSearch').value));
@@ -792,7 +770,7 @@
     $('toMap').addEventListener('click', async()=>{ try{ await goMap(); } catch(e){ console.error(e); toast('Karte konnte nicht geladen werden.'); } });
     // Map bar navigation
     $('backFromMap').addEventListener('click',()=>{ if(st.blsMode) showStep(3); else showStep(2); });
-    $('toOrtskunde').addEventListener('click',()=>{ goOrtskunde(); });
+    $('toOrtskunde').addEventListener('click',()=>{ updateOrtskundeSuggestions(); rebuildOrts(); renderOrts(); renderSummary(); showStep(5); });
     // Ortskunde nav
     $('backToMap').addEventListener('click',()=>{ showStep(4); });
     $('modePan').addEventListener('click',()=>setMode('pan'));
@@ -803,6 +781,7 @@
     $('saveLocal').addEventListener('click',saveLocal);
     $('loadLocal').addEventListener('click',loadLocal);
     $('export').addEventListener('click',exportJson);
+    if($('auditToggle')) $('auditToggle').addEventListener('click',()=>{ st.audit=!st.audit; $('auditToggle').classList.toggle('active', st.audit); renderOrts(); });
     // NEW: wire send button
     if($('sendBtn')) $('sendBtn').addEventListener('click', sendToFlow);
 
