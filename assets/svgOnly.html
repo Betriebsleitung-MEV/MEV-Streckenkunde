@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+
+<html lang="de-CH">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" name="viewport"/>
+<title>MEV Streckenkunde</title>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="default" name="apple-mobile-web-app-status-bar-style"/>
+<meta content="#0b1220" name="theme-color"/>
+<link href="assets/styles_v1.9.14.css" rel="stylesheet"/></head>
+<body>
+<div class="topbar"><div class="brand">MEV Streckenkunde</div><div id="bootMark" style="font-size:12px; color:rgba(255,255,255,.55); margin-left:10px;">(JS aktiv)</div><div class="build">Build: 2026-03-25 V1.9.14</div></div>
+<!-- Step 4: Map view -->
+<div class="mapWrap hidden" id="viewMap">
+<div id="mapHost"><div style="padding:12px; color:#111;"><b>SVG noch nicht geladen.</b></div></div>
+</div>
+<div class="mapBar hidden" id="mapBar">
+<button class="pillBtn active" id="modePan" type="button">Verschieben/Zoomen</button>
+<button class="pillBtn" id="modeEdit" type="button">Punkte bearbeiten</button>
+<span style="flex:1 1 auto"></span>
+<button class="pillBtn active" data-pick="kundig" id="pickK" type="button">Kundig (blau)</button>
+<button class="pillBtn" data-pick="auffrischung" id="pickA" type="button">Auffrischung (rot)</button>
+<button class="pillBtn" data-pick="unkundig" id="pickN" type="button">Unkundig (Original)</button>
+<button class="pillBtn" id="toOrtskunde" type="button">Weiter: Ortskunde</button>
+<button class="pillBtn" id="backFromMap" type="button">Zurück</button>
+</div>
+<!-- Sheet -->
+<div class="sheet" id="sheet">
+<div class="grab"></div>
+<div class="sheetHeader">
+<div class="steps">
+<span class="step active" id="s1">1 Profil</span>
+<span class="step" id="s2">2 RADN</span>
+<span class="step" id="s3">3 BLS Daten</span>
+<span class="step" id="s4">4 Karte</span>
+<span class="step" id="s5">5 Ortskunde</span>
+</div>
+<div class="dirty" id="dirty"></div>
+</div>
+<div class="sheetBody">
+<!-- Step 1 -->
+<div class="card" id="p1">
+<div style="font-weight:850; margin-bottom:6px;">Personendaten</div>
+<div class="hint">Mitarbeiter auswählen. Danach Routen setzen.</div>
+<label>Suche Mitarbeiter</label>
+<input id="empSearch" placeholder="Name, Vorname oder Nummer"/>
+<div class="list" id="empHits" style="max-height:180px; overflow:auto;"></div>
+<div style="height:1px; background: rgba(255,255,255,.08); margin:12px 0;"></div>
+<div class="row3">
+<div><label>Vorname</label><input id="vorname" placeholder="Vorname"/></div>
+<div><label>Name</label><input id="nachname" placeholder="Name"/></div>
+<div><label>Datum</label><input id="datum" type="date"/></div>
+</div>
+<label>Personalnummer (optional)</label>
+<input id="pnr" inputmode="numeric" pattern="[0-9]*" placeholder="z.B. 123456"/>
+<div class="toggleRow" style="margin-top:12px;">
+<button class="btn primary" disabled="" id="toRoutes" type="button">Weiter zu Routen</button>
+<button class="btn" id="resetPerson" type="button">Zurücksetzen</button>
+<button class="btn" id="loadLocalTop" type="button">Vom Gerät laden</button>
+<button class="btn success" id="loadFileTop" type="button">Aus Datei laden</button>
+<input accept="application/json,.json" id="importFileTop" style="position:absolute;top:-9999px;left:-9999px;width:0;height:0;opacity:0;overflow:hidden;border:none;" type="file"/>
+</div>
+<div class="hint" id="auto" style="margin-top:8px;"><b>Status:</b> warte …</div>
+<div class="hint" id="loadHint" style="margin-top:6px;"></div>
+</div>
+<!-- Step 2 -->
+<div class="card hidden" id="p2">
+<div style="font-weight:850; margin-bottom:6px;">RADN-Strecken (101–791)</div>
+<div class="hint">Tippen: 1× kundig · 2× auffrischung · 3× unkundig</div>
+<div class="cardTop">
+<div class="toggleRow">
+<span class="hint" style="margin:0;">BLS Teilstrecken bearbeiten?</span>
+<button class="toggle active" id="blsNo" type="button">Nein</button>
+<button class="toggle" id="blsYes" type="button">Ja</button>
+<span class="hint" style="margin:0;">RADN</span>
+<button class="toggle active" id="radnScroll" type="button">Scrollen</button>
+<button class="toggle" id="radnMark" type="button">Markieren</button>
+<span style="flex:1 1 auto"></span>
+<button class="btn" id="backToPerson" type="button">Zurück</button>
+<button class="btn primary" id="nextFromRoutes" type="button">Weiter</button>
+</div>
+</div>
+<div class="list" id="routeList" style="max-height:360px; overflow:auto;"></div>
+</div>
+<!-- Step 3 -->
+<div class="card hidden" id="p3">
+<div style="font-weight:850; margin-bottom:6px;">BLS Daten</div>
+<div class="hint">BLS Daten (nur gewählte RADN-Routen). Tippen toggelt kundig/unkundig (Standard = unkundig).</div>
+<div class="toggleRow" style="margin-top:10px;">
+<button class="toggle active" id="blsFilterAll" type="button">Alle</button>
+<button class="toggle" id="blsFilterUnkundig" type="button">Nur unkundig</button>
+<span style="flex:1 1 auto"></span>
+<span class="hint" id="blsStats" style="margin:0;"></span>
+</div>
+<div class="cardTop">
+<div class="toggleRow">
+<span class="hint" style="margin:0;">Tippen auf Teilstrecke = false</span>
+<span style="flex:1 1 auto"></span>
+<button class="btn" id="backToRoutes" type="button">Zurück</button>
+<button class="btn primary" id="toMap" type="button">Weiter zur Karte</button>
+</div>
+</div>
+<div id="blsList"></div>
+</div>
+<!-- Step 5 -->
+<div class="card hidden" id="p5">
+<div style="font-weight:850; margin-bottom:6px;">Ortskunde (Anschlussgleise und Tanklager)</div>
+<div class="cardTop">
+<div class="toggleRow">
+<span class="hint" style="margin:0;">Prüfen und bestätigen</span>
+<button class="toggle active" id="ortFilterSug" type="button">Auswahl</button>
+<button class="toggle" id="ortFilterAll" type="button">Alle</button>
+<span style="flex:1 1 auto"></span>
+<button class="btn" id="backToMap" type="button">Zurück zur Karte</button>
+<button class="btn" id="saveLocal" type="button">Speichern</button>
+<button class="btn" id="loadLocal" type="button">Vom Gerät laden</button>
+<button class="btn primary" id="export" type="button">Export (JSON)</button>
+<button class="btn send" id="sendBtn" type="button">Senden</button>
+</div>
+</div>
+<div id="ortList"></div>
+<div class="hint" id="summary" style="margin-top:10px;"></div>
+</div>
+</div>
+</div>
+<div class="toast" id="toast"></div>
+<script src="assets/app_v1.9.14.js"></script><script src="assets/orts_svg.js"></script></body>
+</html>
