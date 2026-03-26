@@ -86,6 +86,11 @@
       "aktiv": true
     },
     {
+      "nachname": "Bockova",
+      "vorname": "Gabriela",
+      "aktiv": true
+    },
+    {
       "nachname": "Boglietti",
       "vorname": "Lorenzo",
       "aktiv": true
@@ -101,18 +106,18 @@
       "aktiv": true
     },
     {
+      "nachname": "Braun",
+      "vorname": "Christoph",
+      "aktiv": true
+    },
+    {
       "nachname": "Bunjaku",
       "vorname": "Arlind",
       "aktiv": true
     },
     {
-      "nachname": "Celik",
-      "vorname": "Elif",
-      "aktiv": true
-    },
-    {
       "nachname": "David",
-      "vorname": "Christian",
+      "vorname": "Volker Christian",
       "aktiv": true
     },
     {
@@ -146,6 +151,11 @@
       "aktiv": true
     },
     {
+      "nachname": "Felber",
+      "vorname": "Paul (RESC)",
+      "aktiv": true
+    },
+    {
       "nachname": "Filippini",
       "vorname": "Danilo",
       "aktiv": true
@@ -166,8 +176,8 @@
       "aktiv": true
     },
     {
-      "nachname": "Gautschi",
-      "vorname": "Cédric",
+      "nachname": "Fricano",
+      "vorname": "Francesco",
       "aktiv": true
     },
     {
@@ -226,6 +236,11 @@
       "aktiv": true
     },
     {
+      "nachname": "Imeri",
+      "vorname": "Shpend",
+      "aktiv": true
+    },
+    {
       "nachname": "Irdem",
       "vorname": "Alper",
       "aktiv": true
@@ -233,6 +248,11 @@
     {
       "nachname": "Jobst",
       "vorname": "Hagen",
+      "aktiv": true
+    },
+    {
+      "nachname": "Jost",
+      "vorname": "Beat",
       "aktiv": true
     },
     {
@@ -267,7 +287,7 @@
     },
     {
       "nachname": "Kraatz",
-      "vorname": "Steffen",
+      "vorname": "Guido Steffen",
       "aktiv": true
     },
     {
@@ -301,13 +321,13 @@
       "aktiv": true
     },
     {
-      "nachname": "Laude-Altmayer",
-      "vorname": "Helmut",
+      "nachname": "Lamrabti",
+      "vorname": "Bilal",
       "aktiv": true
     },
     {
-      "nachname": "Lehmann",
-      "vorname": "Torsten",
+      "nachname": "Laude-Altmayer",
+      "vorname": "Helmut",
       "aktiv": true
     },
     {
@@ -356,6 +376,11 @@
       "aktiv": true
     },
     {
+      "nachname": "Mädel",
+      "vorname": "Torsten",
+      "aktiv": true
+    },
+    {
       "nachname": "Mühl",
       "vorname": "Eric",
       "aktiv": true
@@ -371,18 +396,8 @@
       "aktiv": true
     },
     {
-      "nachname": "Osmani",
-      "vorname": "Elgadaf",
-      "aktiv": true
-    },
-    {
       "nachname": "Oymak",
       "vorname": "Idris",
-      "aktiv": true
-    },
-    {
-      "nachname": "Pali",
-      "vorname": "Fabijan",
       "aktiv": true
     },
     {
@@ -398,11 +413,6 @@
     {
       "nachname": "Pivolic",
       "vorname": "Esmir",
-      "aktiv": true
-    },
-    {
-      "nachname": "Racipi",
-      "vorname": "Rinor",
       "aktiv": true
     },
     {
@@ -466,13 +476,23 @@
       "aktiv": true
     },
     {
-      "nachname": "Said",
-      "vorname": "Häny",
+      "nachname": "Ryser",
+      "vorname": "Gerhard",
       "aktiv": true
     },
     {
       "nachname": "Röthlisberger",
       "vorname": "Stephan",
+      "aktiv": true
+    },
+    {
+      "nachname": "Said",
+      "vorname": "Häny",
+      "aktiv": true
+    },
+    {
+      "nachname": "Saliji",
+      "vorname": "Arian",
       "aktiv": true
     },
     {
@@ -536,8 +556,8 @@
       "aktiv": true
     },
     {
-      "nachname": "Sogan",
-      "vorname": "Yoldas",
+      "nachname": "Soula",
+      "vorname": "Mounir",
       "aktiv": true
     },
     {
@@ -551,6 +571,11 @@
       "aktiv": true
     },
     {
+      "nachname": "Surmai",
+      "vorname": "Petr",
+      "aktiv": true
+    },
+    {
       "nachname": "Sziklasi",
       "vorname": "Laszlo",
       "aktiv": true
@@ -561,13 +586,13 @@
       "aktiv": true
     },
     {
-      "nachname": "Turan",
-      "vorname": "Orhan",
+      "nachname": "Trost",
+      "vorname": "Amelia",
       "aktiv": true
     },
     {
-      "nachname": "Uhlig Fischer",
-      "vorname": "Sandy",
+      "nachname": "Turan",
+      "vorname": "Orhan",
       "aktiv": true
     },
     {
@@ -578,6 +603,11 @@
     {
       "nachname": "Vigato",
       "vorname": "Riccardo",
+      "aktiv": true
+    },
+    {
+      "nachname": "Wagner",
+      "vorname": "Tom",
       "aktiv": true
     },
     {
@@ -597,7 +627,7 @@
     },
     {
       "nachname": "Wegink",
-      "vorname": "Johan",
+      "vorname": "Johan Gerard",
       "aktiv": true
     },
     {
@@ -631,6 +661,11 @@
       "aktiv": true
     },
     {
+      "nachname": "Wyss",
+      "vorname": "Hans",
+      "aktiv": true
+    },
+    {
       "nachname": "Yildirim",
       "vorname": "Emre",
       "aktiv": true
@@ -651,8 +686,38 @@
       "aktiv": true
     },
     {
+      "nachname": "Zimmermann",
+      "vorname": "Stefan",
+      "aktiv": true
+    },
+    {
       "nachname": "Zobel",
       "vorname": "Jannik",
+      "aktiv": true
+    },
+    {
+      "nachname": "Vorgabe",
+      "vorname": "BLS Spiez",
+      "aktiv": true
+    },
+    {
+      "nachname": "Vorgabe",
+      "vorname": "BLS Basel",
+      "aktiv": true
+    },
+    {
+      "nachname": "Vorgabe",
+      "vorname": "BLS",
+      "aktiv": true
+    },
+    {
+      "nachname": "Vorgabe",
+      "vorname": "BLS Bellinzona",
+      "aktiv": true
+    },
+    {
+      "nachname": "Vorgabe",
+      "vorname": "BLS Avences",
       "aktiv": true
     }
   ]
