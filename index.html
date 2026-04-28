@@ -161,13 +161,15 @@
  <div class="toggleRow">
  <span class="hint" style="margin:0;">BLS Teilstrecken bearbeiten?</span>
  <button class="toggle active" id="blsNo" type="button">Nein</button>
- <button class="toggle" id="blsYes" type="button">Ja</button>
- 
-              <span class="hint" style="margin:0;"\>Status\</span>
-              <button class="toggle status k active" id="radnPickK" type="button"\>kundig\</button>
-              <button class="toggle status a" id="radnPickA" type="button"\>auffrischung\</button>
-              <button class="toggle status u" id="radnPickU" type="button"\>unkundig\</button>
- <span style="flex:1 1 auto"></span>
+ 
+    <span class="hint" style="margin:0;"\>RADN</span>
+    <button class="toggle active" id="radnScroll" type="button"\>Scrollen</button>
+    <button class="toggle" id="radnMark" type="button"\>Markieren</button>
+    <span class="hint" style="margin:0;"\>Status</span>
+    <button class="toggle status k active" id="radnPickK" type="button"\>kundig</button>
+    <button class="toggle status a" id="radnPickA" type="button"\>auffrischung</button>
+    <button class="toggle status u" id="radnPickU" type="button"\>unkundig</button>
+    
  <button class="btn" id="backToPerson" type="button">Zurück</button>
  <button class="btn primary" id="nextFromRoutes" type="button">Weiter</button>
  </div>
@@ -557,6 +559,8 @@ function tapRoute(r){
  down = null;
  }, {passive:true});
  div.addEventListener('pointercancel', ()=>{ down = null; }, {passive:true});
+ // Fallback: Klick (Desktop/Touch) im Markieren-Modus
+ div.addEventListener('click', ()=>{ if(st.radnMode === 'mark') tapRoute(r); });
  host.appendChild(div);
  });
  }
@@ -796,9 +800,11 @@ function tapRoute(r){
  $('datum').value=(new Date()).toISOString().slice(0,10); syncPerson(); showStep(1);
  try{ if(localStorage.getItem('mev_streckenkunde_state_v4_2')) $('loadHint').innerHTML='Gespeicherte Daten gefunden. <b>Vom Gerät laden</b> antippen.'; }catch(e){}
  // employees
- try{
+ // employees
+    try{
       const emp = await loadJson(abs('assets/mitarbeiter.json'));
 
+      // A) altes Format: { employees: [...] }
       if(Array.isArray(emp.employees)){
         st.employees = emp.employees.map(e => ({
           personalnummer: String(e.personalnummer || e.mev_id || '').trim(),
@@ -812,6 +818,7 @@ function tapRoute(r){
           bemerkung: e.bemerkung || ''
         }));
 
+      // B) neues Format: { employeesByDepartment: { Betrieb: [...], ... } }
       } else if(emp.employeesByDepartment && typeof emp.employeesByDepartment === 'object'){
         const out = [];
         Object.keys(emp.employeesByDepartment).forEach(dep=>{
@@ -837,7 +844,9 @@ function tapRoute(r){
         st.employees = [];
       }
 
-    }catch(e){ st.employees=[]; }
+    }catch(e){
+      st.employees=[];
+    }
  renderEmpHits('');
  // wiring
  $('empSearch').addEventListener('input',()=>renderEmpHits($('empSearch').value));
