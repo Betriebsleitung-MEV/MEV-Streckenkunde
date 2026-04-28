@@ -52,7 +52,7 @@
  .btn.send{border-color: rgba(0,200,120,.65); background: rgba(0,200,120,.16); color:#b6ffd9;}
  .list{display:grid; gap:8px; margin-top:10px;}
  .item{display:flex; gap:10px; padding:10px; border-radius:14px; border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04); cursor:pointer; align-items:flex-start;}
- .no{width:70px; font-weight:900;}
+ .no{display:none;width:0;margin:0;padding:0;} 
  .desc{flex:1 1 auto;}
  .badge{font-size:12px; font-weight:900; padding:4px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.14); white-space:nowrap;}
  .badge.k{color: var(--blue); border-color: rgba(0,112,255,.45); background: rgba(0,112,255,.10);} 
@@ -131,7 +131,7 @@
  <div style="font-weight:850; margin-bottom:6px;">Personendaten</div>
  <div class="hint">Mitarbeiter auswählen. Danach Routen setzen.</div>
  <label>Suche Mitarbeiter</label>
- <input id="empSearch" placeholder="Name, Vorname oder Nummer" />
+ <input id="empSearch" placeholder="Name, Vorname oder interner Code" />
  <div id="empHits" class="list" style="max-height:180px; overflow:auto;"></div>
  <div style="height:1px; background: rgba(255,255,255,.08); margin:12px 0;"></div>
  <div class="row3">
@@ -139,8 +139,8 @@
  <div><label>Name</label><input id="nachname" placeholder="Name" /></div>
  <div><label>Datum</label><input id="datum" type="date" /></div>
  </div>
- <label>Personalnummer (optional)</label>
- <input id="pnr" inputmode="numeric" pattern="[0-9]*" placeholder="z.B. 123456" />
+ <label>Interner Code (optional)</label>
+ <input id="pnr" inputmode="numeric" pattern="[0-9]*" placeholder="z.B. 27819136" />
  <div class="toggleRow" style="margin-top:12px;">
  <button class="btn primary" id="toRoutes" type="button" disabled>Weiter zu Routen</button>
  <button class="btn" id="resetPerson" type="button">Zurücksetzen</button>
@@ -424,17 +424,6 @@
  function showStep(step){
  st.currentStep = step;
  if(step===2 && st.setRadnMode) st.setRadnMode('scroll');
-    function setRadnPick(s){
-      st.radnPickStatus = s;
-      if($('radnPickK')) $('radnPickK').classList.toggle('active', s==='kundig');
-      if($('radnPickA')) $('radnPickA').classList.toggle('active', s==='auffrischung');
-      if($('radnPickU')) $('radnPickU').classList.toggle('active', s==='unkundig');
-    }
-    if($('radnPickK')) $('radnPickK').addEventListener('click', () => setRadnPick('kundig'));
-    if($('radnPickA')) $('radnPickA').addEventListener('click', () => setRadnPick('auffrischung'));
-    if($('radnPickU')) $('radnPickU').addEventListener('click', () => setRadnPick('unkundig'));
-    setRadnPick('kundig');
-
  $('p1').classList.toggle('hidden', step!==1);
  $('p2').classList.toggle('hidden', step!==2);
  $('p3').classList.toggle('hidden', step!==3);
@@ -485,7 +474,7 @@
  if(!hits.length){ host.innerHTML='<div class="hint">Keine Treffer.</div>'; return; }
  hits.forEach(e=>{
  const div=document.createElement('div'); div.className='item';
- div.innerHTML=`<div class="no">${String(e.personalnummer||'').trim()||'—'}</div><div class="desc"><b>${e.nachname} ${e.vorname}</b><div class="hint">${(e.mail||'').trim() || '(keine Mail in Liste)'}${e.tel?(` · ${e.tel}`):''}</div></div>`;
+ div.innerHTML=`<div class="desc"><b>${e.nachname} ${e.vorname}</b><div class="hint">${(e.mail||'').trim() || '(keine Mail)'}${e.tel?(` · ${e.tel}`):''}</div></div>`;
  const applyEmp = ()=>{
  $('vorname').value = e.vorname || '';
  $('nachname').value = e.nachname || '';
@@ -568,8 +557,6 @@ function tapRoute(r){
  down = null;
  }, {passive:true});
  div.addEventListener('pointercancel', ()=>{ down = null; }, {passive:true});
- // Fallback: Klick (Desktop/Touch) im Markieren-Modus
- div.addEventListener('click', ()=>{ if(st.radnMode === 'mark') tapRoute(r); });
  host.appendChild(div);
  });
  }
