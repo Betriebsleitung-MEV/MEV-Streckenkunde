@@ -88,15 +88,7 @@
  .groupTitle{font-weight:900;} 
  .groupMeta{font-size:12px; color:var(--muted);} 
  .miniBtn{height:34px; padding:0 10px; border-radius:999px; border:1px solid rgba(255,255,255,.16); background: rgba(255,255,255,.06); color:var(--text); font-weight:900; cursor:pointer; font-size:12px;}
- 
-    /* RADN Status-Buttons */
-    .toggle.status{border-color: rgba(255,255,255,.16);}
-    .toggle.status.k{border-color: rgba(0,112,255,.65); background: rgba(0,112,255,.14);}
-    .toggle.status.a{border-color: rgba(255,42,42,.55); background: rgba(255,42,42,.10);}
-    .toggle.status.u{border-color: rgba(255,255,255,.16); background: rgba(255,255,255,.06);}
-    .toggle.status.active{outline:2px solid rgba(255,255,255,.12);} 
-
-</style>
+ </style>
 </head>
 <body>
  <div class="topbar"><div class="brand">MEV Streckenkunde</div><div id="bootMark" style="font-size:12px; color:rgba(255,255,255,.55); margin-left:10px;">(JS aktiv)</div><div class="build">Build: 2026-03-25 V1.9.15</div></div>
@@ -156,17 +148,15 @@
  <!-- Step 2 -->
  <div class="card hidden" id="p2">
  <div style="font-weight:850; margin-bottom:6px;">RADN-Strecken (101–791)</div>
- <div class="hint">Status wählen (Buttons) und Route markieren</div>
+ <div class="hint">Tippen: 1× kundig · 2× auffrischung · 3× unkundig</div>
  <div class="cardTop">
  <div class="toggleRow">
  <span class="hint" style="margin:0;">BLS Teilstrecken bearbeiten?</span>
  <button class="toggle active" id="blsNo" type="button">Nein</button>
  <button class="toggle" id="blsYes" type="button">Ja</button>
- 
-              <span class="hint" style="margin:0;"\>Status\</span>
-              <button class="toggle status k active" id="radnPickK" type="button"\>kundig\</button>
-              <button class="toggle status a" id="radnPickA" type="button"\>auffrischung\</button>
-              <button class="toggle status u" id="radnPickU" type="button"\>unkundig\</button>
+ <span class="hint" style="margin:0;">RADN</span>
+ <button class="toggle active" id="radnScroll" type="button">Scrollen</button>
+ <button class="toggle" id="radnMark" type="button">Markieren</button>
  <span style="flex:1 1 auto"></span>
  <button class="btn" id="backToPerson" type="button">Zurück</button>
  <button class="btn primary" id="nextFromRoutes" type="button">Weiter</button>
@@ -250,7 +240,6 @@
  ortsManual: {},
  idxTankByLine: {},
  radnMode: 'scroll',
- radnPickStatus: 'kundig',
  currentStep: 1
  };
  // ===== Tap-Anzeige im Header (nur bei Antippen, nie bei Wischen) =====
@@ -503,22 +492,8 @@
  }).sort((a,b)=>Number(a)-Number(b));
  }
  function routeMatchesSearch(route){ return true; }
- function setRouteStatus(r, status){
-  status = (status==='kundig' || status==='auffrischung' || status==='unkundig') ? status : 'unkundig';
-  st.routeStatus[r]=status;
-  if(status!=='unkundig') initTeilstreckenForRoute(r);
-  renderRouteList();
-  setDirty(true);
-  toast(`Route ${r}: ${status}`);
-}
-
-function tapRoute(r){
-  // Wenn im Markieren-Modus: Status direkt setzen über Buttons
-  if(st.radnMode === 'mark' && st.radnPickStatus){
-    setRouteStatus(r, st.radnPickStatus);
-    return;
-  }
-  const now=Date.now();
+ function tapRoute(r){
+ const now=Date.now();
  if(st.tap.key===r && (now-st.tap.t)<450) st.tap.c += 1; else { st.tap.key=r; st.tap.c=1; }
  st.tap.t=now;
  const status = (st.tap.c===1) ? 'kundig' : (st.tap.c===2) ? 'auffrischung' : 'unkundig';
@@ -816,17 +791,6 @@ function tapRoute(r){
  if($('radnScroll')) $('radnScroll').addEventListener('click', ()=>setRadnMode('scroll'));
  if($('radnMark')) $('radnMark').addEventListener('click', ()=>setRadnMode('mark'));
  setRadnMode('scroll');
-
-    function setRadnPick(s){
-      st.radnPickStatus = s;
-      if($('radnPickK')) $('radnPickK').classList.toggle('active', s==='kundig');
-      if($('radnPickA')) $('radnPickA').classList.toggle('active', s==='auffrischung');
-      if($('radnPickU')) $('radnPickU').classList.toggle('active', s==='unkundig');
-    }
-    if($('radnPickK')) $('radnPickK').addEventListener('click', () => setRadnPick('kundig'));
-    if($('radnPickA')) $('radnPickA').addEventListener('click', () => setRadnPick('auffrischung'));
-    if($('radnPickU')) $('radnPickU').addEventListener('click', () => setRadnPick('unkundig'));
-    setRadnPick('kundig');
  $('backToPerson').addEventListener('click',()=>showStep(1));
  $('nextFromRoutes').addEventListener('click', async()=>{ if(st.blsMode){ renderSegList(); showStep(3); } else { try{ await goMap(); } catch(e){ console.error(e); toast('Karte konnte nicht geladen werden.'); } } });
  $('backToRoutes').addEventListener('click',()=>showStep(2));
