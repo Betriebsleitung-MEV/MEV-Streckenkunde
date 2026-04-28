@@ -213,7 +213,7 @@
  const toast = (m) => { const t=$('toast'); t.textContent=m; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 2200); };
  const setDirty = (v) => $('dirty').textContent = v ? 'nicht gespeichert' : '';
  const st = {
- person: {vorname:'', nachname:'', datum:'', personalnummer:''},
+ person: {vorname:'', nachname:'', datum:'', personalnummer:'', mail:'', tel:'', abteilung:''},
  employees: [],
  routes: {},
  routeSegmentsOrdered: {},
@@ -470,7 +470,11 @@
  $('pnr').value = String(e.personalnummer || '');
  $('datum').value = $('datum').value || (new Date()).toISOString().slice(0,10);
  syncPerson();
- toast('Mitarbeiter übernommen.');
+        // Kontakt aus Mitarbeiterliste übernehmen (für Export / Senden)
+        st.person.mail = e.mail || '';
+        st.person.tel = e.tel || '';
+        st.person.abteilung = e.abteilung || '';
+        toast('Mitarbeiter übernommen.');
  };
  let downEmp = null;
  div.addEventListener('pointerdown', (ev)=>{ if(ev.button != null && ev.button !== 0) return; downEmp = {x: ev.clientX, y: ev.clientY, t: performance.now()}; }, {passive:true});
@@ -767,7 +771,53 @@
  $('datum').value=(new Date()).toISOString().slice(0,10); syncPerson(); showStep(1);
  try{ if(localStorage.getItem('mev_streckenkunde_state_v4_2')) $('loadHint').innerHTML='Gespeicherte Daten gefunden. <b>Vom Gerät laden</b> antippen.'; }catch(e){}
  // employees
- try{ const emp=await loadJson(abs('assets/mitarbeiter.json')); st.employees = Array.isArray(emp.employees) ? emp.employees : (Array.isArray(emp) ? emp : []); }catch(e){ st.employees=[]; }
+    try{
+      const emp = await loadJson(abs('assets/mitarbeiter.json'));
+
+      // A) altes Format: { employees: [...] }
+      if(Array.isArray(emp.employees)){
+        st.employees = emp.employees.map(e => ({
+          personalnummer: String(e.personalnummer || e.mev_id || '').trim(),
+          nachname: e.nachname || '',
+          vorname: e.vorname || '',
+          mail: e.mail || '',
+          tel: e.tel || '',
+          aktiv: e.aktiv !== false,
+          abteilung: e.abteilung || '',
+          funktion: e.funktion || '',
+          bemerkung: e.bemerkung || ''
+        }));
+
+      // B) neues Format: { employeesByDepartment: { Betrieb: [...], ... } }
+      } else if(emp.employeesByDepartment && typeof emp.employeesByDepartment === 'object'){
+        const out = [];
+        Object.keys(emp.employeesByDepartment).forEach(dep=>{
+          const arr = emp.employeesByDepartment[dep];
+          if(!Array.isArray(arr)) return;
+          arr.forEach(e=>{
+            out.push({
+              // UI nutzt personalnummer – wir mappen mev_id darauf
+              personalnummer: String(e.mev_id || e.personalnummer || '').trim(),
+              nachname: e.nachname || '',
+              vorname: e.vorname || '',
+              mail: e.mail || '',
+              tel: e.tel || '',
+              aktiv: e.aktiv !== false,
+              abteilung: dep,
+              funktion: e.funktion || '',
+              bemerkung: e.bemerkung || ''
+            });
+          });
+        });
+        st.employees = out;
+
+      } else {
+        st.employees = [];
+      }
+
+    }catch(e){
+      st.employees=[];
+    }
  renderEmpHits('');
  // wiring
  $('empSearch').addEventListener('input',()=>renderEmpHits($('empSearch').value));
