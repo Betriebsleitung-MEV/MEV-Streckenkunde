@@ -89,13 +89,11 @@
  .groupMeta{font-size:12px; color:var(--muted);} 
  .miniBtn{height:34px; padding:0 10px; border-radius:999px; border:1px solid rgba(255,255,255,.16); background: rgba(255,255,255,.06); color:var(--text); font-weight:900; cursor:pointer; font-size:12px;}
  
-    /* RADN Status-Buttons */
-    .toggle.status{border-color: rgba(255,255,255,.16);}
-    .toggle.status.k{border-color: rgba(0,112,255,.65); background: rgba(0,112,255,.14);}
-    .toggle.status.a{border-color: rgba(255,42,42,.55); background: rgba(255,42,42,.10);}
-    .toggle.status.u{border-color: rgba(255,255,255,.16); background: rgba(255,255,255,.06);}
-    .toggle.status.active{outline:2px solid rgba(255,255,255,.12);} 
-
+  /* RADN Status-Buttons */
+  .toggle.status{border-color: rgba(255,255,255,.16);}
+  .toggle.status.k{border-color: rgba(0,112,255,.65); background: rgba(0,112,255,.14);}
+  .toggle.status.a{border-color: rgba(255,42,42,.55); background: rgba(255,42,42,.10);}
+  .toggle.status.u{border-color: rgba(255,255,255,.16); background: rgba(255,255,255,.06);}
 </style>
 </head>
 <body>
@@ -156,20 +154,20 @@
  <!-- Step 2 -->
  <div class="card hidden" id="p2">
  <div style="font-weight:850; margin-bottom:6px;">RADN-Strecken (101–791)</div>
- <div class="hint">Status wählen (Buttons) und Route markieren</div>
+ <div class="hint">Status wählen und im Modus «Markieren» Route anklicken</div>
  <div class="cardTop">
  <div class="toggleRow">
  <span class="hint" style="margin:0;">BLS Teilstrecken bearbeiten?</span>
  <button class="toggle active" id="blsNo" type="button">Nein</button>
- 
-    <span class="hint" style="margin:0;"\>RADN</span>
-    <button class="toggle active" id="radnScroll" type="button"\>Scrollen</button>
-    <button class="toggle" id="radnMark" type="button"\>Markieren</button>
-    <span class="hint" style="margin:0;"\>Status</span>
-    <button class="toggle status k active" id="radnPickK" type="button"\>kundig</button>
-    <button class="toggle status a" id="radnPickA" type="button"\>auffrischung</button>
-    <button class="toggle status u" id="radnPickU" type="button"\>unkundig</button>
-    
+ <button class="toggle" id="blsYes" type="button">Ja</button>
+ <span class="hint" style="margin:0;">RADN</span>
+ <button class="toggle active" id="radnScroll" type="button">Scrollen</button>
+ <button class="toggle" id="radnMark" type="button">Markieren</button>
+              <span class="hint" style="margin:0;"\>Status</span>
+              <button class="toggle status k active" id="radnPickK" type="button"\>kundig</button>
+              <button class="toggle status a" id="radnPickA" type="button"\>auffrischung</button>
+              <button class="toggle status u" id="radnPickU" type="button"\>unkundig</button>
+ <span style="flex:1 1 auto"></span>
  <button class="btn" id="backToPerson" type="button">Zurück</button>
  <button class="btn primary" id="nextFromRoutes" type="button">Weiter</button>
  </div>
@@ -426,6 +424,17 @@
  function showStep(step){
  st.currentStep = step;
  if(step===2 && st.setRadnMode) st.setRadnMode('scroll');
+    function setRadnPick(s){
+      st.radnPickStatus = s;
+      if($('radnPickK')) $('radnPickK').classList.toggle('active', s==='kundig');
+      if($('radnPickA')) $('radnPickA').classList.toggle('active', s==='auffrischung');
+      if($('radnPickU')) $('radnPickU').classList.toggle('active', s==='unkundig');
+    }
+    if($('radnPickK')) $('radnPickK').addEventListener('click', () => setRadnPick('kundig'));
+    if($('radnPickA')) $('radnPickA').addEventListener('click', () => setRadnPick('auffrischung'));
+    if($('radnPickU')) $('radnPickU').addEventListener('click', () => setRadnPick('unkundig'));
+    setRadnPick('kundig');
+
  $('p1').classList.toggle('hidden', step!==1);
  $('p2').classList.toggle('hidden', step!==2);
  $('p3').classList.toggle('hidden', step!==3);
@@ -476,14 +485,14 @@
  if(!hits.length){ host.innerHTML='<div class="hint">Keine Treffer.</div>'; return; }
  hits.forEach(e=>{
  const div=document.createElement('div'); div.className='item';
- div.innerHTML=`<div class="no">${String(e.personalnummer||'').trim()||'—'}</div><div class="desc"><b>${e.nachname} ${e.vorname}</b><div class="hint">Tippen zum übernehmen</div></div>`;
+ div.innerHTML=`<div class="no">${String(e.personalnummer||'').trim()||'—'}</div><div class="desc"><b>${e.nachname} ${e.vorname}</b><div class="hint">${(e.mail||'').trim() || '(keine Mail in Liste)'}${e.tel?(` · ${e.tel}`):''}</div></div>`;
  const applyEmp = ()=>{
  $('vorname').value = e.vorname || '';
  $('nachname').value = e.nachname || '';
  $('pnr').value = String(e.personalnummer || '');
  $('datum').value = $('datum').value || (new Date()).toISOString().slice(0,10);
  syncPerson();
-        // Kontakt aus Mitarbeiterliste übernehmen (für Export / Senden)
+        // Mail/Tel/Abteilung aus Auswahl übernehmen
         st.person.mail = e.mail || '';
         st.person.tel = e.tel || '';
         st.person.abteilung = e.abteilung || '';
@@ -511,15 +520,15 @@
  function routeMatchesSearch(route){ return true; }
  function setRouteStatus(r, status){
   status = (status==='kundig' || status==='auffrischung' || status==='unkundig') ? status : 'unkundig';
-  st.routeStatus[r]=status;
-  if(status!=='unkundig') initTeilstreckenForRoute(r);
+  st.routeStatus[r] = status;
+  if(status !== 'unkundig') initTeilstreckenForRoute(r);
   renderRouteList();
   setDirty(true);
   toast(`Route ${r}: ${status}`);
 }
 
 function tapRoute(r){
-  // Wenn im Markieren-Modus: Status direkt setzen über Buttons
+  // Im Modus «Markieren»: Status direkt via Buttons setzen
   if(st.radnMode === 'mark' && st.radnPickStatus){
     setRouteStatus(r, st.radnPickStatus);
     return;
@@ -800,26 +809,11 @@ function tapRoute(r){
  $('datum').value=(new Date()).toISOString().slice(0,10); syncPerson(); showStep(1);
  try{ if(localStorage.getItem('mev_streckenkunde_state_v4_2')) $('loadHint').innerHTML='Gespeicherte Daten gefunden. <b>Vom Gerät laden</b> antippen.'; }catch(e){}
  // employees
- // employees
-    try{
+ try{
       const emp = await loadJson(abs('assets/mitarbeiter.json'));
-
-      // A) altes Format: { employees: [...] }
       if(Array.isArray(emp.employees)){
-        st.employees = emp.employees.map(e => ({
-          personalnummer: String(e.personalnummer || e.mev_id || '').trim(),
-          nachname: e.nachname || '',
-          vorname: e.vorname || '',
-          mail: e.mail || '',
-          tel: e.tel || '',
-          aktiv: e.aktiv !== false,
-          abteilung: e.abteilung || '',
-          funktion: e.funktion || '',
-          bemerkung: e.bemerkung || ''
-        }));
-
-      // B) neues Format: { employeesByDepartment: { Betrieb: [...], ... } }
-      } else if(emp.employeesByDepartment && typeof emp.employeesByDepartment === 'object'){
+        st.employees = emp.employees;
+      }else if(emp.employeesByDepartment && typeof emp.employeesByDepartment === 'object'){
         const out = [];
         Object.keys(emp.employeesByDepartment).forEach(dep=>{
           const arr = emp.employeesByDepartment[dep];
@@ -832,20 +826,16 @@ function tapRoute(r){
               mail: e.mail || '',
               tel: e.tel || '',
               aktiv: e.aktiv !== false,
-              abteilung: dep,
-              funktion: e.funktion || '',
-              bemerkung: e.bemerkung || ''
+              abteilung: dep
             });
           });
         });
         st.employees = out;
-
-      } else {
+      }else{
         st.employees = [];
       }
-
     }catch(e){
-      st.employees=[];
+      st.employees = [];
     }
  renderEmpHits('');
  // wiring
@@ -870,17 +860,6 @@ function tapRoute(r){
  if($('radnScroll')) $('radnScroll').addEventListener('click', ()=>setRadnMode('scroll'));
  if($('radnMark')) $('radnMark').addEventListener('click', ()=>setRadnMode('mark'));
  setRadnMode('scroll');
-
-    function setRadnPick(s){
-      st.radnPickStatus = s;
-      if($('radnPickK')) $('radnPickK').classList.toggle('active', s==='kundig');
-      if($('radnPickA')) $('radnPickA').classList.toggle('active', s==='auffrischung');
-      if($('radnPickU')) $('radnPickU').classList.toggle('active', s==='unkundig');
-    }
-    if($('radnPickK')) $('radnPickK').addEventListener('click', () => setRadnPick('kundig'));
-    if($('radnPickA')) $('radnPickA').addEventListener('click', () => setRadnPick('auffrischung'));
-    if($('radnPickU')) $('radnPickU').addEventListener('click', () => setRadnPick('unkundig'));
-    setRadnPick('kundig');
  $('backToPerson').addEventListener('click',()=>showStep(1));
  $('nextFromRoutes').addEventListener('click', async()=>{ if(st.blsMode){ renderSegList(); showStep(3); } else { try{ await goMap(); } catch(e){ console.error(e); toast('Karte konnte nicht geladen werden.'); } } });
  $('backToRoutes').addEventListener('click',()=>showStep(2));
