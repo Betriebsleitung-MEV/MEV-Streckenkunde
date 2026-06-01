@@ -1159,20 +1159,16 @@
     ],
     "291": [
       {
-        "from": "DMT",
-        "to": "MOU"
-      },
-      {
         "from": "MOU",
         "to": "DMT"
       },
       {
-        "from": "MOU",
-        "to": "LEN"
-      },
-      {
         "from": "LEN",
         "to": "MOU"
+      },
+      {
+        "from": "MOU",
+        "to": "LEN"
       },
       {
         "from": "LEN",
@@ -1534,6 +1530,14 @@
       }
     ],
     "341": [
+      {
+        "from": "BS",
+        "to": "BSJA"
+      },
+      {
+        "from": "BSJA",
+        "to": "BS"
+      },
       {
         "from": "BSJA",
         "to": "BSVL"
@@ -4410,6 +4414,13 @@
         "toName": "Lenzburg"
       },
       {
+        "seg": "151.11",
+        "from": "GMT",
+        "to": "KLW",
+        "fromName": "Gruemet (Abzw)",
+        "toName": "Killwangen-Spreitenbach"
+      },
+      {
         "seg": "151.08",
         "from": "LB",
         "to": "OTH",
@@ -4422,13 +4433,6 @@
         "to": "LB",
         "fromName": "Othmarsingen",
         "toName": "Lenzburg"
-      },
-      {
-        "seg": "151.11",
-        "from": "GMT",
-        "to": "KLW",
-        "fromName": "Gruemet (Abzw)",
-        "toName": "Killwangen-Spreitenbach"
       }
     ],
     "161": [
@@ -5419,13 +5423,6 @@
     "291": [
       {
         "seg": "291.01",
-        "from": "DMT",
-        "to": "MOU",
-        "fromName": "Delémont",
-        "toName": "Moutier"
-      },
-      {
-        "seg": "291.01",
         "from": "MOU",
         "to": "DMT",
         "fromName": "Moutier",
@@ -5433,17 +5430,17 @@
       },
       {
         "seg": "291.02",
-        "from": "MOU",
-        "to": "LEN",
-        "fromName": "Moutier",
-        "toName": "Lengnau BE"
-      },
-      {
-        "seg": "291.02",
         "from": "LEN",
         "to": "MOU",
         "fromName": "Lengnau BE",
         "toName": "Moutier"
+      },
+      {
+        "seg": "291.02",
+        "from": "MOU",
+        "to": "LEN",
+        "fromName": "Moutier",
+        "toName": "Lengnau BE"
       },
       {
         "seg": "291.03",
@@ -6079,55 +6076,69 @@
     "341": [
       {
         "seg": "341.01",
+        "from": "BS",
+        "to": "BSJA",
+        "fromName": "Basel SBB",
+        "toName": "Basel St. Jakob"
+      },
+      {
+        "seg": "341.01",
+        "from": "BSJA",
+        "to": "BS",
+        "fromName": "Basel St. Jakob",
+        "toName": "Basel SBB"
+      },
+      {
+        "seg": "341.02",
         "from": "BSJA",
         "to": "BSVL",
         "fromName": "Basel St. Jakob",
         "toName": "Basel SBB GB VL"
       },
       {
-        "seg": "341.01",
+        "seg": "341.02",
         "from": "BSVL",
         "to": "BSJA",
         "fromName": "Basel SBB GB VL",
         "toName": "Basel St. Jakob"
       },
       {
-        "seg": "341.02",
+        "seg": "341.03",
         "from": "BSBG",
         "to": "BSVL",
         "fromName": "Basel SBB GB",
         "toName": "Basel SBB GB VL"
       },
       {
-        "seg": "341.02",
+        "seg": "341.03",
         "from": "BSVL",
         "to": "BSBG",
         "fromName": "Basel SBB GB VL",
         "toName": "Basel SBB GB"
       },
       {
-        "seg": "341.03",
+        "seg": "341.04",
         "from": "BSVL",
         "to": "LFN",
         "fromName": "Basel SBB GB VL",
         "toName": "Laufen"
       },
       {
-        "seg": "341.03",
+        "seg": "341.04",
         "from": "LFN",
         "to": "BSVL",
         "fromName": "Laufen",
         "toName": "Basel SBB GB VL"
       },
       {
-        "seg": "341.04",
+        "seg": "341.05",
         "from": "LFN",
         "to": "DMT",
         "fromName": "Laufen",
         "toName": "Delémont"
       },
       {
-        "seg": "341.04",
+        "seg": "341.05",
         "from": "DMT",
         "to": "LFN",
         "fromName": "Delémont",
@@ -7393,20 +7404,6 @@
         "toName": "Hendschiken"
       },
       {
-        "seg": "521.05",
-        "from": "LB",
-        "to": "HDK",
-        "fromName": "Lenzburg",
-        "toName": "Hendschiken"
-      },
-      {
-        "seg": "521.05",
-        "from": "HDK",
-        "to": "LB",
-        "fromName": "Hendschiken",
-        "toName": "Lenzburg"
-      },
-      {
         "seg": "521.06",
         "from": "HDK",
         "to": "WO",
@@ -7433,6 +7430,20 @@
         "to": "RK",
         "fromName": "Wohlen AG",
         "toName": "Rotkreuz"
+      },
+      {
+        "seg": "521.05",
+        "from": "LB",
+        "to": "HDK",
+        "fromName": "Lenzburg",
+        "toName": "Hendschiken"
+      },
+      {
+        "seg": "521.05",
+        "from": "HDK",
+        "to": "LB",
+        "fromName": "Hendschiken",
+        "toName": "Lenzburg"
       }
     ],
     "531": [

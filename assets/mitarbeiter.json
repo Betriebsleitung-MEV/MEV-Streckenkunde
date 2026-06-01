@@ -1,1596 +1,724 @@
 {
-  "employeesByDepartment": {
-    "Betrieb": [
-      {
-        "mev_id": "27819136",
-        "nachname": "Acer",
-        "vorname": "Önder",
-        "tel": "+41 79 557 73 20",
-        "mail": "oe.acer@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "20972048",
-        "nachname": "Adam",
-        "vorname": "Jochen",
-        "tel": "+41 79 557 73 15",
-        "mail": "j.adam@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "11334913",
-        "nachname": "Agresta",
-        "vorname": "Ettore",
-        "tel": "+41 79 577 80 51",
-        "mail": "e.agresta@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "12089650",
-        "nachname": "Aissaoui",
-        "vorname": "Rabya",
-        "tel": "+41 79 884 79 47",
-        "mail": "r.aissaoui@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "12907734",
-        "nachname": "Anacker",
-        "vorname": "Steffen",
-        "tel": "+41 79 602 61 76",
-        "mail": "s.anacker@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "83651427",
-        "nachname": "Angerer",
-        "vorname": "Siegfried",
-        "tel": "+41 79 565 46 90",
-        "mail": "s.angerer@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "14546950",
-        "nachname": "Antz",
-        "vorname": "Jeremy",
-        "tel": "+41 75 401 93 65",
-        "mail": "j.antz@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "19849552",
-        "nachname": "Archidi",
-        "vorname": "Yasin",
-        "tel": "+41 75 418 80 18",
-        "mail": "y.archidi@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "99963266",
-        "nachname": "Aydogdu",
-        "vorname": "Serkan",
-        "tel": "+41 79 625 98 06",
-        "mail": "s.aydogdu@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "12541264",
-        "nachname": "Bajohr",
-        "vorname": "Frank",
-        "tel": "+41 79 557 73 46",
-        "mail": "f.bajohr@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "68112453",
-        "nachname": "Bajrami",
-        "vorname": "Nick",
-        "tel": "+41 79 896 18 32",
-        "mail": "n.bajrami@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "74797935",
-        "nachname": "Beck",
-        "vorname": "Sascha",
-        "tel": "+41 79 903 00 49",
-        "mail": "s.beck@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "44037711",
-        "nachname": "Becker",
-        "vorname": "Marvin",
-        "tel": "+41 79 192 91 19",
-        "mail": "m.becker@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "13539554",
-        "nachname": "Behle",
-        "vorname": "Ralf",
-        "tel": "+41 79 557 73 01",
-        "mail": "r.behle@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "11036553",
-        "nachname": "Blumenthal",
-        "vorname": "Mario",
-        "tel": "+41 79 557 73 49",
-        "mail": "m.blumenthal@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "45451326",
-        "nachname": "Bockuva",
-        "vorname": "Gabriela",
-        "tel": "+41 79 569 21 76",
-        "mail": "g.bockova@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "19077583",
-        "nachname": "Boglietti",
-        "vorname": "Lorenzo",
-        "tel": "+41 79 291 18 84",
-        "mail": "l.boglietti@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "14163994",
-        "nachname": "Bonzani",
-        "vorname": "Simone",
-        "tel": "+41 79 278 84 38",
-        "mail": "s.bonzani@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "33227144",
-        "nachname": "Brauckmann",
-        "vorname": "David",
-        "tel": "+41 79 557 73 51",
-        "mail": "d.brauckmann@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "68108466",
-        "nachname": "Bunjaku",
-        "vorname": "Arlind",
-        "tel": "+41 79 629 38 35",
-        "mail": "a.bunjaku@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "39472914",
-        "nachname": "Celik",
-        "vorname": "Elif",
-        "tel": "+41 79 557 00 18",
-        "mail": "e.celik@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "14257647",
-        "nachname": "David",
-        "vorname": "Christian",
-        "tel": "+41 79 269 21 09",
-        "mail": "c.david@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "42424955",
-        "nachname": "Dawid",
-        "vorname": "Daniel",
-        "tel": "+41 79 557 73 53",
-        "mail": "d.dawid@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "18517457",
-        "nachname": "Dietze",
-        "vorname": "Norbert",
-        "tel": "+41 79 557 73 07",
-        "mail": "n.dietze@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "19868027",
-        "nachname": "Doll",
-        "vorname": "Sascha",
-        "tel": "+41 75 418 80 20",
-        "mail": "s.doll@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "14813667",
-        "nachname": "Ercin",
-        "vorname": "Kerem",
-        "tel": "+41 79 433 78 66",
-        "mail": "k.ercin@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "16235398",
-        "nachname": "Fagerlind",
-        "vorname": "Felix",
-        "tel": "+41 79 265 63 07",
-        "mail": "f.fagerlind@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "14870458",
-        "nachname": "Filippini",
-        "vorname": "Danilo",
-        "tel": "+41 79 283 59 72",
-        "mail": "d.filippini@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "13219402",
-        "nachname": "Fischer",
-        "vorname": "Benjamin",
-        "tel": "+41 79 557 73 10",
-        "mail": "b.fischer@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "10219313",
-        "nachname": "Freudenberg",
-        "vorname": "Paul",
-        "tel": "+41 79 557 73 37",
-        "mail": "p.freudenberg@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "13657799",
-        "nachname": "Ginger-Kudrjasov",
-        "vorname": "Denis",
-        "tel": "+41 79 557 73 21",
-        "mail": "d.ginger@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "58504800",
-        "nachname": "Granzner",
-        "vorname": "Andreas",
-        "tel": "+41 79 557 73 14",
-        "mail": "a.granzner@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "21224428",
-        "nachname": "Haase",
-        "vorname": "Michel",
-        "tel": "+41 79 557 73 48",
-        "mail": "m.haase@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "17594329",
-        "nachname": "Haubenreisser",
-        "vorname": "Uwe",
-        "tel": "+41 79 557 73 16",
-        "mail": "u.haubenreisser@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "16371362",
-        "nachname": "Hendrischke",
-        "vorname": "Heiko",
-        "tel": "+41 79 557 73 82",
-        "mail": "h.hendrischke@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "36130310",
-        "nachname": "Hesse",
-        "vorname": "Olaf",
-        "tel": "+41 79 557 70 65",
-        "mail": "o.hesse@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "20488197",
-        "nachname": "Hiel",
-        "vorname": "Daniel",
-        "tel": "+41 79 855 31 15",
-        "mail": "d.hiel@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "16043354",
-        "nachname": "Hinkel",
-        "vorname": "Marco",
-        "tel": "+41 79 557 73 52",
-        "mail": "m.hinkel@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "19061746",
-        "nachname": "Holtz",
-        "vorname": "Ingo",
-        "tel": "+41 79 909 52 47",
-        "mail": "i.holtz@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "18184466",
-        "nachname": "Hörnig",
-        "vorname": "Ringo",
-        "tel": "+41 79 557 73 33",
-        "mail": "r.hoernig@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "11214919",
-        "nachname": "Irdem",
-        "vorname": "Alper",
-        "tel": "+41 79 294 75 85",
-        "mail": "a.irdem@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "17367269",
-        "nachname": "Jobst",
-        "vorname": "Hagen",
-        "tel": "+41 79 557 73 23",
-        "mail": "h.jobst@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "31294564",
-        "nachname": "Kahramanca",
-        "vorname": "Mehmet",
-        "tel": "+41 79 557 73 85",
-        "mail": "m.kahramanca@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "13607209",
-        "nachname": "Kaiser",
-        "vorname": "Kevin",
-        "tel": "+41 79 557 73 67",
-        "mail": "k.kaiser@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "78116651",
-        "nachname": "Kalkan",
-        "vorname": "Dominik",
-        "tel": "+41 79 425 45 46",
-        "mail": "d.kalkan@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "11811869",
-        "nachname": "Köhler",
-        "vorname": "Andreas",
-        "tel": "+41 79 557 73 60",
-        "mail": "a.koehler@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "13913357",
-        "nachname": "Komichi",
-        "vorname": "Ahmed-Hakim",
-        "tel": "+41 79 557 73 40",
-        "mail": "h.komichi@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "23096825",
-        "nachname": "Konrad",
-        "vorname": "Michael",
-        "tel": "+41 79 557 73 26",
-        "mail": "m.konrad@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "10411152",
-        "nachname": "Körber",
-        "vorname": "Christian",
-        "tel": "+41 79 635 29 95",
-        "mail": "c.koerber@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "17343810",
-        "nachname": "Kovachev",
-        "vorname": "Daniel",
-        "tel": "+41 79 434 91 97",
-        "mail": "d.kovachev@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "17140614",
-        "nachname": "Kraatz",
-        "vorname": "Guido Steffen",
-        "tel": "+41 75 401 93 66",
-        "mail": "s.kraatz@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "20160075",
-        "nachname": "Krüger",
-        "vorname": "Sven",
-        "tel": "+41 79 557 73 42",
-        "mail": "s.krueger@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "96422921",
-        "nachname": "Kuhn",
-        "vorname": "Michael",
-        "tel": "+41 79 250 31 79",
-        "mail": "m.kuhn@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "20600718",
-        "nachname": "Kuhn",
-        "vorname": "Pascal",
-        "tel": "+41 79 557 89 76",
-        "mail": "p.kuhn@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "11502371",
-        "nachname": "Lambertus",
-        "vorname": "Oliver",
-        "tel": "+41 79 658 15 64",
-        "mail": "o.lambertus@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "17952797",
-        "nachname": "Lamrabti",
-        "vorname": "Bilal",
-        "tel": "+41 79 574 03 16",
-        "mail": "b.lamrabti@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "15585151",
-        "nachname": "Laude-Altmayer",
-        "vorname": "Helmut",
-        "tel": "+41 79 557 73 38",
-        "mail": "h.laude-altmayer@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "17685952",
-        "nachname": "Lessmann",
-        "vorname": "Jens",
-        "tel": "+41 79 557 73 28",
-        "mail": "j.lessmann@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "19237561",
-        "nachname": "Lochau",
-        "vorname": "Mario",
-        "tel": "+41 79 557 73 65",
-        "mail": "m.lochau@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "47550491",
-        "nachname": "Lucht",
-        "vorname": "Marcus",
-        "tel": "+41 79 557 73 24",
-        "mail": "m.lucht@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "19919605",
-        "nachname": "Luong",
-        "vorname": "William",
-        "tel": "+41 79 602 14 52",
-        "mail": "w.luong@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "17305816",
-        "nachname": "Malyi",
-        "vorname": "Andreas",
-        "tel": "+41 75 418 80 21",
-        "mail": "a.malyi@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "60334301",
-        "nachname": "Malzer",
-        "vorname": "Tobias",
-        "tel": "+41 79 557 73 44",
-        "mail": "t.malzer@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "24457476",
-        "nachname": "Minoletti",
-        "vorname": "Fabrizio",
-        "tel": "+41 79 281 26 02",
-        "mail": "f.minoletti@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "19175464",
-        "nachname": "Fajraoui",
-        "vorname": "Mohamed",
-        "tel": "+41 79 889 82 47",
-        "mail": "m.fajraoui@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "11664093",
-        "nachname": "Moroni",
-        "vorname": "Matteo",
-        "tel": "+41 79 289 57 66",
-        "mail": "m.moroni@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "80646044",
-        "nachname": "Mühl",
-        "vorname": "Eric",
-        "tel": "+41 79 557 73 75",
-        "mail": "e.muehl@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "63446869",
-        "nachname": "Niederkleine",
-        "vorname": "Dirk",
-        "tel": "+41 79 429 46 47",
-        "mail": "d.niederkleine@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "12393988",
-        "nachname": "Perna",
-        "vorname": "Marco",
-        "tel": "+41 79 557 73 57",
-        "mail": "m.perna@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "15250886",
-        "nachname": "Peters",
-        "vorname": "Christian",
-        "tel": "+41 79 905 20 47",
-        "mail": "c.peters@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "11269646",
-        "nachname": "Pivolic",
-        "vorname": "Esmir",
-        "tel": "+41 79 557 73 64",
-        "mail": "e.pivolic@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "16256959",
-        "nachname": "Ramm",
-        "vorname": "Roger",
-        "tel": "+41 79 557 73 79",
-        "mail": "r.ramm@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "21217230",
-        "nachname": "Rauseo",
-        "vorname": "Daniele",
-        "tel": "+41 79 557 73 47",
-        "mail": "d.rauseo@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "20063959",
-        "nachname": "Reichenbach",
-        "vorname": "Dirk",
-        "tel": "+41 79 557 73 70",
-        "mail": "d.reichenbach@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "34267737",
-        "nachname": "Reimann",
-        "vorname": "Norbert",
-        "tel": "+41 79 557 73 05",
-        "mail": "n.reimann@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "18377242",
-        "nachname": "Rein",
-        "vorname": "Sebastian",
-        "tel": "+41 79 557 00 16",
-        "mail": "s.rein@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "13795400",
-        "nachname": "Riveiro",
-        "vorname": "Angel",
-        "tel": "+41 79 602 56 28",
-        "mail": "a.riveiro@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "13115710",
-        "nachname": "Ruggeri",
-        "vorname": "Luca",
-        "tel": "+41 79 623 64 51",
-        "mail": "l.ruggeri@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "81242669",
-        "nachname": "Ruhstein",
-        "vorname": "Matthias",
-        "tel": "+41 79 557 73 72",
-        "mail": "m.ruhstein@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "32883006",
-        "nachname": "Alexander",
-        "vorname": "Ryl",
-        "tel": "+41 79 298 39 48",
-        "mail": "a.ryl@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "11969074",
-        "nachname": "Ryl",
-        "vorname": "George",
-        "tel": "+41 79 294 51 31",
-        "mail": "g.ryl@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "91215049",
-        "nachname": "Said",
-        "vorname": "Häny",
-        "tel": "+41 75 418 80 23",
-        "mail": "h.said@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "70729557",
-        "nachname": "Saliji",
-        "vorname": "Arijan",
-        "tel": "+41 79 489 33 27",
-        "mail": "a.saliji@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "17652617",
-        "nachname": "Saliji",
-        "vorname": "Besim",
-        "tel": "+41 75 418 80 24",
-        "mail": "b.saliji@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "11367186",
-        "nachname": "Salzer",
-        "vorname": "Karsten",
-        "tel": "+41 79 557 73 73",
-        "mail": "k.salzer@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "20593351",
-        "nachname": "Sang",
-        "vorname": "Robin",
-        "tel": "+41 79 953 40 57",
-        "mail": "r.sang@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "74483883",
-        "nachname": "Sasse",
-        "vorname": "Andre",
-        "tel": "+41 79 557 73 68",
-        "mail": "a.sasse@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "94620294",
-        "nachname": "Schäfer",
-        "vorname": "Alexander",
-        "tel": "+41 79 557 73 89",
-        "mail": "a.schaefer@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "68570571",
-        "nachname": "Schaub",
-        "vorname": "Ronny",
-        "tel": "+41 75 401 93 60",
-        "mail": "r.schaub@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "13395340",
-        "nachname": "Scheffler",
-        "vorname": "Marek",
-        "tel": "+41 79 557 73 32",
-        "mail": "m.scheffler@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "20020759",
-        "nachname": "Schickle",
-        "vorname": "Sven",
-        "tel": "+41 75 418 80 22",
-        "mail": "s.schickle@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "19510390",
-        "nachname": "Schmidt",
-        "vorname": "Maximilian",
-        "tel": "+41 79 891 34 52",
-        "mail": "m.schmidt@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "42585565",
-        "nachname": "Schultz",
-        "vorname": "Oliver",
-        "tel": "+41 79 557 73 34",
-        "mail": "o.schultz@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "20532793",
-        "nachname": "Schulze",
-        "vorname": "Enrico",
-        "tel": "+41 79 557 73 36",
-        "mail": "e.schulze@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "13741688",
-        "nachname": "Sirhan",
-        "vorname": "Bilal",
-        "tel": "+41 79 873 25 86",
-        "mail": "b.sirhan@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "14432247",
-        "nachname": "Steinmann",
-        "vorname": "Ivano",
-        "tel": "+41 79 621 83 77",
-        "mail": "i.steinmann@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "11211861",
-        "nachname": "Stelzig",
-        "vorname": "Jörg",
-        "tel": "+41 79 557 73 17",
-        "mail": "j.stelzig@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "11751928",
-        "nachname": "Surmai",
-        "vorname": "Petr",
-        "tel": "+41 79 603 55 65",
-        "mail": "p.surmai@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "15562906",
-        "nachname": "Sziklasi",
-        "vorname": "Laszlo",
-        "tel": "+41 79 557 73 58",
-        "mail": "l.sziklasi@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "12071855",
-        "nachname": "Turan",
-        "vorname": "Orhan",
-        "tel": "+41 79 557 89 74",
-        "mail": "o.turan@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "13859918",
-        "nachname": "Uhlig Fischer",
-        "vorname": "Sandy",
-        "tel": "+41 75 418 80 27",
-        "mail": "s.uhlig-fischer@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "17894236",
-        "nachname": "Uzdenev",
-        "vorname": "Aleksej",
-        "tel": "+41 75 418 80 19",
-        "mail": "a.uzdenev@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "38375279",
-        "nachname": "Vigato",
-        "vorname": "Riccardo",
-        "tel": "+41 79 557 73 56",
-        "mail": "r.vigato@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "14614975",
-        "nachname": "Walter",
-        "vorname": "Thomas",
-        "tel": "+41 79 557 73 43",
-        "mail": "t.walter@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "18212978",
-        "nachname": "Walther",
-        "vorname": "Frank",
-        "tel": "+41 79 557 73 19",
-        "mail": "f.walther@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "68489660",
-        "nachname": "Wegink",
-        "vorname": "Johan Gerard",
-        "tel": "+41 79 557 73 13",
-        "mail": "j.wegink@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "16086067",
-        "nachname": "Wenger",
-        "vorname": "Philip",
-        "tel": "+41 79 425 06 76",
-        "mail": "p.wenger@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "11808103",
-        "nachname": "Wilczek",
-        "vorname": "Marc",
-        "tel": "+41 79 557 73 61",
-        "mail": "m.wilczek@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "97023497",
-        "nachname": "Wilhelm",
-        "vorname": "Andreas",
-        "tel": "+41 79 557 73 45",
-        "mail": "a.wilhelm@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "48646076",
-        "nachname": "Wrobel",
-        "vorname": "Andreas",
-        "tel": "+41 79 391 05 83",
-        "mail": "a.wrobel@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "14438389",
-        "nachname": "Wunderskirchner",
-        "vorname": "Noel",
-        "tel": "+41 79 508 87 50",
-        "mail": "n.wunderskirchner@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "10144959",
-        "nachname": "Yildirim",
-        "vorname": "Emre",
-        "tel": "+41 79 602 72 34",
-        "mail": "e.yildirim@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "76781433",
-        "nachname": "Yildiz",
-        "vorname": "Deniz",
-        "tel": "+41 79 956 03 30",
-        "mail": "d.yildiz@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "15849192",
-        "nachname": "Zielinski",
-        "vorname": "Tristan",
-        "tel": "+41 79 557 73 41",
-        "mail": "t.zielinski@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "82210329",
-        "nachname": "Zobel",
-        "vorname": "Jannik",
-        "tel": "+41 79 296 38 19",
-        "mail": "j.zobel@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      }
-    ],
-    "\"Betrieb \"": [
-      {
-        "mev_id": "65162305",
-        "nachname": "Belzer",
-        "vorname": "Heiko",
-        "tel": "+41 79 628 39 13",
-        "mail": "h.belzer@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      }
-    ],
-    "Ausbildung": [
-      {
-        "mev_id": "10510239",
-        "nachname": "Bernhard",
-        "vorname": "Benoît",
-        "tel": "+41 79 223 11 75",
-        "mail": "b.bernhard@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "11436096",
-        "nachname": "D'Umas",
-        "vorname": "Gabriele Marco",
-        "tel": "+41 79 864 79 16",
-        "mail": "g.dumas@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "16035709",
-        "nachname": "Dier",
-        "vorname": "Michael",
-        "tel": "+41 79 479 20 29",
-        "mail": "m.dier@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "12381574",
-        "nachname": "Gerber",
-        "vorname": "Michel",
-        "tel": "+41 75 401 93 61",
-        "mail": "m.gerber@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "38677669",
-        "nachname": "Most",
-        "vorname": "Karlheinz",
-        "tel": "+41 79 557 73 22",
-        "mail": "k.most@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "11333789",
-        "nachname": "Novak",
-        "vorname": "Emina",
-        "tel": "+41 76 248 42 23",
-        "mail": "e.novak@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "17692051",
-        "nachname": "Perri",
-        "vorname": "Antonio",
-        "tel": "+41 79 442 58 77",
-        "mail": "a.perri@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "21114623",
-        "nachname": "Reichenbach",
-        "vorname": "Tim",
-        "tel": "+41 79 865 37 69",
-        "mail": "t.reichenbach@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "20340150",
-        "nachname": "Reinau",
-        "vorname": "Nicolas",
-        "tel": "+41 79 469 25 01",
-        "mail": "n.reinau@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "17608182",
-        "nachname": "Röthlisberger",
-        "vorname": "Stephan",
-        "tel": "+41 75 401 93 62",
-        "mail": "st.roethlisberger@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "11900288",
-        "nachname": "Wirth",
-        "vorname": "Markus",
-        "tel": "+41 79 557 73 31",
-        "mail": "m.wirth@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "13970331",
-        "nachname": "Schmid",
-        "vorname": "Patrick",
-        "tel": "+41 79 837 56 03",
-        "mail": "p.schmid@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "92033857",
-        "nachname": "Ziessnitz",
-        "vorname": "René",
-        "tel": "+41 79 557 73 90",
-        "mail": "r.ziessnitz@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      }
-    ],
-    "IT": [
-      {
-        "mev_id": "19337579",
-        "nachname": "Chiaradia",
-        "vorname": "Ivano",
-        "tel": "+41 79 295 49 59",
-        "mail": "i.chiaradia@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "97840875",
-        "nachname": "Löser",
-        "vorname": "Matthias",
-        "tel": "+41 61 295 50 41",
-        "mail": "m.loeser@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      }
-    ],
-    "Verwaltung": [
-      {
-        "mev_id": "17171123",
-        "nachname": "Coray",
-        "vorname": "Flurina",
-        "tel": "",
-        "mail": "f.coray@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "12882978",
-        "nachname": "Corsetti",
-        "vorname": "Noemi",
-        "tel": "+41 79 600 78 89",
-        "mail": "n.corsetti@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "16953588",
-        "nachname": "Erbe",
-        "vorname": "Rico",
-        "tel": "+41 79 557 73 27",
-        "mail": "r.erbe@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "10423337",
-        "nachname": "Beat",
-        "vorname": "Jost",
-        "tel": "+41 79 557 89 75",
-        "mail": "b.jost@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "23247525",
-        "nachname": "Kahsay",
-        "vorname": "Hagerina",
-        "tel": "+41 61 295 50 49",
-        "mail": "h.kahsay@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "13944640",
-        "nachname": "Lüthi",
-        "vorname": "Cornelia",
-        "tel": "+41 61 295 50 40",
-        "mail": "c.luethi@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "48768982",
-        "nachname": "Mädel",
-        "vorname": "Torsten",
-        "tel": "+41 79 385 67 03",
-        "mail": "t.maedel@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "13730658",
-        "nachname": "Manzari",
-        "vorname": "Adriana",
-        "tel": "+41 61 295 50 52",
-        "mail": "a.manzari@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "84317366",
-        "nachname": "Ortwein",
-        "vorname": "Sebastian",
-        "tel": "+41 75 401 93 67",
-        "mail": "s.ortwein@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "16453505",
-        "nachname": "Oymak",
-        "vorname": "Idris",
-        "tel": "+41 79 557 73 12",
-        "mail": "i.oymak@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "99981158",
-        "nachname": "Sari",
-        "vorname": "Gamze",
-        "tel": "+41 61 295 50 44",
-        "mail": "g.sari@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "95000768",
-        "nachname": "di Benedetto",
-        "vorname": "Tommaso",
-        "tel": "",
-        "mail": "t.dibenedetto@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "62551291",
-        "nachname": "Zimmermann",
-        "vorname": "Stefan",
-        "tel": "+41 79 254 07 14",
-        "mail": "s.zimmermann@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      }
-    ],
-    "Einsatzleitung": [
-      {
-        "mev_id": "17771722",
-        "nachname": "Osmani",
-        "vorname": "Elgadaf",
-        "tel": "+41 79 557 73 03",
-        "mail": "e.osmani@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "15136367",
-        "nachname": "Flück",
-        "vorname": "Kevin",
-        "tel": "+41 79 557 73 76",
-        "mail": "k.flueck@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "50543625",
-        "nachname": "Grozinger",
-        "vorname": "Philipp",
-        "tel": "+41 79 557 73 87",
-        "mail": "p.grozinger@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "15918479",
-        "nachname": "Knutti",
-        "vorname": "Jonas",
-        "tel": "+41 79 557 73 00",
-        "mail": "j.knutti@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "28982633",
-        "nachname": "Koal",
-        "vorname": "Mayk",
-        "tel": "+41 61 295 50 56",
-        "mail": "m.koal@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "18127694",
-        "nachname": "Lehmann",
-        "vorname": "Torsten",
-        "tel": "+41 79 557 73 04",
-        "mail": "t.lehmann@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "19285644",
-        "nachname": "Mattheus",
-        "vorname": "André",
-        "tel": "+41 79 557 73 55",
-        "mail": "a.mattheus@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "48856063",
-        "nachname": "Möckel",
-        "vorname": "Ingo",
-        "tel": "+41 61 295 50 51",
-        "mail": "i.moeckel@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "96512714",
-        "nachname": "Pfleger",
-        "vorname": "Isabelle",
-        "tel": "+41 79 331 41 30",
-        "mail": "i.pfleger@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "16930079",
-        "nachname": "Porcelli",
-        "vorname": "Alessandro",
-        "tel": "+41 79 937 02 83",
-        "mail": "a.porcelli@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "89929029",
-        "nachname": "Sänger",
-        "vorname": "Holger",
-        "tel": "+41 61 295 50 57",
-        "mail": "h.saenger@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "68265232",
-        "nachname": "Tasyurdu",
-        "vorname": "Imran",
-        "tel": "+41 79 406 43 99",
-        "mail": "i.tasyurdu@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "27059327",
-        "nachname": "Tröndle",
-        "vorname": "Steffen",
-        "tel": "+41 79 942 87 65",
-        "mail": "s.troendle@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      },
-      {
-        "mev_id": "14781330",
-        "nachname": "Voigt",
-        "vorname": "Tino",
-        "tel": "+41 79 557 73 66",
-        "mail": "t.voigt@m-e-v.ch",
-        "aktiv": true,
-        "funktion": "",
-        "bemerkung": ""
-      }
-    ]
-  }
+  "employees": [
+    {
+      "nachname": "Acer",
+      "vorname": "Önder",
+      "aktiv": true
+    },
+    {
+      "nachname": "Adam",
+      "vorname": "Jochen",
+      "aktiv": true
+    },
+    {
+      "nachname": "Agresta",
+      "vorname": "Ettore",
+      "aktiv": true
+    },
+    {
+      "nachname": "Aissaoui",
+      "vorname": "Rabya",
+      "aktiv": true
+    },
+    {
+      "nachname": "Anacker",
+      "vorname": "Steffen",
+      "aktiv": true
+    },
+    {
+      "nachname": "Angerer",
+      "vorname": "Siegfried",
+      "aktiv": true
+    },
+    {
+      "nachname": "Antz",
+      "vorname": "Jeremy",
+      "aktiv": true
+    },
+    {
+      "nachname": "Archidi",
+      "vorname": "Yasin",
+      "aktiv": true
+    },
+    {
+      "nachname": "Aydogdu",
+      "vorname": "Serkan",
+      "aktiv": true
+    },
+    {
+      "nachname": "Bajohr",
+      "vorname": "Frank",
+      "aktiv": true
+    },
+    {
+      "nachname": "Bajrami",
+      "vorname": "Nick",
+      "aktiv": true
+    },
+    {
+      "nachname": "Beck",
+      "vorname": "Sascha",
+      "aktiv": true
+    },
+    {
+      "nachname": "Becker",
+      "vorname": "Marvin",
+      "aktiv": true
+    },
+    {
+      "nachname": "Behle",
+      "vorname": "Ralf",
+      "aktiv": true
+    },
+    {
+      "nachname": "Belzer",
+      "vorname": "Heiko",
+      "aktiv": true
+    },
+    {
+      "nachname": "Bernhard",
+      "vorname": "Benoît",
+      "aktiv": true
+    },
+    {
+      "nachname": "Blumenthal",
+      "vorname": "Mario",
+      "aktiv": true
+    },
+    {
+      "nachname": "Bockova",
+      "vorname": "Gabriela",
+      "aktiv": true
+    },
+    {
+      "nachname": "Boglietti",
+      "vorname": "Lorenzo",
+      "aktiv": true
+    },
+    {
+      "nachname": "Bonzani",
+      "vorname": "Simone",
+      "aktiv": true
+    },
+    {
+      "nachname": "Brauckmann",
+      "vorname": "David",
+      "aktiv": true
+    },
+    {
+      "nachname": "Braun",
+      "vorname": "Christoph",
+      "aktiv": true
+    },
+    {
+      "nachname": "Bunjaku",
+      "vorname": "Arlind",
+      "aktiv": true
+    },
+    {
+      "nachname": "David",
+      "vorname": "Volker Christian",
+      "aktiv": true
+    },
+    {
+      "nachname": "Dawid",
+      "vorname": "Daniel",
+      "aktiv": true
+    },
+    {
+      "nachname": "Dier",
+      "vorname": "Michael",
+      "aktiv": true
+    },
+    {
+      "nachname": "Dietze",
+      "vorname": "Norbert",
+      "aktiv": true
+    },
+    {
+      "nachname": "Doll",
+      "vorname": "Sascha",
+      "aktiv": true
+    },
+    {
+      "nachname": "Ercin",
+      "vorname": "Kerem",
+      "aktiv": true
+    },
+    {
+      "nachname": "Fagerlind",
+      "vorname": "Felix",
+      "aktiv": true
+    },
+    {
+      "nachname": "Felber",
+      "vorname": "Paul (RESC)",
+      "aktiv": true
+    },
+    {
+      "nachname": "Filippini",
+      "vorname": "Danilo",
+      "aktiv": true
+    },
+    {
+      "nachname": "Fischer",
+      "vorname": "Benjamin",
+      "aktiv": true
+    },
+    {
+      "nachname": "Flück",
+      "vorname": "Kevin",
+      "aktiv": true
+    },
+    {
+      "nachname": "Freudenberg",
+      "vorname": "Paul",
+      "aktiv": true
+    },
+    {
+      "nachname": "Fricano",
+      "vorname": "Francesco",
+      "aktiv": true
+    },
+    {
+      "nachname": "Gerber",
+      "vorname": "Michel",
+      "aktiv": true
+    },
+    {
+      "nachname": "Ginger-Kudrjasov",
+      "vorname": "Denis",
+      "aktiv": true
+    },
+    {
+      "nachname": "Granzner",
+      "vorname": "Andreas",
+      "aktiv": true
+    },
+    {
+      "nachname": "Haase",
+      "vorname": "Michel",
+      "aktiv": true
+    },
+    {
+      "nachname": "Haubenreisser",
+      "vorname": "Uwe",
+      "aktiv": true
+    },
+    {
+      "nachname": "Hendrischke",
+      "vorname": "Heiko",
+      "aktiv": true
+    },
+    {
+      "nachname": "Hesse",
+      "vorname": "Olaf",
+      "aktiv": true
+    },
+    {
+      "nachname": "Hiel",
+      "vorname": "Daniel",
+      "aktiv": true
+    },
+    {
+      "nachname": "Hinkel",
+      "vorname": "Marco",
+      "aktiv": true
+    },
+    {
+      "nachname": "Holtz",
+      "vorname": "Ingo",
+      "aktiv": true
+    },
+    {
+      "nachname": "Hörnig",
+      "vorname": "Ringo",
+      "aktiv": true
+    },
+    {
+      "nachname": "Imeri",
+      "vorname": "Shpend",
+      "aktiv": true
+    },
+    {
+      "nachname": "Irdem",
+      "vorname": "Alper",
+      "aktiv": true
+    },
+    {
+      "nachname": "Jobst",
+      "vorname": "Hagen",
+      "aktiv": true
+    },
+    {
+      "nachname": "Jost",
+      "vorname": "Beat",
+      "aktiv": true
+    },
+    {
+      "nachname": "Kahramanca",
+      "vorname": "Mehmet",
+      "aktiv": true
+    },
+    {
+      "nachname": "Kaiser",
+      "vorname": "Kevin",
+      "aktiv": true
+    },
+    {
+      "nachname": "Kalkan",
+      "vorname": "Dominik",
+      "aktiv": true
+    },
+    {
+      "nachname": "Komichi",
+      "vorname": "Ahmed-Hakim",
+      "aktiv": true
+    },
+    {
+      "nachname": "Konrad",
+      "vorname": "Michael",
+      "aktiv": true
+    },
+    {
+      "nachname": "Kovachev",
+      "vorname": "Daniel",
+      "aktiv": true
+    },
+    {
+      "nachname": "Kraatz",
+      "vorname": "Guido Steffen",
+      "aktiv": true
+    },
+    {
+      "nachname": "Krüger",
+      "vorname": "Sven",
+      "aktiv": true
+    },
+    {
+      "nachname": "Kuhn",
+      "vorname": "Michael",
+      "aktiv": true
+    },
+    {
+      "nachname": "Kuhn",
+      "vorname": "Pascal",
+      "aktiv": true
+    },
+    {
+      "nachname": "Köhler",
+      "vorname": "Andreas",
+      "aktiv": true
+    },
+    {
+      "nachname": "Körber",
+      "vorname": "Christian",
+      "aktiv": true
+    },
+    {
+      "nachname": "Lambertus",
+      "vorname": "Oliver",
+      "aktiv": true
+    },
+    {
+      "nachname": "Lamrabti",
+      "vorname": "Bilal",
+      "aktiv": true
+    },
+    {
+      "nachname": "Laude-Altmayer",
+      "vorname": "Helmut",
+      "aktiv": true
+    },
+    {
+      "nachname": "Lessmann",
+      "vorname": "Jens",
+      "aktiv": true
+    },
+    {
+      "nachname": "Lochau",
+      "vorname": "Mario",
+      "aktiv": true
+    },
+    {
+      "nachname": "Lucht",
+      "vorname": "Marcus",
+      "aktiv": true
+    },
+    {
+      "nachname": "Luong",
+      "vorname": "William",
+      "aktiv": true
+    },
+    {
+      "nachname": "Malyi",
+      "vorname": "Andreas",
+      "aktiv": true
+    },
+    {
+      "nachname": "Malzer",
+      "vorname": "Tobias",
+      "aktiv": true
+    },
+    {
+      "nachname": "Minoletti",
+      "vorname": "Fabrizio",
+      "aktiv": true
+    },
+    {
+      "nachname": "Moroni",
+      "vorname": "Matteo",
+      "aktiv": true
+    },
+    {
+      "nachname": "Most",
+      "vorname": "Karlheinz",
+      "aktiv": true
+    },
+    {
+      "nachname": "Mädel",
+      "vorname": "Torsten",
+      "aktiv": true
+    },
+    {
+      "nachname": "Mühl",
+      "vorname": "Eric",
+      "aktiv": true
+    },
+    {
+      "nachname": "Niederkleine",
+      "vorname": "Dirk",
+      "aktiv": true
+    },
+    {
+      "nachname": "Novak",
+      "vorname": "Emina",
+      "aktiv": true
+    },
+    {
+      "nachname": "Oymak",
+      "vorname": "Idris",
+      "aktiv": true
+    },
+    {
+      "nachname": "Perna",
+      "vorname": "Marco",
+      "aktiv": true
+    },
+    {
+      "nachname": "Peters",
+      "vorname": "Christian",
+      "aktiv": true
+    },
+    {
+      "nachname": "Pivolic",
+      "vorname": "Esmir",
+      "aktiv": true
+    },
+    {
+      "nachname": "Ramm",
+      "vorname": "Roger",
+      "aktiv": true
+    },
+    {
+      "nachname": "Rauseo",
+      "vorname": "Daniele",
+      "aktiv": true
+    },
+    {
+      "nachname": "Reichenbach",
+      "vorname": "Dirk",
+      "aktiv": true
+    },
+    {
+      "nachname": "Reichenbach",
+      "vorname": "Tim",
+      "aktiv": true
+    },
+    {
+      "nachname": "Reimann",
+      "vorname": "Norbert",
+      "aktiv": true
+    },
+    {
+      "nachname": "Rein",
+      "vorname": "Sebastian",
+      "aktiv": true
+    },
+    {
+      "nachname": "Reinau",
+      "vorname": "Nicolas",
+      "aktiv": true
+    },
+    {
+      "nachname": "Riveiro",
+      "vorname": "Angel",
+      "aktiv": true
+    },
+    {
+      "nachname": "Ruggeri",
+      "vorname": "Luca",
+      "aktiv": true
+    },
+    {
+      "nachname": "Ruhstein",
+      "vorname": "Matthias",
+      "aktiv": true
+    },
+    {
+      "nachname": "Ryl",
+      "vorname": "Alexander",
+      "aktiv": true
+    },
+    {
+      "nachname": "Ryl",
+      "vorname": "George",
+      "aktiv": true
+    },
+    {
+      "nachname": "Ryser",
+      "vorname": "Gerhard",
+      "aktiv": true
+    },
+    {
+      "nachname": "Röthlisberger",
+      "vorname": "Stephan",
+      "aktiv": true
+    },
+    {
+      "nachname": "Said",
+      "vorname": "Häny",
+      "aktiv": true
+    },
+    {
+      "nachname": "Saliji",
+      "vorname": "Arian",
+      "aktiv": true
+    },
+    {
+      "nachname": "Saliji",
+      "vorname": "Besim",
+      "aktiv": true
+    },
+    {
+      "nachname": "Salzer",
+      "vorname": "Karsten",
+      "aktiv": true
+    },
+    {
+      "nachname": "Sang",
+      "vorname": "Robin",
+      "aktiv": true
+    },
+    {
+      "nachname": "Sasse",
+      "vorname": "André",
+      "aktiv": true
+    },
+    {
+      "nachname": "Schaub",
+      "vorname": "Ronny",
+      "aktiv": true
+    },
+    {
+      "nachname": "Scheffler",
+      "vorname": "Marek",
+      "aktiv": true
+    },
+    {
+      "nachname": "Schickle",
+      "vorname": "Sven",
+      "aktiv": true
+    },
+    {
+      "nachname": "Schmidt",
+      "vorname": "Maximilian",
+      "aktiv": true
+    },
+    {
+      "nachname": "Schultz",
+      "vorname": "Oliver",
+      "aktiv": true
+    },
+    {
+      "nachname": "Schulze",
+      "vorname": "Enrico",
+      "aktiv": true
+    },
+    {
+      "nachname": "Schäfer",
+      "vorname": "Alexander",
+      "aktiv": true
+    },
+    {
+      "nachname": "Sirhan",
+      "vorname": "Bilal",
+      "aktiv": true
+    },
+    {
+      "nachname": "Soula",
+      "vorname": "Mounir",
+      "aktiv": true
+    },
+    {
+      "nachname": "Steinmann",
+      "vorname": "Ivano",
+      "aktiv": true
+    },
+    {
+      "nachname": "Stelzig",
+      "vorname": "Jörg",
+      "aktiv": true
+    },
+    {
+      "nachname": "Surmai",
+      "vorname": "Petr",
+      "aktiv": true
+    },
+    {
+      "nachname": "Sziklasi",
+      "vorname": "Laszlo",
+      "aktiv": true
+    },
+    {
+      "nachname": "Thiess",
+      "vorname": "Jonas",
+      "aktiv": true
+    },
+    {
+      "nachname": "Trost",
+      "vorname": "Amelia",
+      "aktiv": true
+    },
+    {
+      "nachname": "Turan",
+      "vorname": "Orhan",
+      "aktiv": true
+    },
+    {
+      "nachname": "Uzdenev",
+      "vorname": "Aleksej",
+      "aktiv": true
+    },
+    {
+      "nachname": "Vigato",
+      "vorname": "Riccardo",
+      "aktiv": true
+    },
+    {
+      "nachname": "Wagner",
+      "vorname": "Tom",
+      "aktiv": true
+    },
+    {
+      "nachname": "Walbrodt",
+      "vorname": "Justin",
+      "aktiv": true
+    },
+    {
+      "nachname": "Walter",
+      "vorname": "Thomas",
+      "aktiv": true
+    },
+    {
+      "nachname": "Walther",
+      "vorname": "Frank",
+      "aktiv": true
+    },
+    {
+      "nachname": "Wegink",
+      "vorname": "Johan Gerard",
+      "aktiv": true
+    },
+    {
+      "nachname": "Wenger",
+      "vorname": "Philip",
+      "aktiv": true
+    },
+    {
+      "nachname": "Wilczek",
+      "vorname": "Marc",
+      "aktiv": true
+    },
+    {
+      "nachname": "Wilhelm",
+      "vorname": "Andreas",
+      "aktiv": true
+    },
+    {
+      "nachname": "Wirth",
+      "vorname": "Markus",
+      "aktiv": true
+    },
+    {
+      "nachname": "Wrobel",
+      "vorname": "Andreas",
+      "aktiv": true
+    },
+    {
+      "nachname": "Wunderskirchner",
+      "vorname": "Noel",
+      "aktiv": true
+    },
+    {
+      "nachname": "Wyss",
+      "vorname": "Hans",
+      "aktiv": true
+    },
+    {
+      "nachname": "Yildirim",
+      "vorname": "Emre",
+      "aktiv": true
+    },
+    {
+      "nachname": "Yildiz",
+      "vorname": "Deniz",
+      "aktiv": true
+    },
+    {
+      "nachname": "Zielinski",
+      "vorname": "Tristan",
+      "aktiv": true
+    },
+    {
+      "nachname": "Ziessnitz",
+      "vorname": "René",
+      "aktiv": true
+    },
+    {
+      "nachname": "Zimmermann",
+      "vorname": "Stefan",
+      "aktiv": true
+    },
+    {
+      "nachname": "Zobel",
+      "vorname": "Jannik",
+      "aktiv": true
+    },
+    {
+      "nachname": "Vorgabe",
+      "vorname": "BLS Spiez",
+      "aktiv": true
+    },
+    {
+      "nachname": "Vorgabe",
+      "vorname": "BLS Basel",
+      "aktiv": true
+    },
+    {
+      "nachname": "Vorgabe",
+      "vorname": "BLS",
+      "aktiv": true
+    },
+    {
+      "nachname": "Vorgabe",
+      "vorname": "BLS Bellinzona",
+      "aktiv": true
+    },
+    {
+      "nachname": "Vorgabe",
+      "vorname": "BLS Avences",
+      "aktiv": true
+    }
+  ]
 }
