@@ -3,7 +3,7 @@
 <head>
  <meta charset="utf-8" />
  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
- <title>MEV Streckenkunde TESTBUILD</title>
+ <title>MEV Streckenkunde TESTBUILD Linienklick</title>
  <meta name="apple-mobile-web-app-capable" content="yes" />
  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
  <meta name="theme-color" content="#0b1220" />
@@ -96,21 +96,23 @@
   .toggle.status.u{border-color: rgba(255,255,255,.16); background: rgba(255,255,255,.06);}
 
  /* Klickbare Teilstrecken-Overlays aus SVG-Bahnhofspunkten */
- #mapHost svg .mevSegHit{fill:none; stroke:rgba(0,0,0,0); stroke-width:18; stroke-linecap:round; pointer-events:stroke; cursor:pointer;}
- #mapHost svg.mevShowSegs .mevSegHit.on{stroke:rgba(0,112,255,.22);}
- #mapHost svg.mevShowSegs .mevSegHit.off{stroke:rgba(255,42,42,.20); stroke-dasharray:6 6;}
- #mapHost svg.mevShowSegs .mevSegHit:hover{stroke:rgba(255,255,255,.35);}
+ #mapHost svg .mevSegHit{fill:none; stroke:rgba(0,0,0,0); stroke-width:24; stroke-linecap:round; pointer-events:stroke; cursor:pointer;}
+ #mapHost svg.mevShowSegs .mevSegHit.on{stroke:rgba(0,112,255,.36);}
+ #mapHost svg.mevShowSegs .mevSegHit.off{stroke:rgba(255,42,42,.32); stroke-dasharray:7 7;}
+ #mapHost svg.mevShowSegs .mevSegHit:hover{stroke:rgba(255,204,0,.65);}
+ .testBadge{font-size:12px; font-weight:900; color:#ffcc00; border:1px solid rgba(255,204,0,.55); background:rgba(255,204,0,.12); border-radius:999px; padding:4px 8px;}
 </style>
 </head>
 <body>
- <div class="topbar"><div class="brand">MEV Streckenkunde <span style="font-size:12px; color:#ffcf66; margin-left:8px;">TESTBUILD</span></div><div id="bootMark" style="font-size:12px; color:rgba(255,255,255,.55); margin-left:10px;">(JS aktiv)</div><div class="build">TESTBUILD: 2026-06-01 V1.9.21-unkundig-test</div></div>
+ <div class="topbar"><div class="brand">MEV Streckenkunde <span style="font-size:12px; color:#ffcf66; margin-left:8px;">TESTBUILD</span></div><div id="bootMark" style="font-size:12px; color:rgba(255,255,255,.55); margin-left:10px;">(JS aktiv)</div><div class="build">TESTBUILD: 2026-06-01 V1.9.22-linienklick</div></div>
  <!-- Step 4: Map view -->
  <div class="mapWrap hidden" id="viewMap">
  <div id="mapHost"><div style="padding:12px; color:#111;"><b>SVG noch nicht geladen.</b></div></div>
  </div>
  <div class="mapBar hidden" id="mapBar">
  <button class="pillBtn active" id="modePan" type="button">Verschieben/Zoomen</button>
- <button class="pillBtn" id="modeEdit" type="button">Punkte bearbeiten</button>
+ <button class="pillBtn" id="modeEdit" type="button">Punkte/Teilstrecken bearbeiten</button>
+ <button class="pillBtn" id="showSegments" type="button">Teilstrecken anzeigen</button>
  <span style="flex:1 1 auto"></span>
  <button class="pillBtn active" data-pick="kundig" id="pickK" type="button">Kundig (blau)</button>
  <button class="pillBtn" data-pick="auffrischung" id="pickA" type="button">Auffrischung (rot)</button>
@@ -264,6 +266,8 @@
  idxTankByLine: {},
  segHitLayer: null,
  stationCodeIndex: {},
+ showSegments: false,
+ segHitCount: 0,
  radnMode: 'scroll',
  radnPickStatus: 'kundig',
  currentStep: 1
@@ -772,17 +776,50 @@ function tapRoute(r){
    st.stationCodeIndex=idx;
    return idx;
  }
+ function normalizeName(s){
+   return String(s||'').toLowerCase()
+     .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+     .replace(/\(.*?\)/g,'')
+     .replace(/[^a-z0-9]+/g,' ')
+     .trim();
+ }
+ function elementCenter(el){
+   if(!el) return null;
+   try{ const b=el.getBBox(); return {x:b.x+b.width/2, y:b.y+b.height/2}; }catch(e){ return null; }
+ }
  function stationCenterForCode(code, route){
    const idx=st.stationCodeIndex && Object.keys(st.stationCodeIndex).length ? st.stationCodeIndex : buildStationCodeIndex();
    let arr=idx[String(code||'').trim()] || [];
    if(route){
      const rr=String(route).replace(/\D+/g,'');
      const filtered=arr.filter(el=>getDataLinesFromEl(el).indexOf(rr)>=0);
-     if(filtered.length) arr=filtered;
+     if(filtered.length) arr=filtered; // fallback: gleicher Code ohne Linienfilter zulassen
    }
    if(!arr.length) return null;
-   const el=arr[0];
-   try{ const b=el.getBBox(); return {x:b.x+b.width/2, y:b.y+b.height/2}; }catch(e){ return null; }
+   return elementCenter(arr[0]);
+ }
+ function stationCenterForName(name, route){
+   if(!st.svgRoot) return null;
+   const target=normalizeName(name);
+   if(!target) return null;
+   const rr=String(route||'').replace(/\D+/g,'');
+   const nodes=Array.from(st.svgRoot.querySelectorAll('[inkscape\\:label], [id^="station_"], [id^="unoccupied_station_"]'));
+   let cand=[];
+   for(const el of nodes){
+     const label=normalizeName(el.getAttribute('inkscape:label') || el.id || '');
+     if(!label) continue;
+     if(label===target || label.indexOf(target)>=0 || target.indexOf(label)>=0){ cand.push(el); }
+   }
+   if(rr){
+     const f=cand.filter(el=>getDataLinesFromEl(el).indexOf(rr)>=0);
+     if(f.length) cand=f;
+   }
+   return cand.length ? elementCenter(cand[0]) : null;
+ }
+ function stationCenterForSegmentPoint(code, name, route){
+   return stationCenterForCode(code, route)
+     || stationCenterForName(name, route)
+     || stationCenterForName(code, route);
  }
  function buildTeilstreckenHitLayer(){
    if(!st.svgRoot || !st.routeSegmentsOrdered) return;
@@ -793,11 +830,13 @@ function tapRoute(r){
    g.setAttribute('id','mevSegmentHitLayer');
    g.setAttribute('data-purpose','clickable-teilstrecken');
    st.segHitLayer=g;
+   let made=0, skipped=0;
    Object.keys(st.routeSegmentsOrdered||{}).forEach(r=>{
      const arr=st.routeSegmentsOrdered[r]||[];
      arr.forEach(it=>{
-       const a=stationCenterForCode(it.from,r), b=stationCenterForCode(it.to,r);
-       if(!a || !b) return;
+       const a=stationCenterForSegmentPoint(it.from, it.fromName, r);
+       const b=stationCenterForSegmentPoint(it.to, it.toName, r);
+       if(!a || !b){ skipped++; return; }
        const ln=document.createElementNS(NS,'line');
        ln.setAttribute('x1',a.x); ln.setAttribute('y1',a.y); ln.setAttribute('x2',b.x); ln.setAttribute('y2',b.y);
        ln.setAttribute('class','mevSegHit off');
@@ -810,10 +849,13 @@ function tapRoute(r){
          toggleTeilstreckeFromMap(r, it);
        });
        g.appendChild(ln);
+       made++;
      });
    });
+   st.segHitCount=made;
    st.svgRoot.appendChild(g);
    updateTeilstreckenHitVisuals();
+   try{ console.log('MEV Teilstrecken-Hitlayer:', made, 'klickbar,', skipped, 'ohne SVG-Punkt'); }catch(e){}
  }
  function toggleTeilstreckeFromMap(r,it){
    if(!st.teilstrecken[r]) initTeilstreckenForRoute(r);
@@ -909,12 +951,17 @@ function tapRoute(r){
  function importJsonFile(file){ return new Promise((resolve, reject)=>{ const fr = new FileReader(); fr.onload = ()=>{ try{ resolve(JSON.parse(String(fr.result||''))); } catch(e){ reject(e); } }; fr.onerror = reject; fr.readAsText(file); }); }
  async function applyPayload(p){ if(!p || typeof p !== 'object') throw new Error('Ungültige Datei'); try{ await ensureAssetsLoaded(); }catch(e){} if(p.person){ st.person = {...st.person, ...p.person}; $('vorname').value = st.person.vorname || ''; $('nachname').value = st.person.nachname || ''; $('datum').value = st.person.datum || $('datum').value || (new Date()).toISOString().slice(0,10); $('pnr').value = st.person.personalnummer || ''; } if('bls' in p){ st.blsMode = !!p.bls; $('blsYes').classList.toggle('active', st.blsMode); $('blsNo').classList.toggle('active', !st.blsMode); if(!st.blsMode){ st.blsAllFalsePending = true; resetAllTeilstreckenFalse(); } } st.routeStatus = {}; if(p.linien){ Object.keys(p.linien).forEach(r=>{ const it = p.linien[r] || {}; st.routeStatus[r] = it.status || (it.kundig ? 'kundig' : (it.auffrischung ? 'auffrischung' : 'unkundig')); }); } st.teilstrecken = {}; if(p.teilstrecken){ Object.keys(p.teilstrecken).forEach(r=>{ st.teilstrecken[r] = {}; (p.teilstrecken[r] || []).forEach(it=>{ st.teilstrecken[r][`${it.seg}\n${it.from}>${it.to}`] = !!it.kundig; }); }); } st.orts = {}; st.ortsManual = st.ortsManual || {}; if(p.ortskunde){ Object.keys(p.ortskunde).forEach(o=>{ st.orts[o] = { linien: (p.ortskunde[o].linien || []) }; st.ortsManual[o] = !!p.ortskunde[o].kundig; }); } st.overrides = p.overrides || {}; syncPerson(); try{ renderRouteList(); }catch(e){} try{ renderSegList(); }catch(e){} if(st.svgRoot) try{ applySelectionToSvg(); buildTeilstreckenHitLayer(); updateTeilstreckenHitVisuals(); }catch(e){} try{ rebuildOrts(); renderOrts(); renderSummary(); }catch(e){} setDirty(false); }
  async function exportJson(){ const p=payload(); if(!p.person.vorname||!p.person.nachname||!p.person.datum){ toast('Personendaten fehlen.'); return; } const safe=(s)=>String(s||'').replace(/[^a-zA-Z0-9\-_. ]/g,'').trim().replace(/\s+/g,'_'); const fn=('streckenkunde_'+safe(p.person.nachname)+'_'+safe(p.person.vorname)+'_'+safe(p.person.datum)+'.json').replace(/__+/g,'_'); const blob=new Blob([JSON.stringify(p,null,2)],{type:'application/json'}); try{ const file=new File([blob],fn,{type:'application/json'}); if(navigator.share && navigator.canShare && navigator.canShare({files:[file]})){ await navigator.share({title:'Streckenkunde', files:[file]}); setDirty(false); toast('Teilen geöffnet.'); return; } }catch(e){} const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=fn; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(url),2000); setDirty(false); toast('Datei gespeichert.'); }
- function setMode(m){
+ function refreshSegmentVisibility(){
+ if(st.svgRoot) st.svgRoot.classList.toggle('mevShowSegs', !!(st.showSegments || st.mode==='edit'));
+ if($('showSegments')) $('showSegments').classList.toggle('active', !!st.showSegments);
+ updateTeilstreckenHitVisuals();
+}
+function setMode(m){
  st.mode=m;
  $('modePan').classList.toggle('active', m==='pan');
  $('modeEdit').classList.toggle('active', m==='edit');
- if(st.svgRoot) st.svgRoot.classList.toggle('mevShowSegs', m==='edit');
- updateTeilstreckenHitVisuals();
+ refreshSegmentVisibility();
+ if(m==='edit' && st.segHitCount){ toast(st.segHitCount + ' Teilstrecken-Hilfslinien sind klickbar.'); }
 }
 function setRadnPickStatus(s){
  s = (s==='kundig'||s==='auffrischung'||s==='unkundig') ? s : 'kundig';
@@ -1016,6 +1063,7 @@ function setRadnPickStatus(s){
  $('backToMap').addEventListener('click',()=>{ showStep(4); });
  $('modePan').addEventListener('click',()=>setMode('pan'));
  $('modeEdit').addEventListener('click',()=>setMode('edit'));
+ if($('showSegments')) $('showSegments').addEventListener('click',()=>{ st.showSegments=!st.showSegments; refreshSegmentVisibility(); toast(st.showSegments ? (st.segHitCount + ' Teilstrecken eingeblendet.') : 'Teilstrecken ausgeblendet.'); });
  $('pickK').addEventListener('click',()=>setPick('kundig'));
  $('pickA').addEventListener('click',()=>setPick('auffrischung'));
  $('pickN').addEventListener('click',()=>setPick('unkundig'));
