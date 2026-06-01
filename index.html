@@ -604,13 +604,48 @@ function tapRoute(r){
  }
  function routeChipClass(status){ return status==='kundig' ? 'k' : status==='auffrischung' ? 'a' : 'u'; }
  function cycleRouteStatus(status){ return status==='kundig' ? 'auffrischung' : status==='auffrischung' ? 'unkundig' : 'kundig'; }
+ function svgPointInRoot(x,y, matrix){
+   var p = st.svgRoot.createSVGPoint();
+   p.x = x; p.y = y;
+   try{ return matrix ? p.matrixTransform(matrix) : p; }catch(e){ return p; }
+ }
+ function transformedBBoxOf(el){
+   if(!el || !st.svgRoot) return null;
+   try{
+     var b = el.getBBox();
+     var m = el.getCTM ? el.getCTM() : null;
+     var pts = [
+       svgPointInRoot(b.x, b.y, m),
+       svgPointInRoot(b.x + b.width, b.y, m),
+       svgPointInRoot(b.x, b.y + b.height, m),
+       svgPointInRoot(b.x + b.width, b.y + b.height, m)
+     ];
+     var xs = pts.map(function(p){return p.x;});
+     var ys = pts.map(function(p){return p.y;});
+     return {
+       x: Math.min.apply(null,xs),
+       y: Math.min.apply(null,ys),
+       width: Math.max.apply(null,xs)-Math.min.apply(null,xs),
+       height: Math.max.apply(null,ys)-Math.min.apply(null,ys)
+     };
+   }catch(e){ return null; }
+ }
+ function transformedCenterOf(el){
+   var b = transformedBBoxOf(el);
+   if(!b) return null;
+   return {x:b.x + b.width/2, y:b.y + b.height/2};
+ }
  function focusRouteOnMap(r){
    if(!st.svgRoot) return;
-   var nodes = Array.from(st.svgRoot.querySelectorAll('[data-typ], [data-type]')).filter(el=>isPoint(el) && matchesAnyLine(el, r));
+   var nodes = Array.from(st.svgRoot.querySelectorAll('[data-typ], [data-type]')).filter(function(el){return isPoint(el) && matchesAnyLine(el, r);});
    if(!nodes.length){ toast('Keine Kartenpunkte für Route '+r+' gefunden.'); return; }
    var minX=Infinity, minY=Infinity, maxX=-Infinity, maxY=-Infinity;
-   nodes.forEach(function(el){ try{ var b=el.getBBox(); minX=Math.min(minX,b.x); minY=Math.min(minY,b.y); maxX=Math.max(maxX,b.x+b.width); maxY=Math.max(maxY,b.y+b.height); }catch(e){} });
-   if(!isFinite(minX)||!isFinite(minY)||!isFinite(maxX)||!isFinite(maxY)) return;
+   nodes.forEach(function(el){
+     var b = transformedBBoxOf(el);
+     if(!b) return;
+     minX=Math.min(minX,b.x); minY=Math.min(minY,b.y); maxX=Math.max(maxX,b.x+b.width); maxY=Math.max(maxY,b.y+b.height);
+   });
+   if(!isFinite(minX)||!isFinite(minY)||!isFinite(maxX)||!isFinite(maxY)){ toast('Keine gültigen SVG-Koordinaten für Route '+r+'.'); return; }
    var pad = Math.max((maxX-minX)*0.35, (maxY-minY)*0.35, 40);
    setViewBox({x:minX-pad, y:minY-pad, w:(maxX-minX)+2*pad, h:(maxY-minY)+2*pad});
  }
@@ -629,7 +664,7 @@ function tapRoute(r){
      btn.type='button';
      btn.className='routeChip '+routeChipClass(s)+(st.mapFocusRoute===r?' focus':'');
      btn.textContent=r;
-     btn.title='Route '+r+' · '+s+' · Klick = Status ändern und fokussieren';
+     btn.title='Route '+r+' · '+s+' · Klick = Status ändern und mit transformierten SVG-Koordinaten fokussieren';
      btn.addEventListener('click', function(){
        const next = cycleRouteStatus(st.routeStatus[r]||'unkundig');
        setRouteStatus(r, next);
@@ -838,12 +873,15 @@ function tapRoute(r){
    let arr=idx[String(code||'').trim()] || [];
    if(route){
      const rr=String(route).replace(/\D+/g,'');
-     const filtered=arr.filter(el=>getDataLinesFromEl(el).indexOf(rr)>=0);
+     const filtered=arr.filter(function(el){return getDataLinesFromEl(el).indexOf(rr)>=0;});
      if(filtered.length) arr=filtered;
    }
    if(!arr.length) return null;
-   const el=arr[0];
-   try{ const b=el.getBBox(); return {x:b.x+b.width/2, y:b.y+b.height/2}; }catch(e){ return null; }
+   for(var i=0;i<arr.length;i++){
+     var c = transformedCenterOf(arr[i]);
+     if(c) return c;
+   }
+   return null;
  }
  function buildTeilstreckenHitLayer(){
    if(!st.svgRoot || !st.routeSegmentsOrdered) return;
