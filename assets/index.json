@@ -1,102 +1,102 @@
 {
   "routes": {
-    "101": "Ge Aeroport / La Plaine - Genève / Ge-La Praille",
-    "102": "Annemasse - Genève",
-    "111": "La Praille / Genève-Aéroport - Nyon - Lausanne",
-    "121": "Lausanne - Fribourg/Freiburg - /Laupen - Bern",
-    "141": "Bern - Burgdorf - Olten",
-    "142": "Bern/Solothurn - NBS - Olten",
-    "151": "Olten - Lenzburg - Brugg - RB Limmattal / Olten - Lenzburg - Zürich",
-    "161": "Brugg - Zürich Altstetten - Zürich HB",
-    "171": "Wettingen - / RB Limmattal - Würenlos - Z Seebach - Z Oerlikon / Opfikon - Glattbrugg",
-    "201": "Vallorbe - Lausanne / Lausanne-Tr",
-    "202": "Vallorbe - Le Brassus",
-    "203": "Chavornay - Orbe",
-    "211": "Lausanne - Aigle - Sion",
-    "221": "Sion - Brig - Domo",
-    "222": "Brig - Domo- Domo II",
-    "231": "Puidox-Ch - Vevey",
-    "232": "St-Gingolph - St-Maurice",
+    "101": "101 Ge Aeroport / La Plaine - Genève / Ge-La Praille",
+    "102": "102 Annemasse - Genève",
+    "111": "111 La Praille / Genève-Aéroport - Nyon - Lausanne",
+    "121": "121 Lausanne - Fribourg/Freiburg - /Laupen - Bern",
+    "141": "141 Bern - Burgdorf - Olten",
+    "142": "142 Bern/Solothurn - NBS - Olten",
+    "151": "151 Olten - Lenzburg - Brugg - RB Limmattal / Olten - Lenzburg - Zürich",
+    "161": "161 Brugg - Zürich Altstetten - Zürich HB",
+    "171": "171 Wettingen - / RB Limmattal - Würenlos - Z Seebach - Z Oerlikon / Opfikon - Glattbrugg",
+    "201": "201 Vallorbe - Lausanne / Lausanne-Tr",
+    "202": "202 Vallorbe - Le Brassus",
+    "203": "203 Chavornay - Orbe",
+    "211": "211 Lausanne - Aigle - Sion",
+    "221": "221 Sion - Brig - Domo",
+    "222": "222 Brig - Domo- Domo II",
+    "231": "231 Puidox-Ch - Vevey",
+    "232": "232 St-Gingolph - St-Maurice",
     "241": "301 Lausanne Tr - / Lausanne - Biel/Bienne - BIPO",
-    "251": "Palézieux - Payerne",
-    "252": "Payerne - Lyss - Büren",
-    "254": "Bulle - Romont - Fribourg",
-    "255": "Fribourg - Murten - Ins - Neuchatel",
-    "261": "Yverdon - Fribourg",
-    "271": "Pontarlier - Neuchâtel",
-    "272": "Le Locle-Col - Neuchâtel",
-    "273": "Travers - Fleurier - Buttes",
-    "281": "Chaux-de-Fonds – Biel/Bienne – BIPO",
-    "282": "Moutier – Sonceboz – Biel/Bienne – BIPO",
-    "291": "Delémont - Lengnau - Biel/Bienne",
-    "292": "Delle - Delémont",
-    "301": "Lausanne Tr - / Lausanne - Biel/Bienne - BIPO",
-    "311": "Biel/Bienne - Solothurn - Oensingen - Olten",
-    "321": "BIPO - / Biel/Bienne - Bern W'haus",
-    "322": "Bern W'haus - Bern - Thun - Reichenbach",
-    "331": "Bern W'haus – Bern – Langnau",
-    "332": "Langnau - Luzern",
-    "341": "Basel RB/PB - Delémont",
-    "351": "Reichenbach i/K - Kandersteg - Brig",
-    "361": "Spiez - Interlaken Ost",
-    "362": "Spiez - Zweisimmen",
-    "371": "Bern - Belp - Thun",
-    "372": "Bern - Schwarzenburg",
-    "381": "Bern - Neuchâtel",
-    "391": "Reichenbach i/K - LBS - Visp",
-    "411": "Basel - Gelerkinden - Olten",
-    "421": "Sissach - Läufelfingen - Olten",
-    "422": "Olten RB - /Rothrist - Aarburg O. - Luzern",
-    "431": "Luzern - Lenzburg",
-    "436": "Zofingen - Suhr - Wettingen",
-    "461": "Zug - Luzern",
-    "462": "Thalwil - Arth-Goldau",
-    "481": "Solothurn - Moutier",
-    "482": "Solothurn - Burgdorf",
-    "483": "Burgdorf - Langnau",
-    "484": "Burgdorf - Thun",
-    "491": "Ramsei - Sumiswald-Grünen",
-    "493": "Langenthal - Wolhusen",
-    "501": "Basel St. Johann - / Basel PB - Basel GB - Basel RB - Pratteln",
-    "502": "Basel Kl. Hafen - BS PB - Basel Bad Bf - BS RB / Birsfelden H - BS RB",
-    "511": "Basel - Brugg",
-    "521": "Brugg - / Brugg Nord - / Lenzburg - Rotkreuz",
-    "531": "Rotkreuz - Göschenen",
-    "532": "Luzern - Meggen - Arth-Goldau",
-    "533": "Altdorf - GBT - Bellinzona",
-    "541": "Göschenen - Bellinzona",
-    "542": "Bellinzona - Chiasso Vg / SM / - LgV / - Stabio",
-    "551": "Bellinzona - Locarno",
-    "552": "Bellinzona - Luino",
-    "601": "Stein-S - Laufenburg- / RBL - Wettingen - Koblenz",
-    "602": "Koblenz - Winterthur",
-    "611": "Schaffhausen - Bülach - Z Oerlikon",
-    "612": "Niederweningen - Oberglatt",
-    "631": "Zürich - Thalwil - Pfäffikon",
-    "632": "Zug - Affoltern - Altstätten",
-    "641": "Pfäffikon - Sargans",
-    "642": "Buchs - Chur",
-    "651": "Zürich - Meilen - Rapperswil",
-    "652": "Z Oerlikon / Zürich - Uster - Rapperswil",
-    "661": "Zürich - Stettbach - Effretikon - Hinwil",
-    "701": "Z Altstetten - / Zürich - Z Oerlikon",
-    "702": "Z Oerlikon - Winterthur",
-    "711": "Winterthur - St. Gallen - St. Fiden",
-    "721": "St. Gallen - Rorschach - Buchs",
-    "731": "Schaffhausen - Winterthur",
-    "732": "Winterthur - Etzwilen",
-    "741": "Winterthur - Romanshorn",
-    "742": "Sulgen - Gossau",
-    "751": "Rapperswil - Linthal",
-    "752": "Pfäffikon - Wattwil",
-    "753": "Nesslau - Wattwil - Wil",
-    "754": "Winterthur - Wald - Rapperswil",
-    "761": "Konstanz - Wil",
-    "771": "Schaffhausen - Kreuzlingen",
-    "772": "Konstanz / Kreuzlingen - Rorschach",
-    "781": "Pfäffikon - Arth-Goldau",
-    "782": "Wädenswil - Einsiedeln",
-    "791": "Wattwil - St. Gallen - Romanshorn"
+    "251": "251 Palézieux - Payerne",
+    "252": "252 Payerne - Lyss - Büren",
+    "254": "254 Bulle - Romont - Fribourg",
+    "255": "255 Fribourg - Murten - Ins - Neuchatel",
+    "261": "261 Yverdon - Fribourg",
+    "271": "271 Pontarlier - Neuchâtel",
+    "272": "272 Le Locle-Col - Neuchâtel",
+    "273": "273 Travers - Fleurier - Buttes",
+    "281": "281 Chaux-de-Fonds – Biel/Bienne – BIPO",
+    "282": "282 Moutier – Sonceboz – Biel/Bienne – BIPO",
+    "291": "291 Delémont - Lengnau - Biel/Bienne",
+    "292": "292 Delle - Delémont",
+    "301": "301 Lausanne Tr - / Lausanne - Biel/Bienne - BIPO",
+    "311": "311 Biel/Bienne - Solothurn - Oensingen - Olten",
+    "321": "321 BIPO - / Biel/Bienne - Bern W'haus",
+    "322": "322 Bern W'haus - Bern - Thun - Reichenbach",
+    "331": "331 Bern W'haus – Bern – Langnau",
+    "332": "332 Langnau - Luzern",
+    "341": "341 Basel RB/PB - Delémont",
+    "351": "351 Reichenbach i/K - Kandersteg - Brig",
+    "361": "361 Spiez - Interlaken Ost",
+    "362": "362 Spiez - Zweisimmen",
+    "371": "371 Bern - Belp - Thun",
+    "372": "372 Bern - Schwarzenburg",
+    "381": "381 Bern - Neuchâtel",
+    "391": "391 Reichenbach i/K - LBS - Visp",
+    "411": "411 Basel - Gelterkinden - Olten",
+    "421": "421 Sissach - Läufelfingen - Olten",
+    "422": "422 Olten RB - /Rothrist - Aarburg O. - Luzern",
+    "431": "431 Luzern - Lenzburg",
+    "436": "436 Zofingen - Suhr - Wettingen",
+    "461": "461 Zug - Luzern",
+    "462": "462 Thalwil - Arth-Goldau",
+    "481": "481 Solothurn - Moutier",
+    "482": "482 Solothurn - Burgdorf",
+    "483": "483 Burgdorf - Langnau",
+    "484": "484 Burgdorf - Thun",
+    "491": "491 Ramsei - Sumiswald-Grünen",
+    "493": "493 Langenthal - Wolhusen",
+    "501": "501 Basel St. Johann - / Basel PB - Basel GB - Basel RB - Pratteln",
+    "502": "502 Basel Kl. Hafen - BS PB - Basel Bad Bf - BS RB / Birsfelden H - BS RB",
+    "511": "511 Basel - Brugg",
+    "521": "521 Brugg - / Brugg Nord - / Lenzburg - Rotkreuz",
+    "531": "531 Rotkreuz - Göschenen",
+    "532": "532 Luzern - Meggen - Arth-Goldau",
+    "533": "533 Altdorf - GBT - Bellinzona",
+    "541": "541 Göschenen - Bellinzona",
+    "542": "542 Bellinzona - Chiasso Vg / SM / - LgV / - Stabio",
+    "551": "551 Bellinzona - Locarno",
+    "552": "552 Bellinzona - Luino",
+    "601": "601 Stein-S - Laufenburg- / RBL - Wettingen - Koblenz",
+    "602": "602 Koblenz - Winterthur",
+    "611": "611 Schaffhausen - Bülach - Z Oerlikon",
+    "612": "612 Niederweningen - Oberglatt",
+    "631": "631 Zürich - Thalwil - Pfäffikon",
+    "632": "632 Zug - Affoltern - Altstätten",
+    "641": "641 Pfäffikon - Sargans",
+    "642": "642 Buchs - Chur",
+    "651": "651 Zürich - Meilen - Rapperswil",
+    "652": "652 Z Oerlikon / Zürich - Uster - Rapperswil",
+    "661": "661 Zürich - Stettbach - Effretikon - Hinwil",
+    "701": "701 Z Altstetten - / Zürich - Z Oerlikon",
+    "702": "702 Z Oerlikon - Winterthur",
+    "711": "711 Winterthur - St. Gallen - St. Fiden",
+    "721": "721 St. Gallen - Rorschach - Buchs",
+    "731": "731 Schaffhausen - Winterthur",
+    "732": "732 Winterthur - Etzwilen",
+    "741": "741 Winterthur - Romanshorn",
+    "742": "742 Sulgen - Gossau",
+    "751": "751 Rapperswil - Linthal",
+    "752": "752 Pfäffikon - Wattwil",
+    "753": "753 Nesslau - Wattwil - Wil",
+    "754": "754 Winterthur - Wald - Rapperswil",
+    "761": "761 Konstanz - Wil",
+    "771": "771 Schaffhausen - Kreuzlingen",
+    "772": "772 Konstanz / Kreuzlingen - Rorschach",
+    "781": "781 Pfäffikon - Arth-Goldau",
+    "782": "782 Wädenswil - Einsiedeln",
+    "791": "791 Wattwil - St. Gallen - Romanshorn"
   },
   "routeSegments": {
     "101": [
@@ -565,24 +565,16 @@
         "to": "LB"
       },
       {
-        "from": "GEXI",
-        "to": "LB"
+        "from": "GMT",
+        "to": "KLW"
       },
       {
         "from": "LB",
-        "to": "GEXI"
-      },
-      {
-        "from": "GEXI",
         "to": "OTH"
       },
       {
         "from": "OTH",
-        "to": "GEXI"
-      },
-      {
-        "from": "GMT",
-        "to": "KLW"
+        "to": "LB"
       }
     ],
     "161": [
@@ -1167,16 +1159,36 @@
     ],
     "291": [
       {
+        "from": "DMT",
+        "to": "MOU"
+      },
+      {
         "from": "MOU",
         "to": "DMT"
+      },
+      {
+        "from": "MOU",
+        "to": "LEN"
       },
       {
         "from": "LEN",
         "to": "MOU"
       },
       {
-        "from": "MOU",
+        "from": "LEN",
+        "to": "BIPO"
+      },
+      {
+        "from": "BIPO",
         "to": "LEN"
+      },
+      {
+        "from": "BIPO",
+        "to": "BI"
+      },
+      {
+        "from": "BI",
+        "to": "BIPO"
       }
     ],
     "292": [
@@ -1523,18 +1535,6 @@
     ],
     "341": [
       {
-        "from": "BS",
-        "to": "RUC"
-      },
-      {
-        "from": "RUC",
-        "to": "BS"
-      },
-      {
-        "from": "RUC",
-        "to": "BSDS"
-      },
-      {
         "from": "BSJA",
         "to": "BSVL"
       },
@@ -1552,19 +1552,19 @@
       },
       {
         "from": "BSVL",
-        "to": "RUC"
+        "to": "LFN"
       },
       {
-        "from": "RUC",
+        "from": "LFN",
         "to": "BSVL"
       },
       {
-        "from": "DMT",
-        "to": "RUC"
+        "from": "LFN",
+        "to": "DMT"
       },
       {
-        "from": "RUC",
-        "to": "DMT"
+        "from": "DMT",
+        "to": "LFN"
       }
     ],
     "351": [
@@ -2307,14 +2307,6 @@
         "to": "HDK"
       },
       {
-        "from": "GEXI",
-        "to": "HDK"
-      },
-      {
-        "from": "HDK",
-        "to": "GEXI"
-      },
-      {
         "from": "HDK",
         "to": "WO"
       },
@@ -2329,6 +2321,14 @@
       {
         "from": "WO",
         "to": "RK"
+      },
+      {
+        "from": "LB",
+        "to": "HDK"
+      },
+      {
+        "from": "HDK",
+        "to": "LB"
       }
     ],
     "531": [
@@ -4411,31 +4411,17 @@
       },
       {
         "seg": "151.08",
-        "from": "GEXI",
-        "to": "LB",
-        "fromName": "Gexi",
-        "toName": "Lenzburg"
-      },
-      {
-        "seg": "151.08",
         "from": "LB",
-        "to": "GEXI",
-        "fromName": "Lenzburg",
-        "toName": "Gexi"
-      },
-      {
-        "seg": "151.09",
-        "from": "GEXI",
         "to": "OTH",
-        "fromName": "Gexi",
+        "fromName": "Lenzburg",
         "toName": "Othmarsingen"
       },
       {
-        "seg": "151.09",
+        "seg": "151.08",
         "from": "OTH",
-        "to": "GEXI",
+        "to": "LB",
         "fromName": "Othmarsingen",
-        "toName": "Gexi"
+        "toName": "Lenzburg"
       },
       {
         "seg": "151.11",
@@ -5433,10 +5419,24 @@
     "291": [
       {
         "seg": "291.01",
+        "from": "DMT",
+        "to": "MOU",
+        "fromName": "Delémont",
+        "toName": "Moutier"
+      },
+      {
+        "seg": "291.01",
         "from": "MOU",
         "to": "DMT",
         "fromName": "Moutier",
         "toName": "Delémont"
+      },
+      {
+        "seg": "291.02",
+        "from": "MOU",
+        "to": "LEN",
+        "fromName": "Moutier",
+        "toName": "Lengnau BE"
       },
       {
         "seg": "291.02",
@@ -5446,11 +5446,32 @@
         "toName": "Moutier"
       },
       {
-        "seg": "291.02",
-        "from": "MOU",
+        "seg": "291.03",
+        "from": "LEN",
+        "to": "BIPO",
+        "fromName": "Lengnau BE",
+        "toName": "Biel RB"
+      },
+      {
+        "seg": "291.03",
+        "from": "BIPO",
         "to": "LEN",
-        "fromName": "Moutier",
+        "fromName": "Biel RB",
         "toName": "Lengnau BE"
+      },
+      {
+        "seg": "291.04",
+        "from": "BIPO",
+        "to": "BI",
+        "fromName": "Biel RB",
+        "toName": "Biel/Bienne"
+      },
+      {
+        "seg": "291.04",
+        "from": "BI",
+        "to": "BIPO",
+        "fromName": "Biel/Bienne",
+        "toName": "Biel RB"
       }
     ],
     "292": [
@@ -6058,80 +6079,59 @@
     "341": [
       {
         "seg": "341.01",
-        "from": "BS",
-        "to": "RUC",
-        "fromName": "Basel SBB",
-        "toName": "Ruchfeld"
-      },
-      {
-        "seg": "341.01",
-        "from": "RUC",
-        "to": "BS",
-        "fromName": "Ruchfeld",
-        "toName": "Basel SBB"
-      },
-      {
-        "seg": "341.01",
-        "from": "RUC",
-        "to": "BSDS",
-        "fromName": "Ruchfeld",
-        "toName": "Basel SBB Dreispitz"
-      },
-      {
-        "seg": "341.02",
         "from": "BSJA",
         "to": "BSVL",
         "fromName": "Basel St. Jakob",
         "toName": "Basel SBB GB VL"
       },
       {
-        "seg": "341.02",
+        "seg": "341.01",
         "from": "BSVL",
         "to": "BSJA",
         "fromName": "Basel SBB GB VL",
         "toName": "Basel St. Jakob"
       },
       {
-        "seg": "341.03",
+        "seg": "341.02",
         "from": "BSBG",
         "to": "BSVL",
         "fromName": "Basel SBB GB",
         "toName": "Basel SBB GB VL"
       },
       {
-        "seg": "341.03",
+        "seg": "341.02",
         "from": "BSVL",
         "to": "BSBG",
         "fromName": "Basel SBB GB VL",
         "toName": "Basel SBB GB"
       },
       {
-        "seg": "341.04",
+        "seg": "341.03",
         "from": "BSVL",
-        "to": "RUC",
+        "to": "LFN",
         "fromName": "Basel SBB GB VL",
-        "toName": "Ruchfeld"
+        "toName": "Laufen"
       },
       {
-        "seg": "341.04",
-        "from": "RUC",
+        "seg": "341.03",
+        "from": "LFN",
         "to": "BSVL",
-        "fromName": "Ruchfeld",
+        "fromName": "Laufen",
         "toName": "Basel SBB GB VL"
       },
       {
-        "seg": "341.05",
-        "from": "DMT",
-        "to": "RUC",
-        "fromName": "Delémont",
-        "toName": "Ruchfeld"
+        "seg": "341.04",
+        "from": "LFN",
+        "to": "DMT",
+        "fromName": "Laufen",
+        "toName": "Delémont"
       },
       {
-        "seg": "341.05",
-        "from": "RUC",
-        "to": "DMT",
-        "fromName": "Ruchfeld",
-        "toName": "Delémont"
+        "seg": "341.04",
+        "from": "DMT",
+        "to": "LFN",
+        "fromName": "Delémont",
+        "toName": "Laufen"
       }
     ],
     "351": [
@@ -7394,17 +7394,17 @@
       },
       {
         "seg": "521.05",
-        "from": "GEXI",
+        "from": "LB",
         "to": "HDK",
-        "fromName": "Gexi",
+        "fromName": "Lenzburg",
         "toName": "Hendschiken"
       },
       {
         "seg": "521.05",
         "from": "HDK",
-        "to": "GEXI",
+        "to": "LB",
         "fromName": "Hendschiken",
-        "toName": "Gexi"
+        "toName": "Lenzburg"
       },
       {
         "seg": "521.06",
