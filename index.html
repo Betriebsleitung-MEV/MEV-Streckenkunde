@@ -3,7 +3,7 @@
 <head>
  <meta charset="utf-8" />
  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
- <title>MEV Streckenkunde</title>
+ <title>MEV Streckenkunde TESTBUILD</title>
  <meta name="apple-mobile-web-app-capable" content="yes" />
  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
  <meta name="theme-color" content="#0b1220" />
@@ -103,7 +103,7 @@
 </style>
 </head>
 <body>
- <div class="topbar"><div class="brand">MEV Streckenkunde</div><div id="bootMark" style="font-size:12px; color:rgba(255,255,255,.55); margin-left:10px;">(JS aktiv)</div><div class="build">Build: 2026-06-01 V1.9.20-mapfix</div></div>
+ <div class="topbar"><div class="brand">MEV Streckenkunde <span style="font-size:12px; color:#ffcf66; margin-left:8px;">TESTBUILD</span></div><div id="bootMark" style="font-size:12px; color:rgba(255,255,255,.55); margin-left:10px;">(JS aktiv)</div><div class="build">TESTBUILD: 2026-06-01 V1.9.21-unkundig-test</div></div>
  <!-- Step 4: Map view -->
  <div class="mapWrap hidden" id="viewMap">
  <div id="mapHost"><div style="padding:12px; color:#111;"><b>SVG noch nicht geladen.</b></div></div>
@@ -439,12 +439,6 @@
  function showStep(step){
  st.currentStep = step;
  if(step===2 && st.setRadnMode) st.setRadnMode('scroll');
- setRadnPickStatus('kundig');
- if($('radnPickK')) $('radnPickK').addEventListener('click', ()=>setRadnPickStatus('kundig'));
- if($('radnPickA')) $('radnPickA').addEventListener('click', ()=>setRadnPickStatus('auffrischung'));
- if($('radnPickU')) $('radnPickU').addEventListener('click', ()=>setRadnPickStatus('unkundig'));
- if($('blsFilterAll')) $('blsFilterAll').addEventListener('click', ()=>{ st.blsFilter='all'; $('blsFilterAll').classList.add('active'); $('blsFilterUnkundig').classList.remove('active'); renderSegList(); });
- if($('blsFilterUnkundig')) $('blsFilterUnkundig').addEventListener('click', ()=>{ st.blsFilter='false'; $('blsFilterUnkundig').classList.add('active'); $('blsFilterAll').classList.remove('active'); renderSegList(); });
  $('p1').classList.toggle('hidden', step!==1);
  $('p2').classList.toggle('hidden', step!==2);
  $('p3').classList.toggle('hidden', step!==3);
@@ -904,7 +898,7 @@ function tapRoute(r){
  $('summary').innerHTML = `Routen: <b>${k}</b> kundig, <b>${a}</b> auffrischung, <b>${u}</b> unkundig. · BLS Teilstrecken: <b>${segTotal-segFalse}</b> true, <b>${segFalse}</b> false. · Ortskunde: <b>${ortTrue}</b> true, <b>${orts.length-ortTrue}</b> false.`;
  }
  function payload(){
- const linien={}; Object.keys(st.routeStatus).sort((a,b)=>Number(a)-Number(b)).forEach(r=>{ const s=st.routeStatus[r]; linien[r]={status:s, kundig:(s==='kundig'), auffrischung:(s==='auffrischung'), unkundig:(s!=='kundig')}; });
+ const linien={}; Object.keys(st.routeStatus).sort((a,b)=>Number(a)-Number(b)).forEach(r=>{ const s=st.routeStatus[r]; linien[r]={status:s, kundig:(s==='kundig'), auffrischung:(s==='auffrischung'), unkundig:(s==='unkundig')}; });
  const teilstrecken={}; Object.keys(st.teilstrecken).sort((a,b)=>Number(a)-Number(b)).forEach(r=>{ teilstrecken[r]=[]; (st.routeSegmentsOrdered[r]||[]).forEach(it=>{ const k=segKey(it); const val = st.teilstrecken[r] && st.teilstrecken[r][k]; teilstrecken[r].push({seg:it.seg, from:it.from, to:it.to, fromName:it.fromName||'', toName:it.toName||'', kundig:(val===true)}); }); });
  const ortskunde={}; Object.keys(st.orts).sort((a,b)=>a.localeCompare(b,'de-CH')).forEach(o=>{ ortskunde[o]={kundig:isOrtOn(o), linien:(st.orts[o].linien||[]).slice()}; });
  return {erzeugtAm:new Date().toISOString(), person:{...st.person}, bls:st.blsMode, linien, teilstrecken, ortskunde, overrides:st.overrides||{}};
@@ -1005,6 +999,12 @@ function setRadnPickStatus(s){
  if($('radnScroll')) $('radnScroll').addEventListener('click', ()=>setRadnMode('scroll'));
  if($('radnMark')) $('radnMark').addEventListener('click', ()=>setRadnMode('mark'));
  setRadnMode('scroll');
+ setRadnPickStatus('kundig');
+ if($('radnPickK')) $('radnPickK').addEventListener('click', ()=>setRadnPickStatus('kundig'));
+ if($('radnPickA')) $('radnPickA').addEventListener('click', ()=>setRadnPickStatus('auffrischung'));
+ if($('radnPickU')) $('radnPickU').addEventListener('click', ()=>setRadnPickStatus('unkundig'));
+ if($('blsFilterAll')) $('blsFilterAll').addEventListener('click', ()=>{ st.blsFilter='all'; $('blsFilterAll').classList.add('active'); $('blsFilterUnkundig').classList.remove('active'); renderSegList(); });
+ if($('blsFilterUnkundig')) $('blsFilterUnkundig').addEventListener('click', ()=>{ st.blsFilter='false'; $('blsFilterUnkundig').classList.add('active'); $('blsFilterAll').classList.remove('active'); renderSegList(); });
  $('backToPerson').addEventListener('click',()=>showStep(1));
  $('nextFromRoutes').addEventListener('click', async()=>{ if(st.blsMode){ renderSegList(); showStep(3); } else { try{ await goMap(); } catch(e){ console.error(e); toast('Karte konnte nicht geladen werden.'); } } });
  $('backToRoutes').addEventListener('click',()=>showStep(2));
