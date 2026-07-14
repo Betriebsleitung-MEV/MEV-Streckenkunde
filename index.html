@@ -2,11 +2,11 @@
 <html lang="de-CH">
 <head>
  <meta charset="utf-8" />
- <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
- <title>MEV Streckenkunde TESTBUILD</title>
+ <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+ <title>MEV Streckenkunde · Testbranch</title>
  <meta name="apple-mobile-web-app-capable" content="yes" />
  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
- <meta name="theme-color" content="#0b1220" />
+ <meta name="theme-color" content="#08111f" />
  <style>
  :root{
  --bg:#0b1220; --panel:#121a2b; --panel2:#0f1730; --text:#e8eefc; --muted:#9fb0d0;
@@ -94,47 +94,281 @@
   .toggle.status.k{border-color: rgba(0,112,255,.65); background: rgba(0,112,255,.14);}
   .toggle.status.a{border-color: rgba(255,42,42,.55); background: rgba(255,42,42,.10);}
   .toggle.status.u{border-color: rgba(255,255,255,.16); background: rgba(255,255,255,.06);}
+ .mapSelect{height:40px; min-width:190px; max-width:min(330px,72vw); border-radius:999px; border:1px solid rgba(255,255,255,.16); background:rgba(15,23,48,.96); color:var(--text); padding:0 34px 0 12px; font-weight:800;}
 
- /* Klickbare Teilstrecken-Overlays aus SVG-Bahnhofspunkten */
- #mapHost svg .mevSegHit{fill:none; stroke:rgba(0,0,0,0); stroke-width:18; stroke-linecap:round; pointer-events:stroke; cursor:pointer;}
- #mapHost svg.mevShowSegs .mevSegHit.on{stroke:rgba(0,112,255,.22);}
- #mapHost svg.mevShowSegs .mevSegHit.off{stroke:rgba(255,42,42,.20); stroke-dasharray:6 6;}
- #mapHost svg.mevShowSegs .mevSegHit:hover{stroke:rgba(255,255,255,.35);}
 
- .routeRail{position:fixed; left:10px; top:118px; bottom:14px; z-index:41; width:74px; display:flex; flex-direction:column;
- border:1px solid rgba(255,255,255,.16); border-radius:14px; background: rgba(18,26,43,.92); backdrop-filter: blur(8px); overflow:hidden;}
- .routeRailHead{padding:10px 8px 6px; font-size:11px; font-weight:900; text-align:center; border-bottom:1px solid rgba(255,255,255,.08);}
- .routeRailHint{padding:6px 6px 4px; font-size:10px; color:var(--muted); text-align:center; line-height:1.2;}
- .routeRailList{padding:8px; overflow:auto; display:grid; gap:8px;}
- .routeChip{width:100%; min-height:38px; padding:0; border-radius:10px; border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.06); color:rgba(255,255,255,.7); font-weight:900; cursor:pointer;}
- .routeChip.k{border-color: rgba(0,112,255,.65); background: rgba(0,112,255,.18); color:#d9eaff;}
- .routeChip.a{border-color: rgba(255,42,42,.55); background: rgba(255,42,42,.14); color:#ffd0d0;}
- .routeChip.u{border-color: rgba(255,255,255,.16); background: rgba(255,255,255,.04); color:rgba(255,255,255,.60);}
- .routeChip.focus{outline:2px solid rgba(255,210,64,.95); outline-offset:1px;}
- .routeChip:hover{filter:brightness(1.06);}
+/* =========================================================
+   V1.9.19 · MEV Leitstand – visueller Testbranch
+   Keine Änderung an Datenmodell oder Fachlogik.
+   ========================================================= */
+:root{
+ --bg:#08111f;
+ --panel:#101b2d;
+ --panel2:#0b1628;
+ --panel3:#16243a;
+ --text:#f3f7ff;
+ --muted:#9eb0cc;
+ --line:#263751;
+ --lineStrong:#365071;
+ --blue:#1677ff;
+ --blueSoft:rgba(22,119,255,.14);
+ --red:#f04452;
+ --redSoft:rgba(240,68,82,.13);
+ --green:#22b573;
+ --radius:16px;
+ --shadow:0 20px 60px rgba(0,0,0,.38);
+}
+body{
+ background:
+  radial-gradient(circle at 15% 0%, rgba(22,119,255,.09), transparent 34rem),
+  linear-gradient(180deg,#08111f 0%,#0a1424 100%);
+ letter-spacing:.005em;
+}
+button,input,select{font:inherit;}
+button{touch-action:manipulation;}
+button:focus-visible,input:focus-visible,select:focus-visible{
+ outline:3px solid rgba(79,151,255,.42);
+ outline-offset:2px;
+}
+.topbar{
+ height:64px;
+ padding:8px 16px;
+ gap:14px;
+ border-bottom:1px solid rgba(255,255,255,.09);
+ background:rgba(8,17,31,.90);
+ box-shadow:0 10px 35px rgba(0,0,0,.18);
+}
+.brandBlock{display:flex;align-items:center;gap:11px;min-width:0;}
+.brandMark{
+ width:38px;height:38px;display:grid;place-items:center;flex:0 0 auto;
+ border-radius:12px;border:1px solid rgba(88,155,255,.34);
+ background:linear-gradient(145deg,rgba(22,119,255,.24),rgba(22,119,255,.07));
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.12);
+}
+.brandMark svg{width:23px;height:23px;fill:none;stroke:#7fb4ff;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.brand{font-size:15px;font-weight:820;line-height:1.05;white-space:nowrap;}
+.brandSub{font-size:11px;color:var(--muted);margin-top:4px;white-space:nowrap;}
+.bootMark{
+ font-size:11px;color:#9ee8c3;border:1px solid rgba(34,181,115,.28);
+ background:rgba(34,181,115,.09);padding:5px 8px;border-radius:999px;
+}
+.bootMark::before{content:'●';font-size:8px;margin-right:5px;}
+.build{margin-left:0;font-size:11px;color:#7588a7;white-space:nowrap;}
+.dirty{
+ margin-left:auto;font-size:11px;font-weight:750;color:#ffd590;
+ border:1px solid rgba(245,169,55,.35);background:rgba(245,169,55,.11);
+ padding:5px 9px;border-radius:999px;white-space:nowrap;
+}
+.dirty:empty{display:none;}
+.sheet{
+ background:rgba(16,27,45,.97);
+ border:1px solid rgba(255,255,255,.1);
+ box-shadow:var(--shadow);
+}
+.grab{background:rgba(255,255,255,.2);}
+.sheetHeader{padding:12px 14px 9px;border-bottom:1px solid rgba(255,255,255,.07);}
+.steps{gap:6px;flex-wrap:nowrap;width:100%;overflow:auto;scrollbar-width:none;}
+.steps::-webkit-scrollbar{display:none;}
+.step{
+ flex:0 0 auto;min-height:34px;display:flex;align-items:center;
+ font-size:11px;font-weight:750;padding:7px 11px;border-radius:10px;
+ border:1px solid transparent;color:#8295b3;background:transparent;
+ transition:background .16s ease,border-color .16s ease,color .16s ease;
+}
+.step.active{
+ color:#fff;border-color:rgba(55,130,238,.42);
+ background:linear-gradient(180deg,rgba(22,119,255,.20),rgba(22,119,255,.10));
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.07);
+}
+.sheetBody{padding:14px;}
+.card{
+ border:1px solid rgba(255,255,255,.09);
+ background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.025));
+ border-radius:18px;padding:18px;
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.035);
+}
+.sectionEyebrow,.toolEyebrow{
+ font-size:10px;line-height:1;text-transform:uppercase;letter-spacing:.13em;
+ color:#6fa9ff;font-weight:850;margin-bottom:7px;
+}
+.sectionTitle{font-size:20px;line-height:1.15;font-weight:820;margin-bottom:6px;}
+.sectionTitle span{font-size:12px;font-weight:650;color:var(--muted);margin-left:6px;}
+.hint{font-size:12px;color:#98aac5;line-height:1.45;}
+label{font-size:11px;font-weight:750;color:#a8b8d0;margin:13px 0 6px;}
+input,select{
+ height:44px;border-radius:11px;border:1px solid var(--line);
+ background:#0b1628;color:var(--text);padding:0 13px;
+ box-shadow:inset 0 1px 2px rgba(0,0,0,.18);
+ transition:border-color .16s ease,box-shadow .16s ease,background .16s ease;
+}
+input:hover,select:hover{border-color:var(--lineStrong);}
+input:focus,select:focus{border-color:#3a83ea;box-shadow:0 0 0 3px rgba(22,119,255,.12);}
+.btn,.toggle,.pillBtn,.miniBtn,.iconBtn{
+ border:1px solid var(--line);background:#152238;color:var(--text);
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.045),0 5px 15px rgba(0,0,0,.08);
+ transition:transform .12s ease,border-color .16s ease,background .16s ease,box-shadow .16s ease;
+}
+.btn:hover,.toggle:hover,.pillBtn:hover,.miniBtn:hover,.iconBtn:hover{
+ border-color:#3b5376;background:#1a2a43;
+}
+.btn:active,.toggle:active,.pillBtn:active,.miniBtn:active,.iconBtn:active{transform:translateY(1px);}
+.btn{height:42px;border-radius:11px;font-weight:750;}
+.btn.primary{border-color:rgba(49,130,246,.7);background:linear-gradient(180deg,#1c75e8,#155fc0);color:#fff;}
+.btn.send{border-color:rgba(34,181,115,.7);background:linear-gradient(180deg,#1ead70,#188a5b);color:#fff;}
+.btn.success{border-color:rgba(34,181,115,.38);background:rgba(34,181,115,.11);color:#aaf0cd;}
+.toggle{height:36px;border-radius:10px;font-size:11px;font-weight:780;}
+.toggle.active{outline:none;border-color:rgba(65,139,244,.75);background:var(--blueSoft);box-shadow:inset 0 0 0 1px rgba(65,139,244,.18);}
+.list{gap:7px;}
+.item,.segItem,.groupHead{
+ border-color:rgba(255,255,255,.085);background:rgba(255,255,255,.026);
+ border-radius:12px;transition:background .15s ease,border-color .15s ease,transform .12s ease;
+}
+.item:hover,.segItem:hover{background:rgba(255,255,255,.048);border-color:rgba(255,255,255,.14);}
+.item:has(.badge.k){border-left:3px solid var(--blue);}
+.item:has(.badge.a){border-left:3px solid var(--red);}
+.item:has(.badge.n){border-left:3px solid #667894;}
+.badge{padding:4px 9px;border-radius:8px;font-size:10px;letter-spacing:.02em;}
+.badge.k{color:#8dbdff;border-color:rgba(22,119,255,.36);background:rgba(22,119,255,.11);}
+.badge.a{color:#ff9da6;border-color:rgba(240,68,82,.34);background:rgba(240,68,82,.10);}
+.cardTop{background:linear-gradient(to bottom,rgba(16,27,45,.98) 72%,rgba(16,27,45,0));}
+.mapWrap{inset:64px 0 0 0;background:#f8fbff;}
+.mapBar{
+ left:14px;right:auto;top:78px;width:370px;max-height:calc(100vh - 94px);overflow:auto;
+ display:flex;flex-direction:column;gap:12px;padding:14px;border-radius:18px;
+ border:1px solid rgba(255,255,255,.13);background:rgba(12,23,40,.94);
+ box-shadow:0 20px 60px rgba(0,0,0,.34);backdrop-filter:blur(16px) saturate(125%);
+ scrollbar-width:thin;
+}
+.mapBarHead{display:flex;align-items:center;gap:10px;padding:2px 2px 1px;}
+.toolTitle{font-size:16px;font-weight:820;line-height:1.1;}
+.toolSection{display:grid;gap:8px;padding:11px;border:1px solid rgba(255,255,255,.075);border-radius:13px;background:rgba(255,255,255,.025);}
+.toolLabel{font-size:11px;font-weight:820;color:#b7c5d9;display:flex;justify-content:space-between;gap:8px;}
+.toolLabel span{font-weight:550;color:#7487a5;}
+.segmented{display:grid;gap:7px;}
+.segmented.two{grid-template-columns:1fr 1fr;}
+.statusSegment{grid-template-columns:1fr 1fr 1fr;}
+.pillBtn{
+ height:40px;padding:0 11px;border-radius:10px;font-size:11px;font-weight:780;white-space:nowrap;
+}
+.pillBtn.active{outline:none;border-color:#438cf0;background:rgba(22,119,255,.17);box-shadow:inset 0 0 0 1px rgba(79,151,255,.14);}
+.pillBtn.wide{width:100%;}
+.btnGlyph{font-size:14px;color:#91baff;}
+.mapSelect{width:100%;max-width:none;min-width:0;border-radius:10px;height:42px;font-size:12px;}
+.iconBtn{
+ margin-left:auto;height:34px;border-radius:9px;padding:0 9px;font-size:11px;font-weight:750;
+}
+.iconBtn:disabled{opacity:.45;}
+.statusChoice{display:flex;align-items:center;justify-content:center;gap:6px;padding:0 7px;}
+.statusDot{width:8px;height:8px;border-radius:50%;background:#73839d;box-shadow:0 0 0 3px rgba(115,131,157,.12);}
+.statusChoice.kundig .statusDot{background:var(--blue);box-shadow:0 0 0 3px rgba(22,119,255,.15);}
+.statusChoice.auffrischung .statusDot{background:var(--red);box-shadow:0 0 0 3px rgba(240,68,82,.15);}
+.statusChoice.active.kundig{border-color:rgba(22,119,255,.8);background:rgba(22,119,255,.17);}
+.statusChoice.active.auffrischung{border-color:rgba(240,68,82,.75);background:rgba(240,68,82,.15);}
+.statusChoice.active.unkundig{border-color:#7f91ad;background:rgba(127,145,173,.12);}
+.mapNav{display:grid;grid-template-columns:auto 1fr;gap:8px;padding-top:2px;}
+.navBack{background:rgba(255,255,255,.035);}
+.navNext{border-color:rgba(49,130,246,.75);background:linear-gradient(180deg,#1c75e8,#155fc0);color:#fff;}
+.toast{
+ bottom:18px;border-radius:11px;border-color:rgba(255,255,255,.13);
+ background:rgba(12,23,40,.97);box-shadow:0 16px 45px rgba(0,0,0,.35);
+}
+@media (min-width:900px){
+ .sheet{
+  left:50%;right:auto;top:80px;bottom:16px;width:min(1180px,calc(100vw - 32px));height:auto;
+  transform:translateX(-50%);border-radius:20px;
+ }
+ .grab{display:none;}
+ .sheetHeader{padding:12px 18px 10px;}
+ .sheetBody{padding:18px;}
+ .card{min-height:100%;padding:22px;}
+ .row3{grid-template-columns:minmax(240px,1fr) minmax(240px,1fr) 170px;}
+ #routeList{max-height:calc(100vh - 300px)!important;}
+ #empHits{max-height:230px!important;}
+ .toast{bottom:22px;}
+}
+@media (max-width:899px){
+ .topbar{height:56px;padding:7px 10px;gap:8px;}
+ .brandMark{width:34px;height:34px;border-radius:10px;}
+ .brandMark svg{width:20px;height:20px;}
+ .brand{font-size:13px;}
+ .brandSub{display:none;}
+ .bootMark{display:none;}
+ .build{font-size:10px;}
+ .dirty{font-size:10px;padding:4px 7px;}
+ .mapWrap{inset:56px 0 0 0;}
+ .sheet{height:min(78vh,720px);}
+ .mapBar{
+  left:8px;right:8px;top:64px;width:auto;max-height:48vh;padding:10px;gap:8px;border-radius:15px;
+ }
+ .mapBarHead{display:none;}
+ .toolSection{padding:8px;gap:6px;}
+ .toolLabel{font-size:10px;}
+ .pillBtn{height:38px;font-size:10px;}
+ .statusSegment{grid-template-columns:repeat(3,1fr);}
+ .mapNav{position:sticky;bottom:-10px;margin:0 -10px -10px;padding:10px;background:rgba(12,23,40,.98);}
+ .sectionTitle{font-size:18px;}
+ .card{padding:14px;}
+ .toast{bottom:calc(min(78vh,720px) + 9px);}
+}
+@media (max-width:560px){
+ .build{display:none;}
+ .brandBlock{gap:8px;}
+ .sheetHeader{padding-left:10px;padding-right:10px;}
+ .sheetBody{padding:10px;}
+ .segmented.two{grid-template-columns:1fr;}
+ .statusSegment{grid-template-columns:1fr;}
+ .mapBar{max-height:58vh;}
+ .toolLabel span{display:none;}
+ .row3{grid-template-columns:1fr;}
+}
 
 </style>
 </head>
 <body>
- <div class="topbar"><div class="brand">MEV Streckenkunde</div><div id="bootMark" style="font-size:12px; color:rgba(255,255,255,.55); margin-left:10px;">(JS aktiv)</div><div class="build">Build: 2026-06-01 V1.9.20-mapfix</div></div>
+ <div class="topbar">
+  <div class="brandBlock">
+   <div class="brandMark" aria-hidden="true">
+    <svg viewBox="0 0 24 24" role="img"><path d="M5 19V5m14 14V5M5 8h14M5 16h14M9 8v8m6-8v8"/></svg>
+   </div>
+   <div><div class="brand">MEV Streckenkunde</div><div class="brandSub">Erfassung und Kartenbearbeitung</div></div>
+  </div>
+  <div id="bootMark" class="bootMark">JS aktiv</div>
+  <div class="dirty" id="dirty"></div>
+  <div class="build">Testbranch · V1.9.19</div>
+ </div>
  <!-- Step 4: Map view -->
  <div class="mapWrap hidden" id="viewMap">
  <div id="mapHost"><div style="padding:12px; color:#111;"><b>SVG noch nicht geladen.</b></div></div>
  </div>
  <div class="mapBar hidden" id="mapBar">
- <button class="pillBtn active" id="modePan" type="button">Verschieben/Zoomen</button>
- <button class="pillBtn" id="modeEdit" type="button">Punkte bearbeiten</button>
- <span style="flex:1 1 auto"></span>
- <button class="pillBtn active" data-pick="kundig" id="pickK" type="button">Kundig (blau)</button>
- <button class="pillBtn" data-pick="auffrischung" id="pickA" type="button">Auffrischung (rot)</button>
- <button class="pillBtn" data-pick="unkundig" id="pickN" type="button">Unkundig (Original)</button>
- <button class="pillBtn" id="toOrtskunde" type="button">Weiter: Ortskunde</button>
- <button class="pillBtn" id="backFromMap" type="button">Zurück</button>
- </div>
- <div class="routeRail hidden" id="routeRail">
- <div class="routeRailHead">RADN</div>
- <div class="routeRailHint">Klick = Status + Fokus</div>
- <div class="routeRailList" id="routeRailList"></div>
+  <div class="mapBarHead">
+   <div><div class="toolEyebrow">Kartenwerkzeuge</div><div class="toolTitle">Stationen bearbeiten</div></div>
+   <button class="iconBtn" id="undoMap" type="button" disabled title="Letzte Kartenänderung rückgängig">↶ <span>Rückgängig</span></button>
+  </div>
+  <div class="toolSection">
+   <div class="toolLabel">Modus</div>
+   <div class="segmented two">
+    <button class="pillBtn active" id="modePan" type="button"><span class="btnGlyph">✥</span> Verschieben</button>
+    <button class="pillBtn" id="modeEdit" type="button"><span class="btnGlyph">⌁</span> Abschnitt markieren</button>
+   </div>
+  </div>
+  <div class="toolSection">
+   <div class="toolLabel">RADN-Linie <span>optional beim Wischen</span></div>
+   <select id="linePick" class="mapSelect" aria-label="RADN-Linie auswählen"><option value="">Linie wählen …</option></select>
+   <button class="pillBtn wide" id="markLineStations" type="button">Alle Stationen dieser Linie markieren</button>
+  </div>
+  <div class="toolSection">
+   <div class="toolLabel">Status</div>
+   <div class="segmented statusSegment">
+    <button class="pillBtn statusChoice kundig active" data-pick="kundig" id="pickK" type="button"><span class="statusDot"></span>Kundig</button>
+    <button class="pillBtn statusChoice auffrischung" data-pick="auffrischung" id="pickA" type="button"><span class="statusDot"></span>Auffrischung</button>
+    <button class="pillBtn statusChoice unkundig" data-pick="unkundig" id="pickN" type="button"><span class="statusDot"></span>Unkundig</button>
+   </div>
+  </div>
+  <div class="mapNav">
+   <button class="pillBtn navBack" id="backFromMap" type="button">← Zurück</button>
+   <button class="pillBtn navNext" id="toOrtskunde" type="button">Weiter zur Ortskunde →</button>
+  </div>
  </div>
  <!-- Sheet -->
  <div class="sheet" id="sheet">
@@ -147,12 +381,11 @@
  <span class="step" id="s4">4 Karte</span>
  <span class="step" id="s5">5 Ortskunde</span>
  </div>
- <div class="dirty" id="dirty"></div>
  </div>
  <div class="sheetBody">
  <!-- Step 1 -->
  <div class="card" id="p1">
- <div style="font-weight:850; margin-bottom:6px;">Personendaten</div>
+ <div class="sectionEyebrow">Schritt 1</div><div class="sectionTitle">Personendaten</div>
  <div class="hint">Mitarbeiter auswählen. Danach Routen setzen.</div>
  <label>Suche Mitarbeiter</label>
  <input id="empSearch" placeholder="Name, Vorname oder interner Code" />
@@ -177,7 +410,7 @@
  </div>
  <!-- Step 2 -->
  <div class="card hidden" id="p2">
- <div style="font-weight:850; margin-bottom:6px;">RADN-Strecken (101–791)</div>
+ <div class="sectionEyebrow">Schritt 2</div><div class="sectionTitle">RADN-Strecken <span>101–791</span></div>
  <div class="hint">Status wählen und im Modus «Markieren» Route anklicken</div>
  <div class="cardTop">
  <div class="toggleRow">
@@ -187,10 +420,10 @@
  <span class="hint" style="margin:0;">RADN</span>
  <button class="toggle active" id="radnScroll" type="button">Scrollen</button>
  <button class="toggle" id="radnMark" type="button">Markieren</button>
-              <span class="hint" style="margin:0;">Status</span>
-              <button class="toggle status k active" id="radnPickK" type="button">kundig</button>
-              <button class="toggle status a" id="radnPickA" type="button">auffrischung</button>
-              <button class="toggle status u" id="radnPickU" type="button">unkundig</button>
+ <span class="hint" style="margin:0;">Status</span>
+ <button class="toggle status k active" id="radnPickK" type="button">kundig</button>
+ <button class="toggle status a" id="radnPickA" type="button">auffrischung</button>
+ <button class="toggle status u" id="radnPickU" type="button">unkundig</button>
  <span style="flex:1 1 auto"></span>
  <button class="btn" id="backToPerson" type="button">Zurück</button>
  <button class="btn primary" id="nextFromRoutes" type="button">Weiter</button>
@@ -200,7 +433,7 @@
  </div>
  <!-- Step 3 -->
  <div class="card hidden" id="p3">
- <div style="font-weight:850; margin-bottom:6px;">BLS Daten</div>
+ <div class="sectionEyebrow">Schritt 3</div><div class="sectionTitle">BLS-Teilstrecken</div>
  <div class="hint">BLS Daten (nur gewählte RADN-Routen). Tippen toggelt kundig/unkundig (Standard = unkundig).</div>
  <div class="toggleRow" style="margin-top:10px;">
  <button class="toggle active" id="blsFilterAll" type="button">Alle</button>
@@ -220,7 +453,7 @@
  </div>
  <!-- Step 5 -->
  <div class="card hidden" id="p5">
- <div style="font-weight:850; margin-bottom:6px;">Ortskunde (Anschlussgleise und Tanklager)</div>
+ <div class="sectionEyebrow">Schritt 5</div><div class="sectionTitle">Ortskunde <span>Anschlussgleise und Tanklager</span></div>
  <div class="cardTop">
  <div class="toggleRow">
  <span class="hint" style="margin:0;">Prüfen und bestätigen</span>
@@ -245,14 +478,11 @@
  window.addEventListener('error', function(ev){ try{ var m = (ev && ev.message) ? ev.message : 'JS-Fehler'; var t=document.getElementById('toast'); if(t){ t.textContent=m; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 3500);} }catch(e){} });
  const $ = (id) => document.getElementById(id);
  const toast = (m) => { const t=$('toast'); t.textContent=m; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 2200); };
- let autosaveTimer = null;
- function autosaveDraft(){
-   clearTimeout(autosaveTimer);
-   autosaveTimer = setTimeout(()=>{
-     try{ localStorage.setItem('mev_streckenkunde_autosave_v1', JSON.stringify(payload())); }catch(e){}
-   }, 600);
+ const setDirty = (v) => $('dirty').textContent = v ? 'nicht gespeichert' : '';
+ function localDateISO(d){
+ const x = d || new Date();
+ return new Date(x.getTime() - x.getTimezoneOffset()*60000).toISOString().slice(0,10);
  }
- const setDirty = (v) => { $('dirty').textContent = v ? 'nicht gespeichert' : ''; if(v) autosaveDraft(); };
  const st = {
  person: {vorname:'', nachname:'', datum:'', personalnummer:'', mail:'', tel:'', abteilung:''},
  employees: [],
@@ -272,6 +502,7 @@
  mode: 'pan',
  pick: 'kundig',
  blsMode: false,
+ blsFilter: 'all',
  blsAllFalsePending: false,
  // NEW: remember collapsed state per route to avoid TypeError
  blsCollapsed: {},
@@ -280,12 +511,10 @@
  ortFilter: 'suggested',
  ortsManual: {},
  idxTankByLine: {},
- segHitLayer: null,
- stationCodeIndex: {},
  radnMode: 'scroll',
  radnPickStatus: 'kundig',
- currentStep: 1,
- mapFocusRoute: null
+ undoStack: [],
+ currentStep: 1
  };
  // ===== Tap-Anzeige im Header (nur bei Antippen, nie bei Wischen) =====
  const buildEl = document.querySelector('.topbar .build');
@@ -318,6 +547,21 @@
  return id.indexOf('station_')===0 || id.indexOf('unoccupied_station_')===0;
  }
  // ===== Tanklager/Anschlussgleise: Abgleich über data-line =====
+ function parseLineTokens(value){
+ var raw = String(value == null ? '' : value);
+ var matches = raw.match(/\d{3}/g) || [];
+ var seen = {};
+ var out = [];
+ for(var i=0;i<matches.length;i++){
+ var line = matches[i];
+ var n = Number(line);
+ if(n < 101 || n > 791 || seen[line]) continue;
+ seen[line] = 1;
+ out.push(line);
+ }
+ out.sort(function(a,b){ return Number(a)-Number(b); });
+ return out;
+ }
  function collectDataLines(el){
  var out=[];
  try{
@@ -325,14 +569,13 @@
  for(var i=0;i<names.length;i++){
  var a = names[i];
  if(a.indexOf('data-line')!==0) continue;
- var v = String(el.getAttribute(a) || '').replace(/\D+/g,'');
- if(v) out.push(v);
+ var vals = parseLineTokens(el.getAttribute(a));
+ for(var j=0;j<vals.length;j++) out.push(vals[j]);
  }
  }catch(e){}
- // unique
  var seen = {};
  var res=[];
- for(var j=0;j<out.length;j++){ if(!seen[out[j]]){ seen[out[j]]=1; res.push(out[j]); } }
+ for(var k=0;k<out.length;k++){ if(!seen[out[k]]){ seen[out[k]]=1; res.push(out[k]); } }
  res.sort(function(a,b){ return Number(a)-Number(b); });
  return res;
  }
@@ -347,17 +590,17 @@
  for(var i=0;i<arr.length;i++){
  var it = arr[i] || {};
  if(!it.tanklager) continue;
- var line = String(it.line || lineKey || '').replace(/\D+/g,'');
+ var lines = parseLineTokens(it.line || lineKey || '');
  // Sonderfall: unknown-Liste mit code = Liniennummer (z.B. "411")
- if(!line){
- var c = String(it.code || '').replace(/\D+/g,'');
- if(c) line = c;
- }
- if(!line) continue;
+ if(!lines.length) lines = parseLineTokens(it.code || '');
+ if(!lines.length) continue;
  var label = String(it.label || it.tanklager || '').trim();
  if(!label) continue;
+ for(var li=0;li<lines.length;li++){
+ var line = lines[li];
  if(!out[line]) out[line] = new Set();
  out[line].add(label);
+ }
  }
  });
  }catch(e){}
@@ -458,12 +701,6 @@
  function showStep(step){
  st.currentStep = step;
  if(step===2 && st.setRadnMode) st.setRadnMode('scroll');
- setRadnPickStatus('kundig');
- if($('radnPickK')) $('radnPickK').addEventListener('click', ()=>setRadnPickStatus('kundig'));
- if($('radnPickA')) $('radnPickA').addEventListener('click', ()=>setRadnPickStatus('auffrischung'));
- if($('radnPickU')) $('radnPickU').addEventListener('click', ()=>setRadnPickStatus('unkundig'));
- if($('blsFilterAll')) $('blsFilterAll').addEventListener('click', ()=>{ st.blsFilter='all'; $('blsFilterAll').classList.add('active'); $('blsFilterUnkundig').classList.remove('active'); renderSegList(); });
- if($('blsFilterUnkundig')) $('blsFilterUnkundig').addEventListener('click', ()=>{ st.blsFilter='false'; $('blsFilterUnkundig').classList.add('active'); $('blsFilterAll').classList.remove('active'); renderSegList(); });
  $('p1').classList.toggle('hidden', step!==1);
  $('p2').classList.toggle('hidden', step!==2);
  $('p3').classList.toggle('hidden', step!==3);
@@ -475,7 +712,6 @@
  $('s5').classList.toggle('active', step===5);
  $('viewMap').classList.toggle('hidden', step!==4);
  $('mapBar').classList.toggle('hidden', step!==4);
- $('routeRail').classList.toggle('hidden', step!==4);
  $('sheet').classList.toggle('hidden', step===4);
  }
  function abs(rel){
@@ -520,7 +756,7 @@
  $('vorname').value = e.vorname || '';
  $('nachname').value = e.nachname || '';
  $('pnr').value = String(e.personalnummer || '');
- $('datum').value = $('datum').value || (new Date()).toISOString().slice(0,10);
+ $('datum').value = $('datum').value || localDateISO();
  syncPerson();
         // Mail/Tel/Abteilung aus Auswahl übernehmen
         st.person.mail = e.mail || '';
@@ -548,20 +784,30 @@
  }).sort((a,b)=>Number(a)-Number(b));
  }
  function routeMatchesSearch(route){ return true; }
+ function routeNameOnly(r){
+ let name = String((st.routes||{})[r] || '').trim();
+ const escaped = String(r).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+ const prefix = new RegExp('^' + escaped + '(?=\\s|[-–—:|/]|$)');
+ while(prefix.test(name)){
+ name = name.replace(prefix, '').replace(/^[\s\-–—:|/]+/, '').trim();
+ }
+ return name;
+ }
+ function routeDisplayTitle(r){
+ const name = routeNameOnly(r);
+ return name ? (String(r) + ' ' + name) : String(r);
+ }
  function setRouteStatus(r, status){
   status = (status==='kundig' || status==='auffrischung' || status==='unkundig') ? status : 'unkundig';
   st.routeStatus[r] = status;
   if(status !== 'unkundig') initTeilstreckenForRoute(r);
-  if(status === 'unkundig' && st.teilstrecken[r]){ Object.keys(st.teilstrecken[r]).forEach(k=>st.teilstrecken[r][k]=false); }
   renderRouteList();
-  renderMapRouteRail();
-  if($('blsList') && !($('p3').classList.contains('hidden'))) renderSegList();
-  if(st.svgRoot){ applySelectionToSvg(); updateTeilstreckenHitVisuals(); }
   setDirty(true);
   toast(`Route ${r}: ${status}`);
 }
 
 function tapRoute(r){
+  // Im Modus «Markieren»: Status direkt via Buttons setzen
   if(st.radnMode === 'mark' && st.radnPickStatus){
     setRouteStatus(r, st.radnPickStatus);
     return;
@@ -570,7 +816,11 @@ function tapRoute(r){
  if(st.tap.key===r && (now-st.tap.t)<450) st.tap.c += 1; else { st.tap.key=r; st.tap.c=1; }
  st.tap.t=now;
  const status = (st.tap.c===1) ? 'kundig' : (st.tap.c===2) ? 'auffrischung' : 'unkundig';
- setRouteStatus(r, status);
+ st.routeStatus[r]=status;
+ if(status!=='unkundig') initTeilstreckenForRoute(r);
+ renderRouteList();
+ setDirty(true);
+ toast(`Route ${r}: ${status}`);
  }
  function renderRouteList(){
  const host=$('routeList'); host.innerHTML='';
@@ -579,9 +829,9 @@ function tapRoute(r){
  routes.forEach(r=>{
  const div=document.createElement('div'); div.className='item';
  const status=st.routeStatus[r]||'unkundig';
- const rawTitle = String(st.routes[r]||'').trim();
- const titleText = rawTitle.indexOf(String(r)) === 0 ? rawTitle : (String(r) + ' ' + rawTitle);
- div.innerHTML=`<div class="no">${r}</div><div class="desc"><b>${titleText}</b></div>${badge(status)}`;
+ div.innerHTML=`<div class="no">${r}</div><div class="desc"><b></b></div>${badge(status)}`;
+ const titleEl = div.querySelector('.desc b');
+ if(titleEl) titleEl.textContent = routeDisplayTitle(r);
  let down = null;
  div.addEventListener('pointerdown', (ev)=>{
  if(st.radnMode !== 'mark') return;
@@ -601,77 +851,6 @@ function tapRoute(r){
  div.addEventListener('pointercancel', ()=>{ down = null; }, {passive:true});
  host.appendChild(div);
  });
- }
- function routeChipClass(status){ return status==='kundig' ? 'k' : status==='auffrischung' ? 'a' : 'u'; }
- function cycleRouteStatus(status){ return status==='kundig' ? 'auffrischung' : status==='auffrischung' ? 'unkundig' : 'kundig'; }
- function svgPointInRoot(x,y, matrix){
-   var p = st.svgRoot.createSVGPoint();
-   p.x = x; p.y = y;
-   try{ return matrix ? p.matrixTransform(matrix) : p; }catch(e){ return p; }
- }
- function transformedBBoxOf(el){
-   if(!el || !st.svgRoot) return null;
-   try{
-     var b = el.getBBox();
-     var m = el.getCTM ? el.getCTM() : null;
-     var pts = [
-       svgPointInRoot(b.x, b.y, m),
-       svgPointInRoot(b.x + b.width, b.y, m),
-       svgPointInRoot(b.x, b.y + b.height, m),
-       svgPointInRoot(b.x + b.width, b.y + b.height, m)
-     ];
-     var xs = pts.map(function(p){return p.x;});
-     var ys = pts.map(function(p){return p.y;});
-     return {
-       x: Math.min.apply(null,xs),
-       y: Math.min.apply(null,ys),
-       width: Math.max.apply(null,xs)-Math.min.apply(null,xs),
-       height: Math.max.apply(null,ys)-Math.min.apply(null,ys)
-     };
-   }catch(e){ return null; }
- }
- function transformedCenterOf(el){
-   var b = transformedBBoxOf(el);
-   if(!b) return null;
-   return {x:b.x + b.width/2, y:b.y + b.height/2};
- }
- function focusRouteOnMap(r){
-   if(!st.svgRoot) return;
-   var nodes = Array.from(st.svgRoot.querySelectorAll('[data-typ], [data-type]')).filter(function(el){return isPoint(el) && matchesAnyLine(el, r);});
-   if(!nodes.length){ toast('Keine Kartenpunkte für Route '+r+' gefunden.'); return; }
-   var minX=Infinity, minY=Infinity, maxX=-Infinity, maxY=-Infinity;
-   nodes.forEach(function(el){
-     var b = transformedBBoxOf(el);
-     if(!b) return;
-     minX=Math.min(minX,b.x); minY=Math.min(minY,b.y); maxX=Math.max(maxX,b.x+b.width); maxY=Math.max(maxY,b.y+b.height);
-   });
-   if(!isFinite(minX)||!isFinite(minY)||!isFinite(maxX)||!isFinite(maxY)){ toast('Keine gültigen SVG-Koordinaten für Route '+r+'.'); return; }
-   var pad = Math.max((maxX-minX)*0.35, (maxY-minY)*0.35, 40);
-   setViewBox({x:minX-pad, y:minY-pad, w:(maxX-minX)+2*pad, h:(maxY-minY)+2*pad});
- }
- function setMapFocusRoute(r, doZoom){
-   st.mapFocusRoute = r || null;
-   renderMapRouteRail();
-   if(r && doZoom) focusRouteOnMap(r);
- }
- function renderMapRouteRail(){
-   const host=$('routeRailList'); if(!host) return; host.innerHTML='';
-   const routes=allRoutes();
-   if(!routes.length){ host.innerHTML='<div class="hint">Keine Routen</div>'; return; }
-   routes.forEach(function(r){
-     const s=st.routeStatus[r]||'unkundig';
-     const btn=document.createElement('button');
-     btn.type='button';
-     btn.className='routeChip '+routeChipClass(s)+(st.mapFocusRoute===r?' focus':'');
-     btn.textContent=r;
-     btn.title='Route '+r+' · '+s+' · Klick = Status ändern und mit transformierten SVG-Koordinaten fokussieren';
-     btn.addEventListener('click', function(){
-       const next = cycleRouteStatus(st.routeStatus[r]||'unkundig');
-       setRouteStatus(r, next);
-       setMapFocusRoute(r, true);
-     });
-     host.appendChild(btn);
-   });
  }
  function selectedRoutes(){
  return allRoutes().filter(r=> (st.routeStatus[r]==='kundig' || st.routeStatus[r]==='auffrischung'));
@@ -705,7 +884,7 @@ function tapRoute(r){
  }
  sel.disabled=false;
  rs.forEach(r=>{
- const opt=document.createElement('option'); opt.value=r; opt.textContent=`${r} ${st.routes[r]||''}`; sel.appendChild(opt);
+ const opt=document.createElement('option'); opt.value=r; opt.textContent=routeDisplayTitle(r); sel.appendChild(opt);
  });
  }
  function updateBlsStats(){
@@ -733,16 +912,14 @@ function tapRoute(r){
  const wrap = document.createElement('div'); wrap.style.marginTop = '10px';
  const head = document.createElement('div'); head.className = 'groupHead';
  const collapsed = !!(st.blsCollapsed && st.blsCollapsed[r]);
- var desc = String(st.routes[r] || '').trim();
- var titleText = desc || String(r);
- if(desc && desc.indexOf(String(r)) !== 0){ titleText = String(r) + ' ' + desc; }
+ var titleText = routeDisplayTitle(r);
  const title = document.createElement('div'); title.className = 'groupTitle'; title.textContent = titleText;
  const meta = document.createElement('div'); meta.className = 'groupMeta'; meta.textContent = 'kundig: ' + trueCnt + ' / unkundig: ' + falseCnt;
  const spacer = document.createElement('span'); spacer.style.flex = '1 1 auto';
  const btnAllFalse = document.createElement('button'); btnAllFalse.type='button'; btnAllFalse.className='miniBtn'; btnAllFalse.textContent='alles unkundig';
- btnAllFalse.addEventListener('click', function(ev){ ev.preventDefault(); segs.forEach(function(it){ st.teilstrecken[r][segKey(it)] = false; }); setDirty(true); renderSegList(); renderSummary(); updateTeilstreckenHitVisuals(); });
+ btnAllFalse.addEventListener('click', function(ev){ ev.preventDefault(); segs.forEach(function(it){ st.teilstrecken[r][segKey(it)] = false; }); setDirty(true); renderSegList(); renderSummary(); });
  const btnAllTrue = document.createElement('button'); btnAllTrue.type='button'; btnAllTrue.className='miniBtn'; btnAllTrue.textContent='alles kundig';
- btnAllTrue.addEventListener('click', function(ev){ ev.preventDefault(); segs.forEach(function(it){ st.teilstrecken[r][segKey(it)] = true; }); setDirty(true); renderSegList(); renderSummary(); updateTeilstreckenHitVisuals(); });
+ btnAllTrue.addEventListener('click', function(ev){ ev.preventDefault(); segs.forEach(function(it){ st.teilstrecken[r][segKey(it)] = true; }); setDirty(true); renderSegList(); renderSummary(); });
  const btnCollapse = document.createElement('button'); btnCollapse.type='button'; btnCollapse.className='miniBtn'; btnCollapse.textContent = collapsed ? 'anzeigen' : 'zuklappen';
  btnCollapse.addEventListener('click', function(ev){ ev.preventDefault(); st.blsCollapsed[r] = !collapsed; renderSegList(); });
  head.appendChild(title); head.appendChild(meta); head.appendChild(spacer); head.appendChild(btnAllFalse); head.appendChild(btnAllTrue); head.appendChild(btnCollapse);
@@ -758,7 +935,7 @@ function tapRoute(r){
  '<div class="desc"><div style="font-weight:900; text-decoration:' + (on?'none':'line-through') + ';">' +
  it.seg + ' ' + it.from + ' → ' + it.to + name +
  '</div><div class="hint">Tippen toggelt kundig/unkundig</div></div>';
- div.addEventListener('click', function(){ st.teilstrecken[r][k] = !on; setDirty(true); renderSegList(); renderSummary(); updateTeilstreckenHitVisuals(); });
+ div.addEventListener('click', function(){ st.teilstrecken[r][k] = !on; setDirty(true); renderSegList(); renderSummary(); });
  wrap.appendChild(div);
  });
  }
@@ -767,13 +944,14 @@ function tapRoute(r){
  }
  // Assets
  async function ensureAssetsLoaded(){
- if(st.idx && st.svgText && Object.keys(st.routes).length) return;
+ if(st.idx && st.svgText && Object.keys(st.routes).length){ populateLinePick(); return; }
  const idx=await loadJson(abs('assets/index.json'));
  st.routes = idx.routes || {};
  st.routeSegmentsOrdered = idx.routeSegmentsOrdered || {};
  if(!st.blsMode && st.blsAllFalsePending){ resetAllTeilstreckenFalse(); }
  st.idx = await loadJson(abs('assets/stations_by_line.json'));
  buildIdxTankByLine();
+ populateLinePick();
  st.svgText = await loadText(abs('assets/map.svg'));
  }
  // SVG embed + pan/zoom
@@ -790,7 +968,7 @@ function tapRoute(r){
  const host=$('mapHost'); host.innerHTML='';
  const imported=document.importNode(svg,true); imported.style.width='100%'; imported.style.height='100%'; imported.style.display='block'; host.appendChild(imported);
  st.svgRoot=imported; st.viewBase=getInitialViewBox(st.svgRoot); setViewBox({...st.viewBase});
- enableTouchPanZoom(); enableDesktopMapPanZoom(); enablePointEditing(); wireHeaderTapToSvg(); buildTeilstreckenHitLayer();
+ enableTouchPanZoom(); enablePointEditing(); wireHeaderTapToSvg();
  st.tankIndex = buildTankIndexFromSvg(); buildIdxTankByLine(); updateOrtskundeSuggestions();
  }
  function enableTouchPanZoom(){
@@ -805,138 +983,442 @@ function tapRoute(r){
  function ensureOrig(el){ if(el.dataset.origFill===undefined){ var f = el.getAttribute('fill'); el.dataset.origFill = (f===null || f===undefined) ? '' : f; } if(el.dataset.origStroke===undefined){ var s = el.getAttribute('stroke'); el.dataset.origStroke = (s===null || s===undefined) ? '' : s; } }
  function restoreOrig(el){ if(el.dataset.origFill!=='') el.setAttribute('fill', el.dataset.origFill); else el.removeAttribute('fill'); if(el.dataset.origStroke!=='') el.setAttribute('stroke', el.dataset.origStroke); else el.removeAttribute('stroke'); el.style.fill=''; el.style.stroke=''; }
  function isPoint(el){ const raw = String((el.getAttribute('data-typ') || el.getAttribute('data-type') || '')).trim().toLowerCase(); return raw==='station' || raw==='unoccupied_station'; }
- function matchesAnyLine(el, lineDigits){ const target=String(lineDigits||'').replace(/\D+/g,''); if(!target) return false; try{ const attrs = el.getAttributeNames ? el.getAttributeNames() : []; for(const a of attrs){ if(a.indexOf('data-line')!==0) continue; const v=String(el.getAttribute(a)||'').replace(/\D+/g,''); if(v && v===target) return true; } }catch(e){} return false; }
+ function matchesAnyLine(el, lineDigits){ const targets=parseLineTokens(lineDigits); if(!targets.length) return false; const wanted=new Set(targets); try{ const attrs = el.getAttributeNames ? el.getAttributeNames() : []; for(const a of attrs){ if(a.indexOf('data-line')!==0) continue; const vals=parseLineTokens(el.getAttribute(a)); for(const v of vals){ if(wanted.has(v)) return true; } } }catch(e){} return false; }
  function setVisual(el, status){ ensureOrig(el); if(status==='unkundig'){ restoreOrig(el); return; } const col = (status==='kundig') ? getComputedStyle(document.documentElement).getPropertyValue('--blue').trim() : (status==='auffrischung') ? getComputedStyle(document.documentElement).getPropertyValue('--red').trim() : ''; if(!col){ restoreOrig(el); return; } el.style.fill=col; el.style.stroke=col; }
  function getRouteStatusForElement(el){ let hasK=false, hasA=false; for(const r of Object.keys(st.routeStatus||{})){ const stt=st.routeStatus[r]; if(stt!=='kundig' && stt!=='auffrischung') continue; if(!matchesAnyLine(el, r)) continue; if(stt==='kundig'){ hasK=true; break; } hasA=true; } if(hasK) return 'kundig'; if(hasA) return 'auffrischung'; return 'unkundig'; }
  function applySelectionToSvg(){ if(!st.svgRoot) return; const nodes = st.svgRoot.querySelectorAll('[data-typ], [data-type]'); nodes.forEach(el=>{ if(!isPoint(el)) return; let status=getRouteStatusForElement(el); if(el.id && st.overrides[el.id]) status=st.overrides[el.id]; setVisual(el, status); }); }
+ function stationEntriesForLine(line){
+ const targets = parseLineTokens(line);
+ const target = targets[0] || '';
+ const out = []; const seen = new Set();
+ if(!target) return out;
+ Object.keys(st.idx||{}).forEach(function(key){
+ const arr = st.idx[key]; if(!Array.isArray(arr)) return;
+ arr.forEach(function(it){
+ const actual = parseLineTokens((it && (it.line || key)) || '');
+ const id = String((it && it.id) || '').trim();
+ if(actual.indexOf(target)===-1 || !id || seen.has(id)) return;
+ seen.add(id); out.push(it);
+ });
+ });
+ return out;
+ }
+ function availableStationLines(){
+ const lines = new Set();
+ Object.keys(st.idx||{}).forEach(function(key){
+ const arr = st.idx[key]; if(!Array.isArray(arr)) return;
+ arr.forEach(function(it){
+ const vals = parseLineTokens((it && (it.line || key)) || '');
+ vals.forEach(function(line){ lines.add(line); });
+ });
+ });
+ return Array.from(lines).sort(function(a,b){ return Number(a)-Number(b); });
+ }
+ function populateLinePick(){
+ const sel = $('linePick'); if(!sel || !st.idx) return;
+ const previous = sel.value;
+ const lines = availableStationLines();
+ sel.innerHTML = '<option value="">Linie wählen (optional) …</option>';
+ lines.forEach(function(line){
+ const opt = document.createElement('option');
+ const count = stationEntriesForLine(line).length;
+ opt.value = line;
+ opt.textContent = routeDisplayTitle(line) + ' · ' + count + ' Stationen';
+ sel.appendChild(opt);
+ });
+ const preferred = previous || selectedRoutes()[0] || '';
+ if(preferred && lines.indexOf(preferred)!==-1) sel.value = preferred;
+ }
+ function svgPointById(id){
+ if(!st.svgRoot || !id) return null;
+ let el = null;
+ try{ el = st.svgRoot.getElementById ? st.svgRoot.getElementById(id) : null; }catch(e){}
+ if(!el){ try{ el = st.svgRoot.querySelector('#' + CSS.escape(id)); }catch(e){} }
+ if(!el) return null;
+ if(isPoint(el)) return el;
+ const child = el.querySelector ? el.querySelector('[data-typ], [data-type]') : null;
+ if(child && isPoint(child)) return child;
+ let parent = el.parentElement;
+ for(let i=0;i<6 && parent;i++,parent=parent.parentElement){ if(isPoint(parent)) return parent; }
+ return null;
+ }
+ function markSelectedLineStations(){
+ const sel = $('linePick');
+ const line = sel ? String(sel.value||'') : '';
+ if(!line){ toast('Bitte zuerst eine Linie wählen.'); return; }
+ if(!st.svgRoot){ toast('Karte ist noch nicht geladen.'); return; }
+ const entries = stationEntriesForLine(line);
+ const points = []; let missing = 0; const done = new Set();
+ entries.forEach(function(it){
+ const pt = svgPointById(it.id);
+ if(!pt || !pt.id || done.has(pt.id)){ if(!pt) missing++; return; }
+ done.add(pt.id); points.push(pt);
+ });
+ const marked = applyStatusToPoints(points,st.pick,'Linie '+line);
+ const extra = missing ? (' · ' + missing + ' nicht auf Karte gefunden') : '';
+ toast('Linie ' + line + ': ' + marked + ' Stationen ' + st.pick + ' markiert' + extra + '.');
+ }
  function findPointFromTarget(t){ let el=t; for(let i=0;i<10 && el;i++){ if(el.getAttribute && (el.getAttribute('data-typ')||el.getAttribute('data-type'))) return el; el=el.parentElement; } return null; }
  function pointFromClientXYRadius(cx,cy,r){ const rad=Number(r||0); const offs=[[0,0],[rad,0],[-rad,0],[0,rad],[0,-rad],[rad,rad],[rad,-rad],[-rad,rad],[-rad,-rad]]; for(const o of offs){ const x=cx+o[0], y=cy+o[1]; const els=document.elementsFromPoint?document.elementsFromPoint(x,y):[document.elementFromPoint(x,y)]; for(const e of els){ const pt=findPointFromTarget(e); if(pt && isPoint(pt)) return pt; } } return null; }
-
- function enableDesktopMapPanZoom(){
- if(!st.svgRoot || st.svgRoot.dataset.desktopPanZoom==='1') return;
- st.svgRoot.dataset.desktopPanZoom='1';
- let dragging=false, start=null;
- function zoomAt(cx, cy, factor){
-   if(!st.viewCur || !st.viewBase) return;
-   const pt=st.svgRoot.createSVGPoint(); pt.x=cx; pt.y=cy;
-   const ctm=st.svgRoot.getScreenCTM(); if(!ctm) return;
-   const mid=pt.matrixTransform(ctm.inverse());
-   const vb0=st.viewCur;
-   let nw=vb0.w*factor, nh=vb0.h*factor;
-   const minW=st.viewBase.w*0.02, maxW=st.viewBase.w*20;
-   if(nw<minW || nw>maxW) return;
-   const nx=mid.x-(mid.x-vb0.x)*(nw/vb0.w);
-   const ny=mid.y-(mid.y-vb0.y)*(nh/vb0.h);
-   setViewBox({x:nx,y:ny,w:nw,h:nh});
+ function pointCenterSvg(el){
+ try{
+ const b = el.getBBox();
+ return {x:b.x+b.width/2, y:b.y+b.height/2};
+ }catch(e){ return null; }
  }
- st.svgRoot.addEventListener('wheel', (ev)=>{
-   if(st.currentStep!==4) return;
-   ev.preventDefault();
-   zoomAt(ev.clientX, ev.clientY, ev.deltaY<0 ? 0.86 : 1.16);
- }, {passive:false});
- st.svgRoot.addEventListener('pointerdown', (ev)=>{
-   if(st.mode!=='pan' || ev.pointerType==='touch') return;
-   if(ev.button!=null && ev.button!==0) return;
-   dragging=true; start={x:ev.clientX,y:ev.clientY,vb:{...st.viewCur}};
-   try{ st.svgRoot.setPointerCapture(ev.pointerId); }catch(e){}
+ function pointCenterClient(el){
+ try{
+ const b = el.getBoundingClientRect();
+ return {x:b.left+b.width/2, y:b.top+b.height/2};
+ }catch(e){ return null; }
+ }
+ function linesForPoint(el){
+ const out = new Set(collectDataLines(el));
+ const id = String((el && el.id) || '');
+ if(id && st.idx){
+ Object.keys(st.idx).forEach(function(key){
+ const arr = st.idx[key]; if(!Array.isArray(arr)) return;
+ arr.forEach(function(it){
+ if(!it || String(it.id||'') !== id) return;
+ const vals = parseLineTokens(it.line || key || '');
+ vals.forEach(function(line){ out.add(line); });
  });
- st.svgRoot.addEventListener('pointermove', (ev)=>{
-   if(!dragging || !start || st.mode!=='pan' || !st.viewCur) return;
-   const rect=st.svgRoot.getBoundingClientRect();
-   const sx=start.vb.w/rect.width, sy=start.vb.h/rect.height;
-   setViewBox({x:start.vb.x-(ev.clientX-start.x)*sx, y:start.vb.y-(ev.clientY-start.y)*sy, w:start.vb.w, h:start.vb.h});
+ }
+ );
+ }
+ return Array.from(out).filter(function(x){ return /^\d{3}$/.test(x); }).sort(function(a,b){ return Number(a)-Number(b); });
+ }
+ function commonLineForPoints(a,b){
+ const la = linesForPoint(a), lbArr = linesForPoint(b), lb = new Set(lbArr);
+ const common = la.filter(function(x){ return lb.has(x); });
+ const picked = $('linePick') ? String($('linePick').value||'') : '';
+ if(picked && common.indexOf(picked)!==-1) return picked;
+ const selected = selectedRoutes();
+ for(let i=0;i<selected.length;i++){ if(common.indexOf(selected[i])!==-1) return selected[i]; }
+ if(common.length) return common[0];
+ // Übergangsbahnhöfe sind in den Quelldaten teilweise nur einer der beiden
+ // angrenzenden RADN-Linien zugeordnet. Eine bewusst gewählte Linie hat Vorrang.
+ if(picked) return picked;
+ // Ohne Vorauswahl gewinnt die Linie mit den meisten Punkten im gezogenen Korridor.
+ const ca=pointCenterClient(a), cb=pointCenterClient(b);
+ const union=Array.from(new Set(la.concat(lbArr)));
+ if(ca && cb && union.length){
+ const vx=cb.x-ca.x, vy=cb.y-ca.y, len2=vx*vx+vy*vy, dist=Math.sqrt(len2);
+ const corridor=Math.max(60,Math.min(160,dist*0.32));
+ let best='', bestScore=-1;
+ union.forEach(function(line){
+ let score=0;
+ allSvgPointsForLine(line).forEach(function(el){
+ const c=pointCenterClient(el); if(!c || len2<1) return;
+ const t=((c.x-ca.x)*vx+(c.y-ca.y)*vy)/len2;
+ const px=ca.x+t*vx, py=ca.y+t*vy;
+ const off=Math.hypot(c.x-px,c.y-py);
+ if(t>=-0.05 && t<=1.05 && off<=corridor) score++;
  });
- st.svgRoot.addEventListener('pointerup', (ev)=>{ dragging=false; start=null; try{ st.svgRoot.releasePointerCapture(ev.pointerId); }catch(e){} });
- st.svgRoot.addEventListener('pointercancel', ()=>{ dragging=false; start=null; });
+ if(score>bestScore){ bestScore=score; best=line; }
+ });
+ if(best) return best;
  }
- function getDataLinesFromEl(el){
-   const out=[];
-   if(!el || !el.getAttributeNames) return out;
-   try{ el.getAttributeNames().forEach(a=>{ if(a.indexOf('data-line')===0){ const v=String(el.getAttribute(a)||'').replace(/\D+/g,''); if(v && out.indexOf(v)<0) out.push(v); } }); }catch(e){}
-   return out;
+ return la[0] || lbArr[0] || '';
  }
- function buildStationCodeIndex(){
-   const idx={};
-   if(!st.svgRoot) return idx;
-   const nodes=st.svgRoot.querySelectorAll('[data-code]');
-   nodes.forEach(el=>{
-     const code=String(el.getAttribute('data-code')||'').trim();
-     if(!code) return;
-     if(!idx[code]) idx[code]=[];
-     idx[code].push(el);
-   });
-   st.stationCodeIndex=idx;
-   return idx;
+ function allSvgPointsForLine(line){
+ const out=[]; const seen=new Set();
+ if(!st.svgRoot || !line) return out;
+ const nodes = st.svgRoot.querySelectorAll('[data-typ], [data-type]');
+ nodes.forEach(function(el){
+ if(!isPoint(el) || !el.id || seen.has(el.id)) return;
+ if(matchesAnyLine(el,line)){ seen.add(el.id); out.push(el); }
+ });
+ // JSON ergänzt Stationen, deren data-line im SVG fehlt oder nur am Elternelement sitzt.
+ stationEntriesForLine(line).forEach(function(it){
+ const el = svgPointById(it.id);
+ if(el && el.id && !seen.has(el.id)){ seen.add(el.id); out.push(el); }
+ });
+ return out;
  }
- function stationCenterForCode(code, route){
-   const idx=st.stationCodeIndex && Object.keys(st.stationCodeIndex).length ? st.stationCodeIndex : buildStationCodeIndex();
-   let arr=idx[String(code||'').trim()] || [];
-   if(route){
-     const rr=String(route).replace(/\D+/g,'');
-     const filtered=arr.filter(function(el){return getDataLinesFromEl(el).indexOf(rr)>=0;});
-     if(filtered.length) arr=filtered;
-   }
-   if(!arr.length) return null;
-   for(var i=0;i<arr.length;i++){
-     var c = transformedCenterOf(arr[i]);
-     if(c) return c;
-   }
-   return null;
+ function routeGeometryForLine(line,startPt,endPt){
+ if(!st.svgRoot) return null;
+ const a=pointCenterSvg(startPt), b=pointCenterSvg(endPt);
+ if(!a || !b) return null;
+ let best=null;
+ const geoms=st.svgRoot.querySelectorAll('path, polyline, line');
+ geoms.forEach(function(g){
+ if(!matchesAnyLine(g,line) || typeof g.getTotalLength!=='function' || typeof g.getPointAtLength!=='function') return;
+ let len=0; try{ len=g.getTotalLength(); }catch(e){ return; }
+ if(!Number.isFinite(len) || len<=0) return;
+ const pa=nearestOnGeometry(g,a,len), pb=nearestOnGeometry(g,b,len);
+ if(!pa || !pb) return;
+ const score=pa.d+pb.d;
+ if(!best || score<best.score) best={g:g,len:len,a:pa,b:pb,score:score};
+ });
+ return best;
  }
- function buildTeilstreckenHitLayer(){
-   if(!st.svgRoot || !st.routeSegmentsOrdered) return;
-   buildStationCodeIndex();
-   if(st.segHitLayer) try{ st.segHitLayer.remove(); }catch(e){}
-   const NS='http://www.w3.org/2000/svg';
-   const g=document.createElementNS(NS,'g');
-   g.setAttribute('id','mevSegmentHitLayer');
-   g.setAttribute('data-purpose','clickable-teilstrecken');
-   st.segHitLayer=g;
-   Object.keys(st.routeSegmentsOrdered||{}).forEach(r=>{
-     const arr=st.routeSegmentsOrdered[r]||[];
-     arr.forEach(it=>{
-       const a=stationCenterForCode(it.from,r), b=stationCenterForCode(it.to,r);
-       if(!a || !b) return;
-       const ln=document.createElementNS(NS,'line');
-       ln.setAttribute('x1',a.x); ln.setAttribute('y1',a.y); ln.setAttribute('x2',b.x); ln.setAttribute('y2',b.y);
-       ln.setAttribute('class','mevSegHit off');
-       ln.dataset.route=String(r);
-       ln.dataset.key=segKey(it);
-       ln.dataset.label=(it.seg||r)+' '+(it.fromName||it.from)+' → '+(it.toName||it.to);
-       ln.addEventListener('click',(ev)=>{
-         if(st.mode!=='edit') return;
-         ev.preventDefault(); ev.stopPropagation();
-         toggleTeilstreckeFromMap(r, it);
-       });
-       g.appendChild(ln);
-     });
-   });
-   st.svgRoot.appendChild(g);
-   updateTeilstreckenHitVisuals();
+ function nearestOnGeometry(g,p,len){
+ const samples=Math.max(32,Math.min(180,Math.ceil(len/20)));
+ let bestI=0,bestD=Infinity,bestP=null;
+ for(let i=0;i<=samples;i++){
+ const at=len*i/samples; let q; try{ q=g.getPointAtLength(at); }catch(e){ return null; }
+ const d=Math.hypot(q.x-p.x,q.y-p.y);
+ if(d<bestD){ bestD=d; bestI=i; bestP={x:q.x,y:q.y,at:at}; }
  }
- function toggleTeilstreckeFromMap(r,it){
-   if(!st.teilstrecken[r]) initTeilstreckenForRoute(r);
-   if(!st.routeStatus[r] || st.routeStatus[r]==='unkundig') st.routeStatus[r]='kundig';
-   const k=segKey(it);
-   if(st.teilstrecken[r][k]===undefined) st.teilstrecken[r][k]=false;
-   const nv=!st.teilstrecken[r][k];
-   st.teilstrecken[r][k]=nv;
-   setDirty(true);
-   renderRouteList(); renderSegList(); renderSummary(); updateTeilstreckenHitVisuals();
-   toast((it.seg||r)+' '+(it.fromName||it.from)+' → '+(it.toName||it.to)+': '+(nv?'kundig':'unkundig'));
+ let lo=Math.max(0,len*(bestI-1)/samples), hi=Math.min(len,len*(bestI+1)/samples);
+ for(let r=0;r<10;r++){
+ const m1=lo+(hi-lo)/3, m2=hi-(hi-lo)/3;
+ const q1=g.getPointAtLength(m1), q2=g.getPointAtLength(m2);
+ const d1=Math.hypot(q1.x-p.x,q1.y-p.y), d2=Math.hypot(q2.x-p.x,q2.y-p.y);
+ if(d1<=d2) hi=m2; else lo=m1;
  }
- function updateTeilstreckenHitVisuals(){
-   if(!st.svgRoot) return;
-   const nodes=st.svgRoot.querySelectorAll('.mevSegHit');
-   nodes.forEach(el=>{
-     const r=el.dataset.route, k=el.dataset.key;
-     const on=!!(st.teilstrecken && st.teilstrecken[r] && st.teilstrecken[r][k]===true);
-     el.classList.toggle('on', on);
-     el.classList.toggle('off', !on);
-   });
+ const at=(lo+hi)/2, q=g.getPointAtLength(at), d=Math.hypot(q.x-p.x,q.y-p.y);
+ return {at:at,d:d,x:q.x,y:q.y};
  }
-
- function enablePointEditing(){ if(!st.svgRoot) return; st.svgRoot.addEventListener('touchend',(ev)=>{ if(st.mode!=='edit') return; const t=ev.changedTouches && ev.changedTouches[0]; if(!t) return; const pt=pointFromClientXYRadius(t.clientX,t.clientY,12); if(pt && pt.id){ st.overrides[pt.id]=st.pick; applySelectionToSvg(); setDirty(true); toast(`${labelNurInkscape(pt)}: ${st.pick}`); } ev.preventDefault(); },{passive:false}); st.svgRoot.addEventListener('click',(ev)=>{ if(st.mode!=='edit') return; const pt=findPointFromTarget(ev.target); if(pt && pt.id){ st.overrides[pt.id]=st.pick; applySelectionToSvg(); setDirty(true); toast(`${labelNurInkscape(pt)}: ${st.pick}`); } }); }
+ function pointsBetweenOnLine(line,startPt,endPt){
+ const candidates=allSvgPointsForLine(line);
+ if(!candidates.length) return [];
+ const geometry=routeGeometryForLine(line,startPt,endPt);
+ if(geometry){
+ const lo=Math.min(geometry.a.at,geometry.b.at), hi=Math.max(geometry.a.at,geometry.b.at);
+ const pad=Math.max(2,geometry.len*0.003);
+ const projected=[];
+ candidates.forEach(function(el){
+ const c=pointCenterSvg(el); if(!c) return;
+ const n=nearestOnGeometry(geometry.g,c,geometry.len); if(!n) return;
+ if(n.at>=lo-pad && n.at<=hi+pad) projected.push({el:el,at:n.at,d:n.d});
+ });
+ // Ein falscher Parallelpfad würde grosse Abstände erzeugen. Dann lieber Bildschirm-Fallback.
+ const endScale=Math.max(geometry.a.d,geometry.b.d,1);
+ const good=projected.filter(function(x){ return x.d <= Math.max(35,endScale*3); });
+ if(good.length>=2){ good.sort(function(x,y){ return x.at-y.at; }); return good.map(function(x){ return x.el; }); }
+ }
+ // Fallback: Projektion auf die direkte Verbindung im sichtbaren Kartenbild.
+ const a=pointCenterClient(startPt), b=pointCenterClient(endPt); if(!a||!b) return [startPt,endPt];
+ const vx=b.x-a.x, vy=b.y-a.y, len2=vx*vx+vy*vy, dist=Math.sqrt(len2);
+ if(len2<1) return [startPt];
+ const corridor=Math.max(55,Math.min(150,dist*0.28));
+ const picked=[];
+ candidates.forEach(function(el){
+ const c=pointCenterClient(el); if(!c) return;
+ const t=((c.x-a.x)*vx+(c.y-a.y)*vy)/len2;
+ const px=a.x+t*vx, py=a.y+t*vy;
+ const off=Math.hypot(c.x-px,c.y-py);
+ if(t>=-0.03 && t<=1.03 && off<=corridor) picked.push({el:el,t:t,off:off});
+ });
+ picked.sort(function(x,y){ return x.t-y.t; });
+ return picked.map(function(x){ return x.el; });
+ }
+ function updateUndoButton(){
+ const btn=$('undoMap');
+ if(btn) btn.disabled = !(st.undoStack && st.undoStack.length);
+ }
+ function pushMapUndo(points,label){
+ const changes=[]; const seen=new Set();
+ points.forEach(function(pt){
+ if(!pt || !pt.id || seen.has(pt.id)) return;
+ seen.add(pt.id);
+ const had=Object.prototype.hasOwnProperty.call(st.overrides,pt.id);
+ changes.push({id:pt.id,had:had,value:had?st.overrides[pt.id]:null});
+ });
+ if(!changes.length) return;
+ st.undoStack = st.undoStack || [];
+ st.undoStack.push({label:String(label||'Kartenänderung'),changes:changes});
+ if(st.undoStack.length>30) st.undoStack.shift();
+ updateUndoButton();
+ }
+ function undoMapAction(){
+ const action=st.undoStack && st.undoStack.pop();
+ if(!action){ toast('Nichts zum Rückgängigmachen.'); updateUndoButton(); return; }
+ action.changes.forEach(function(ch){
+ if(ch.had) st.overrides[ch.id]=ch.value;
+ else delete st.overrides[ch.id];
+ });
+ applySelectionToSvg(); updateOrtskundeSuggestions(); setDirty(true); updateUndoButton();
+ toast(action.label+' rückgängig.');
+ }
+ function applyStatusToPoints(points,status,label){
+ let count=0; const done=new Set(); const valid=[];
+ points.forEach(function(pt){
+ if(!pt || !pt.id || done.has(pt.id)) return;
+ done.add(pt.id); valid.push(pt);
+ });
+ if(!valid.length) return 0;
+ pushMapUndo(valid,label);
+ valid.forEach(function(pt){ st.overrides[pt.id]=status; count++; });
+ applySelectionToSvg(); updateOrtskundeSuggestions(); setDirty(true);
+ return count;
+ }
+ function allSvgPoints(){
+ const out=[]; const seen=new Set();
+ if(!st.svgRoot) return out;
+ const nodes=st.svgRoot.querySelectorAll('[data-typ], [data-type]');
+ nodes.forEach(function(el){
+ if(!isPoint(el) || !el.id || seen.has(el.id)) return;
+ seen.add(el.id); out.push(el);
+ });
+ return out;
+ }
+ function traceLength(trace){
+ let total=0;
+ for(let i=1;i<trace.length;i++) total+=Math.hypot(trace[i].x-trace[i-1].x,trace[i].y-trace[i-1].y);
+ return total;
+ }
+ function nearestOnClientTrace(point,trace){
+ if(!point || !trace || trace.length<2) return null;
+ let best=null,total=0;
+ const segLens=[];
+ for(let i=1;i<trace.length;i++){
+ const len=Math.hypot(trace[i].x-trace[i-1].x,trace[i].y-trace[i-1].y);
+ segLens.push(len); total+=len;
+ }
+ let before=0;
+ for(let i=1;i<trace.length;i++){
+ const a=trace[i-1], b=trace[i], vx=b.x-a.x, vy=b.y-a.y;
+ const len=segLens[i-1], len2=vx*vx+vy*vy;
+ if(len2<0.01){ before+=len; continue; }
+ let t=((point.x-a.x)*vx+(point.y-a.y)*vy)/len2;
+ t=Math.max(0,Math.min(1,t));
+ const px=a.x+t*vx, py=a.y+t*vy;
+ const d=Math.hypot(point.x-px,point.y-py);
+ const progress=before+t*len;
+ if(!best || d<best.d) best={d:d,progress:progress,total:total};
+ before+=len;
+ }
+ return best;
+ }
+ function pointsAlongGesture(trace,startPt,endPt){
+ const out=[]; const total=traceLength(trace);
+ if(total<1) return [startPt,endPt];
+ // Bildschirm-Pixel: beim stärkeren Zoom bleibt die Bedienbreite angenehm konstant.
+ const corridor=Math.max(16,Math.min(27,16+total/180));
+ allSvgPoints().forEach(function(el){
+ const c=pointCenterClient(el); if(!c) return;
+ const hit=nearestOnClientTrace(c,trace); if(!hit) return;
+ if(hit.d<=corridor && hit.progress>=-2 && hit.progress<=hit.total+2){
+ out.push({el:el,progress:hit.progress,d:hit.d});
+ }
+ });
+ out.sort(function(a,b){ return a.progress-b.progress || a.d-b.d; });
+ const points=[]; const seen=new Set();
+ out.forEach(function(x){ if(!seen.has(x.el.id)){ seen.add(x.el.id); points.push(x.el); } });
+ if(startPt && !seen.has(startPt.id)){ points.unshift(startPt); seen.add(startPt.id); }
+ if(endPt && !seen.has(endPt.id)){ points.push(endPt); }
+ return points;
+ }
+ function clientToSvgPoint(cx,cy){
+ try{
+ const pt=st.svgRoot.createSVGPoint(); pt.x=cx; pt.y=cy;
+ const ctm=st.svgRoot.getScreenCTM(); if(!ctm) return null;
+ const p=pt.matrixTransform(ctm.inverse());
+ return {x:p.x,y:p.y};
+ }catch(e){ return null; }
+ }
+ function createGestureOverlay(){
+ if(!st.svgRoot) return null;
+ const el=document.createElementNS('http://www.w3.org/2000/svg','polyline');
+ const col=st.pick==='kundig' ? '#0070ff' : st.pick==='auffrischung' ? '#ff2a2a' : '#555';
+ el.setAttribute('fill','none');
+ el.setAttribute('stroke',col);
+ el.setAttribute('stroke-width','4');
+ el.setAttribute('stroke-linecap','round');
+ el.setAttribute('stroke-linejoin','round');
+ el.setAttribute('stroke-opacity','.72');
+ el.setAttribute('vector-effect','non-scaling-stroke');
+ el.setAttribute('pointer-events','none');
+ el.setAttribute('data-gesture-overlay','1');
+ st.svgRoot.appendChild(el);
+ return el;
+ }
+ function updateGestureOverlay(el,trace){
+ if(!el) return;
+ const pts=[];
+ for(let i=0;i<trace.length;i++){
+ const p=clientToSvgPoint(trace[i].x,trace[i].y);
+ if(p) pts.push(p.x+','+p.y);
+ }
+ el.setAttribute('points',pts.join(' '));
+ }
+ function removeGestureOverlay(el){
+ try{ if(el && el.parentNode) el.parentNode.removeChild(el); }catch(e){}
+ }
+ function markStationRange(startPt,endPt,trace){
+ if(!startPt || !endPt || !startPt.id || !endPt.id) return false;
+ let points=pointsAlongGesture(trace||[],startPt,endPt);
+ // Bei einer fast geraden, sehr kurzen Spur kann die Linienlogik zusätzliche
+ // Zwischenstationen derselben RADN-Linie zuverlässiger ergänzen.
+ if(points.length<=2){
+ const line=commonLineForPoints(startPt,endPt);
+ if(line){
+ const fallback=pointsBetweenOnLine(line,startPt,endPt);
+ if(fallback.length>points.length) points=fallback;
+ }
+ }
+ if(points.indexOf(startPt)===-1) points.unshift(startPt);
+ if(points.indexOf(endPt)===-1) points.push(endPt);
+ const label='Abschnitt '+labelNurInkscape(startPt)+' – '+labelNurInkscape(endPt);
+ const count=applyStatusToPoints(points,st.pick,label);
+ const lines=Array.from(new Set(points.flatMap(function(pt){ return linesForPoint(pt); }))).sort(function(a,b){return Number(a)-Number(b);});
+ const lineInfo=lines.length ? (' · Linien '+lines.join(', ')) : '';
+ toast(count+' Stationen von '+labelNurInkscape(startPt)+' bis '+labelNurInkscape(endPt)+' '+st.pick+lineInfo+'.');
+ return count>0;
+ }
+ function enablePointEditing(){
+ if(!st.svgRoot) return;
+ let drag=null; let suppressClickUntil=0;
+ st.svgRoot.addEventListener('pointerdown',function(ev){
+ if(st.mode!=='edit') return;
+ if(ev.button!=null && ev.button!==0) return;
+ const pt=pointFromClientXYRadius(ev.clientX,ev.clientY,14);
+ if(!pt || !pt.id) return;
+ drag={
+ start:pt,x:ev.clientX,y:ev.clientY,moved:false,pointerId:ev.pointerId,
+ trace:[{x:ev.clientX,y:ev.clientY}],overlay:createGestureOverlay()
+ };
+ try{ st.svgRoot.setPointerCapture(ev.pointerId); }catch(e){}
+ updateGestureOverlay(drag.overlay,drag.trace);
+ ev.preventDefault();
+ },{passive:false});
+ st.svgRoot.addEventListener('pointermove',function(ev){
+ if(st.mode!=='edit' || !drag || drag.pointerId!==ev.pointerId) return;
+ const last=drag.trace[drag.trace.length-1];
+ const step=Math.hypot(ev.clientX-last.x,ev.clientY-last.y);
+ if(step>=4){
+ drag.trace.push({x:ev.clientX,y:ev.clientY});
+ if(drag.trace.length>220) drag.trace.splice(1,1);
+ updateGestureOverlay(drag.overlay,drag.trace);
+ }
+ if(Math.hypot(ev.clientX-drag.x,ev.clientY-drag.y)>12) drag.moved=true;
+ ev.preventDefault();
+ },{passive:false});
+ st.svgRoot.addEventListener('pointerup',function(ev){
+ if(st.mode!=='edit' || !drag || drag.pointerId!==ev.pointerId) return;
+ const end=pointFromClientXYRadius(ev.clientX,ev.clientY,24);
+ const start=drag.start, moved=drag.moved, trace=drag.trace.slice(), overlay=drag.overlay;
+ trace.push({x:ev.clientX,y:ev.clientY});
+ drag=null; suppressClickUntil=performance.now()+700;
+ try{ st.svgRoot.releasePointerCapture(ev.pointerId); }catch(e){}
+ removeGestureOverlay(overlay);
+ if(moved){
+ if(end && end.id && end.id!==start.id) markStationRange(start,end,trace);
+ else toast('Für einen Abschnitt auf einem Zielbahnhof loslassen.');
+ }else{
+ const target=end||start;
+ const count=applyStatusToPoints([target],st.pick,labelNurInkscape(target));
+ if(count) toast(labelNurInkscape(target)+': '+st.pick);
+ }
+ ev.preventDefault();
+ },{passive:false});
+ st.svgRoot.addEventListener('pointercancel',function(){
+ if(drag) removeGestureOverlay(drag.overlay);
+ drag=null;
+ },{passive:true});
+ // Fallback für Browser, die nach Pointerup zusätzlich Click auslösen.
+ st.svgRoot.addEventListener('click',function(ev){
+ if(st.mode!=='edit' || performance.now()<suppressClickUntil) return;
+ const pt=findPointFromTarget(ev.target);
+ if(pt && pt.id){
+ const count=applyStatusToPoints([pt],st.pick,labelNurInkscape(pt));
+ if(count) toast(labelNurInkscape(pt)+': '+st.pick);
+ }
+ });
+ }
  // Ortskunde (Anschlussgleise und Tanklager) aus SVG **und** stations_by_line.json
  function rebuildOrts(){
    var out = {};
@@ -989,41 +1471,28 @@ function tapRoute(r){
  });
  }
  function renderSummary(){
- const keys=Object.keys(st.routeStatus||{});
- let k=0,a=0,u=0; keys.forEach(r=>{ const s=st.routeStatus[r]; if(s==='kundig') k++; else if(s==='auffrischung') a++; else u++; });
+ const keys=allRoutes();
+ let k=0,a=0,u=0; keys.forEach(r=>{ const s=st.routeStatus[r] || 'unkundig'; if(s==='kundig') k++; else if(s==='auffrischung') a++; else u++; });
  const segRoutes=Object.keys(st.teilstrecken||{});
  let segTotal=0, segFalse=0; segRoutes.forEach(r=>{ const m=st.teilstrecken[r]||{}; Object.keys(m).forEach(k=>{ segTotal++; if(m[k]===false) segFalse++; }); });
  const orts=Object.keys(st.orts||{}); const ortTrue=orts.filter(o=>isOrtOn(o)).length;
  $('summary').innerHTML = `Routen: <b>${k}</b> kundig, <b>${a}</b> auffrischung, <b>${u}</b> unkundig. · BLS Teilstrecken: <b>${segTotal-segFalse}</b> true, <b>${segFalse}</b> false. · Ortskunde: <b>${ortTrue}</b> true, <b>${orts.length-ortTrue}</b> false.`;
  }
  function payload(){
- const linien={}; Object.keys(st.routeStatus).sort((a,b)=>Number(a)-Number(b)).forEach(r=>{ const s=st.routeStatus[r]; linien[r]={status:s, kundig:(s==='kundig'), auffrischung:(s==='auffrischung'), unkundig:(s!=='kundig')}; });
+ const linien={}; allRoutes().forEach(r=>{ const s=st.routeStatus[r] || 'unkundig'; linien[r]={status:s, kundig:(s==='kundig'), auffrischung:(s==='auffrischung'), unkundig:(s==='unkundig')}; });
  const teilstrecken={}; Object.keys(st.teilstrecken).sort((a,b)=>Number(a)-Number(b)).forEach(r=>{ teilstrecken[r]=[]; (st.routeSegmentsOrdered[r]||[]).forEach(it=>{ const k=segKey(it); const val = st.teilstrecken[r] && st.teilstrecken[r][k]; teilstrecken[r].push({seg:it.seg, from:it.from, to:it.to, fromName:it.fromName||'', toName:it.toName||'', kundig:(val===true)}); }); });
  const ortskunde={}; Object.keys(st.orts).sort((a,b)=>a.localeCompare(b,'de-CH')).forEach(o=>{ ortskunde[o]={kundig:isOrtOn(o), linien:(st.orts[o].linien||[]).slice()}; });
  return {erzeugtAm:new Date().toISOString(), person:{...st.person}, bls:st.blsMode, linien, teilstrecken, ortskunde, overrides:st.overrides||{}};
  }
  function saveLocal(){ localStorage.setItem('mev_streckenkunde_state_v4_2', JSON.stringify(payload())); setDirty(false); toast('Auf Gerät gespeichert.'); }
- function loadLocal(){ const raw=localStorage.getItem('mev_streckenkunde_state_v4_2'); if(!raw){ toast('Keine Daten gespeichert.'); return; } try{ const p=JSON.parse(raw); if(p.person){ st.person={...st.person, ...p.person}; $('vorname').value=st.person.vorname||''; $('nachname').value=st.person.nachname||''; $('datum').value=st.person.datum||''; $('pnr').value=st.person.personalnummer||''; } st.blsMode=!!p.bls; $('blsYes').classList.toggle('active', st.blsMode); $('blsNo').classList.toggle('active', !st.blsMode); st.routeStatus={}; if(p.linien){ Object.keys(p.linien).forEach(r=>{ st.routeStatus[r]=p.linien[r].status || (p.linien[r].kundig?'kundig':(p.linien[r].auffrischung?'auffrischung':'unkundig')); }); } st.teilstrecken={}; if(p.teilstrecken){ Object.keys(p.teilstrecken).forEach(r=>{ st.teilstrecken[r]={}; (p.teilstrecken[r]||[]).forEach(it=>{ st.teilstrecken[r][`${it.seg}\n${it.from}>${it.to}`]=!!it.kundig; }); }); } st.orts={}; if(p.ortskunde){ Object.keys(p.ortskunde).forEach(o=>{ st.orts[o]={linien:(p.ortskunde[o].linien||[])}; st.ortsManual[o]=!!p.ortskunde[o].kundig; }); } st.overrides=p.overrides||{}; syncPerson(); renderRouteList(); renderMapRouteRail(); renderSegList(); if(st.svgRoot){ applySelectionToSvg(); buildTeilstreckenHitLayer(); updateTeilstreckenHitVisuals(); } rebuildOrts(); renderOrts(); renderSummary(); setDirty(false); toast('Vom Gerät geladen.'); }catch(e){ console.error(e); toast('Laden fehlgeschlagen.'); } }
+ function loadLocal(){ const raw=localStorage.getItem('mev_streckenkunde_state_v4_2'); if(!raw){ toast('Keine Daten gespeichert.'); return; } try{ const p=JSON.parse(raw); if(p.person){ st.person={...st.person, ...p.person}; $('vorname').value=st.person.vorname||''; $('nachname').value=st.person.nachname||''; $('datum').value=st.person.datum||''; $('pnr').value=st.person.personalnummer||''; } st.blsMode=!!p.bls; $('blsYes').classList.toggle('active', st.blsMode); $('blsNo').classList.toggle('active', !st.blsMode); st.routeStatus={}; if(p.linien){ Object.keys(p.linien).forEach(r=>{ st.routeStatus[r]=p.linien[r].status || (p.linien[r].kundig?'kundig':(p.linien[r].auffrischung?'auffrischung':'unkundig')); }); } st.teilstrecken={}; if(p.teilstrecken){ Object.keys(p.teilstrecken).forEach(r=>{ st.teilstrecken[r]={}; (p.teilstrecken[r]||[]).forEach(it=>{ st.teilstrecken[r][`${it.seg}\n${it.from}>${it.to}`]=!!it.kundig; }); }); } st.orts={}; if(p.ortskunde){ Object.keys(p.ortskunde).forEach(o=>{ st.orts[o]={linien:(p.ortskunde[o].linien||[])}; st.ortsManual[o]=!!p.ortskunde[o].kundig; }); } st.overrides=p.overrides||{}; st.undoStack=[]; updateUndoButton(); syncPerson(); renderRouteList(); renderSegList(); if(st.svgRoot) applySelectionToSvg(); rebuildOrts(); renderOrts(); renderSummary(); setDirty(false); toast('Vom Gerät geladen.'); }catch(e){ console.error(e); toast('Laden fehlgeschlagen.'); } }
  // ===== Import aus Datei (JSON) =====
  function importJsonFile(file){ return new Promise((resolve, reject)=>{ const fr = new FileReader(); fr.onload = ()=>{ try{ resolve(JSON.parse(String(fr.result||''))); } catch(e){ reject(e); } }; fr.onerror = reject; fr.readAsText(file); }); }
- async function applyPayload(p){ if(!p || typeof p !== 'object') throw new Error('Ungültige Datei'); try{ await ensureAssetsLoaded(); }catch(e){} if(p.person){ st.person = {...st.person, ...p.person}; $('vorname').value = st.person.vorname || ''; $('nachname').value = st.person.nachname || ''; $('datum').value = st.person.datum || $('datum').value || (new Date()).toISOString().slice(0,10); $('pnr').value = st.person.personalnummer || ''; } if('bls' in p){ st.blsMode = !!p.bls; $('blsYes').classList.toggle('active', st.blsMode); $('blsNo').classList.toggle('active', !st.blsMode); if(!st.blsMode){ st.blsAllFalsePending = true; resetAllTeilstreckenFalse(); } } st.routeStatus = {}; if(p.linien){ Object.keys(p.linien).forEach(r=>{ const it = p.linien[r] || {}; st.routeStatus[r] = it.status || (it.kundig ? 'kundig' : (it.auffrischung ? 'auffrischung' : 'unkundig')); }); } st.teilstrecken = {}; if(p.teilstrecken){ Object.keys(p.teilstrecken).forEach(r=>{ st.teilstrecken[r] = {}; (p.teilstrecken[r] || []).forEach(it=>{ st.teilstrecken[r][`${it.seg}\n${it.from}>${it.to}`] = !!it.kundig; }); }); } st.orts = {}; st.ortsManual = st.ortsManual || {}; if(p.ortskunde){ Object.keys(p.ortskunde).forEach(o=>{ st.orts[o] = { linien: (p.ortskunde[o].linien || []) }; st.ortsManual[o] = !!p.ortskunde[o].kundig; }); } st.overrides = p.overrides || {}; syncPerson(); try{ renderRouteList(); renderMapRouteRail(); }catch(e){} try{ renderSegList(); }catch(e){} if(st.svgRoot) try{ applySelectionToSvg(); buildTeilstreckenHitLayer(); updateTeilstreckenHitVisuals(); }catch(e){} try{ rebuildOrts(); renderOrts(); renderSummary(); }catch(e){} setDirty(false); }
+ async function applyPayload(p){ if(!p || typeof p !== 'object') throw new Error('Ungültige Datei'); try{ await ensureAssetsLoaded(); }catch(e){} if(p.person){ st.person = {...st.person, ...p.person}; $('vorname').value = st.person.vorname || ''; $('nachname').value = st.person.nachname || ''; $('datum').value = st.person.datum || $('datum').value || localDateISO(); $('pnr').value = st.person.personalnummer || ''; } if('bls' in p){ st.blsMode = !!p.bls; $('blsYes').classList.toggle('active', st.blsMode); $('blsNo').classList.toggle('active', !st.blsMode); if(!st.blsMode){ st.blsAllFalsePending = true; resetAllTeilstreckenFalse(); } } st.routeStatus = {}; if(p.linien){ Object.keys(p.linien).forEach(r=>{ const it = p.linien[r] || {}; st.routeStatus[r] = it.status || (it.kundig ? 'kundig' : (it.auffrischung ? 'auffrischung' : 'unkundig')); }); } st.teilstrecken = {}; if(p.teilstrecken){ Object.keys(p.teilstrecken).forEach(r=>{ st.teilstrecken[r] = {}; (p.teilstrecken[r] || []).forEach(it=>{ st.teilstrecken[r][`${it.seg}\n${it.from}>${it.to}`] = !!it.kundig; }); }); } st.orts = {}; st.ortsManual = st.ortsManual || {}; if(p.ortskunde){ Object.keys(p.ortskunde).forEach(o=>{ st.orts[o] = { linien: (p.ortskunde[o].linien || []) }; st.ortsManual[o] = !!p.ortskunde[o].kundig; }); } st.overrides = p.overrides || {}; st.undoStack=[]; updateUndoButton(); syncPerson(); try{ renderRouteList(); }catch(e){} try{ renderSegList(); }catch(e){} if(st.svgRoot) try{ applySelectionToSvg(); }catch(e){} try{ rebuildOrts(); renderOrts(); renderSummary(); }catch(e){} setDirty(false); }
  async function exportJson(){ const p=payload(); if(!p.person.vorname||!p.person.nachname||!p.person.datum){ toast('Personendaten fehlen.'); return; } const safe=(s)=>String(s||'').replace(/[^a-zA-Z0-9\-_. ]/g,'').trim().replace(/\s+/g,'_'); const fn=('streckenkunde_'+safe(p.person.nachname)+'_'+safe(p.person.vorname)+'_'+safe(p.person.datum)+'.json').replace(/__+/g,'_'); const blob=new Blob([JSON.stringify(p,null,2)],{type:'application/json'}); try{ const file=new File([blob],fn,{type:'application/json'}); if(navigator.share && navigator.canShare && navigator.canShare({files:[file]})){ await navigator.share({title:'Streckenkunde', files:[file]}); setDirty(false); toast('Teilen geöffnet.'); return; } }catch(e){} const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=fn; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(url),2000); setDirty(false); toast('Datei gespeichert.'); }
- function setMode(m){
- st.mode=m;
- $('modePan').classList.toggle('active', m==='pan');
- $('modeEdit').classList.toggle('active', m==='edit');
- if(st.svgRoot) st.svgRoot.classList.toggle('mevShowSegs', m==='edit');
- updateTeilstreckenHitVisuals();
-}
-function setRadnPickStatus(s){
- s = (s==='kundig'||s==='auffrischung'||s==='unkundig') ? s : 'kundig';
- st.radnPickStatus = s;
- if($('radnPickK')) $('radnPickK').classList.toggle('active', s==='kundig');
- if($('radnPickA')) $('radnPickA').classList.toggle('active', s==='auffrischung');
- if($('radnPickU')) $('radnPickU').classList.toggle('active', s==='unkundig');
-}
+ function setMode(m){ st.mode=m; $('modePan').classList.toggle('active', m==='pan'); $('modeEdit').classList.toggle('active', m==='edit'); }
  function setPick(p){ st.pick=p; $('pickK').classList.toggle('active', p==='kundig'); $('pickA').classList.toggle('active', p==='auffrischung'); $('pickN').classList.toggle('active', p==='unkundig'); }
- async function goMap(){ await ensureAssetsLoaded(); if(!st.svgRoot) embedSvg(); applySelectionToSvg(); renderMapRouteRail(); showStep(4); setMode('pan'); setPick('kundig'); }
+ async function goMap(){ await ensureAssetsLoaded(); if(!st.svgRoot) embedSvg(); applySelectionToSvg(); updateUndoButton(); showStep(4); setMode('pan'); setPick('kundig'); }
  async function goOrtskunde(){ rebuildOrts(); renderOrts(); renderSummary(); showStep(5); }
  function setBls(v){ st.blsMode=!!v; $('blsYes').classList.toggle('active', st.blsMode); $('blsNo').classList.toggle('active', !st.blsMode); if(!st.blsMode){ st.blsAllFalsePending = true; resetAllTeilstreckenFalse(); } }
  // NEW: Send to Power Automate HTTP trigger
@@ -1031,6 +1500,17 @@ function setRadnPickStatus(s){
  try{
  const p = payload();
  if(!p.person || !p.person.vorname || !p.person.nachname || !p.person.datum){ toast('Personendaten fehlen.'); return; }
+ const routeValues = Object.values(p.linien || {});
+ const k = routeValues.filter(function(x){ return x.status==='kundig'; }).length;
+ const a = routeValues.filter(function(x){ return x.status==='auffrischung'; }).length;
+ const u = routeValues.filter(function(x){ return x.status==='unkundig'; }).length;
+ const ok = window.confirm(
+ 'Streckenkunde senden?\n\n' +
+ p.person.vorname + ' ' + p.person.nachname + ' · ' + p.person.datum + '\n' +
+ 'RADN: ' + k + ' kundig, ' + a + ' Auffrischung, ' + u + ' unkundig\n' +
+ 'Manuell markierte Kartenpunkte: ' + Object.keys(p.overrides || {}).length
+ );
+ if(!ok) return;
  // Secret required by your flow
  p.secret = "MEV-ABSENDEN-2026";
  const btn = $('sendBtn'); const old = btn ? btn.textContent : '';
@@ -1044,8 +1524,8 @@ function setRadnPickStatus(s){
  finally{ const btn = $('sendBtn'); if(btn){ btn.disabled = false; btn.textContent = 'Senden'; } }
  }
  async function init(){
- $('datum').value=(new Date()).toISOString().slice(0,10); syncPerson(); showStep(1);
- try{ if(localStorage.getItem('mev_streckenkunde_state_v4_2')) $('loadHint').innerHTML='Gespeicherte Daten gefunden. <b>Vom Gerät laden</b> antippen.'; if(localStorage.getItem('mev_streckenkunde_autosave_v1')) $('loadHint').innerHTML += '<br>Automatische Zwischenspeicherung vorhanden.'; }catch(e){}
+ $('datum').value=localDateISO(); syncPerson(); showStep(1);
+ try{ if(localStorage.getItem('mev_streckenkunde_state_v4_2')) $('loadHint').innerHTML='Gespeicherte Daten gefunden. <b>Vom Gerät laden</b> antippen.'; }catch(e){}
  // employees
  try{
       const emp = await loadJson(abs('assets/mitarbeiter.json'));
@@ -1087,16 +1567,35 @@ function setRadnPickStatus(s){
  // Boot-Markierung
  try{ var bm=$('bootMark'); if(bm) bm.textContent='(JS aktiv)'; }catch(e){}
  ['vorname','nachname','datum','pnr'].forEach(id=>$(id).addEventListener('input',syncPerson));
- $('resetPerson').addEventListener('click',()=>{ $('vorname').value=''; $('nachname').value=''; $('pnr').value=''; $('datum').value=(new Date()).toISOString().slice(0,10); st.person.mail=''; st.person.tel=''; st.person.abteilung=''; syncPerson(); toast('Zurückgesetzt.'); });
+ $('resetPerson').addEventListener('click',()=>{ $('vorname').value=''; $('nachname').value=''; $('pnr').value=''; $('datum').value=localDateISO(); syncPerson(); toast('Zurückgesetzt.'); });
  $('toRoutes').addEventListener('click', async()=>{ try{ await ensureAssetsLoaded(); renderRouteList(); showStep(2); } catch(e){ console.error(e); toast('Fehler beim Laden der Assets.'); } });
  $('blsYes').addEventListener('click',()=>setBls(true));
  $('blsNo').addEventListener('click',()=>setBls(false));
+ function setBlsFilter(filter){
+ st.blsFilter = filter==='false' ? 'false' : 'all';
+ if($('blsFilterAll')) $('blsFilterAll').classList.toggle('active', st.blsFilter==='all');
+ if($('blsFilterUnkundig')) $('blsFilterUnkundig').classList.toggle('active', st.blsFilter==='false');
+ renderSegList();
+ }
+ if($('blsFilterAll')) $('blsFilterAll').addEventListener('click', ()=>setBlsFilter('all'));
+ if($('blsFilterUnkundig')) $('blsFilterUnkundig').addEventListener('click', ()=>setBlsFilter('false'));
+ setBlsFilter('all');
  setBls(false);
  // RADN Modus: Scrollen / Markieren
  function setRadnMode(m){ st.radnMode = m; var a = $('radnScroll'); var b = $('radnMark'); if(a) a.classList.toggle('active', m==='scroll'); if(b) b.classList.toggle('active', m==='mark'); }
+ function setRadnPickStatus(status){
+ st.radnPickStatus = (status==='kundig' || status==='auffrischung' || status==='unkundig') ? status : 'kundig';
+ if($('radnPickK')) $('radnPickK').classList.toggle('active', st.radnPickStatus==='kundig');
+ if($('radnPickA')) $('radnPickA').classList.toggle('active', st.radnPickStatus==='auffrischung');
+ if($('radnPickU')) $('radnPickU').classList.toggle('active', st.radnPickStatus==='unkundig');
+ }
  st.setRadnMode = setRadnMode;
  if($('radnScroll')) $('radnScroll').addEventListener('click', ()=>setRadnMode('scroll'));
  if($('radnMark')) $('radnMark').addEventListener('click', ()=>setRadnMode('mark'));
+ if($('radnPickK')) $('radnPickK').addEventListener('click', ()=>setRadnPickStatus('kundig'));
+ if($('radnPickA')) $('radnPickA').addEventListener('click', ()=>setRadnPickStatus('auffrischung'));
+ if($('radnPickU')) $('radnPickU').addEventListener('click', ()=>setRadnPickStatus('unkundig'));
+ setRadnPickStatus('kundig');
  setRadnMode('scroll');
  $('backToPerson').addEventListener('click',()=>showStep(1));
  $('nextFromRoutes').addEventListener('click', async()=>{ if(st.blsMode){ renderSegList(); showStep(3); } else { try{ await goMap(); } catch(e){ console.error(e); toast('Karte konnte nicht geladen werden.'); } } });
@@ -1108,7 +1607,10 @@ function setRadnPickStatus(s){
  // Ortskunde nav
  $('backToMap').addEventListener('click',()=>{ showStep(4); });
  $('modePan').addEventListener('click',()=>setMode('pan'));
- $('modeEdit').addEventListener('click',()=>setMode('edit'));
+ $('modeEdit').addEventListener('click',()=>{ setMode('edit'); toast('Einzeln tippen oder der Strecke entlang vom Start- bis zum Zielbahnhof wischen.'); });
+ if($('markLineStations')) $('markLineStations').addEventListener('click', markSelectedLineStations);
+ if($('undoMap')) $('undoMap').addEventListener('click', undoMapAction);
+ updateUndoButton();
  $('pickK').addEventListener('click',()=>setPick('kundig'));
  $('pickA').addEventListener('click',()=>setPick('auffrischung'));
  $('pickN').addEventListener('click',()=>setPick('unkundig'));
