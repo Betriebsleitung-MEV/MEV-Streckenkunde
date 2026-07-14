@@ -3,10 +3,10 @@
 <head>
  <meta charset="utf-8" />
  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
- <title>MEV Streckenkunde</title>
+ <title>MEV Streckenkunde · Testbranch</title>
  <meta name="apple-mobile-web-app-capable" content="yes" />
  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
- <meta name="theme-color" content="#0b1220" />
+ <meta name="theme-color" content="#08111f" />
  <style>
  :root{
  --bg:#0b1220; --panel:#121a2b; --panel2:#0f1730; --text:#e8eefc; --muted:#9fb0d0;
@@ -84,6 +84,7 @@
  .item.suggest{outline:2px solid rgba(0, 200, 120, .55);} 
  .badge.sug{color: rgba(0,200,120,.95); border-color: rgba(0,200,120,.55); background: rgba(0,200,120,.12);} 
  .item.ortOn{background: rgba(0,200,120,.10);} 
+ .item.noMap{border-style:dashed;} .item.noMap .routeMeta{color:#d5a84b;}
  .groupHead{display:flex; gap:10px; align-items:center; padding:10px; border-radius:12px; border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.03);} 
  .groupTitle{font-weight:900;} 
  .groupMeta{font-size:12px; color:var(--muted);} 
@@ -95,26 +96,281 @@
   .toggle.status.a{border-color: rgba(255,42,42,.55); background: rgba(255,42,42,.10);}
   .toggle.status.u{border-color: rgba(255,255,255,.16); background: rgba(255,255,255,.06);}
  .mapSelect{height:40px; min-width:190px; max-width:min(330px,72vw); border-radius:999px; border:1px solid rgba(255,255,255,.16); background:rgba(15,23,48,.96); color:var(--text); padding:0 34px 0 12px; font-weight:800;}
+
+
+/* =========================================================
+   V1.9.20 · offizieller RADN-Katalog und Mehrfachzuordnung
+   Keine Änderung an Datenmodell oder Fachlogik.
+   ========================================================= */
+:root{
+ --bg:#08111f;
+ --panel:#101b2d;
+ --panel2:#0b1628;
+ --panel3:#16243a;
+ --text:#f3f7ff;
+ --muted:#9eb0cc;
+ --line:#263751;
+ --lineStrong:#365071;
+ --blue:#1677ff;
+ --blueSoft:rgba(22,119,255,.14);
+ --red:#f04452;
+ --redSoft:rgba(240,68,82,.13);
+ --green:#22b573;
+ --radius:16px;
+ --shadow:0 20px 60px rgba(0,0,0,.38);
+}
+body{
+ background:
+  radial-gradient(circle at 15% 0%, rgba(22,119,255,.09), transparent 34rem),
+  linear-gradient(180deg,#08111f 0%,#0a1424 100%);
+ letter-spacing:.005em;
+}
+button,input,select{font:inherit;}
+button{touch-action:manipulation;}
+button:focus-visible,input:focus-visible,select:focus-visible{
+ outline:3px solid rgba(79,151,255,.42);
+ outline-offset:2px;
+}
+.topbar{
+ height:64px;
+ padding:8px 16px;
+ gap:14px;
+ border-bottom:1px solid rgba(255,255,255,.09);
+ background:rgba(8,17,31,.90);
+ box-shadow:0 10px 35px rgba(0,0,0,.18);
+}
+.brandBlock{display:flex;align-items:center;gap:11px;min-width:0;}
+.brandMark{
+ width:38px;height:38px;display:grid;place-items:center;flex:0 0 auto;
+ border-radius:12px;border:1px solid rgba(88,155,255,.34);
+ background:linear-gradient(145deg,rgba(22,119,255,.24),rgba(22,119,255,.07));
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.12);
+}
+.brandMark svg{width:23px;height:23px;fill:none;stroke:#7fb4ff;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.brand{font-size:15px;font-weight:820;line-height:1.05;white-space:nowrap;}
+.brandSub{font-size:11px;color:var(--muted);margin-top:4px;white-space:nowrap;}
+.bootMark{
+ font-size:11px;color:#9ee8c3;border:1px solid rgba(34,181,115,.28);
+ background:rgba(34,181,115,.09);padding:5px 8px;border-radius:999px;
+}
+.bootMark::before{content:'●';font-size:8px;margin-right:5px;}
+.build{margin-left:0;font-size:11px;color:#7588a7;white-space:nowrap;}
+.dirty{
+ margin-left:auto;font-size:11px;font-weight:750;color:#ffd590;
+ border:1px solid rgba(245,169,55,.35);background:rgba(245,169,55,.11);
+ padding:5px 9px;border-radius:999px;white-space:nowrap;
+}
+.dirty:empty{display:none;}
+.sheet{
+ background:rgba(16,27,45,.97);
+ border:1px solid rgba(255,255,255,.1);
+ box-shadow:var(--shadow);
+}
+.grab{background:rgba(255,255,255,.2);}
+.sheetHeader{padding:12px 14px 9px;border-bottom:1px solid rgba(255,255,255,.07);}
+.steps{gap:6px;flex-wrap:nowrap;width:100%;overflow:auto;scrollbar-width:none;}
+.steps::-webkit-scrollbar{display:none;}
+.step{
+ flex:0 0 auto;min-height:34px;display:flex;align-items:center;
+ font-size:11px;font-weight:750;padding:7px 11px;border-radius:10px;
+ border:1px solid transparent;color:#8295b3;background:transparent;
+ transition:background .16s ease,border-color .16s ease,color .16s ease;
+}
+.step.active{
+ color:#fff;border-color:rgba(55,130,238,.42);
+ background:linear-gradient(180deg,rgba(22,119,255,.20),rgba(22,119,255,.10));
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.07);
+}
+.sheetBody{padding:14px;}
+.card{
+ border:1px solid rgba(255,255,255,.09);
+ background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.025));
+ border-radius:18px;padding:18px;
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.035);
+}
+.sectionEyebrow,.toolEyebrow{
+ font-size:10px;line-height:1;text-transform:uppercase;letter-spacing:.13em;
+ color:#6fa9ff;font-weight:850;margin-bottom:7px;
+}
+.sectionTitle{font-size:20px;line-height:1.15;font-weight:820;margin-bottom:6px;}
+.sectionTitle span{font-size:12px;font-weight:650;color:var(--muted);margin-left:6px;}
+.hint{font-size:12px;color:#98aac5;line-height:1.45;}
+label{font-size:11px;font-weight:750;color:#a8b8d0;margin:13px 0 6px;}
+input,select{
+ height:44px;border-radius:11px;border:1px solid var(--line);
+ background:#0b1628;color:var(--text);padding:0 13px;
+ box-shadow:inset 0 1px 2px rgba(0,0,0,.18);
+ transition:border-color .16s ease,box-shadow .16s ease,background .16s ease;
+}
+input:hover,select:hover{border-color:var(--lineStrong);}
+input:focus,select:focus{border-color:#3a83ea;box-shadow:0 0 0 3px rgba(22,119,255,.12);}
+.btn,.toggle,.pillBtn,.miniBtn,.iconBtn{
+ border:1px solid var(--line);background:#152238;color:var(--text);
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.045),0 5px 15px rgba(0,0,0,.08);
+ transition:transform .12s ease,border-color .16s ease,background .16s ease,box-shadow .16s ease;
+}
+.btn:hover,.toggle:hover,.pillBtn:hover,.miniBtn:hover,.iconBtn:hover{
+ border-color:#3b5376;background:#1a2a43;
+}
+.btn:active,.toggle:active,.pillBtn:active,.miniBtn:active,.iconBtn:active{transform:translateY(1px);}
+.btn{height:42px;border-radius:11px;font-weight:750;}
+.btn.primary{border-color:rgba(49,130,246,.7);background:linear-gradient(180deg,#1c75e8,#155fc0);color:#fff;}
+.btn.send{border-color:rgba(34,181,115,.7);background:linear-gradient(180deg,#1ead70,#188a5b);color:#fff;}
+.btn.success{border-color:rgba(34,181,115,.38);background:rgba(34,181,115,.11);color:#aaf0cd;}
+.toggle{height:36px;border-radius:10px;font-size:11px;font-weight:780;}
+.toggle.active{outline:none;border-color:rgba(65,139,244,.75);background:var(--blueSoft);box-shadow:inset 0 0 0 1px rgba(65,139,244,.18);}
+.list{gap:7px;}
+.item,.segItem,.groupHead{
+ border-color:rgba(255,255,255,.085);background:rgba(255,255,255,.026);
+ border-radius:12px;transition:background .15s ease,border-color .15s ease,transform .12s ease;
+}
+.item:hover,.segItem:hover{background:rgba(255,255,255,.048);border-color:rgba(255,255,255,.14);}
+.item:has(.badge.k){border-left:3px solid var(--blue);}
+.item:has(.badge.a){border-left:3px solid var(--red);}
+.item:has(.badge.n){border-left:3px solid #667894;}
+.badge{padding:4px 9px;border-radius:8px;font-size:10px;letter-spacing:.02em;}
+.badge.k{color:#8dbdff;border-color:rgba(22,119,255,.36);background:rgba(22,119,255,.11);}
+.badge.a{color:#ff9da6;border-color:rgba(240,68,82,.34);background:rgba(240,68,82,.10);}
+.cardTop{background:linear-gradient(to bottom,rgba(16,27,45,.98) 72%,rgba(16,27,45,0));}
+.mapWrap{inset:64px 0 0 0;background:#f8fbff;}
+.mapBar{
+ left:14px;right:auto;top:78px;width:370px;max-height:calc(100vh - 94px);overflow:auto;
+ display:flex;flex-direction:column;gap:12px;padding:14px;border-radius:18px;
+ border:1px solid rgba(255,255,255,.13);background:rgba(12,23,40,.94);
+ box-shadow:0 20px 60px rgba(0,0,0,.34);backdrop-filter:blur(16px) saturate(125%);
+ scrollbar-width:thin;
+}
+.mapBarHead{display:flex;align-items:center;gap:10px;padding:2px 2px 1px;}
+.toolTitle{font-size:16px;font-weight:820;line-height:1.1;}
+.toolSection{display:grid;gap:8px;padding:11px;border:1px solid rgba(255,255,255,.075);border-radius:13px;background:rgba(255,255,255,.025);}
+.toolLabel{font-size:11px;font-weight:820;color:#b7c5d9;display:flex;justify-content:space-between;gap:8px;}
+.toolLabel span{font-weight:550;color:#7487a5;}
+.segmented{display:grid;gap:7px;}
+.segmented.two{grid-template-columns:1fr 1fr;}
+.statusSegment{grid-template-columns:1fr 1fr 1fr;}
+.pillBtn{
+ height:40px;padding:0 11px;border-radius:10px;font-size:11px;font-weight:780;white-space:nowrap;
+}
+.pillBtn.active{outline:none;border-color:#438cf0;background:rgba(22,119,255,.17);box-shadow:inset 0 0 0 1px rgba(79,151,255,.14);}
+.pillBtn.wide{width:100%;}
+.btnGlyph{font-size:14px;color:#91baff;}
+.mapSelect{width:100%;max-width:none;min-width:0;border-radius:10px;height:42px;font-size:12px;}
+.iconBtn{
+ margin-left:auto;height:34px;border-radius:9px;padding:0 9px;font-size:11px;font-weight:750;
+}
+.iconBtn:disabled{opacity:.45;}
+.statusChoice{display:flex;align-items:center;justify-content:center;gap:6px;padding:0 7px;}
+.statusDot{width:8px;height:8px;border-radius:50%;background:#73839d;box-shadow:0 0 0 3px rgba(115,131,157,.12);}
+.statusChoice.kundig .statusDot{background:var(--blue);box-shadow:0 0 0 3px rgba(22,119,255,.15);}
+.statusChoice.auffrischung .statusDot{background:var(--red);box-shadow:0 0 0 3px rgba(240,68,82,.15);}
+.statusChoice.active.kundig{border-color:rgba(22,119,255,.8);background:rgba(22,119,255,.17);}
+.statusChoice.active.auffrischung{border-color:rgba(240,68,82,.75);background:rgba(240,68,82,.15);}
+.statusChoice.active.unkundig{border-color:#7f91ad;background:rgba(127,145,173,.12);}
+.mapNav{display:grid;grid-template-columns:auto 1fr;gap:8px;padding-top:2px;}
+.navBack{background:rgba(255,255,255,.035);}
+.navNext{border-color:rgba(49,130,246,.75);background:linear-gradient(180deg,#1c75e8,#155fc0);color:#fff;}
+.toast{
+ bottom:18px;border-radius:11px;border-color:rgba(255,255,255,.13);
+ background:rgba(12,23,40,.97);box-shadow:0 16px 45px rgba(0,0,0,.35);
+}
+@media (min-width:900px){
+ .sheet{
+  left:50%;right:auto;top:80px;bottom:16px;width:min(1180px,calc(100vw - 32px));height:auto;
+  transform:translateX(-50%);border-radius:20px;
+ }
+ .grab{display:none;}
+ .sheetHeader{padding:12px 18px 10px;}
+ .sheetBody{padding:18px;}
+ .card{min-height:100%;padding:22px;}
+ .row3{grid-template-columns:minmax(240px,1fr) minmax(240px,1fr) 170px;}
+ #routeList{max-height:calc(100vh - 300px)!important;}
+ #empHits{max-height:230px!important;}
+ .toast{bottom:22px;}
+}
+@media (max-width:899px){
+ .topbar{height:56px;padding:7px 10px;gap:8px;}
+ .brandMark{width:34px;height:34px;border-radius:10px;}
+ .brandMark svg{width:20px;height:20px;}
+ .brand{font-size:13px;}
+ .brandSub{display:none;}
+ .bootMark{display:none;}
+ .build{font-size:10px;}
+ .dirty{font-size:10px;padding:4px 7px;}
+ .mapWrap{inset:56px 0 0 0;}
+ .sheet{height:min(78vh,720px);}
+ .mapBar{
+  left:8px;right:8px;top:64px;width:auto;max-height:48vh;padding:10px;gap:8px;border-radius:15px;
+ }
+ .mapBarHead{display:none;}
+ .toolSection{padding:8px;gap:6px;}
+ .toolLabel{font-size:10px;}
+ .pillBtn{height:38px;font-size:10px;}
+ .statusSegment{grid-template-columns:repeat(3,1fr);}
+ .mapNav{position:sticky;bottom:-10px;margin:0 -10px -10px;padding:10px;background:rgba(12,23,40,.98);}
+ .sectionTitle{font-size:18px;}
+ .card{padding:14px;}
+ .toast{bottom:calc(min(78vh,720px) + 9px);}
+}
+@media (max-width:560px){
+ .build{display:none;}
+ .brandBlock{gap:8px;}
+ .sheetHeader{padding-left:10px;padding-right:10px;}
+ .sheetBody{padding:10px;}
+ .segmented.two{grid-template-columns:1fr;}
+ .statusSegment{grid-template-columns:1fr;}
+ .mapBar{max-height:58vh;}
+ .toolLabel span{display:none;}
+ .row3{grid-template-columns:1fr;}
+}
+
 </style>
 </head>
 <body>
- <div class="topbar"><div class="brand">MEV Streckenkunde</div><div id="bootMark" style="font-size:12px; color:rgba(255,255,255,.55); margin-left:10px;">(JS aktiv)</div><div class="build">Build: 2026-07-14 V1.9.18</div></div>
+ <div class="topbar">
+  <div class="brandBlock">
+   <div class="brandMark" aria-hidden="true">
+    <svg viewBox="0 0 24 24" role="img"><path d="M5 19V5m14 14V5M5 8h14M5 16h14M9 8v8m6-8v8"/></svg>
+   </div>
+   <div><div class="brand">MEV Streckenkunde</div><div class="brandSub">Erfassung und Kartenbearbeitung</div></div>
+  </div>
+  <div id="bootMark" class="bootMark">JS aktiv</div>
+  <div class="dirty" id="dirty"></div>
+  <div class="build">Testbranch · V1.9.20</div>
+ </div>
  <!-- Step 4: Map view -->
  <div class="mapWrap hidden" id="viewMap">
  <div id="mapHost"><div style="padding:12px; color:#111;"><b>SVG noch nicht geladen.</b></div></div>
  </div>
  <div class="mapBar hidden" id="mapBar">
- <button class="pillBtn active" id="modePan" type="button">Verschieben/Zoomen</button>
- <button class="pillBtn" id="modeEdit" type="button">Punkte / Wisch-Abschnitt</button>
- <select id="linePick" class="mapSelect" aria-label="RADN-Linie auswählen"><option value="">Linie wählen …</option></select>
- <button class="pillBtn" id="markLineStations" type="button">Alle Stationen der Linie markieren</button>
- <button class="pillBtn" id="undoMap" type="button" disabled>Rückgängig</button>
- <span style="flex:1 1 auto"></span>
- <button class="pillBtn active" data-pick="kundig" id="pickK" type="button">Kundig (blau)</button>
- <button class="pillBtn" data-pick="auffrischung" id="pickA" type="button">Auffrischung (rot)</button>
- <button class="pillBtn" data-pick="unkundig" id="pickN" type="button">Unkundig (Original)</button>
- <button class="pillBtn" id="toOrtskunde" type="button">Weiter: Ortskunde</button>
- <button class="pillBtn" id="backFromMap" type="button">Zurück</button>
+  <div class="mapBarHead">
+   <div><div class="toolEyebrow">Kartenwerkzeuge</div><div class="toolTitle">Stationen bearbeiten</div></div>
+   <button class="iconBtn" id="undoMap" type="button" disabled title="Letzte Kartenänderung rückgängig">↶ <span>Rückgängig</span></button>
+  </div>
+  <div class="toolSection">
+   <div class="toolLabel">Modus</div>
+   <div class="segmented two">
+    <button class="pillBtn active" id="modePan" type="button"><span class="btnGlyph">✥</span> Verschieben</button>
+    <button class="pillBtn" id="modeEdit" type="button"><span class="btnGlyph">⌁</span> Abschnitt markieren</button>
+   </div>
+  </div>
+  <div class="toolSection">
+   <div class="toolLabel">RADN-Linie <span>optional beim Wischen</span></div>
+   <div class="hint" id="mapRadnMeta" style="margin:-2px 0 7px;"></div>
+   <select id="linePick" class="mapSelect" aria-label="RADN-Linie auswählen"><option value="">Linie wählen …</option></select>
+   <button class="pillBtn wide" id="markLineStations" type="button">Alle Stationen dieser Linie markieren</button>
+  </div>
+  <div class="toolSection">
+   <div class="toolLabel">Status</div>
+   <div class="segmented statusSegment">
+    <button class="pillBtn statusChoice kundig active" data-pick="kundig" id="pickK" type="button"><span class="statusDot"></span>Kundig</button>
+    <button class="pillBtn statusChoice auffrischung" data-pick="auffrischung" id="pickA" type="button"><span class="statusDot"></span>Auffrischung</button>
+    <button class="pillBtn statusChoice unkundig" data-pick="unkundig" id="pickN" type="button"><span class="statusDot"></span>Unkundig</button>
+   </div>
+  </div>
+  <div class="mapNav">
+   <button class="pillBtn navBack" id="backFromMap" type="button">← Zurück</button>
+   <button class="pillBtn navNext" id="toOrtskunde" type="button">Weiter zur Ortskunde →</button>
+  </div>
  </div>
  <!-- Sheet -->
  <div class="sheet" id="sheet">
@@ -127,12 +383,11 @@
  <span class="step" id="s4">4 Karte</span>
  <span class="step" id="s5">5 Ortskunde</span>
  </div>
- <div class="dirty" id="dirty"></div>
  </div>
  <div class="sheetBody">
  <!-- Step 1 -->
  <div class="card" id="p1">
- <div style="font-weight:850; margin-bottom:6px;">Personendaten</div>
+ <div class="sectionEyebrow">Schritt 1</div><div class="sectionTitle">Personendaten</div>
  <div class="hint">Mitarbeiter auswählen. Danach Routen setzen.</div>
  <label>Suche Mitarbeiter</label>
  <input id="empSearch" placeholder="Name, Vorname oder interner Code" />
@@ -157,8 +412,9 @@
  </div>
  <!-- Step 2 -->
  <div class="card hidden" id="p2">
- <div style="font-weight:850; margin-bottom:6px;">RADN-Strecken (101–791)</div>
+ <div class="sectionEyebrow">Schritt 2</div><div class="sectionTitle">RADN-Strecken <span>101–791</span></div>
  <div class="hint">Status wählen und im Modus «Markieren» Route anklicken</div>
+ <div class="hint" id="radnMeta" style="margin-top:5px;"></div>
  <div class="cardTop">
  <div class="toggleRow">
  <span class="hint" style="margin:0;">BLS Teilstrecken bearbeiten?</span>
@@ -180,7 +436,7 @@
  </div>
  <!-- Step 3 -->
  <div class="card hidden" id="p3">
- <div style="font-weight:850; margin-bottom:6px;">BLS Daten</div>
+ <div class="sectionEyebrow">Schritt 3</div><div class="sectionTitle">BLS-Teilstrecken</div>
  <div class="hint">BLS Daten (nur gewählte RADN-Routen). Tippen toggelt kundig/unkundig (Standard = unkundig).</div>
  <div class="toggleRow" style="margin-top:10px;">
  <button class="toggle active" id="blsFilterAll" type="button">Alle</button>
@@ -200,7 +456,7 @@
  </div>
  <!-- Step 5 -->
  <div class="card hidden" id="p5">
- <div style="font-weight:850; margin-bottom:6px;">Ortskunde (Anschlussgleise und Tanklager)</div>
+ <div class="sectionEyebrow">Schritt 5</div><div class="sectionTitle">Ortskunde <span>Anschlussgleise und Tanklager</span></div>
  <div class="cardTop">
  <div class="toggleRow">
  <span class="hint" style="margin:0;">Prüfen und bestätigen</span>
@@ -236,6 +492,8 @@
  routes: {},
  routeSegmentsOrdered: {},
  idx: null,
+ radn: null,
+ assetsLoaded: false,
  svgText: null,
  svgRoot: null,
  viewBase: null,
@@ -295,6 +553,7 @@
  }
  // ===== Tanklager/Anschlussgleise: Abgleich über data-line =====
  function parseLineTokens(value){
+ if(Array.isArray(value)) value = value.join(' ');
  var raw = String(value == null ? '' : value);
  var matches = raw.match(/\d{3}/g) || [];
  var seen = {};
@@ -308,6 +567,51 @@
  }
  out.sort(function(a,b){ return Number(a)-Number(b); });
  return out;
+ }
+ function stationEntryLines(it, key){
+ var vals = [];
+ if(it && Array.isArray(it.lines)) vals = vals.concat(parseLineTokens(it.lines));
+ if(it) vals = vals.concat(parseLineTokens(it.line || ''));
+ vals = vals.concat(parseLineTokens(key || ''));
+ var seen = {}, out = [];
+ vals.forEach(function(line){ if(!seen[line]){ seen[line]=1; out.push(line); } });
+ out.sort(function(a,b){ return Number(a)-Number(b); });
+ return out;
+ }
+ function radnLineInfo(line){
+ var lines = st.radn && st.radn.lines;
+ return lines && lines[line] ? lines[line] : null;
+ }
+ function radnGaugeLabel(line){
+ var info = radnLineInfo(line);
+ return info && info.gauge === 'narrow' ? 'Schmalspur' : 'Normalspur';
+ }
+ function renderRadnMeta(){
+ var meta = st.radn && st.radn._meta;
+ var text = '';
+ if(meta){
+ var version = meta.document_version ? ('Version ' + meta.document_version) : '';
+ var valid = meta.document_valid_from ? ('gültig ab ' + String(meta.document_valid_from).split('-').reverse().join('.')) : '';
+ text = ['RADN R I-30131', version, valid].filter(Boolean).join(' · ');
+ }else{
+ text = 'RADN-Katalog nicht geladen – Namen aus index.json';
+ }
+ if($('radnMeta')) $('radnMeta').textContent = text;
+ if($('mapRadnMeta')) $('mapRadnMeta').textContent = text;
+ }
+ function configuredStationIdsBetween(line,startId,endId){
+ var info = radnLineInfo(line);
+ var variants = info && Array.isArray(info.variants) ? info.variants : [];
+ for(var i=0;i<variants.length;i++){
+ var ids = Array.isArray(variants[i].stations) ? variants[i].stations : [];
+ var a = ids.indexOf(startId), b = ids.indexOf(endId);
+ if(a === -1 || b === -1) continue;
+ var lo = Math.min(a,b), hi = Math.max(a,b);
+ var part = ids.slice(lo,hi+1);
+ if(a>b) part.reverse();
+ return part;
+ }
+ return [];
  }
  function collectDataLines(el){
  var out=[];
@@ -337,7 +641,7 @@
  for(var i=0;i<arr.length;i++){
  var it = arr[i] || {};
  if(!it.tanklager) continue;
- var lines = parseLineTokens(it.line || lineKey || '');
+ var lines = stationEntryLines(it, lineKey);
  // Sonderfall: unknown-Liste mit code = Liniennummer (z.B. "411")
  if(!lines.length) lines = parseLineTokens(it.code || '');
  if(!lines.length) continue;
@@ -526,13 +830,21 @@
  return '<span class="badge n">unkundig</span>';
  };
  function allRoutes(){
+ var official = st.radn && st.radn.lines;
+ if(official){
+ return Object.keys(official).filter(function(k){
+ var info = official[k] || {};
+ return /^\d{3}$/.test(k) && Number(k)>=101 && Number(k)<=791 && info.enabled !== false;
+ }).sort(function(a,b){ return Number(a)-Number(b); });
+ }
  return Object.keys(st.routes||{}).filter(k=>/^\d{3}$/.test(k)).filter(k=>{
  const n=Number(k); return n>=101 && n<=791;
  }).sort((a,b)=>Number(a)-Number(b));
  }
  function routeMatchesSearch(route){ return true; }
  function routeNameOnly(r){
- let name = String((st.routes||{})[r] || '').trim();
+ var info = radnLineInfo(r);
+ let name = String((info && info.name) || (st.routes||{})[r] || '').trim();
  const escaped = String(r).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
  const prefix = new RegExp('^' + escaped + '(?=\\s|[-–—:|/]|$)');
  while(prefix.test(name)){
@@ -576,9 +888,15 @@ function tapRoute(r){
  routes.forEach(r=>{
  const div=document.createElement('div'); div.className='item';
  const status=st.routeStatus[r]||'unkundig';
- div.innerHTML=`<div class="no">${r}</div><div class="desc"><b></b></div>${badge(status)}`;
+ div.innerHTML=`<div class="no">${r}</div><div class="desc"><b></b><div class="hint routeMeta"></div></div>${badge(status)}`;
  const titleEl = div.querySelector('.desc b');
  if(titleEl) titleEl.textContent = routeDisplayTitle(r);
+ const metaEl = div.querySelector('.routeMeta');
+ if(metaEl){
+ const count = stationEntriesForLine(r).length;
+ metaEl.textContent = radnGaugeLabel(r) + ' · ' + (count ? (count + (count===1 ? ' Kartenstation' : ' Kartenstationen')) : 'keine Kartendaten');
+ }
+ if(!stationEntriesForLine(r).length) div.classList.add('noMap');
  let down = null;
  div.addEventListener('pointerdown', (ev)=>{
  if(st.radnMode !== 'mark') return;
@@ -691,15 +1009,19 @@ function tapRoute(r){
  }
  // Assets
  async function ensureAssetsLoaded(){
- if(st.idx && st.svgText && Object.keys(st.routes).length){ populateLinePick(); return; }
+ if(st.assetsLoaded){ populateLinePick(); renderRadnMeta(); return; }
  const idx=await loadJson(abs('assets/index.json'));
  st.routes = idx.routes || {};
  st.routeSegmentsOrdered = idx.routeSegmentsOrdered || {};
+ try{ st.radn = await loadJson(abs('assets/radn_lines.json')); }
+ catch(e){ console.warn('radn_lines.json nicht geladen, Fallback auf index.json', e); st.radn = null; }
  if(!st.blsMode && st.blsAllFalsePending){ resetAllTeilstreckenFalse(); }
  st.idx = await loadJson(abs('assets/stations_by_line.json'));
  buildIdxTankByLine();
- populateLinePick();
  st.svgText = await loadText(abs('assets/map.svg'));
+ st.assetsLoaded = true;
+ populateLinePick();
+ renderRadnMeta();
  }
  // SVG embed + pan/zoom
  function getInitialViewBox(svg){
@@ -742,7 +1064,7 @@ function tapRoute(r){
  Object.keys(st.idx||{}).forEach(function(key){
  const arr = st.idx[key]; if(!Array.isArray(arr)) return;
  arr.forEach(function(it){
- const actual = parseLineTokens((it && (it.line || key)) || '');
+ const actual = stationEntryLines(it, key);
  const id = String((it && it.id) || '').trim();
  if(actual.indexOf(target)===-1 || !id || seen.has(id)) return;
  seen.add(id); out.push(it);
@@ -751,30 +1073,38 @@ function tapRoute(r){
  return out;
  }
  function availableStationLines(){
- const lines = new Set();
- Object.keys(st.idx||{}).forEach(function(key){
- const arr = st.idx[key]; if(!Array.isArray(arr)) return;
- arr.forEach(function(it){
- const vals = parseLineTokens((it && (it.line || key)) || '');
- vals.forEach(function(line){ lines.add(line); });
- });
- });
- return Array.from(lines).sort(function(a,b){ return Number(a)-Number(b); });
+ return allRoutes().filter(function(line){ return stationEntriesForLine(line).length > 0; });
  }
  function populateLinePick(){
  const sel = $('linePick'); if(!sel || !st.idx) return;
  const previous = sel.value;
- const lines = availableStationLines();
+ const lines = allRoutes();
+ const selectedSet = new Set(selectedRoutes());
  sel.innerHTML = '<option value="">Linie wählen (optional) …</option>';
- lines.forEach(function(line){
+ function addGroup(label, arr, disabled){
+ if(!arr.length) return;
+ const group = document.createElement('optgroup'); group.label = label;
+ arr.forEach(function(line){
  const opt = document.createElement('option');
  const count = stationEntriesForLine(line).length;
  opt.value = line;
- opt.textContent = routeDisplayTitle(line) + ' · ' + count + ' Stationen';
- sel.appendChild(opt);
+ opt.disabled = !!disabled;
+ opt.textContent = routeDisplayTitle(line) + ' · ' + count + (count===1 ? ' Station' : ' Stationen');
+ group.appendChild(opt);
  });
- const preferred = previous || selectedRoutes()[0] || '';
- if(preferred && lines.indexOf(preferred)!==-1) sel.value = preferred;
+ sel.appendChild(group);
+ }
+ const selected = lines.filter(function(line){ return selectedSet.has(line) && stationEntriesForLine(line).length; });
+ const normal = lines.filter(function(line){ return !selectedSet.has(line) && radnGaugeLabel(line)==='Normalspur' && stationEntriesForLine(line).length; });
+ const narrow = lines.filter(function(line){ return !selectedSet.has(line) && radnGaugeLabel(line)==='Schmalspur' && stationEntriesForLine(line).length; });
+ const missing = lines.filter(function(line){ return !stationEntriesForLine(line).length; });
+ addGroup('Ausgewählte RADN-Strecken', selected, false);
+ addGroup('Normalspur', normal, false);
+ addGroup('Schmalspur', narrow, false);
+ addGroup('Keine Kartendaten', missing, true);
+ const available = availableStationLines();
+ const preferred = previous || selected[0] || '';
+ if(preferred && available.indexOf(preferred)!==-1) sel.value = preferred;
  }
  function svgPointById(id){
  if(!st.svgRoot || !id) return null;
@@ -827,7 +1157,7 @@ function tapRoute(r){
  const arr = st.idx[key]; if(!Array.isArray(arr)) return;
  arr.forEach(function(it){
  if(!it || String(it.id||'') !== id) return;
- const vals = parseLineTokens(it.line || key || '');
+ const vals = stationEntryLines(it, key);
  vals.forEach(function(line){ out.add(line); });
  });
  }
@@ -919,6 +1249,11 @@ function tapRoute(r){
  return {at:at,d:d,x:q.x,y:q.y};
  }
  function pointsBetweenOnLine(line,startPt,endPt){
+ const configuredIds = configuredStationIdsBetween(line,startPt && startPt.id,endPt && endPt.id);
+ if(configuredIds.length>=2){
+ const configuredPoints = configuredIds.map(svgPointById).filter(Boolean);
+ if(configuredPoints.length>=2) return configuredPoints;
+ }
  const candidates=allSvgPointsForLine(line);
  if(!candidates.length) return [];
  const geometry=routeGeometryForLine(line,startPt,endPt);
@@ -1229,7 +1564,7 @@ function tapRoute(r){
  const linien={}; allRoutes().forEach(r=>{ const s=st.routeStatus[r] || 'unkundig'; linien[r]={status:s, kundig:(s==='kundig'), auffrischung:(s==='auffrischung'), unkundig:(s==='unkundig')}; });
  const teilstrecken={}; Object.keys(st.teilstrecken).sort((a,b)=>Number(a)-Number(b)).forEach(r=>{ teilstrecken[r]=[]; (st.routeSegmentsOrdered[r]||[]).forEach(it=>{ const k=segKey(it); const val = st.teilstrecken[r] && st.teilstrecken[r][k]; teilstrecken[r].push({seg:it.seg, from:it.from, to:it.to, fromName:it.fromName||'', toName:it.toName||'', kundig:(val===true)}); }); });
  const ortskunde={}; Object.keys(st.orts).sort((a,b)=>a.localeCompare(b,'de-CH')).forEach(o=>{ ortskunde[o]={kundig:isOrtOn(o), linien:(st.orts[o].linien||[]).slice()}; });
- return {erzeugtAm:new Date().toISOString(), person:{...st.person}, bls:st.blsMode, linien, teilstrecken, ortskunde, overrides:st.overrides||{}};
+ return {erzeugtAm:new Date().toISOString(), radn:(st.radn&&st.radn._meta?{...st.radn._meta}:null), person:{...st.person}, bls:st.blsMode, linien, teilstrecken, ortskunde, overrides:st.overrides||{}};
  }
  function saveLocal(){ localStorage.setItem('mev_streckenkunde_state_v4_2', JSON.stringify(payload())); setDirty(false); toast('Auf Gerät gespeichert.'); }
  function loadLocal(){ const raw=localStorage.getItem('mev_streckenkunde_state_v4_2'); if(!raw){ toast('Keine Daten gespeichert.'); return; } try{ const p=JSON.parse(raw); if(p.person){ st.person={...st.person, ...p.person}; $('vorname').value=st.person.vorname||''; $('nachname').value=st.person.nachname||''; $('datum').value=st.person.datum||''; $('pnr').value=st.person.personalnummer||''; } st.blsMode=!!p.bls; $('blsYes').classList.toggle('active', st.blsMode); $('blsNo').classList.toggle('active', !st.blsMode); st.routeStatus={}; if(p.linien){ Object.keys(p.linien).forEach(r=>{ st.routeStatus[r]=p.linien[r].status || (p.linien[r].kundig?'kundig':(p.linien[r].auffrischung?'auffrischung':'unkundig')); }); } st.teilstrecken={}; if(p.teilstrecken){ Object.keys(p.teilstrecken).forEach(r=>{ st.teilstrecken[r]={}; (p.teilstrecken[r]||[]).forEach(it=>{ st.teilstrecken[r][`${it.seg}\n${it.from}>${it.to}`]=!!it.kundig; }); }); } st.orts={}; if(p.ortskunde){ Object.keys(p.ortskunde).forEach(o=>{ st.orts[o]={linien:(p.ortskunde[o].linien||[])}; st.ortsManual[o]=!!p.ortskunde[o].kundig; }); } st.overrides=p.overrides||{}; st.undoStack=[]; updateUndoButton(); syncPerson(); renderRouteList(); renderSegList(); if(st.svgRoot) applySelectionToSvg(); rebuildOrts(); renderOrts(); renderSummary(); setDirty(false); toast('Vom Gerät geladen.'); }catch(e){ console.error(e); toast('Laden fehlgeschlagen.'); } }
