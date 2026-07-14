@@ -3,7 +3,7 @@
 <head>
  <meta charset="utf-8" />
  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
- <title>MEV Streckenkunde · Testbranch</title>
+ <title>MEV Streckenkunde · V1.9.23</title>
  <meta name="apple-mobile-web-app-capable" content="yes" />
  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
  <meta name="theme-color" content="#08111f" />
@@ -445,6 +445,21 @@ body.ui-tablet .mapBar .mapNav{
 }
 body.ui-tablet .toast{top:auto;bottom:18px;}
 
+
+/* V1.9.23: Sprache und Performance */
+.langSwitch{display:inline-flex;gap:3px;padding:3px;border:1px solid rgba(255,255,255,.12);border-radius:10px;background:#101d31;}
+.langBtn{height:27px;min-width:31px;padding:0 7px;border:0;border-radius:7px;background:transparent;color:#8fa4c2;font-size:10px;font-weight:850;cursor:pointer;}
+.langBtn.active{background:#1f3f68;color:#fff;box-shadow:inset 0 0 0 1px rgba(86,158,255,.42);}
+.mapWrap{contain:layout paint size;}
+#mapHost{contain:strict;}
+#mapHost svg{transform:translateZ(0);}
+body.map-active .topbar,body.map-active .mapBar{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;}
+body.map-active .topbar{background:#08111f;}
+body.map-active .mapBar{background:#101b2d;}
+body.map-panning #mapHost svg{shape-rendering:optimizeSpeed;text-rendering:optimizeSpeed;}
+@media(max-width:560px){.langSwitch{gap:1px;padding:2px}.langBtn{min-width:27px;padding:0 5px}.topbar{padding-left:8px;padding-right:8px}}
+@media(max-width:390px){.langBtn{min-width:24px;padding:0 3px;font-size:9px}.dirty{display:none!important}}
+
 </style>
 </head>
 <body>
@@ -453,12 +468,17 @@ body.ui-tablet .toast{top:auto;bottom:18px;}
    <div class="brandMark" aria-hidden="true">
     <svg viewBox="0 0 24 24" role="img"><path d="M5 19V5m14 14V5M5 8h14M5 16h14M9 8v8m6-8v8"/></svg>
    </div>
-   <div><div class="brand">MEV Streckenkunde</div><div class="brandSub">Erfassung und Kartenbearbeitung</div></div>
+   <div><div class="brand">MEV Streckenkunde</div><div class="brandSub" data-i18n="brand_sub">Erfassung und Kartenbearbeitung</div></div>
   </div>
-  <div id="bootMark" class="bootMark">JS aktiv</div>
+  <div id="bootMark" class="bootMark" data-i18n="js_active">JS aktiv</div>
   <button class="viewModeToggle" id="viewModeToggle" type="button" title="Zwischen Handy- und Tablet-Ansicht wechseln" aria-label="Ansicht wechseln"><span class="viewModeIcon" id="viewModeIcon">📱</span><span class="viewModeText" id="viewModeText">Handy</span></button>
+  <div class="langSwitch" id="langSwitch" role="group" aria-label="Sprache">
+   <button type="button" class="langBtn active" data-lang="de">DE</button>
+   <button type="button" class="langBtn" data-lang="fr">FR</button>
+   <button type="button" class="langBtn" data-lang="it">IT</button>
+  </div>
   <div class="dirty" id="dirty"></div>
-  <div class="build">Testbranch · V1.9.22 Handy/Tablet</div>
+  <div class="build">Testbranch · V1.9.23 Mehrsprachig/Performance</div>
  </div>
  <!-- Step 4: Map view -->
  <div class="mapWrap hidden" id="viewMap">
@@ -466,34 +486,34 @@ body.ui-tablet .toast{top:auto;bottom:18px;}
  </div>
  <div class="mapBar hidden" id="mapBar">
   <div class="mapBarHead" id="mapBarHead">
-   <div class="mapBarTitleBlock"><div class="toolEyebrow">Kartenwerkzeuge</div><div class="toolTitle">Stationen bearbeiten</div><div class="mobileToolSummary" id="mobileToolSummary">Verschieben · Kundig</div></div>
-   <button class="iconBtn mobileToolsToggle" id="toggleMapTools" type="button" aria-expanded="true" title="Kartenwerkzeuge ein- oder ausklappen">⌄ <span>Einklappen</span></button>
-   <button class="iconBtn" id="undoMap" type="button" disabled title="Letzte Kartenänderung rückgängig">↶ <span>Rückgängig</span></button>
+   <div class="mapBarTitleBlock"><div class="toolEyebrow" data-i18n="map_tools">Kartenwerkzeuge</div><div class="toolTitle" data-i18n="edit_stations">Stationen bearbeiten</div><div class="mobileToolSummary" id="mobileToolSummary">Verschieben · Kundig</div></div>
+   <button class="iconBtn mobileToolsToggle" id="toggleMapTools" type="button" aria-expanded="true" title="Kartenwerkzeuge ein- oder ausklappen">⌄ <span data-i18n="collapse">Einklappen</span></button>
+   <button class="iconBtn" id="undoMap" type="button" disabled title="Letzte Kartenänderung rückgängig">↶ <span data-i18n="undo">Rückgängig</span></button>
   </div>
   <div class="toolSection">
-   <div class="toolLabel">Modus</div>
+   <div class="toolLabel" data-i18n="mode">Modus</div>
    <div class="segmented two">
-    <button class="pillBtn active" id="modePan" type="button"><span class="btnGlyph">✥</span> Verschieben</button>
-    <button class="pillBtn" id="modeEdit" type="button"><span class="btnGlyph">⌁</span> Abschnitt markieren</button>
+    <button class="pillBtn active" id="modePan" type="button"><span class="btnGlyph">✥</span> <span data-i18n="pan">Verschieben</span></button>
+    <button class="pillBtn" id="modeEdit" type="button"><span class="btnGlyph">⌁</span> <span data-i18n="mark_section">Abschnitt markieren</span></button>
    </div>
   </div>
   <div class="toolSection">
-   <div class="toolLabel">RADN-Linie <span>optional beim Wischen</span></div>
+   <div class="toolLabel"><span data-i18n="radn_line">RADN-Linie</span> <span data-i18n="optional_swipe">optional beim Wischen</span></div>
    <div class="hint" id="mapRadnMeta" style="margin:-2px 0 7px;"></div>
    <select id="linePick" class="mapSelect" aria-label="RADN-Linie auswählen"><option value="">Linie wählen …</option></select>
-   <button class="pillBtn wide" id="markLineStations" type="button">Alle Stationen dieser Linie markieren</button>
+   <button class="pillBtn wide" id="markLineStations" type="button" data-i18n="mark_all_line">Alle Stationen dieser Linie markieren</button>
   </div>
   <div class="toolSection">
-   <div class="toolLabel">Status</div>
+   <div class="toolLabel" data-i18n="status">Status</div>
    <div class="segmented statusSegment">
-    <button class="pillBtn statusChoice kundig active" data-pick="kundig" id="pickK" type="button"><span class="statusDot"></span>Kundig</button>
-    <button class="pillBtn statusChoice auffrischung" data-pick="auffrischung" id="pickA" type="button"><span class="statusDot"></span>Auffrischung</button>
-    <button class="pillBtn statusChoice unkundig" data-pick="unkundig" id="pickN" type="button"><span class="statusDot"></span>Unkundig</button>
+    <button class="pillBtn statusChoice kundig active" data-pick="kundig" id="pickK" type="button"><span class="statusDot"></span><span data-i18n="status_known">Kundig</span></button>
+    <button class="pillBtn statusChoice auffrischung" data-pick="auffrischung" id="pickA" type="button"><span class="statusDot"></span><span data-i18n="status_refresh">Auffrischung</span></button>
+    <button class="pillBtn statusChoice unkundig" data-pick="unkundig" id="pickN" type="button"><span class="statusDot"></span><span data-i18n="status_unknown">Unkundig</span></button>
    </div>
   </div>
   <div class="mapNav">
-   <button class="pillBtn navBack" id="backFromMap" type="button">← Zurück</button>
-   <button class="pillBtn navNext" id="toOrtskunde" type="button">Weiter zur Ortskunde →</button>
+   <button class="pillBtn navBack" id="backFromMap" type="button">← <span data-i18n="back">Zurück</span></button>
+   <button class="pillBtn navNext" id="toOrtskunde" type="button"><span data-i18n="continue_local">Weiter zur Ortskunde</span> →</button>
   </div>
  </div>
  <!-- Sheet -->
@@ -501,34 +521,34 @@ body.ui-tablet .toast{top:auto;bottom:18px;}
  <div class="grab"></div>
  <div class="sheetHeader">
  <div class="steps">
- <span class="step active" id="s1">1 Profil</span>
+ <span class="step active" id="s1">1 <span data-i18n="profile">Profil</span></span>
  <span class="step" id="s2">2 RADN</span>
- <span class="step" id="s3">3 BLS Daten</span>
- <span class="step" id="s4">4 Karte</span>
- <span class="step" id="s5">5 Ortskunde</span>
+ <span class="step" id="s3">3 <span data-i18n="bls_data">BLS Daten</span></span>
+ <span class="step" id="s4">4 <span data-i18n="map">Karte</span></span>
+ <span class="step" id="s5">5 <span data-i18n="local_knowledge">Ortskunde</span></span>
  </div>
  </div>
  <div class="sheetBody">
  <!-- Step 1 -->
  <div class="card" id="p1">
- <div class="sectionEyebrow">Schritt 1</div><div class="sectionTitle">Personendaten</div>
- <div class="hint">Mitarbeiter auswählen. Danach Routen setzen.</div>
- <label>Suche Mitarbeiter</label>
- <input id="empSearch" placeholder="Name, Vorname oder interner Code" />
+ <div class="sectionEyebrow"><span data-i18n="step">Schritt</span> 1</div><div class="sectionTitle" data-i18n="personal_data">Personendaten</div>
+ <div class="hint" data-i18n="select_employee_hint">Mitarbeiter auswählen. Danach Routen setzen.</div>
+ <label data-i18n="search_employee">Suche Mitarbeiter</label>
+ <input id="empSearch" placeholder="Name, Vorname oder interner Code" data-i18n-placeholder="employee_placeholder" />
  <div id="empHits" class="list" style="max-height:180px; overflow:auto;"></div>
  <div style="height:1px; background: rgba(255,255,255,.08); margin:12px 0;"></div>
  <div class="row3">
- <div><label>Vorname</label><input id="vorname" placeholder="Vorname" /></div>
- <div><label>Name</label><input id="nachname" placeholder="Name" /></div>
- <div><label>Datum</label><input id="datum" type="date" /></div>
+ <div><label data-i18n="first_name">Vorname</label><input id="vorname" placeholder="Vorname" data-i18n-placeholder="first_name" /></div>
+ <div><label data-i18n="last_name">Name</label><input id="nachname" placeholder="Name" data-i18n-placeholder="last_name" /></div>
+ <div><label data-i18n="date">Datum</label><input id="datum" type="date" /></div>
  </div>
- <label>Interner Code (optional)</label>
- <input id="pnr" inputmode="numeric" pattern="[0-9]*" placeholder="z.B. 27819136" />
+ <label data-i18n="internal_code">Interner Code (optional)</label>
+ <input id="pnr" inputmode="numeric" pattern="[0-9]*" placeholder="z.B. 27819136" data-i18n-placeholder="code_example" />
  <div class="toggleRow" style="margin-top:12px;">
- <button class="btn primary" id="toRoutes" type="button" disabled>Weiter zu Routen</button>
- <button class="btn" id="resetPerson" type="button">Zurücksetzen</button>
- <button class="btn" id="loadLocalTop" type="button">Vom Gerät laden</button>
- <button class="btn success" id="loadFileTop" type="button">Aus Datei laden</button>
+ <button class="btn primary" id="toRoutes" type="button" disabled data-i18n="continue_routes">Weiter zu Routen</button>
+ <button class="btn" id="resetPerson" type="button" data-i18n="reset">Zurücksetzen</button>
+ <button class="btn" id="loadLocalTop" type="button" data-i18n="load_device">Vom Gerät laden</button>
+ <button class="btn success" id="loadFileTop" type="button" data-i18n="load_file">Aus Datei laden</button>
  <input id="importFileTop" type="file" accept="application/json,.json" style="position:absolute;top:-9999px;left:-9999px;width:0;height:0;opacity:0;overflow:hidden;border:none;">
  </div>
  <div class="hint" id="auto" style="margin-top:8px;"><b>Status:</b> warte …</div>
@@ -536,62 +556,62 @@ body.ui-tablet .toast{top:auto;bottom:18px;}
  </div>
  <!-- Step 2 -->
  <div class="card hidden" id="p2">
- <div class="sectionEyebrow">Schritt 2</div><div class="sectionTitle">RADN-Strecken <span>101–791</span></div>
- <div class="hint">Status wählen und im Modus «Markieren» Route anklicken</div>
+ <div class="sectionEyebrow"><span data-i18n="step">Schritt</span> 2</div><div class="sectionTitle"><span data-i18n="radn_routes">RADN-Strecken</span> <span>101–791</span></div>
+ <div class="hint" data-i18n="radn_hint">Status wählen und im Modus «Markieren» Route anklicken</div>
  <div class="hint" id="radnMeta" style="margin-top:5px;"></div>
  <div class="cardTop">
  <div class="toggleRow">
- <span class="hint" style="margin:0;">BLS Teilstrecken bearbeiten?</span>
- <button class="toggle active" id="blsNo" type="button">Nein</button>
- <button class="toggle" id="blsYes" type="button">Ja</button>
+ <span class="hint" style="margin:0;" data-i18n="edit_bls">BLS Teilstrecken bearbeiten?</span>
+ <button class="toggle active" id="blsNo" type="button" data-i18n="no">Nein</button>
+ <button class="toggle" id="blsYes" type="button" data-i18n="yes">Ja</button>
  <span class="hint" style="margin:0;">RADN</span>
- <button class="toggle active" id="radnScroll" type="button">Scrollen</button>
- <button class="toggle" id="radnMark" type="button">Markieren</button>
+ <button class="toggle active" id="radnScroll" type="button" data-i18n="scroll">Scrollen</button>
+ <button class="toggle" id="radnMark" type="button" data-i18n="mark">Markieren</button>
  <span class="hint" style="margin:0;">Status</span>
- <button class="toggle status k active" id="radnPickK" type="button">kundig</button>
- <button class="toggle status a" id="radnPickA" type="button">auffrischung</button>
- <button class="toggle status u" id="radnPickU" type="button">unkundig</button>
+ <button class="toggle status k active" id="radnPickK" type="button" data-i18n="status_known_lc">kundig</button>
+ <button class="toggle status a" id="radnPickA" type="button" data-i18n="status_refresh_lc">auffrischung</button>
+ <button class="toggle status u" id="radnPickU" type="button" data-i18n="status_unknown_lc">unkundig</button>
  <span style="flex:1 1 auto"></span>
- <button class="btn" id="backToPerson" type="button">Zurück</button>
- <button class="btn primary" id="nextFromRoutes" type="button">Weiter</button>
+ <button class="btn" id="backToPerson" type="button" data-i18n="back">Zurück</button>
+ <button class="btn primary" id="nextFromRoutes" type="button" data-i18n="continue">Weiter</button>
  </div>
  </div>
  <div id="routeList" class="list" style="max-height:360px; overflow:auto;"></div>
  </div>
  <!-- Step 3 -->
  <div class="card hidden" id="p3">
- <div class="sectionEyebrow">Schritt 3</div><div class="sectionTitle">BLS-Teilstrecken</div>
- <div class="hint">BLS Daten (nur gewählte RADN-Routen). Tippen toggelt kundig/unkundig (Standard = unkundig).</div>
+ <div class="sectionEyebrow"><span data-i18n="step">Schritt</span> 3</div><div class="sectionTitle" data-i18n="bls_segments">BLS-Teilstrecken</div>
+ <div class="hint" data-i18n="bls_hint">BLS Daten (nur gewählte RADN-Routen). Tippen toggelt kundig/unkundig (Standard = unkundig).</div>
  <div class="toggleRow" style="margin-top:10px;">
- <button class="toggle active" id="blsFilterAll" type="button">Alle</button>
- <button class="toggle" id="blsFilterUnkundig" type="button">Nur unkundig</button>
+ <button class="toggle active" id="blsFilterAll" type="button" data-i18n="all">Alle</button>
+ <button class="toggle" id="blsFilterUnkundig" type="button" data-i18n="only_unknown">Nur unkundig</button>
  <span style="flex:1 1 auto"></span>
  <span class="hint" id="blsStats" style="margin:0;"></span>
  </div>
  <div class="cardTop">
  <div class="toggleRow">
- <span class="hint" style="margin:0;">Tippen auf Teilstrecke = false</span>
+ <span class="hint" style="margin:0;" data-i18n="tap_segment_false">Tippen auf Teilstrecke = false</span>
  <span style="flex:1 1 auto"></span>
- <button class="btn" id="backToRoutes" type="button">Zurück</button>
- <button class="btn primary" id="toMap" type="button">Weiter zur Karte</button>
+ <button class="btn" id="backToRoutes" type="button" data-i18n="back">Zurück</button>
+ <button class="btn primary" id="toMap" type="button" data-i18n="continue_map">Weiter zur Karte</button>
  </div>
  </div>
  <div id="blsList"></div>
  </div>
  <!-- Step 5 -->
  <div class="card hidden" id="p5">
- <div class="sectionEyebrow">Schritt 5</div><div class="sectionTitle">Ortskunde <span>Anschlussgleise und Tanklager</span></div>
+ <div class="sectionEyebrow"><span data-i18n="step">Schritt</span> 5</div><div class="sectionTitle"><span data-i18n="local_knowledge">Ortskunde</span> <span data-i18n="sidings_tanks">Anschlussgleise und Tanklager</span></div>
  <div class="cardTop">
  <div class="toggleRow">
- <span class="hint" style="margin:0;">Prüfen und bestätigen</span>
- <button class="toggle active" id="ortFilterSug" type="button">Auswahl</button>
- <button class="toggle" id="ortFilterAll" type="button">Alle</button>
+ <span class="hint" style="margin:0;" data-i18n="review_confirm">Prüfen und bestätigen</span>
+ <button class="toggle active" id="ortFilterSug" type="button" data-i18n="selection">Auswahl</button>
+ <button class="toggle" id="ortFilterAll" type="button" data-i18n="all">Alle</button>
  <span style="flex:1 1 auto"></span>
- <button class="btn" id="backToMap" type="button">Zurück zur Karte</button>
- <button class="btn" id="saveLocal" type="button">Speichern</button>
- <button class="btn" id="loadLocal" type="button">Vom Gerät laden</button>
- <button class="btn primary" id="export" type="button">Export (JSON)</button>
- <button class="btn send" id="sendBtn" type="button">Senden</button>
+ <button class="btn" id="backToMap" type="button" data-i18n="back_map">Zurück zur Karte</button>
+ <button class="btn" id="saveLocal" type="button" data-i18n="save">Speichern</button>
+ <button class="btn" id="loadLocal" type="button" data-i18n="load_device">Vom Gerät laden</button>
+ <button class="btn primary" id="export" type="button" data-i18n="export_json">Export (JSON)</button>
+ <button class="btn send" id="sendBtn" type="button" data-i18n="send">Senden</button>
  </div>
  </div>
  <div id="ortList"></div>
@@ -602,10 +622,51 @@ body.ui-tablet .toast{top:auto;bottom:18px;}
  <div class="toast" id="toast"></div>
 <script>
 (()=> {
- window.addEventListener('error', function(ev){ try{ var m = (ev && ev.message) ? ev.message : 'JS-Fehler'; var t=document.getElementById('toast'); if(t){ t.textContent=m; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 3500);} }catch(e){} });
+ window.addEventListener('error', function(ev){ try{ var m = (ev && ev.message) ? ev.message : t('js_error'); var t=document.getElementById('toast'); if(t){ t.textContent=m; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 3500);} }catch(e){} });
  const $ = (id) => document.getElementById(id);
- const toast = (m) => { const t=$('toast'); t.textContent=m; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 2200); };
- const setDirty = (v) => $('dirty').textContent = v ? 'nicht gespeichert' : '';
+ let i18n = {de:{},fr:{},it:{}};
+ let uiLang = 'de';
+ const LANG_KEY = 'mev_streckenkunde_language_v1';
+ function t(key, vars){
+  const dict = i18n[uiLang] || i18n.de || {};
+  let value = dict[key] != null ? String(dict[key]) : ((i18n.de||{})[key] != null ? String(i18n.de[key]) : key);
+  Object.keys(vars||{}).forEach(function(k){ value=value.replaceAll('{'+k+'}',String(vars[k])); });
+  return value;
+ }
+ function statusLabel(status, lower){
+  const key = status==='kundig'?'status_known':status==='auffrischung'?'status_refresh':'status_unknown';
+  const v=t(key); return lower ? v.toLocaleLowerCase(uiLang==='fr'?'fr-CH':uiLang==='it'?'it-CH':'de-CH') : v;
+ }
+ function applyLanguage(renderDynamic){
+  document.documentElement.lang = uiLang==='fr'?'fr-CH':uiLang==='it'?'it-CH':'de-CH';
+  document.querySelectorAll('[data-i18n]').forEach(function(el){ el.textContent=t(el.getAttribute('data-i18n')); });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el){ el.placeholder=t(el.getAttribute('data-i18n-placeholder')); });
+  document.querySelectorAll('.langBtn').forEach(function(b){ b.classList.toggle('active',b.dataset.lang===uiLang); });
+  if($('langSwitch')) $('langSwitch').setAttribute('aria-label',t('language'));
+  if($('viewModeToggle')) $('viewModeToggle').setAttribute('aria-label',t('change_view'));
+  if(typeof updateViewModeButton==='function') updateViewModeButton();
+  if(typeof renderRadnMeta==='function') renderRadnMeta();
+  if(typeof updateMobileMapSummary==='function') updateMobileMapSummary();
+  if(renderDynamic && typeof st!=='undefined'){
+   try{ if(st.assetsLoaded){ populateLinePick(); renderRouteList(); renderSegList(); } }catch(e){}
+   try{ if(st.currentStep===5){ renderOrts(); renderSummary(); } }catch(e){}
+  }
+ }
+ async function loadI18n(){
+  try{ i18n=await loadJson(abs('assets/i18n.json')); }
+  catch(e){ console.warn('i18n.json nicht geladen',e); i18n={de:{not_saved:'nicht gespeichert'}}; }
+  let saved=''; try{ saved=localStorage.getItem(LANG_KEY)||''; }catch(e){}
+  const browser=String(navigator.language||'de').slice(0,2).toLowerCase();
+  uiLang=(saved==='de'||saved==='fr'||saved==='it')?saved:(browser==='fr'||browser==='it'?browser:'de');
+  applyLanguage(false);
+ }
+ function setLanguage(lang){
+  uiLang=(lang==='fr'||lang==='it')?lang:'de';
+  try{localStorage.setItem(LANG_KEY,uiLang);}catch(e){}
+  applyLanguage(true);
+ }
+ const toast = (m) => { const el=$('toast'); el.textContent=m; el.classList.add('show'); setTimeout(()=>el.classList.remove('show'),2200); };
+ const setDirty = (v) => $('dirty').textContent = v ? t('not_saved') : '';
  function localDateISO(d){
  const x = d || new Date();
  return new Date(x.getTime() - x.getTimezoneOffset()*60000).toISOString().slice(0,10);
@@ -618,6 +679,10 @@ body.ui-tablet .toast{top:auto;bottom:18px;}
  idx: null,
  radn: null,
  assetsLoaded: false,
+ mapAssetLoaded: false,
+ stationEntriesByLine: {},
+ pointNodes: [],
+ pointLineMap: new WeakMap(),
  svgText: null,
  svgRoot: null,
  viewBase: null,
@@ -659,9 +724,9 @@ body.ui-tablet .toast{top:auto;bottom:18px;}
  }
  }
  function labelNurInkscape(el){
- if(!el || !el.getAttribute) return '(ohne Label)';
+ if(!el || !el.getAttribute) return t('without_label');
  var label = String(el.getAttribute('inkscape:label') || '').trim();
- return label || '(ohne Label)';
+ return label || t('without_label');
  }
  function isTanklagerEl(el){
  if(!el || !el.getAttribute) return false;
@@ -708,17 +773,17 @@ body.ui-tablet .toast{top:auto;bottom:18px;}
  }
  function radnGaugeLabel(line){
  var info = radnLineInfo(line);
- return info && info.gauge === 'narrow' ? 'Schmalspur' : 'Normalspur';
+ return info && info.gauge === 'narrow' ? 'narrow' : 'normal';
  }
  function renderRadnMeta(){
  var meta = st.radn && st.radn._meta;
  var text = '';
  if(meta){
- var version = meta.document_version ? ('Version ' + meta.document_version) : '';
- var valid = meta.document_valid_from ? ('gültig ab ' + String(meta.document_valid_from).split('-').reverse().join('.')) : '';
+ var version = meta.document_version ? (t('version') + ' ' + meta.document_version) : '';
+ var valid = meta.document_valid_from ? (t('valid_from') + ' ' + String(meta.document_valid_from).split('-').reverse().join('.')) : '';
  text = ['RADN R I-30131', version, valid].filter(Boolean).join(' · ');
  }else{
- text = 'RADN-Katalog nicht geladen – Namen aus index.json';
+ text = t('radn_not_loaded');
  }
  if($('radnMeta')) $('radnMeta').textContent = text;
  if($('mapRadnMeta')) $('mapRadnMeta').textContent = text;
@@ -788,7 +853,7 @@ body.ui-tablet .toast{top:auto;bottom:18px;}
  var nodes = st.svgRoot.querySelectorAll('[Tanklager], [tanklager]');
  nodes.forEach(function(el){
  var label = labelNurInkscape(el);
- if(!label || label === '(ohne Label)') return;
+ if(!label || label === t('without_label')) return;
  var lines = collectDataLines(el);
  for(var i=0;i<lines.length;i++){
  var l = lines[i];
@@ -887,7 +952,7 @@ body.ui-tablet .toast{top:auto;bottom:18px;}
  $('s5').classList.toggle('active', step===5);
  $('viewMap').classList.toggle('hidden', step!==4);
  $('mapBar').classList.toggle('hidden', step!==4);
- $('sheet').classList.toggle('hidden', step===4);
+ $('sheet').classList.toggle('hidden', step===4); document.body.classList.toggle('map-active',step===4);
  }
  function abs(rel){
  const base = window.location.href.split('#')[0];
@@ -912,7 +977,7 @@ body.ui-tablet .toast{top:auto;bottom:18px;}
  $('pnr').value = st.person.personalnummer;
  const ok = !!(st.person.vorname && st.person.nachname && st.person.datum);
  $('toRoutes').disabled = !ok;
- $('auto').innerHTML = '<b>Status:</b> ' + (ok ? 'bereit' : 'warte …');
+ $('auto').innerHTML = '<b>'+t('status')+':</b> ' + (ok ? t('ready') : t('waiting'));
  setDirty(true);
  }
  function renderEmpHits(q){
@@ -923,10 +988,10 @@ body.ui-tablet .toast{top:auto;bottom:18px;}
  const s=(String(e.nachname||'')+' '+String(e.vorname||'')+' '+String(e.personalnummer||'')).toLowerCase();
  return s.includes(qq);
  }).slice(0,40);
- if(!hits.length){ host.innerHTML='<div class="hint">Keine Treffer.</div>'; return; }
+ if(!hits.length){ host.innerHTML='<div class="hint">'+t('no_results')+'</div>'; return; }
  hits.forEach(e=>{
  const div=document.createElement('div'); div.className='item';
- div.innerHTML=`<div class="desc"><b>${e.nachname} ${e.vorname}</b><div class="hint">${(e.mail||'').trim() || '(keine Mail)'}${e.tel?(` · ${e.tel}`):''}</div></div>`;
+ div.innerHTML=`<div class="desc"><b>${e.nachname} ${e.vorname}</b><div class="hint">${(e.mail||'').trim() || t('no_mail')}${e.tel?(` · ${e.tel}`):''}</div></div>`;
  const applyEmp = ()=>{
  $('vorname').value = e.vorname || '';
  $('nachname').value = e.nachname || '';
@@ -937,7 +1002,7 @@ body.ui-tablet .toast{top:auto;bottom:18px;}
         st.person.mail = e.mail || '';
         st.person.tel = e.tel || '';
         st.person.abteilung = e.abteilung || '';
-        toast('Mitarbeiter übernommen.');
+        toast(t('employee_applied'));
  };
  let downEmp = null;
  div.addEventListener('pointerdown', (ev)=>{ if(ev.button != null && ev.button !== 0) return; downEmp = {x: ev.clientX, y: ev.clientY, t: performance.now()}; }, {passive:true});
@@ -949,9 +1014,9 @@ body.ui-tablet .toast{top:auto;bottom:18px;}
  }
  // Routes
  const badge = (status)=>{
- if(status==='kundig') return '<span class="badge k">kundig</span>';
- if(status==='auffrischung') return '<span class="badge a">auffrischung</span>';
- return '<span class="badge n">unkundig</span>';
+ if(status==='kundig') return '<span class="badge k">'+statusLabel(status,true)+'</span>';
+ if(status==='auffrischung') return '<span class="badge a">'+statusLabel(status,true)+'</span>';
+ return '<span class="badge n">'+statusLabel(status,true)+'</span>';
  };
  function allRoutes(){
  var official = st.radn && st.radn.lines;
@@ -986,7 +1051,7 @@ body.ui-tablet .toast{top:auto;bottom:18px;}
   if(status !== 'unkundig') initTeilstreckenForRoute(r);
   renderRouteList();
   setDirty(true);
-  toast(`Route ${r}: ${status}`);
+  toast(t('route_status',{route:r,status:statusLabel(status,true)}));
 }
 
 function tapRoute(r){
@@ -1003,12 +1068,12 @@ function tapRoute(r){
  if(status!=='unkundig') initTeilstreckenForRoute(r);
  renderRouteList();
  setDirty(true);
- toast(`Route ${r}: ${status}`);
+ toast(t('route_status',{route:r,status:statusLabel(status,true)}));
  }
  function renderRouteList(){
  const host=$('routeList'); host.innerHTML='';
  const routes=allRoutes().filter(routeMatchesSearch);
- if(!routes.length){ host.innerHTML='<div class="hint">Keine Treffer.</div>'; return; }
+ if(!routes.length){ host.innerHTML='<div class="hint">'+t('no_results')+'</div>'; return; }
  routes.forEach(r=>{
  const div=document.createElement('div'); div.className='item';
  const status=st.routeStatus[r]||'unkundig';
@@ -1018,7 +1083,7 @@ function tapRoute(r){
  const metaEl = div.querySelector('.routeMeta');
  if(metaEl){
  const count = stationEntriesForLine(r).length;
- metaEl.textContent = radnGaugeLabel(r) + ' · ' + (count ? (count + (count===1 ? ' Kartenstation' : ' Kartenstationen')) : 'keine Kartendaten');
+ metaEl.textContent = (radnGaugeLabel(r)==='narrow'?t('gauge_narrow'):t('gauge_normal')) + ' · ' + (count ? (count + ' ' + (count===1 ? t('map_station') : t('map_stations'))) : t('no_map_data_lc'));
  }
  if(!stationEntriesForLine(r).length) div.classList.add('noMap');
  let down = null;
@@ -1068,7 +1133,7 @@ function tapRoute(r){
  const sel=$('routePick'); if(!sel) return; sel.innerHTML='';
  const rs=selectedRoutes();
  if(!rs.length){
- const opt=document.createElement('option'); opt.value=''; opt.textContent='Keine Route gewählt';
+ const opt=document.createElement('option'); opt.value=''; opt.textContent=t('no_route_selected');
  sel.appendChild(opt); sel.disabled=true; return;
  }
  sel.disabled=false;
@@ -1081,14 +1146,14 @@ function tapRoute(r){
  var routes = Object.keys(st.routeSegmentsOrdered || {}).length;
  var segs = 0;
  Object.keys(st.routeSegmentsOrdered || {}).forEach(function(r){ segs += (st.routeSegmentsOrdered[r] || []).length; });
- if($('blsStats')) $('blsStats').textContent = 'BLS: ' + routes + ' Routen / ' + segs + ' Teilstrecken';
+ if($('blsStats')) $('blsStats').textContent = t('bls_stats',{routes:routes,segs:segs});
  }catch(e){}
  }
  function renderSegList(){
  const host = $('blsList'); if(!host) return; host.innerHTML='';
  updateBlsStats();
  const rs = selectedRoutes();
- if(!rs.length){ host.innerHTML = '<div class="hint">Keine Route gewählt.</div>'; return; }
+ if(!rs.length){ host.innerHTML = '<div class="hint">'+t('no_route_selected')+'</div>'; return; }
  const onlyUnkundig = (st.blsFilter === 'false');
  rs.forEach(function(r){
  initTeilstreckenForRoute(r);
@@ -1103,13 +1168,13 @@ function tapRoute(r){
  const collapsed = !!(st.blsCollapsed && st.blsCollapsed[r]);
  var titleText = routeDisplayTitle(r);
  const title = document.createElement('div'); title.className = 'groupTitle'; title.textContent = titleText;
- const meta = document.createElement('div'); meta.className = 'groupMeta'; meta.textContent = 'kundig: ' + trueCnt + ' / unkundig: ' + falseCnt;
+ const meta = document.createElement('div'); meta.className = 'groupMeta'; meta.textContent = t('known_unknown_counts',{known:trueCnt,unknown:falseCnt});
  const spacer = document.createElement('span'); spacer.style.flex = '1 1 auto';
- const btnAllFalse = document.createElement('button'); btnAllFalse.type='button'; btnAllFalse.className='miniBtn'; btnAllFalse.textContent='alles unkundig';
+ const btnAllFalse = document.createElement('button'); btnAllFalse.type='button'; btnAllFalse.className='miniBtn'; btnAllFalse.textContent=t('all_unknown');
  btnAllFalse.addEventListener('click', function(ev){ ev.preventDefault(); segs.forEach(function(it){ st.teilstrecken[r][segKey(it)] = false; }); setDirty(true); renderSegList(); renderSummary(); });
- const btnAllTrue = document.createElement('button'); btnAllTrue.type='button'; btnAllTrue.className='miniBtn'; btnAllTrue.textContent='alles kundig';
+ const btnAllTrue = document.createElement('button'); btnAllTrue.type='button'; btnAllTrue.className='miniBtn'; btnAllTrue.textContent=t('all_known');
  btnAllTrue.addEventListener('click', function(ev){ ev.preventDefault(); segs.forEach(function(it){ st.teilstrecken[r][segKey(it)] = true; }); setDirty(true); renderSegList(); renderSummary(); });
- const btnCollapse = document.createElement('button'); btnCollapse.type='button'; btnCollapse.className='miniBtn'; btnCollapse.textContent = collapsed ? 'anzeigen' : 'zuklappen';
+ const btnCollapse = document.createElement('button'); btnCollapse.type='button'; btnCollapse.className='miniBtn'; btnCollapse.textContent = collapsed ? t('show') : t('collapse');
  btnCollapse.addEventListener('click', function(ev){ ev.preventDefault(); st.blsCollapsed[r] = !collapsed; renderSegList(); });
  head.appendChild(title); head.appendChild(meta); head.appendChild(spacer); head.appendChild(btnAllFalse); head.appendChild(btnAllTrue); head.appendChild(btnCollapse);
  wrap.appendChild(head);
@@ -1123,7 +1188,7 @@ function tapRoute(r){
  div.innerHTML = '<div style="width:34px; font-weight:900;">' + (on?'✅':'✕') + '</div>' +
  '<div class="desc"><div style="font-weight:900; text-decoration:' + (on?'none':'line-through') + ';">' +
  it.seg + ' ' + it.from + ' → ' + it.to + name +
- '</div><div class="hint">Tippen toggelt kundig/unkundig</div></div>';
+ '</div><div class="hint">'+t('tap_toggle')+'</div></div>';
  div.addEventListener('click', function(){ st.teilstrecken[r][k] = !on; setDirty(true); renderSegList(); renderSummary(); });
  wrap.appendChild(div);
  });
@@ -1134,18 +1199,25 @@ function tapRoute(r){
  // Assets
  async function ensureAssetsLoaded(){
  if(st.assetsLoaded){ populateLinePick(); renderRadnMeta(); return; }
- const idx=await loadJson(abs('assets/index.json'));
+ let idx;
+ try{ idx=await loadJson(abs('assets/index_runtime.json')); }
+ catch(e){ idx=await loadJson(abs('assets/index.json')); }
  st.routes = idx.routes || {};
  st.routeSegmentsOrdered = idx.routeSegmentsOrdered || {};
  try{ st.radn = await loadJson(abs('assets/radn_lines.json')); }
  catch(e){ console.warn('radn_lines.json nicht geladen, Fallback auf index.json', e); st.radn = null; }
  if(!st.blsMode && st.blsAllFalsePending){ resetAllTeilstreckenFalse(); }
  st.idx = await loadJson(abs('assets/stations_by_line.json'));
+ buildStationEntriesCache();
  buildIdxTankByLine();
- st.svgText = await loadText(abs('assets/map.svg'));
  st.assetsLoaded = true;
  populateLinePick();
  renderRadnMeta();
+ }
+ async function ensureMapAssetLoaded(){
+  if(st.mapAssetLoaded && st.svgText) return;
+  st.svgText=await loadText(abs('assets/map.svg'));
+  st.mapAssetLoaded=true;
  }
  // SVG embed + pan/zoom
  function getInitialViewBox(svg){
@@ -1153,48 +1225,98 @@ function tapRoute(r){
  if(vb){ const p=vb.trim().split(/[\s,]+/).map(Number); if(p.length===4 && p.every(n=>Number.isFinite(n))) return {x:p[0],y:p[1],w:p[2],h:p[3]}; }
  const w=Number(svg.getAttribute('width'))||1000; const h=Number(svg.getAttribute('height'))||1000; return {x:0,y:0,w:w,h:h};
  }
- function setViewBox(vb){ if(!st.svgRoot) return; st.svgRoot.setAttribute('viewBox', `${vb.x} ${vb.y} ${vb.w} ${vb.h}`); st.viewCur=vb; }
+ let viewBoxRaf=0, pendingViewBox=null;
+ function setViewBox(vb, immediate){
+  if(!st.svgRoot) return;
+  st.viewCur=vb; pendingViewBox=vb;
+  const commit=function(){ viewBoxRaf=0; const v=pendingViewBox; pendingViewBox=null; if(v&&st.svgRoot) st.svgRoot.setAttribute('viewBox',v.x+' '+v.y+' '+v.w+' '+v.h); };
+  if(immediate){ if(viewBoxRaf) cancelAnimationFrame(viewBoxRaf); commit(); }
+  else if(!viewBoxRaf) viewBoxRaf=requestAnimationFrame(commit);
+ }
  function embedSvg(){
  const doc=new DOMParser().parseFromString(st.svgText,'image/svg+xml');
- const err=doc.querySelector('parsererror'); if(err){ toast('SVG Parse-Fehler'); console.error(err.textContent); return; }
- const svg=doc.querySelector('svg'); if(!svg){ toast('Keine SVG gefunden'); return; }
+ const err=doc.querySelector('parsererror'); if(err){ toast(t('svg_parse_error')); console.error(err.textContent); return; }
+ const svg=doc.querySelector('svg'); if(!svg){ toast(t('svg_missing')); return; }
  const host=$('mapHost'); host.innerHTML='';
  const imported=document.importNode(svg,true); imported.style.width='100%'; imported.style.height='100%'; imported.style.display='block'; host.appendChild(imported);
- st.svgRoot=imported; st.viewBase=getInitialViewBox(st.svgRoot); setViewBox({...st.viewBase});
- enableTouchPanZoom(); enablePointEditing(); wireHeaderTapToSvg();
+ st.svgRoot=imported; st.viewBase=getInitialViewBox(st.svgRoot); setViewBox({...st.viewBase},true);
+ buildSvgCaches(); enableTouchPanZoom(); enablePointEditing(); wireHeaderTapToSvg();
  st.tankIndex = buildTankIndexFromSvg(); buildIdxTankByLine(); updateOrtskundeSuggestions();
  }
+ function buildSvgCaches(){
+  if(!st.svgRoot) return;
+  st.pointNodes=Array.from(st.svgRoot.querySelectorAll('[data-typ], [data-type]')).filter(isPoint);
+  st.pointLineMap=new WeakMap();
+  st.pointNodes.forEach(function(el){st.pointLineMap.set(el,collectDataLines(el));});
+ }
  function enableTouchPanZoom(){
- if(!st.svgRoot) return; let mode='none', pan=null, pinch=null; const dist=(a,b)=>Math.hypot(a.clientX-b.clientX, a.clientY-b.clientY);
- function clientToSvgXY(cx,cy){ const pt=st.svgRoot.createSVGPoint(); pt.x=cx; pt.y=cy; const ctm=st.svgRoot.getScreenCTM(); if(!ctm) return {x:0,y:0}; const sp=pt.matrixTransform(ctm.inverse()); return {x:sp.x,y:sp.y}; }
- st.svgRoot.addEventListener('touchstart',(e)=>{ if(st.mode!=='pan') return; if(!st.viewCur||!st.viewBase) return; if(e.touches.length===1){ const t=e.touches[0]; mode='pan'; pan={x:t.clientX,y:t.clientY,vb:{...st.viewCur}}; pinch=null; } else if(e.touches.length>=2){ mode='pinch'; pinch={d:dist(e.touches[0],e.touches[1]), vb:{...st.viewCur}}; pan=null; } e.preventDefault(); },{passive:false});
- st.svgRoot.addEventListener('touchmove',(e)=>{ if(st.mode!=='pan') return; if(!st.viewCur||!st.viewBase) return; if(mode==='pan' && pan && e.touches.length===1){ const t=e.touches[0]; const dx=t.clientX-pan.x, dy=t.clientY-pan.y; const rect=st.svgRoot.getBoundingClientRect(); const sx=pan.vb.w/rect.width, sy=pan.vb.h/rect.height; setViewBox({x:pan.vb.x-dx*sx, y:pan.vb.y-dy*sy, w:pan.vb.w, h:pan.vb.h}); }
- if(mode==='pinch' && pinch && e.touches.length>=2){ const d=dist(e.touches[0],e.touches[1]); if(d<=0) return; const scale=pinch.d/d; const vb0=pinch.vb; const nw=vb0.w*scale, nh=vb0.h*scale; const minW=st.viewBase.w*0.02, maxW=st.viewBase.w*20; if(nw<minW||nw>maxW) return; const mx=(e.touches[0].clientX+e.touches[1].clientX)/2; const my=(e.touches[0].clientY+e.touches[1].clientY)/2; const mid=clientToSvgXY(mx,my); const nx = mid.x - (mid.x - vb0.x) * (nw / vb0.w); const ny = mid.y - (mid.y - vb0.y) * (nh / vb0.h); setViewBox({x:nx,y:ny,w:nw,h:nh}); } e.preventDefault(); },{passive:false});
- st.svgRoot.addEventListener('touchend',(e)=>{ if(st.mode!=='pan') return; if(e.touches.length===0){ mode='none'; pan=null; pinch=null; } e.preventDefault(); },{passive:false});
+  if(!st.svgRoot) return;
+  let mode='none',pan=null,pinch=null;
+  const dist=(a,b)=>Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY);
+  function clientToSvgXY(cx,cy,vb){
+   const v=vb||st.viewCur||st.viewBase; const rect=st.svgRoot.getBoundingClientRect();
+   if(!v||!rect.width||!rect.height) return {x:0,y:0};
+   return {x:v.x+(cx-rect.left)/rect.width*v.w,y:v.y+(cy-rect.top)/rect.height*v.h};
+  }
+  function startPerf(){document.body.classList.add('map-panning');}
+  function stopPerf(){document.body.classList.remove('map-panning');}
+  st.svgRoot.addEventListener('touchstart',function(e){
+   if(st.mode!=='pan'||!st.viewCur||!st.viewBase)return;
+   if(e.touches.length===1){const x=e.touches[0];mode='pan';pan={x:x.clientX,y:x.clientY,vb:{...st.viewCur},rect:st.svgRoot.getBoundingClientRect()};pinch=null;startPerf();}
+   else if(e.touches.length>=2){mode='pinch';pinch={d:dist(e.touches[0],e.touches[1]),vb:{...st.viewCur}};pan=null;startPerf();}
+   e.preventDefault();
+  },{passive:false});
+  st.svgRoot.addEventListener('touchmove',function(e){
+   if(st.mode!=='pan'||!st.viewCur||!st.viewBase)return;
+   if(mode==='pan'&&pan&&e.touches.length===1){const x=e.touches[0],dx=x.clientX-pan.x,dy=x.clientY-pan.y;setViewBox({x:pan.vb.x-dx*pan.vb.w/pan.rect.width,y:pan.vb.y-dy*pan.vb.h/pan.rect.height,w:pan.vb.w,h:pan.vb.h});}
+   else if(mode==='pinch'&&pinch&&e.touches.length>=2){const d=dist(e.touches[0],e.touches[1]);if(d>0){const scale=pinch.d/d,v=pinch.vb,nw=v.w*scale,nh=v.h*scale,minW=st.viewBase.w*.02,maxW=st.viewBase.w*20;if(nw>=minW&&nw<=maxW){const mx=(e.touches[0].clientX+e.touches[1].clientX)/2,my=(e.touches[0].clientY+e.touches[1].clientY)/2,mid=clientToSvgXY(mx,my,v);setViewBox({x:mid.x-(mid.x-v.x)*(nw/v.w),y:mid.y-(mid.y-v.y)*(nh/v.h),w:nw,h:nh});}}}
+   e.preventDefault();
+  },{passive:false});
+  st.svgRoot.addEventListener('touchend',function(e){if(st.mode!=='pan')return;if(e.touches.length===0){mode='none';pan=null;pinch=null;stopPerf();}e.preventDefault();},{passive:false});
+  st.svgRoot.addEventListener('touchcancel',function(){mode='none';pan=null;pinch=null;stopPerf();},{passive:true});
+
+  st.svgRoot.style.cursor='grab';
+  st.svgRoot.addEventListener('mousedown',function(e){
+   if(st.mode!=='pan'||e.button!==0||!st.viewCur)return;
+   const rect=st.svgRoot.getBoundingClientRect();mode='mouse';pan={x:e.clientX,y:e.clientY,vb:{...st.viewCur},rect:rect};st.svgRoot.style.cursor='grabbing';startPerf();e.preventDefault();
+  });
+  window.addEventListener('mousemove',function(e){
+   if(st.mode!=='pan'||mode!=='mouse'||!pan)return;
+   const dx=e.clientX-pan.x,dy=e.clientY-pan.y;setViewBox({x:pan.vb.x-dx*pan.vb.w/pan.rect.width,y:pan.vb.y-dy*pan.vb.h/pan.rect.height,w:pan.vb.w,h:pan.vb.h});
+  },{passive:true});
+  window.addEventListener('mouseup',function(){if(mode==='mouse'){mode='none';pan=null;st.svgRoot.style.cursor='grab';stopPerf();}},{passive:true});
+  st.svgRoot.addEventListener('wheel',function(e){
+   if(st.mode!=='pan'||!st.viewCur||!st.viewBase)return;
+   const factor=Math.exp(Math.max(-.28,Math.min(.28,e.deltaY*.0012)));const v={...st.viewCur};let nw=v.w*factor,nh=v.h*factor;const minW=st.viewBase.w*.02,maxW=st.viewBase.w*20;
+   if(nw<minW){nh*=minW/nw;nw=minW;} if(nw>maxW){nh*=maxW/nw;nw=maxW;}
+   const mid=clientToSvgXY(e.clientX,e.clientY,v);setViewBox({x:mid.x-(mid.x-v.x)*(nw/v.w),y:mid.y-(mid.y-v.y)*(nh/v.h),w:nw,h:nh});e.preventDefault();
+  },{passive:false});
  }
  // Point editing + colouring
  function ensureOrig(el){ if(el.dataset.origFill===undefined){ var f = el.getAttribute('fill'); el.dataset.origFill = (f===null || f===undefined) ? '' : f; } if(el.dataset.origStroke===undefined){ var s = el.getAttribute('stroke'); el.dataset.origStroke = (s===null || s===undefined) ? '' : s; } }
  function restoreOrig(el){ if(el.dataset.origFill!=='') el.setAttribute('fill', el.dataset.origFill); else el.removeAttribute('fill'); if(el.dataset.origStroke!=='') el.setAttribute('stroke', el.dataset.origStroke); else el.removeAttribute('stroke'); el.style.fill=''; el.style.stroke=''; }
  function isPoint(el){ const raw = String((el.getAttribute('data-typ') || el.getAttribute('data-type') || '')).trim().toLowerCase(); return raw==='station' || raw==='unoccupied_station'; }
- function matchesAnyLine(el, lineDigits){ const targets=parseLineTokens(lineDigits); if(!targets.length) return false; const wanted=new Set(targets); try{ const attrs = el.getAttributeNames ? el.getAttributeNames() : []; for(const a of attrs){ if(a.indexOf('data-line')!==0) continue; const vals=parseLineTokens(el.getAttribute(a)); for(const v of vals){ if(wanted.has(v)) return true; } } }catch(e){} return false; }
+ function matchesAnyLine(el,lineDigits){const targets=parseLineTokens(lineDigits);if(!targets.length)return false;const vals=st.pointLineMap.get(el)||collectDataLines(el);for(const v of vals){if(targets.indexOf(v)!==-1)return true;}return false;}
  function setVisual(el, status){ ensureOrig(el); if(status==='unkundig'){ restoreOrig(el); return; } const col = (status==='kundig') ? getComputedStyle(document.documentElement).getPropertyValue('--blue').trim() : (status==='auffrischung') ? getComputedStyle(document.documentElement).getPropertyValue('--red').trim() : ''; if(!col){ restoreOrig(el); return; } el.style.fill=col; el.style.stroke=col; }
  function getRouteStatusForElement(el){ let hasK=false, hasA=false; for(const r of Object.keys(st.routeStatus||{})){ const stt=st.routeStatus[r]; if(stt!=='kundig' && stt!=='auffrischung') continue; if(!matchesAnyLine(el, r)) continue; if(stt==='kundig'){ hasK=true; break; } hasA=true; } if(hasK) return 'kundig'; if(hasA) return 'auffrischung'; return 'unkundig'; }
- function applySelectionToSvg(){ if(!st.svgRoot) return; const nodes = st.svgRoot.querySelectorAll('[data-typ], [data-type]'); nodes.forEach(el=>{ if(!isPoint(el)) return; let status=getRouteStatusForElement(el); if(el.id && st.overrides[el.id]) status=st.overrides[el.id]; setVisual(el, status); }); }
+ function applySelectionToSvg(){if(!st.svgRoot)return;const nodes=st.pointNodes&&st.pointNodes.length?st.pointNodes:Array.from(st.svgRoot.querySelectorAll('[data-typ], [data-type]')).filter(isPoint);nodes.forEach(function(el){let status=getRouteStatusForElement(el);if(el.id&&st.overrides[el.id])status=st.overrides[el.id];setVisual(el,status);});}
+ function buildStationEntriesCache(){
+  const byLine={}; const seenByLine={};
+  Object.keys(st.idx||{}).forEach(function(key){
+   const arr=st.idx[key]; if(!Array.isArray(arr)) return;
+   arr.forEach(function(it){
+    const id=String((it&&it.id)||'').trim(); if(!id) return;
+    stationEntryLines(it,key).forEach(function(line){
+     if(!byLine[line]){byLine[line]=[];seenByLine[line]=new Set();}
+     if(!seenByLine[line].has(id)){seenByLine[line].add(id);byLine[line].push(it);}
+    });
+   });
+  });
+  st.stationEntriesByLine=byLine;
+ }
  function stationEntriesForLine(line){
- const targets = parseLineTokens(line);
- const target = targets[0] || '';
- const out = []; const seen = new Set();
- if(!target) return out;
- Object.keys(st.idx||{}).forEach(function(key){
- const arr = st.idx[key]; if(!Array.isArray(arr)) return;
- arr.forEach(function(it){
- const actual = stationEntryLines(it, key);
- const id = String((it && it.id) || '').trim();
- if(actual.indexOf(target)===-1 || !id || seen.has(id)) return;
- seen.add(id); out.push(it);
- });
- });
- return out;
+  const target=(parseLineTokens(line)[0]||'');
+  return target && st.stationEntriesByLine[target] ? st.stationEntriesByLine[target] : [];
  }
  function availableStationLines(){
  return allRoutes().filter(function(line){ return stationEntriesForLine(line).length > 0; });
@@ -1204,7 +1326,7 @@ function tapRoute(r){
  const previous = sel.value;
  const lines = allRoutes();
  const selectedSet = new Set(selectedRoutes());
- sel.innerHTML = '<option value="">Linie wählen (optional) …</option>';
+ sel.innerHTML = '<option value="">'+t('choose_line_optional')+'</option>';
  function addGroup(label, arr, disabled){
  if(!arr.length) return;
  const group = document.createElement('optgroup'); group.label = label;
@@ -1213,19 +1335,19 @@ function tapRoute(r){
  const count = stationEntriesForLine(line).length;
  opt.value = line;
  opt.disabled = !!disabled;
- opt.textContent = routeDisplayTitle(line) + ' · ' + count + (count===1 ? ' Station' : ' Stationen');
+ opt.textContent = routeDisplayTitle(line) + ' · ' + count + ' ' + (count===1 ? t('station') : t('stations'));
  group.appendChild(opt);
  });
  sel.appendChild(group);
  }
  const selected = lines.filter(function(line){ return selectedSet.has(line) && stationEntriesForLine(line).length; });
- const normal = lines.filter(function(line){ return !selectedSet.has(line) && radnGaugeLabel(line)==='Normalspur' && stationEntriesForLine(line).length; });
- const narrow = lines.filter(function(line){ return !selectedSet.has(line) && radnGaugeLabel(line)==='Schmalspur' && stationEntriesForLine(line).length; });
+ const normal = lines.filter(function(line){ return !selectedSet.has(line) && radnGaugeLabel(line)==='normal' && stationEntriesForLine(line).length; });
+ const narrow = lines.filter(function(line){ return !selectedSet.has(line) && radnGaugeLabel(line)==='narrow' && stationEntriesForLine(line).length; });
  const missing = lines.filter(function(line){ return !stationEntriesForLine(line).length; });
- addGroup('Ausgewählte RADN-Strecken', selected, false);
- addGroup('Normalspur', normal, false);
- addGroup('Schmalspur', narrow, false);
- addGroup('Keine Kartendaten', missing, true);
+ addGroup(t('selected_radn_routes'), selected, false);
+ addGroup(t('gauge_normal'), normal, false);
+ addGroup(t('gauge_narrow'), narrow, false);
+ addGroup(t('no_map_data'), missing, true);
  const available = availableStationLines();
  const preferred = previous || selected[0] || '';
  if(preferred && available.indexOf(preferred)!==-1) sel.value = preferred;
@@ -1246,8 +1368,8 @@ function tapRoute(r){
  function markSelectedLineStations(){
  const sel = $('linePick');
  const line = sel ? String(sel.value||'') : '';
- if(!line){ toast('Bitte zuerst eine Linie wählen.'); return; }
- if(!st.svgRoot){ toast('Karte ist noch nicht geladen.'); return; }
+ if(!line){ toast(t('choose_line_first')); return; }
+ if(!st.svgRoot){ toast(t('map_not_loaded')); return; }
  const entries = stationEntriesForLine(line);
  const points = []; let missing = 0; const done = new Set();
  entries.forEach(function(it){
@@ -1255,9 +1377,9 @@ function tapRoute(r){
  if(!pt || !pt.id || done.has(pt.id)){ if(!pt) missing++; return; }
  done.add(pt.id); points.push(pt);
  });
- const marked = applyStatusToPoints(points,st.pick,'Linie '+line);
- const extra = missing ? (' · ' + missing + ' nicht auf Karte gefunden') : '';
- toast('Linie ' + line + ': ' + marked + ' Stationen ' + st.pick + ' markiert' + extra + '.');
+ const marked = applyStatusToPoints(points,st.pick,t('line')+' '+line);
+ const extra = missing ? t('missing_map_points',{count:missing}) : '';
+ toast(t('line_marked_full',{line:line,count:marked,status:statusLabel(st.pick,true),extra:extra}));
  }
  function findPointFromTarget(t){ let el=t; for(let i=0;i<10 && el;i++){ if(el.getAttribute && (el.getAttribute('data-typ')||el.getAttribute('data-type'))) return el; el=el.parentElement; } return null; }
  function pointFromClientXYRadius(cx,cy,r){ const rad=Number(r||0); const offs=[[0,0],[rad,0],[-rad,0],[0,rad],[0,-rad],[rad,rad],[rad,-rad],[-rad,rad],[-rad,-rad]]; for(const o of offs){ const x=cx+o[0], y=cy+o[1]; const els=document.elementsFromPoint?document.elementsFromPoint(x,y):[document.elementFromPoint(x,y)]; for(const e of els){ const pt=findPointFromTarget(e); if(pt && isPoint(pt)) return pt; } } return null; }
@@ -1431,7 +1553,7 @@ function tapRoute(r){
  }
  function undoMapAction(){
  const action=st.undoStack && st.undoStack.pop();
- if(!action){ toast('Nichts zum Rückgängigmachen.'); updateUndoButton(); return; }
+ if(!action){ toast(t('nothing_undo')); updateUndoButton(); return; }
  action.changes.forEach(function(ch){
  if(ch.had) st.overrides[ch.id]=ch.value;
  else delete st.overrides[ch.id];
@@ -1558,11 +1680,11 @@ function tapRoute(r){
  }
  if(points.indexOf(startPt)===-1) points.unshift(startPt);
  if(points.indexOf(endPt)===-1) points.push(endPt);
- const label='Abschnitt '+labelNurInkscape(startPt)+' – '+labelNurInkscape(endPt);
+ const label=t('section')+' '+labelNurInkscape(startPt)+' – '+labelNurInkscape(endPt);
  const count=applyStatusToPoints(points,st.pick,label);
  const lines=Array.from(new Set(points.flatMap(function(pt){ return linesForPoint(pt); }))).sort(function(a,b){return Number(a)-Number(b);});
- const lineInfo=lines.length ? (' · Linien '+lines.join(', ')) : '';
- toast(count+' Stationen von '+labelNurInkscape(startPt)+' bis '+labelNurInkscape(endPt)+' '+st.pick+lineInfo+'.');
+ const lineInfo=lines.length ? t('line_info',{lines:lines.join(', ')}) : '';
+ toast(t('range_marked',{count:count,start:labelNurInkscape(startPt),end:labelNurInkscape(endPt),status:statusLabel(st.pick,true),lineInfo:lineInfo}));
  return count>0;
  }
  function enablePointEditing(){
@@ -1603,7 +1725,7 @@ function tapRoute(r){
  removeGestureOverlay(overlay);
  if(moved){
  if(end && end.id && end.id!==start.id) markStationRange(start,end,trace);
- else toast('Für einen Abschnitt auf einem Zielbahnhof loslassen.');
+ else toast(t('release_on_target'));
  }else{
  const target=end||start;
  const count=applyStatusToPoints([target],st.pick,labelNurInkscape(target));
@@ -1662,7 +1784,7 @@ function tapRoute(r){
  function renderOrts(){
  const host=$('ortList'); host.innerHTML='';
  const keys=Object.keys(st.orts||{}).sort((a,b)=>a.localeCompare(b,'de-CH'));
- if(!keys.length){ host.innerHTML='<div class="hint">Keine Ortskunde aus kundigen Routen.</div>'; return; }
+ if(!keys.length){ host.innerHTML='<div class="hint">'+t('no_local_knowledge')+'</div>'; return; }
  keys.forEach(ort=>{
  const isSuggested = !!(st.suggestedOrts && st.suggestedOrts.has(ort));
  if(st.ortFilter === 'suggested' && !isSuggested) return;
@@ -1671,7 +1793,7 @@ function tapRoute(r){
  const on = (manual===true) ? true : (manual===false) ? false : (st.suggestedOrts && st.suggestedOrts.has(ort)) ? true : false;
  const div=document.createElement('div');
  div.className='item'+(on?'':'');
- div.innerHTML=`<div class="no">${on?'✅':'✕'}</div><div class="desc"><b style="text-decoration:${on?'none':'line-through'};">${ort}</b><div class="hint">Linien: ${(it.linien||[]).slice().sort((a,b)=>Number(a)-Number(b)).join(', ')}</div></div>`;
+ div.innerHTML=`<div class="no">${on?'✅':'✕'}</div><div class="desc"><b style="text-decoration:${on?'none':'line-through'};">${ort}</b><div class="hint">${t('lines')}: ${(it.linien||[]).slice().sort((a,b)=>Number(a)-Number(b)).join(', ')}</div></div>`;
  div.addEventListener('click',()=>{ var nv = !on; st.ortsManual[ort] = nv; setDirty(true); renderOrts(); renderSummary(); });
  host.appendChild(div);
  });
@@ -1682,20 +1804,20 @@ function tapRoute(r){
  const segRoutes=Object.keys(st.teilstrecken||{});
  let segTotal=0, segFalse=0; segRoutes.forEach(r=>{ const m=st.teilstrecken[r]||{}; Object.keys(m).forEach(k=>{ segTotal++; if(m[k]===false) segFalse++; }); });
  const orts=Object.keys(st.orts||{}); const ortTrue=orts.filter(o=>isOrtOn(o)).length;
- $('summary').innerHTML = `Routen: <b>${k}</b> kundig, <b>${a}</b> auffrischung, <b>${u}</b> unkundig. · BLS Teilstrecken: <b>${segTotal-segFalse}</b> true, <b>${segFalse}</b> false. · Ortskunde: <b>${ortTrue}</b> true, <b>${orts.length-ortTrue}</b> false.`;
+ $('summary').innerHTML = t('summary_html',{known:k,refresh:a,unknown:u,segKnown:segTotal-segFalse,segUnknown:segFalse,ortKnown:ortTrue,ortUnknown:orts.length-ortTrue});
  }
  function payload(){
  const linien={}; allRoutes().forEach(r=>{ const s=st.routeStatus[r] || 'unkundig'; linien[r]={status:s, kundig:(s==='kundig'), auffrischung:(s==='auffrischung'), unkundig:(s==='unkundig')}; });
  const teilstrecken={}; Object.keys(st.teilstrecken).sort((a,b)=>Number(a)-Number(b)).forEach(r=>{ teilstrecken[r]=[]; (st.routeSegmentsOrdered[r]||[]).forEach(it=>{ const k=segKey(it); const val = st.teilstrecken[r] && st.teilstrecken[r][k]; teilstrecken[r].push({seg:it.seg, from:it.from, to:it.to, fromName:it.fromName||'', toName:it.toName||'', kundig:(val===true)}); }); });
  const ortskunde={}; Object.keys(st.orts).sort((a,b)=>a.localeCompare(b,'de-CH')).forEach(o=>{ ortskunde[o]={kundig:isOrtOn(o), linien:(st.orts[o].linien||[]).slice()}; });
- return {erzeugtAm:new Date().toISOString(), radn:(st.radn&&st.radn._meta?{...st.radn._meta}:null), person:{...st.person}, bls:st.blsMode, linien, teilstrecken, ortskunde, overrides:st.overrides||{}};
+ return {erzeugtAm:new Date().toISOString(), sprache:uiLang, radn:(st.radn&&st.radn._meta?{...st.radn._meta}:null), person:{...st.person}, bls:st.blsMode, linien, teilstrecken, ortskunde, overrides:st.overrides||{}};
  }
- function saveLocal(){ localStorage.setItem('mev_streckenkunde_state_v4_2', JSON.stringify(payload())); setDirty(false); toast('Auf Gerät gespeichert.'); }
- function loadLocal(){ const raw=localStorage.getItem('mev_streckenkunde_state_v4_2'); if(!raw){ toast('Keine Daten gespeichert.'); return; } try{ const p=JSON.parse(raw); if(p.person){ st.person={...st.person, ...p.person}; $('vorname').value=st.person.vorname||''; $('nachname').value=st.person.nachname||''; $('datum').value=st.person.datum||''; $('pnr').value=st.person.personalnummer||''; } st.blsMode=!!p.bls; $('blsYes').classList.toggle('active', st.blsMode); $('blsNo').classList.toggle('active', !st.blsMode); st.routeStatus={}; if(p.linien){ Object.keys(p.linien).forEach(r=>{ st.routeStatus[r]=p.linien[r].status || (p.linien[r].kundig?'kundig':(p.linien[r].auffrischung?'auffrischung':'unkundig')); }); } st.teilstrecken={}; if(p.teilstrecken){ Object.keys(p.teilstrecken).forEach(r=>{ st.teilstrecken[r]={}; (p.teilstrecken[r]||[]).forEach(it=>{ st.teilstrecken[r][`${it.seg}\n${it.from}>${it.to}`]=!!it.kundig; }); }); } st.orts={}; if(p.ortskunde){ Object.keys(p.ortskunde).forEach(o=>{ st.orts[o]={linien:(p.ortskunde[o].linien||[])}; st.ortsManual[o]=!!p.ortskunde[o].kundig; }); } st.overrides=p.overrides||{}; st.undoStack=[]; updateUndoButton(); syncPerson(); renderRouteList(); renderSegList(); if(st.svgRoot) applySelectionToSvg(); rebuildOrts(); renderOrts(); renderSummary(); setDirty(false); toast('Vom Gerät geladen.'); }catch(e){ console.error(e); toast('Laden fehlgeschlagen.'); } }
+ function saveLocal(){ localStorage.setItem('mev_streckenkunde_state_v4_2', JSON.stringify(payload())); setDirty(false); toast(t('saved_device')); }
+ function loadLocal(){ const raw=localStorage.getItem('mev_streckenkunde_state_v4_2'); if(!raw){ toast(t('no_saved_data')); return; } try{ const p=JSON.parse(raw); if(p.person){ st.person={...st.person, ...p.person}; $('vorname').value=st.person.vorname||''; $('nachname').value=st.person.nachname||''; $('datum').value=st.person.datum||''; $('pnr').value=st.person.personalnummer||''; } st.blsMode=!!p.bls; $('blsYes').classList.toggle('active', st.blsMode); $('blsNo').classList.toggle('active', !st.blsMode); st.routeStatus={}; if(p.linien){ Object.keys(p.linien).forEach(r=>{ st.routeStatus[r]=p.linien[r].status || (p.linien[r].kundig?'kundig':(p.linien[r].auffrischung?'auffrischung':'unkundig')); }); } st.teilstrecken={}; if(p.teilstrecken){ Object.keys(p.teilstrecken).forEach(r=>{ st.teilstrecken[r]={}; (p.teilstrecken[r]||[]).forEach(it=>{ st.teilstrecken[r][`${it.seg}\n${it.from}>${it.to}`]=!!it.kundig; }); }); } st.orts={}; if(p.ortskunde){ Object.keys(p.ortskunde).forEach(o=>{ st.orts[o]={linien:(p.ortskunde[o].linien||[])}; st.ortsManual[o]=!!p.ortskunde[o].kundig; }); } st.overrides=p.overrides||{}; st.undoStack=[]; updateUndoButton(); syncPerson(); renderRouteList(); renderSegList(); if(st.svgRoot) applySelectionToSvg(); rebuildOrts(); renderOrts(); renderSummary(); setDirty(false); toast(t('loaded_device')); }catch(e){ console.error(e); toast(t('load_failed')); } }
  // ===== Import aus Datei (JSON) =====
  function importJsonFile(file){ return new Promise((resolve, reject)=>{ const fr = new FileReader(); fr.onload = ()=>{ try{ resolve(JSON.parse(String(fr.result||''))); } catch(e){ reject(e); } }; fr.onerror = reject; fr.readAsText(file); }); }
- async function applyPayload(p){ if(!p || typeof p !== 'object') throw new Error('Ungültige Datei'); try{ await ensureAssetsLoaded(); }catch(e){} if(p.person){ st.person = {...st.person, ...p.person}; $('vorname').value = st.person.vorname || ''; $('nachname').value = st.person.nachname || ''; $('datum').value = st.person.datum || $('datum').value || localDateISO(); $('pnr').value = st.person.personalnummer || ''; } if('bls' in p){ st.blsMode = !!p.bls; $('blsYes').classList.toggle('active', st.blsMode); $('blsNo').classList.toggle('active', !st.blsMode); if(!st.blsMode){ st.blsAllFalsePending = true; resetAllTeilstreckenFalse(); } } st.routeStatus = {}; if(p.linien){ Object.keys(p.linien).forEach(r=>{ const it = p.linien[r] || {}; st.routeStatus[r] = it.status || (it.kundig ? 'kundig' : (it.auffrischung ? 'auffrischung' : 'unkundig')); }); } st.teilstrecken = {}; if(p.teilstrecken){ Object.keys(p.teilstrecken).forEach(r=>{ st.teilstrecken[r] = {}; (p.teilstrecken[r] || []).forEach(it=>{ st.teilstrecken[r][`${it.seg}\n${it.from}>${it.to}`] = !!it.kundig; }); }); } st.orts = {}; st.ortsManual = st.ortsManual || {}; if(p.ortskunde){ Object.keys(p.ortskunde).forEach(o=>{ st.orts[o] = { linien: (p.ortskunde[o].linien || []) }; st.ortsManual[o] = !!p.ortskunde[o].kundig; }); } st.overrides = p.overrides || {}; st.undoStack=[]; updateUndoButton(); syncPerson(); try{ renderRouteList(); }catch(e){} try{ renderSegList(); }catch(e){} if(st.svgRoot) try{ applySelectionToSvg(); }catch(e){} try{ rebuildOrts(); renderOrts(); renderSummary(); }catch(e){} setDirty(false); }
- async function exportJson(){ const p=payload(); if(!p.person.vorname||!p.person.nachname||!p.person.datum){ toast('Personendaten fehlen.'); return; } const safe=(s)=>String(s||'').replace(/[^a-zA-Z0-9\-_. ]/g,'').trim().replace(/\s+/g,'_'); const fn=('streckenkunde_'+safe(p.person.nachname)+'_'+safe(p.person.vorname)+'_'+safe(p.person.datum)+'.json').replace(/__+/g,'_'); const blob=new Blob([JSON.stringify(p,null,2)],{type:'application/json'}); try{ const file=new File([blob],fn,{type:'application/json'}); if(navigator.share && navigator.canShare && navigator.canShare({files:[file]})){ await navigator.share({title:'Streckenkunde', files:[file]}); setDirty(false); toast('Teilen geöffnet.'); return; } }catch(e){} const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=fn; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(url),2000); setDirty(false); toast('Datei gespeichert.'); }
+ async function applyPayload(p){ if(!p || typeof p !== 'object') throw new Error(t('invalid_file')); try{ await ensureAssetsLoaded(); }catch(e){} if(p.person){ st.person = {...st.person, ...p.person}; $('vorname').value = st.person.vorname || ''; $('nachname').value = st.person.nachname || ''; $('datum').value = st.person.datum || $('datum').value || localDateISO(); $('pnr').value = st.person.personalnummer || ''; } if('bls' in p){ st.blsMode = !!p.bls; $('blsYes').classList.toggle('active', st.blsMode); $('blsNo').classList.toggle('active', !st.blsMode); if(!st.blsMode){ st.blsAllFalsePending = true; resetAllTeilstreckenFalse(); } } st.routeStatus = {}; if(p.linien){ Object.keys(p.linien).forEach(r=>{ const it = p.linien[r] || {}; st.routeStatus[r] = it.status || (it.kundig ? 'kundig' : (it.auffrischung ? 'auffrischung' : 'unkundig')); }); } st.teilstrecken = {}; if(p.teilstrecken){ Object.keys(p.teilstrecken).forEach(r=>{ st.teilstrecken[r] = {}; (p.teilstrecken[r] || []).forEach(it=>{ st.teilstrecken[r][`${it.seg}\n${it.from}>${it.to}`] = !!it.kundig; }); }); } st.orts = {}; st.ortsManual = st.ortsManual || {}; if(p.ortskunde){ Object.keys(p.ortskunde).forEach(o=>{ st.orts[o] = { linien: (p.ortskunde[o].linien || []) }; st.ortsManual[o] = !!p.ortskunde[o].kundig; }); } st.overrides = p.overrides || {}; st.undoStack=[]; updateUndoButton(); syncPerson(); try{ renderRouteList(); }catch(e){} try{ renderSegList(); }catch(e){} if(st.svgRoot) try{ applySelectionToSvg(); }catch(e){} try{ rebuildOrts(); renderOrts(); renderSummary(); }catch(e){} setDirty(false); }
+ async function exportJson(){ const p=payload(); if(!p.person.vorname||!p.person.nachname||!p.person.datum){ toast(t('personal_missing')); return; } const safe=(s)=>String(s||'').replace(/[^a-zA-Z0-9\-_. ]/g,'').trim().replace(/\s+/g,'_'); const fn=('streckenkunde_'+safe(p.person.nachname)+'_'+safe(p.person.vorname)+'_'+safe(p.person.datum)+'.json').replace(/__+/g,'_'); const blob=new Blob([JSON.stringify(p,null,2)],{type:'application/json'}); try{ const file=new File([blob],fn,{type:'application/json'}); if(navigator.share && navigator.canShare && navigator.canShare({files:[file]})){ await navigator.share({title:'Streckenkunde', files:[file]}); setDirty(false); toast(t('share_opened')); return; } }catch(e){} const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=fn; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(url),2000); setDirty(false); toast(t('file_saved')); }
  const mobileMapMq = window.matchMedia('(max-width:560px)');
  const UI_MODE_KEY = 'mev_streckenkunde_ui_mode_v1';
  function defaultUiMode(){ return mobileMapMq.matches ? 'phone' : 'tablet'; }
@@ -1704,9 +1826,9 @@ function tapRoute(r){
   const phone = isPhoneUi();
   const icon = $('viewModeIcon'); const label = $('viewModeText'); const btn = $('viewModeToggle');
   if(icon) icon.textContent = phone ? '📱' : '▭';
-  if(label) label.textContent = phone ? 'Handy' : 'Tablet';
+  if(label) label.textContent = phone ? t('phone') : t('tablet');
   if(btn){
-   btn.title = phone ? 'Zur Tablet-Ansicht wechseln' : 'Zur Handy-Ansicht wechseln';
+   btn.title = phone ? t('switch_tablet') : t('switch_phone');
    btn.setAttribute('aria-label', btn.title);
   }
  }
@@ -1718,15 +1840,15 @@ function tapRoute(r){
   if(persist !== false){ try{ localStorage.setItem(UI_MODE_KEY, resolved); }catch(e){} }
   updateViewModeButton();
   setMobileMapToolsCollapsed(resolved === 'phone' && st.currentStep === 4);
-  if(announce) toast(resolved === 'phone' ? 'Handy-Ansicht aktiv.' : 'Tablet-Ansicht aktiv.');
+  if(announce) toast(resolved === 'phone' ? t('phone_active') : t('tablet_active'));
  }
  function toggleUiMode(){ applyUiMode(isPhoneUi() ? 'tablet' : 'phone', true, true); }
  function updateMobileMapSummary(){
   const el = $('mobileToolSummary'); if(!el) return;
-  const mode = st.mode==='edit' ? 'Abschnitt markieren' : 'Verschieben';
-  const status = st.pick==='auffrischung' ? 'Auffrischung' : st.pick==='unkundig' ? 'Unkundig' : 'Kundig';
+  const mode = st.mode==='edit' ? t('mark_section') : t('pan');
+  const status = statusLabel(st.pick,false);
   const line = $('linePick') ? String($('linePick').value||'') : '';
-  el.textContent = mode + ' · ' + status + (line ? ' · Linie ' + line : '');
+  el.textContent = mode + ' · ' + status + (line ? ' · ' + t('line') + ' ' + line : '');
  }
  function setMobileMapToolsCollapsed(collapsed){
   const bar = $('mapBar'); const btn = $('toggleMapTools');
@@ -1735,48 +1857,44 @@ function tapRoute(r){
   bar.classList.toggle('collapsed', active);
   if(btn){
    btn.setAttribute('aria-expanded', active ? 'false' : 'true');
-   btn.title = active ? 'Kartenwerkzeuge öffnen' : 'Kartenwerkzeuge einklappen';
+   btn.title = active ? t('open_map_tools') : t('close_map_tools');
   }
   updateMobileMapSummary();
  }
  function setMode(m){ st.mode=m; $('modePan').classList.toggle('active', m==='pan'); $('modeEdit').classList.toggle('active', m==='edit'); updateMobileMapSummary(); }
  function setPick(p){ st.pick=p; $('pickK').classList.toggle('active', p==='kundig'); $('pickA').classList.toggle('active', p==='auffrischung'); $('pickN').classList.toggle('active', p==='unkundig'); updateMobileMapSummary(); }
- async function goMap(){ await ensureAssetsLoaded(); if(!st.svgRoot) embedSvg(); applySelectionToSvg(); updateUndoButton(); showStep(4); setMode('pan'); setPick('kundig'); requestAnimationFrame(()=>setMobileMapToolsCollapsed(isPhoneUi())); }
+ async function goMap(){ await ensureAssetsLoaded(); await ensureMapAssetLoaded(); if(!st.svgRoot) embedSvg(); applySelectionToSvg(); updateUndoButton(); showStep(4); setMode('pan'); setPick('kundig'); requestAnimationFrame(()=>setMobileMapToolsCollapsed(isPhoneUi())); }
  async function goOrtskunde(){ rebuildOrts(); renderOrts(); renderSummary(); showStep(5); }
  function setBls(v){ st.blsMode=!!v; $('blsYes').classList.toggle('active', st.blsMode); $('blsNo').classList.toggle('active', !st.blsMode); if(!st.blsMode){ st.blsAllFalsePending = true; resetAllTeilstreckenFalse(); } }
  // NEW: Send to Power Automate HTTP trigger
  async function sendToFlow(){
  try{
  const p = payload();
- if(!p.person || !p.person.vorname || !p.person.nachname || !p.person.datum){ toast('Personendaten fehlen.'); return; }
+ if(!p.person || !p.person.vorname || !p.person.nachname || !p.person.datum){ toast(t('personal_missing')); return; }
  const routeValues = Object.values(p.linien || {});
  const k = routeValues.filter(function(x){ return x.status==='kundig'; }).length;
  const a = routeValues.filter(function(x){ return x.status==='auffrischung'; }).length;
  const u = routeValues.filter(function(x){ return x.status==='unkundig'; }).length;
- const ok = window.confirm(
- 'Streckenkunde senden?\n\n' +
- p.person.vorname + ' ' + p.person.nachname + ' · ' + p.person.datum + '\n' +
- 'RADN: ' + k + ' kundig, ' + a + ' Auffrischung, ' + u + ' unkundig\n' +
- 'Manuell markierte Kartenpunkte: ' + Object.keys(p.overrides || {}).length
- );
+ const ok = window.confirm(t('send_confirm',{person:p.person.vorname+' '+p.person.nachname,date:p.person.datum,known:k,refresh:a,unknown:u,points:Object.keys(p.overrides||{}).length}));
  if(!ok) return;
  // Secret required by your flow
  p.secret = "MEV-ABSENDEN-2026";
  const btn = $('sendBtn'); const old = btn ? btn.textContent : '';
- if(btn){ btn.disabled = true; btn.textContent = 'Senden …'; }
+ if(btn){ btn.disabled = true; btn.textContent = t('sending'); }
  const url = "https://defaulte3d2e8defe3548eaa78972c4a2acf9.8e.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/cfc078797575424d80a0c73c2fe86617/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=zYbIzZKBN5Ffd5yOemncHdy0k8l0PVOvnbtBsJFoo6U";
  const res = await fetch(url, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(p) });
- if(!res.ok){ toast('Fehler beim Senden.'); return; }
+ if(!res.ok){ toast(t('send_error')); return; }
  let data = null; try { data = await res.json(); } catch(e){}
- if(data && data.ok === true){ toast('Erfolgreich gesendet.'); setDirty(false); } else { toast('Gesendet, Antwort unerwartet.'); }
- }catch(e){ console.error(e); toast('Senden fehlgeschlagen.'); }
- finally{ const btn = $('sendBtn'); if(btn){ btn.disabled = false; btn.textContent = 'Senden'; } }
+ if(data && data.ok === true){ toast(t('send_success')); setDirty(false); } else { toast(t('send_unexpected')); }
+ }catch(e){ console.error(e); toast(t('send_failed')); }
+ finally{ const btn = $('sendBtn'); if(btn){ btn.disabled = false; btn.textContent = t('send'); } }
  }
  async function init(){
+ await loadI18n();
  let savedUiMode = ''; try{ savedUiMode = localStorage.getItem(UI_MODE_KEY) || ''; }catch(e){}
  applyUiMode(savedUiMode === 'phone' || savedUiMode === 'tablet' ? savedUiMode : defaultUiMode(), false, false);
  $('datum').value=localDateISO(); syncPerson(); showStep(1);
- try{ if(localStorage.getItem('mev_streckenkunde_state_v4_2')) $('loadHint').innerHTML='Gespeicherte Daten gefunden. <b>Vom Gerät laden</b> antippen.'; }catch(e){}
+ try{ if(localStorage.getItem('mev_streckenkunde_state_v4_2')) $('loadHint').innerHTML=t('saved_data_found'); }catch(e){}
  // employees
  try{
       const emp = await loadJson(abs('assets/mitarbeiter.json'));
@@ -1808,18 +1926,19 @@ function tapRoute(r){
     }
  renderEmpHits('');
  // wiring
+ document.querySelectorAll('.langBtn').forEach(function(btn){btn.addEventListener('click',function(){setLanguage(btn.dataset.lang);});});
  $('empSearch').addEventListener('input',()=>renderEmpHits($('empSearch').value));
  $('loadLocalTop').addEventListener('click', loadLocal);
  // Aus Datei laden (JSON)
  if($('loadFileTop') && $('importFileTop')){
  $('loadFileTop').addEventListener('click', ()=>{ const inp = $('importFileTop'); inp.value=''; inp.click(); });
- $('importFileTop').addEventListener('change', async()=>{ const inp = $('importFileTop'); const f = inp.files && inp.files[0]; if(!f) return; try{ const p = await importJsonFile(f); await applyPayload(p); toast('Aus Datei geladen.'); }catch(e){ console.error(e); toast('Datei konnte nicht geladen werden.'); } });
+ $('importFileTop').addEventListener('change', async()=>{ const inp = $('importFileTop'); const f = inp.files && inp.files[0]; if(!f) return; try{ const p = await importJsonFile(f); await applyPayload(p); toast(t('loaded_file')); }catch(e){ console.error(e); toast(t('file_load_failed')); } });
  }
  // Boot-Markierung
- try{ var bm=$('bootMark'); if(bm) bm.textContent='(JS aktiv)'; }catch(e){}
+ try{ var bm=$('bootMark'); if(bm) bm.textContent=t('js_active'); }catch(e){}
  ['vorname','nachname','datum','pnr'].forEach(id=>$(id).addEventListener('input',syncPerson));
- $('resetPerson').addEventListener('click',()=>{ $('vorname').value=''; $('nachname').value=''; $('pnr').value=''; $('datum').value=localDateISO(); syncPerson(); toast('Zurückgesetzt.'); });
- $('toRoutes').addEventListener('click', async()=>{ try{ await ensureAssetsLoaded(); renderRouteList(); showStep(2); } catch(e){ console.error(e); toast('Fehler beim Laden der Assets.'); } });
+ $('resetPerson').addEventListener('click',()=>{ $('vorname').value=''; $('nachname').value=''; $('pnr').value=''; $('datum').value=localDateISO(); syncPerson(); toast(t('reset_done')); });
+ $('toRoutes').addEventListener('click', async()=>{ try{ await ensureAssetsLoaded(); renderRouteList(); showStep(2); } catch(e){ console.error(e); toast(t('asset_load_failed')); } });
  $('blsYes').addEventListener('click',()=>setBls(true));
  $('blsNo').addEventListener('click',()=>setBls(false));
  function setBlsFilter(filter){
@@ -1849,16 +1968,16 @@ function tapRoute(r){
  setRadnPickStatus('kundig');
  setRadnMode('scroll');
  $('backToPerson').addEventListener('click',()=>showStep(1));
- $('nextFromRoutes').addEventListener('click', async()=>{ if(st.blsMode){ renderSegList(); showStep(3); } else { try{ await goMap(); } catch(e){ console.error(e); toast('Karte konnte nicht geladen werden.'); } } });
+ $('nextFromRoutes').addEventListener('click', async()=>{ if(st.blsMode){ renderSegList(); showStep(3); } else { try{ await goMap(); } catch(e){ console.error(e); toast(t('map_load_failed')); } } });
  $('backToRoutes').addEventListener('click',()=>showStep(2));
- $('toMap').addEventListener('click', async()=>{ try{ await goMap(); } catch(e){ console.error(e); toast('Karte konnte nicht geladen werden.'); } });
+ $('toMap').addEventListener('click', async()=>{ try{ await goMap(); } catch(e){ console.error(e); toast(t('map_load_failed')); } });
  // Map bar navigation
  $('backFromMap').addEventListener('click',()=>{ if(st.blsMode) showStep(3); else showStep(2); });
  $('toOrtskunde').addEventListener('click',()=>{ goOrtskunde(); });
  // Ortskunde nav
  $('backToMap').addEventListener('click',()=>{ showStep(4); requestAnimationFrame(()=>setMobileMapToolsCollapsed(isPhoneUi())); });
  $('modePan').addEventListener('click',()=>setMode('pan'));
- $('modeEdit').addEventListener('click',()=>{ setMode('edit'); toast('Einzeln tippen oder der Strecke entlang vom Start- bis zum Zielbahnhof wischen.'); });
+ $('modeEdit').addEventListener('click',()=>{ setMode('edit'); toast(t('edit_gesture_hint')); });
  if($('toggleMapTools')) $('toggleMapTools').addEventListener('click', ()=>setMobileMapToolsCollapsed(!$('mapBar').classList.contains('collapsed')));
  if($('linePick')) $('linePick').addEventListener('change', updateMobileMapSummary);
  if($('viewModeToggle')) $('viewModeToggle').addEventListener('click', toggleUiMode);
