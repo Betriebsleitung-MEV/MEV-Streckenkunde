@@ -84,6 +84,7 @@
  .item.suggest{outline:2px solid rgba(0, 200, 120, .55);} 
  .badge.sug{color: rgba(0,200,120,.95); border-color: rgba(0,200,120,.55); background: rgba(0,200,120,.12);} 
  .item.ortOn{background: rgba(0,200,120,.10);} 
+ .item.noMap{border-style:dashed;} .item.noMap .routeMeta{color:#d5a84b;}
  .groupHead{display:flex; gap:10px; align-items:center; padding:10px; border-radius:12px; border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.03);} 
  .groupTitle{font-weight:900;} 
  .groupMeta{font-size:12px; color:var(--muted);} 
@@ -98,7 +99,7 @@
 
 
 /* =========================================================
-   V1.9.19 · MEV Leitstand – visueller Testbranch
+   V1.9.20 · offizieller RADN-Katalog und Mehrfachzuordnung
    Keine Änderung an Datenmodell oder Fachlogik.
    ========================================================= */
 :root{
@@ -334,7 +335,7 @@ input:focus,select:focus{border-color:#3a83ea;box-shadow:0 0 0 3px rgba(22,119,2
   </div>
   <div id="bootMark" class="bootMark">JS aktiv</div>
   <div class="dirty" id="dirty"></div>
-  <div class="build">Testbranch · V1.9.19</div>
+  <div class="build">Testbranch · V1.9.20</div>
  </div>
  <!-- Step 4: Map view -->
  <div class="mapWrap hidden" id="viewMap">
@@ -354,6 +355,7 @@ input:focus,select:focus{border-color:#3a83ea;box-shadow:0 0 0 3px rgba(22,119,2
   </div>
   <div class="toolSection">
    <div class="toolLabel">RADN-Linie <span>optional beim Wischen</span></div>
+   <div class="hint" id="mapRadnMeta" style="margin:-2px 0 7px;"></div>
    <select id="linePick" class="mapSelect" aria-label="RADN-Linie auswählen"><option value="">Linie wählen …</option></select>
    <button class="pillBtn wide" id="markLineStations" type="button">Alle Stationen dieser Linie markieren</button>
   </div>
@@ -412,6 +414,7 @@ input:focus,select:focus{border-color:#3a83ea;box-shadow:0 0 0 3px rgba(22,119,2
  <div class="card hidden" id="p2">
  <div class="sectionEyebrow">Schritt 2</div><div class="sectionTitle">RADN-Strecken <span>101–791</span></div>
  <div class="hint">Status wählen und im Modus «Markieren» Route anklicken</div>
+ <div class="hint" id="radnMeta" style="margin-top:5px;"></div>
  <div class="cardTop">
  <div class="toggleRow">
  <span class="hint" style="margin:0;">BLS Teilstrecken bearbeiten?</span>
@@ -489,6 +492,8 @@ input:focus,select:focus{border-color:#3a83ea;box-shadow:0 0 0 3px rgba(22,119,2
  routes: {},
  routeSegmentsOrdered: {},
  idx: null,
+ radn: null,
+ assetsLoaded: false,
  svgText: null,
  svgRoot: null,
  viewBase: null,
@@ -548,6 +553,7 @@ input:focus,select:focus{border-color:#3a83ea;box-shadow:0 0 0 3px rgba(22,119,2
  }
  // ===== Tanklager/Anschlussgleise: Abgleich über data-line =====
  function parseLineTokens(value){
+ if(Array.isArray(value)) value = value.join(' ');
  var raw = String(value == null ? '' : value);
  var matches = raw.match(/\d{3}/g) || [];
  var seen = {};
@@ -561,6 +567,51 @@ input:focus,select:focus{border-color:#3a83ea;box-shadow:0 0 0 3px rgba(22,119,2
  }
  out.sort(function(a,b){ return Number(a)-Number(b); });
  return out;
+ }
+ function stationEntryLines(it, key){
+ var vals = [];
+ if(it && Array.isArray(it.lines)) vals = vals.concat(parseLineTokens(it.lines));
+ if(it) vals = vals.concat(parseLineTokens(it.line || ''));
+ vals = vals.concat(parseLineTokens(key || ''));
+ var seen = {}, out = [];
+ vals.forEach(function(line){ if(!seen[line]){ seen[line]=1; out.push(line); } });
+ out.sort(function(a,b){ return Number(a)-Number(b); });
+ return out;
+ }
+ function radnLineInfo(line){
+ var lines = st.radn && st.radn.lines;
+ return lines && lines[line] ? lines[line] : null;
+ }
+ function radnGaugeLabel(line){
+ var info = radnLineInfo(line);
+ return info && info.gauge === 'narrow' ? 'Schmalspur' : 'Normalspur';
+ }
+ function renderRadnMeta(){
+ var meta = st.radn && st.radn._meta;
+ var text = '';
+ if(meta){
+ var version = meta.document_version ? ('Version ' + meta.document_version) : '';
+ var valid = meta.document_valid_from ? ('gültig ab ' + String(meta.document_valid_from).split('-').reverse().join('.')) : '';
+ text = ['RADN R I-30131', version, valid].filter(Boolean).join(' · ');
+ }else{
+ text = 'RADN-Katalog nicht geladen – Namen aus index.json';
+ }
+ if($('radnMeta')) $('radnMeta').textContent = text;
+ if($('mapRadnMeta')) $('mapRadnMeta').textContent = text;
+ }
+ function configuredStationIdsBetween(line,startId,endId){
+ var info = radnLineInfo(line);
+ var variants = info && Array.isArray(info.variants) ? info.variants : [];
+ for(var i=0;i<variants.length;i++){
+ var ids = Array.isArray(variants[i].stations) ? variants[i].stations : [];
+ var a = ids.indexOf(startId), b = ids.indexOf(endId);
+ if(a === -1 || b === -1) continue;
+ var lo = Math.min(a,b), hi = Math.max(a,b);
+ var part = ids.slice(lo,hi+1);
+ if(a>b) part.reverse();
+ return part;
+ }
+ return [];
  }
  function collectDataLines(el){
  var out=[];
@@ -590,7 +641,7 @@ input:focus,select:focus{border-color:#3a83ea;box-shadow:0 0 0 3px rgba(22,119,2
  for(var i=0;i<arr.length;i++){
  var it = arr[i] || {};
  if(!it.tanklager) continue;
- var lines = parseLineTokens(it.line || lineKey || '');
+ var lines = stationEntryLines(it, lineKey);
  // Sonderfall: unknown-Liste mit code = Liniennummer (z.B. "411")
  if(!lines.length) lines = parseLineTokens(it.code || '');
  if(!lines.length) continue;
@@ -779,13 +830,21 @@ input:focus,select:focus{border-color:#3a83ea;box-shadow:0 0 0 3px rgba(22,119,2
  return '<span class="badge n">unkundig</span>';
  };
  function allRoutes(){
+ var official = st.radn && st.radn.lines;
+ if(official){
+ return Object.keys(official).filter(function(k){
+ var info = official[k] || {};
+ return /^\d{3}$/.test(k) && Number(k)>=101 && Number(k)<=791 && info.enabled !== false;
+ }).sort(function(a,b){ return Number(a)-Number(b); });
+ }
  return Object.keys(st.routes||{}).filter(k=>/^\d{3}$/.test(k)).filter(k=>{
  const n=Number(k); return n>=101 && n<=791;
  }).sort((a,b)=>Number(a)-Number(b));
  }
  function routeMatchesSearch(route){ return true; }
  function routeNameOnly(r){
- let name = String((st.routes||{})[r] || '').trim();
+ var info = radnLineInfo(r);
+ let name = String((info && info.name) || (st.routes||{})[r] || '').trim();
  const escaped = String(r).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
  const prefix = new RegExp('^' + escaped + '(?=\\s|[-–—:|/]|$)');
  while(prefix.test(name)){
@@ -829,9 +888,15 @@ function tapRoute(r){
  routes.forEach(r=>{
  const div=document.createElement('div'); div.className='item';
  const status=st.routeStatus[r]||'unkundig';
- div.innerHTML=`<div class="no">${r}</div><div class="desc"><b></b></div>${badge(status)}`;
+ div.innerHTML=`<div class="no">${r}</div><div class="desc"><b></b><div class="hint routeMeta"></div></div>${badge(status)}`;
  const titleEl = div.querySelector('.desc b');
  if(titleEl) titleEl.textContent = routeDisplayTitle(r);
+ const metaEl = div.querySelector('.routeMeta');
+ if(metaEl){
+ const count = stationEntriesForLine(r).length;
+ metaEl.textContent = radnGaugeLabel(r) + ' · ' + (count ? (count + (count===1 ? ' Kartenstation' : ' Kartenstationen')) : 'keine Kartendaten');
+ }
+ if(!stationEntriesForLine(r).length) div.classList.add('noMap');
  let down = null;
  div.addEventListener('pointerdown', (ev)=>{
  if(st.radnMode !== 'mark') return;
@@ -944,15 +1009,19 @@ function tapRoute(r){
  }
  // Assets
  async function ensureAssetsLoaded(){
- if(st.idx && st.svgText && Object.keys(st.routes).length){ populateLinePick(); return; }
+ if(st.assetsLoaded){ populateLinePick(); renderRadnMeta(); return; }
  const idx=await loadJson(abs('assets/index.json'));
  st.routes = idx.routes || {};
  st.routeSegmentsOrdered = idx.routeSegmentsOrdered || {};
+ try{ st.radn = await loadJson(abs('assets/radn_lines.json')); }
+ catch(e){ console.warn('radn_lines.json nicht geladen, Fallback auf index.json', e); st.radn = null; }
  if(!st.blsMode && st.blsAllFalsePending){ resetAllTeilstreckenFalse(); }
  st.idx = await loadJson(abs('assets/stations_by_line.json'));
  buildIdxTankByLine();
- populateLinePick();
  st.svgText = await loadText(abs('assets/map.svg'));
+ st.assetsLoaded = true;
+ populateLinePick();
+ renderRadnMeta();
  }
  // SVG embed + pan/zoom
  function getInitialViewBox(svg){
@@ -995,7 +1064,7 @@ function tapRoute(r){
  Object.keys(st.idx||{}).forEach(function(key){
  const arr = st.idx[key]; if(!Array.isArray(arr)) return;
  arr.forEach(function(it){
- const actual = parseLineTokens((it && (it.line || key)) || '');
+ const actual = stationEntryLines(it, key);
  const id = String((it && it.id) || '').trim();
  if(actual.indexOf(target)===-1 || !id || seen.has(id)) return;
  seen.add(id); out.push(it);
@@ -1004,30 +1073,38 @@ function tapRoute(r){
  return out;
  }
  function availableStationLines(){
- const lines = new Set();
- Object.keys(st.idx||{}).forEach(function(key){
- const arr = st.idx[key]; if(!Array.isArray(arr)) return;
- arr.forEach(function(it){
- const vals = parseLineTokens((it && (it.line || key)) || '');
- vals.forEach(function(line){ lines.add(line); });
- });
- });
- return Array.from(lines).sort(function(a,b){ return Number(a)-Number(b); });
+ return allRoutes().filter(function(line){ return stationEntriesForLine(line).length > 0; });
  }
  function populateLinePick(){
  const sel = $('linePick'); if(!sel || !st.idx) return;
  const previous = sel.value;
- const lines = availableStationLines();
+ const lines = allRoutes();
+ const selectedSet = new Set(selectedRoutes());
  sel.innerHTML = '<option value="">Linie wählen (optional) …</option>';
- lines.forEach(function(line){
+ function addGroup(label, arr, disabled){
+ if(!arr.length) return;
+ const group = document.createElement('optgroup'); group.label = label;
+ arr.forEach(function(line){
  const opt = document.createElement('option');
  const count = stationEntriesForLine(line).length;
  opt.value = line;
- opt.textContent = routeDisplayTitle(line) + ' · ' + count + ' Stationen';
- sel.appendChild(opt);
+ opt.disabled = !!disabled;
+ opt.textContent = routeDisplayTitle(line) + ' · ' + count + (count===1 ? ' Station' : ' Stationen');
+ group.appendChild(opt);
  });
- const preferred = previous || selectedRoutes()[0] || '';
- if(preferred && lines.indexOf(preferred)!==-1) sel.value = preferred;
+ sel.appendChild(group);
+ }
+ const selected = lines.filter(function(line){ return selectedSet.has(line) && stationEntriesForLine(line).length; });
+ const normal = lines.filter(function(line){ return !selectedSet.has(line) && radnGaugeLabel(line)==='Normalspur' && stationEntriesForLine(line).length; });
+ const narrow = lines.filter(function(line){ return !selectedSet.has(line) && radnGaugeLabel(line)==='Schmalspur' && stationEntriesForLine(line).length; });
+ const missing = lines.filter(function(line){ return !stationEntriesForLine(line).length; });
+ addGroup('Ausgewählte RADN-Strecken', selected, false);
+ addGroup('Normalspur', normal, false);
+ addGroup('Schmalspur', narrow, false);
+ addGroup('Keine Kartendaten', missing, true);
+ const available = availableStationLines();
+ const preferred = previous || selected[0] || '';
+ if(preferred && available.indexOf(preferred)!==-1) sel.value = preferred;
  }
  function svgPointById(id){
  if(!st.svgRoot || !id) return null;
@@ -1080,7 +1157,7 @@ function tapRoute(r){
  const arr = st.idx[key]; if(!Array.isArray(arr)) return;
  arr.forEach(function(it){
  if(!it || String(it.id||'') !== id) return;
- const vals = parseLineTokens(it.line || key || '');
+ const vals = stationEntryLines(it, key);
  vals.forEach(function(line){ out.add(line); });
  });
  }
@@ -1172,6 +1249,11 @@ function tapRoute(r){
  return {at:at,d:d,x:q.x,y:q.y};
  }
  function pointsBetweenOnLine(line,startPt,endPt){
+ const configuredIds = configuredStationIdsBetween(line,startPt && startPt.id,endPt && endPt.id);
+ if(configuredIds.length>=2){
+ const configuredPoints = configuredIds.map(svgPointById).filter(Boolean);
+ if(configuredPoints.length>=2) return configuredPoints;
+ }
  const candidates=allSvgPointsForLine(line);
  if(!candidates.length) return [];
  const geometry=routeGeometryForLine(line,startPt,endPt);
@@ -1482,7 +1564,7 @@ function tapRoute(r){
  const linien={}; allRoutes().forEach(r=>{ const s=st.routeStatus[r] || 'unkundig'; linien[r]={status:s, kundig:(s==='kundig'), auffrischung:(s==='auffrischung'), unkundig:(s==='unkundig')}; });
  const teilstrecken={}; Object.keys(st.teilstrecken).sort((a,b)=>Number(a)-Number(b)).forEach(r=>{ teilstrecken[r]=[]; (st.routeSegmentsOrdered[r]||[]).forEach(it=>{ const k=segKey(it); const val = st.teilstrecken[r] && st.teilstrecken[r][k]; teilstrecken[r].push({seg:it.seg, from:it.from, to:it.to, fromName:it.fromName||'', toName:it.toName||'', kundig:(val===true)}); }); });
  const ortskunde={}; Object.keys(st.orts).sort((a,b)=>a.localeCompare(b,'de-CH')).forEach(o=>{ ortskunde[o]={kundig:isOrtOn(o), linien:(st.orts[o].linien||[]).slice()}; });
- return {erzeugtAm:new Date().toISOString(), person:{...st.person}, bls:st.blsMode, linien, teilstrecken, ortskunde, overrides:st.overrides||{}};
+ return {erzeugtAm:new Date().toISOString(), radn:(st.radn&&st.radn._meta?{...st.radn._meta}:null), person:{...st.person}, bls:st.blsMode, linien, teilstrecken, ortskunde, overrides:st.overrides||{}};
  }
  function saveLocal(){ localStorage.setItem('mev_streckenkunde_state_v4_2', JSON.stringify(payload())); setDirty(false); toast('Auf Gerät gespeichert.'); }
  function loadLocal(){ const raw=localStorage.getItem('mev_streckenkunde_state_v4_2'); if(!raw){ toast('Keine Daten gespeichert.'); return; } try{ const p=JSON.parse(raw); if(p.person){ st.person={...st.person, ...p.person}; $('vorname').value=st.person.vorname||''; $('nachname').value=st.person.nachname||''; $('datum').value=st.person.datum||''; $('pnr').value=st.person.personalnummer||''; } st.blsMode=!!p.bls; $('blsYes').classList.toggle('active', st.blsMode); $('blsNo').classList.toggle('active', !st.blsMode); st.routeStatus={}; if(p.linien){ Object.keys(p.linien).forEach(r=>{ st.routeStatus[r]=p.linien[r].status || (p.linien[r].kundig?'kundig':(p.linien[r].auffrischung?'auffrischung':'unkundig')); }); } st.teilstrecken={}; if(p.teilstrecken){ Object.keys(p.teilstrecken).forEach(r=>{ st.teilstrecken[r]={}; (p.teilstrecken[r]||[]).forEach(it=>{ st.teilstrecken[r][`${it.seg}\n${it.from}>${it.to}`]=!!it.kundig; }); }); } st.orts={}; if(p.ortskunde){ Object.keys(p.ortskunde).forEach(o=>{ st.orts[o]={linien:(p.ortskunde[o].linien||[])}; st.ortsManual[o]=!!p.ortskunde[o].kundig; }); } st.overrides=p.overrides||{}; st.undoStack=[]; updateUndoButton(); syncPerson(); renderRouteList(); renderSegList(); if(st.svgRoot) applySelectionToSvg(); rebuildOrts(); renderOrts(); renderSummary(); setDirty(false); toast('Vom Gerät geladen.'); }catch(e){ console.error(e); toast('Laden fehlgeschlagen.'); } }
