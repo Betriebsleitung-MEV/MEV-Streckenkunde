@@ -368,6 +368,83 @@ input:focus,select:focus{border-color:#3a83ea;box-shadow:0 0 0 3px rgba(22,119,2
  .mapBar .pillBtn{font-size:9px;}
 }
 
+
+/* V1.9.22: manuelle Umschaltung Handy-/Tablet-Ansicht */
+.viewModeToggle{
+ display:inline-flex;align-items:center;justify-content:center;gap:6px;
+ height:34px;padding:0 9px;border-radius:10px;border:1px solid rgba(255,255,255,.13);
+ background:#142238;color:#dce8fb;font-size:11px;font-weight:780;white-space:nowrap;
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.045);cursor:pointer;
+}
+.viewModeToggle:hover{border-color:#3b5376;background:#1a2a43;}
+.viewModeIcon{font-size:14px;line-height:1;}
+@media (min-width:900px){.viewModeToggle{display:none;}}
+@media (max-width:430px){
+ .viewModeToggle{width:34px;padding:0;flex:0 0 34px;}
+ .viewModeText{display:none;}
+ .topbar{gap:6px;}
+ .brandBlock{min-width:0;}
+ .brand{font-size:12px;}
+}
+
+/* Handy-Ansicht: kompaktes, einklappbares Bottom-Dock – auch auf Tablets erzwingbar */
+body.ui-phone .mapBar{
+ top:auto!important;bottom:calc(8px + env(safe-area-inset-bottom))!important;
+ left:8px!important;right:8px!important;width:auto!important;
+ max-height:min(72dvh,620px)!important;padding:10px!important;gap:8px!important;overflow:auto!important;
+ border-radius:18px!important;transition:max-height .22s ease,transform .22s ease,box-shadow .22s ease!important;
+ overscroll-behavior:contain;
+}
+body.ui-phone .mapBarHead{
+ display:flex!important;position:sticky!important;top:-10px!important;z-index:6!important;
+ margin:-10px -10px 0!important;padding:10px!important;
+ border-bottom:1px solid rgba(255,255,255,.08)!important;border-radius:18px 18px 12px 12px!important;
+ background:rgba(12,23,40,.985)!important;backdrop-filter:blur(16px) saturate(125%);
+}
+body.ui-phone .mapBarTitleBlock{flex:1 1 auto;min-width:0;}
+body.ui-phone .mapBarHead .toolEyebrow{font-size:9px;}
+body.ui-phone .mapBarHead .toolTitle{font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+body.ui-phone .mobileToolSummary{display:block!important;margin-top:2px;color:#91a6c6;font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+body.ui-phone .mobileToolsToggle{display:inline-flex!important;align-items:center;justify-content:center;flex:0 0 auto;}
+body.ui-phone .mobileToolsToggle span,body.ui-phone #undoMap span{display:none;}
+body.ui-phone .mapBar.collapsed{max-height:64px!important;overflow:hidden!important;padding:0 10px!important;box-shadow:0 12px 34px rgba(0,0,0,.34)!important;}
+body.ui-phone .mapBar.collapsed .mapBarHead{position:static!important;margin:0 -10px!important;padding:9px 10px!important;border-bottom:0!important;border-radius:17px!important;background:rgba(12,23,40,.97)!important;}
+body.ui-phone .mapBar.collapsed .toolSection,body.ui-phone .mapBar.collapsed .mapNav{display:none!important;}
+body.ui-phone .mapBar.collapsed .toolEyebrow,body.ui-phone .mapBar.collapsed #undoMap{display:none!important;}
+body.ui-phone .mapBar.collapsed .toolTitle{font-size:12px;}
+body.ui-phone .mapBar.collapsed .mobileToolsToggle{border-color:rgba(65,139,244,.58);background:rgba(22,119,255,.14);}
+body.ui-phone .mapBar:not(.collapsed) .mobileToolsToggle{transform:rotate(180deg);}
+body.ui-phone .mapBar .toolSection{padding:8px;gap:6px;}
+body.ui-phone .mapBar .segmented.two{grid-template-columns:1fr 1fr!important;}
+body.ui-phone .mapBar .statusSegment{grid-template-columns:repeat(3,1fr)!important;}
+body.ui-phone .mapBar .pillBtn{height:40px;font-size:10px;}
+body.ui-phone .mapBar .mapNav{
+ position:sticky!important;bottom:-10px!important;margin:0 -10px -10px!important;
+ padding:10px calc(10px + env(safe-area-inset-right)) calc(10px + env(safe-area-inset-bottom)) calc(10px + env(safe-area-inset-left))!important;
+ background:rgba(12,23,40,.985)!important;
+}
+body.ui-phone .toast{top:66px;bottom:auto;max-width:calc(100vw - 20px);}
+
+/* Tablet-Ansicht: kompakte Werkzeugfläche oben – auch auf einem Handy testbar */
+body.ui-tablet .mapBar{
+ left:8px!important;right:8px!important;top:64px!important;bottom:auto!important;width:auto!important;
+ max-height:48vh!important;padding:10px!important;gap:8px!important;overflow:auto!important;border-radius:15px!important;
+}
+body.ui-tablet .mapBarHead{display:none!important;}
+body.ui-tablet .mobileToolSummary,body.ui-tablet .mobileToolsToggle{display:none!important;}
+body.ui-tablet .mapBar.collapsed{max-height:48vh!important;overflow:auto!important;padding:10px!important;}
+body.ui-tablet .mapBar.collapsed .toolSection{display:grid!important;}
+body.ui-tablet .mapBar.collapsed .mapNav{display:grid!important;}
+body.ui-tablet .mapBar .toolSection{padding:8px;gap:6px;}
+body.ui-tablet .mapBar .segmented.two{grid-template-columns:1fr 1fr!important;}
+body.ui-tablet .mapBar .statusSegment{grid-template-columns:repeat(3,1fr)!important;}
+body.ui-tablet .mapBar .pillBtn{height:38px;font-size:10px;}
+body.ui-tablet .mapBar .mapNav{
+ position:sticky!important;bottom:-10px!important;margin:0 -10px -10px!important;padding:10px!important;
+ background:rgba(12,23,40,.98)!important;
+}
+body.ui-tablet .toast{top:auto;bottom:18px;}
+
 </style>
 </head>
 <body>
@@ -379,8 +456,9 @@ input:focus,select:focus{border-color:#3a83ea;box-shadow:0 0 0 3px rgba(22,119,2
    <div><div class="brand">MEV Streckenkunde</div><div class="brandSub">Erfassung und Kartenbearbeitung</div></div>
   </div>
   <div id="bootMark" class="bootMark">JS aktiv</div>
+  <button class="viewModeToggle" id="viewModeToggle" type="button" title="Zwischen Handy- und Tablet-Ansicht wechseln" aria-label="Ansicht wechseln"><span class="viewModeIcon" id="viewModeIcon">📱</span><span class="viewModeText" id="viewModeText">Handy</span></button>
   <div class="dirty" id="dirty"></div>
-  <div class="build">Testbranch · V1.9.21 Mobile</div>
+  <div class="build">Testbranch · V1.9.22 Handy/Tablet</div>
  </div>
  <!-- Step 4: Map view -->
  <div class="mapWrap hidden" id="viewMap">
@@ -1619,6 +1697,30 @@ function tapRoute(r){
  async function applyPayload(p){ if(!p || typeof p !== 'object') throw new Error('Ungültige Datei'); try{ await ensureAssetsLoaded(); }catch(e){} if(p.person){ st.person = {...st.person, ...p.person}; $('vorname').value = st.person.vorname || ''; $('nachname').value = st.person.nachname || ''; $('datum').value = st.person.datum || $('datum').value || localDateISO(); $('pnr').value = st.person.personalnummer || ''; } if('bls' in p){ st.blsMode = !!p.bls; $('blsYes').classList.toggle('active', st.blsMode); $('blsNo').classList.toggle('active', !st.blsMode); if(!st.blsMode){ st.blsAllFalsePending = true; resetAllTeilstreckenFalse(); } } st.routeStatus = {}; if(p.linien){ Object.keys(p.linien).forEach(r=>{ const it = p.linien[r] || {}; st.routeStatus[r] = it.status || (it.kundig ? 'kundig' : (it.auffrischung ? 'auffrischung' : 'unkundig')); }); } st.teilstrecken = {}; if(p.teilstrecken){ Object.keys(p.teilstrecken).forEach(r=>{ st.teilstrecken[r] = {}; (p.teilstrecken[r] || []).forEach(it=>{ st.teilstrecken[r][`${it.seg}\n${it.from}>${it.to}`] = !!it.kundig; }); }); } st.orts = {}; st.ortsManual = st.ortsManual || {}; if(p.ortskunde){ Object.keys(p.ortskunde).forEach(o=>{ st.orts[o] = { linien: (p.ortskunde[o].linien || []) }; st.ortsManual[o] = !!p.ortskunde[o].kundig; }); } st.overrides = p.overrides || {}; st.undoStack=[]; updateUndoButton(); syncPerson(); try{ renderRouteList(); }catch(e){} try{ renderSegList(); }catch(e){} if(st.svgRoot) try{ applySelectionToSvg(); }catch(e){} try{ rebuildOrts(); renderOrts(); renderSummary(); }catch(e){} setDirty(false); }
  async function exportJson(){ const p=payload(); if(!p.person.vorname||!p.person.nachname||!p.person.datum){ toast('Personendaten fehlen.'); return; } const safe=(s)=>String(s||'').replace(/[^a-zA-Z0-9\-_. ]/g,'').trim().replace(/\s+/g,'_'); const fn=('streckenkunde_'+safe(p.person.nachname)+'_'+safe(p.person.vorname)+'_'+safe(p.person.datum)+'.json').replace(/__+/g,'_'); const blob=new Blob([JSON.stringify(p,null,2)],{type:'application/json'}); try{ const file=new File([blob],fn,{type:'application/json'}); if(navigator.share && navigator.canShare && navigator.canShare({files:[file]})){ await navigator.share({title:'Streckenkunde', files:[file]}); setDirty(false); toast('Teilen geöffnet.'); return; } }catch(e){} const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=fn; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(url),2000); setDirty(false); toast('Datei gespeichert.'); }
  const mobileMapMq = window.matchMedia('(max-width:560px)');
+ const UI_MODE_KEY = 'mev_streckenkunde_ui_mode_v1';
+ function defaultUiMode(){ return mobileMapMq.matches ? 'phone' : 'tablet'; }
+ function isPhoneUi(){ return document.body.classList.contains('ui-phone'); }
+ function updateViewModeButton(){
+  const phone = isPhoneUi();
+  const icon = $('viewModeIcon'); const label = $('viewModeText'); const btn = $('viewModeToggle');
+  if(icon) icon.textContent = phone ? '📱' : '▭';
+  if(label) label.textContent = phone ? 'Handy' : 'Tablet';
+  if(btn){
+   btn.title = phone ? 'Zur Tablet-Ansicht wechseln' : 'Zur Handy-Ansicht wechseln';
+   btn.setAttribute('aria-label', btn.title);
+  }
+ }
+ function applyUiMode(mode, persist, announce){
+  const resolved = mode === 'tablet' ? 'tablet' : 'phone';
+  document.body.classList.toggle('ui-phone', resolved === 'phone');
+  document.body.classList.toggle('ui-tablet', resolved === 'tablet');
+  st.uiMode = resolved;
+  if(persist !== false){ try{ localStorage.setItem(UI_MODE_KEY, resolved); }catch(e){} }
+  updateViewModeButton();
+  setMobileMapToolsCollapsed(resolved === 'phone' && st.currentStep === 4);
+  if(announce) toast(resolved === 'phone' ? 'Handy-Ansicht aktiv.' : 'Tablet-Ansicht aktiv.');
+ }
+ function toggleUiMode(){ applyUiMode(isPhoneUi() ? 'tablet' : 'phone', true, true); }
  function updateMobileMapSummary(){
   const el = $('mobileToolSummary'); if(!el) return;
   const mode = st.mode==='edit' ? 'Abschnitt markieren' : 'Verschieben';
@@ -1629,7 +1731,7 @@ function tapRoute(r){
  function setMobileMapToolsCollapsed(collapsed){
   const bar = $('mapBar'); const btn = $('toggleMapTools');
   if(!bar) return;
-  const active = mobileMapMq.matches && !!collapsed;
+  const active = isPhoneUi() && !!collapsed;
   bar.classList.toggle('collapsed', active);
   if(btn){
    btn.setAttribute('aria-expanded', active ? 'false' : 'true');
@@ -1639,7 +1741,7 @@ function tapRoute(r){
  }
  function setMode(m){ st.mode=m; $('modePan').classList.toggle('active', m==='pan'); $('modeEdit').classList.toggle('active', m==='edit'); updateMobileMapSummary(); }
  function setPick(p){ st.pick=p; $('pickK').classList.toggle('active', p==='kundig'); $('pickA').classList.toggle('active', p==='auffrischung'); $('pickN').classList.toggle('active', p==='unkundig'); updateMobileMapSummary(); }
- async function goMap(){ await ensureAssetsLoaded(); if(!st.svgRoot) embedSvg(); applySelectionToSvg(); updateUndoButton(); showStep(4); setMode('pan'); setPick('kundig'); requestAnimationFrame(()=>setMobileMapToolsCollapsed(mobileMapMq.matches)); }
+ async function goMap(){ await ensureAssetsLoaded(); if(!st.svgRoot) embedSvg(); applySelectionToSvg(); updateUndoButton(); showStep(4); setMode('pan'); setPick('kundig'); requestAnimationFrame(()=>setMobileMapToolsCollapsed(isPhoneUi())); }
  async function goOrtskunde(){ rebuildOrts(); renderOrts(); renderSummary(); showStep(5); }
  function setBls(v){ st.blsMode=!!v; $('blsYes').classList.toggle('active', st.blsMode); $('blsNo').classList.toggle('active', !st.blsMode); if(!st.blsMode){ st.blsAllFalsePending = true; resetAllTeilstreckenFalse(); } }
  // NEW: Send to Power Automate HTTP trigger
@@ -1671,6 +1773,8 @@ function tapRoute(r){
  finally{ const btn = $('sendBtn'); if(btn){ btn.disabled = false; btn.textContent = 'Senden'; } }
  }
  async function init(){
+ let savedUiMode = ''; try{ savedUiMode = localStorage.getItem(UI_MODE_KEY) || ''; }catch(e){}
+ applyUiMode(savedUiMode === 'phone' || savedUiMode === 'tablet' ? savedUiMode : defaultUiMode(), false, false);
  $('datum').value=localDateISO(); syncPerson(); showStep(1);
  try{ if(localStorage.getItem('mev_streckenkunde_state_v4_2')) $('loadHint').innerHTML='Gespeicherte Daten gefunden. <b>Vom Gerät laden</b> antippen.'; }catch(e){}
  // employees
@@ -1752,13 +1856,12 @@ function tapRoute(r){
  $('backFromMap').addEventListener('click',()=>{ if(st.blsMode) showStep(3); else showStep(2); });
  $('toOrtskunde').addEventListener('click',()=>{ goOrtskunde(); });
  // Ortskunde nav
- $('backToMap').addEventListener('click',()=>{ showStep(4); requestAnimationFrame(()=>setMobileMapToolsCollapsed(mobileMapMq.matches)); });
+ $('backToMap').addEventListener('click',()=>{ showStep(4); requestAnimationFrame(()=>setMobileMapToolsCollapsed(isPhoneUi())); });
  $('modePan').addEventListener('click',()=>setMode('pan'));
  $('modeEdit').addEventListener('click',()=>{ setMode('edit'); toast('Einzeln tippen oder der Strecke entlang vom Start- bis zum Zielbahnhof wischen.'); });
  if($('toggleMapTools')) $('toggleMapTools').addEventListener('click', ()=>setMobileMapToolsCollapsed(!$('mapBar').classList.contains('collapsed')));
  if($('linePick')) $('linePick').addEventListener('change', updateMobileMapSummary);
- if(mobileMapMq.addEventListener) mobileMapMq.addEventListener('change', (ev)=>setMobileMapToolsCollapsed(ev.matches));
- else if(mobileMapMq.addListener) mobileMapMq.addListener((ev)=>setMobileMapToolsCollapsed(ev.matches));
+ if($('viewModeToggle')) $('viewModeToggle').addEventListener('click', toggleUiMode);
  if($('markLineStations')) $('markLineStations').addEventListener('click', markSelectedLineStations);
  if($('undoMap')) $('undoMap').addEventListener('click', undoMapAction);
  updateUndoButton();
